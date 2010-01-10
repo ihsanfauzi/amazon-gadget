@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				backgroundColor="white"
+				horizontalScrollPolicy="off">
+	<mx:HTTPService id="googleRequest"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{parseGoogleResults(event)}"/>
+	<mx:HTTPService id="amazonRequest"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{parseAmazonResults(event)}"/>
+	<mx:VBox width="100%">
+		<mx:HBox width="100%">
+			<mx:FormItem label="Country"
+						 width="20%">
+				<mx:ComboBox id="countryComboBox"
+							 width="100%"
+							 dataProvider="{['USA', 'Russia']}"
+							 change="{}"/>
+			</mx:FormItem>
+			<mx:FormItem width="70%">
+				<mx:TextInput width="100%"
+							  id="keywordTextInput"
+							  change="{}"/>
+			</mx:FormItem>
+			<mx:Button label="Search"
+					   click="{findGoogleResults()}"
+					   width="10%"/>
+		</mx:HBox>
+		<mx:Repeater id="rep"
+					 dataProvider="{searchDTO.searchItems}">
+			<mx:HBox width="100%">
+				<mx:Image source="{SearchItemDTO(rep.currentItem).imgSrc}"
+						  width="70"/>
+				<mx:VBox width="80%">
+					<mx:Text width="100%"
+							 useHandCursor="true"
+							 textDecoration="underline"
+							 buttonMode="true"
+							 mouseChildren="false"
+							 color="blue"
+							 htmlText="{getTitle(SearchItemDTO(rep.currentItem))}"
+							 click="{openAmazonItem(SearchItemDTO(event.currentTarget.getRepeaterItem()))}"/>
+					<mx:Text width="100%"
+							 htmlText="{getDescription(SearchItemDTO(rep.currentItem))}"/>
+					<mx:Label htmlText="{getPrice(SearchItemDTO(rep.currentItem))} {getRating(SearchItemDTO(rep.currentItem))}"/>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:Repeater>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.AsyncToken;
+			import dto.SearchDTO;
+			import dto.SearchItemDTO;
+			import com.adobe.serialization.json.JSON;
+			import mx.rpc.events.ResultEvent;
+			[Bindable]
+			private var page:String="0";
+			[Bindable]
+			private var keyword:String="";
+			[Bindable]
+			private var searchDTO:SearchDTO;
+
+			private function findGoogleResults():void
+			{
+				googleRequest.url='http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent('inurl:dp site:www.amazon.com ' + keywordTextInput.text);
+				googleRequest.send();
+			}
+
+			private function parseGoogleResults(event:ResultEvent):void
+			{
+				var resDTO:SearchDTO=new SearchDTO();
+				var rawData:String=String(event.result);
+				var responseData:Object=JSON.decode(rawData).responseData;
+				var pages:Array=responseData.cursor.pages;
+				var pagesCount:int=pages.length;
+				var results:Array=responseData.results;
+				for each(var r:Object in results)
+				{
+					var unescapedUrl:String=r.unescapedUrl;
+					var title:String=r.title;
+					var content:String=r.content;
+					var item:SearchItemDTO=new SearchItemDTO();
+					var id:String=unescapedUrl.substring(unescapedUrl.indexOf("dp/") + 3);
+					item.id=id;
+					item.description=content;
+					item.name=title;
+					resDTO.searchItems.push(item);
+				}
+				amazonRequest.url=getAmazonURL(resDTO);
+				var token:AsyncToken=amazonRequest.send();
+				token.resultDTO=resDTO;
+			}
+
+			private function parseAmazonResults(event:ResultEvent):void
+			{
+				var resDTO:SearchDTO=event.token.resultDTO as SearchDTO;
+				var rawData:String=String(event.result);
+				ExternalInterface.call(rawData);
+				var data:Object=ExternalInterface.call("getRawData");
+				if (data && data.results)
+				{
+					for each(var r:Object in data.results)
+					{
+						var si:SearchItemDTO=findSearchItem(resDTO.searchItems, r.ASIN);
+						si.price=r.Price;
+						si.rating=r.Rating;
+						si.imgSrc=r.ThumbImageUrl;
+						si.url=r.DetailPageURL;
+						si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
+					}
+				}
+
+				searchDTO=resDTO;
+			}
+
+			private function findSearchItem(searchItems:Array, id:String):SearchItemDTO
+			{
+				for each(var item:SearchItemDTO in searchItems)
+				{
+					if (item.id == id)
+					{
+						return item;
+					}
+				}
+				return null;
+			}
+
+			private function getTitle(item:SearchItemDTO):String
+			{
+				var res:String=item.name;
+				return res;
+			}
+
+			private function getDescription(item:SearchItemDTO):String
+			{
+				var res:String=item.description;
+				return res;
+			}
+
+			private function getAmazonURL(sdto:SearchDTO):String
+			{
+				var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&InstanceId=0&TemplateId=8001&ServiceVersion=20070822&MarketPlace=US&ItemId=";
+				for each(var r:SearchItemDTO in sdto.searchItems)
+				{
+					res+=r.id + ",";
+				}
+				res=res.substr(0, res.length - 1);
+				return res;
+			}
+
+			private function getPrice(item:SearchItemDTO):String
+			{
+				return item.price ? '<b>Price:' + item.price + "</b>" : "";
+			}
+
+			private function getRating(item:SearchItemDTO):String
+			{
+				return item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
+			}
+			
+			private function openAmazonItem(item:SearchItemDTO):void{
+				var urlRequest:URLRequest=new URLRequest(item.url);
+				navigateToURL(urlRequest, '_blank');
+			}
+		]]>
+	</mx:Script>
+</mx:Application>
