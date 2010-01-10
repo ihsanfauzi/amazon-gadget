@@ -8,7 +8,7 @@
 				paddingTop="2">
 	<mx:Array id="langFrom">
 		<mx:Object value="auto"
-				   label="Select Language"/>
+				   label="Language"/>
 		<mx:Object value="ar"
 				   label="Arabic"/>
 		<mx:Object value="bg"
@@ -54,6 +54,75 @@
 		<mx:Object value="sv"
 				   label="Swedish"/>
 	</mx:Array>
+	<mx:Array id="categories">
+		<mx:Object value=""
+				   label="All"/>
+		<mx:Object value="automotive"
+				   label="Automotive"/>
+		<mx:Object value="baby-products"
+				   label="Baby"/>
+		<mx:Object value="beauty"
+				   label="Beauty"/>
+		<mx:Object value="stripbooks"
+				   label="Books"/>
+
+		<mx:Object value="wireless-aps"
+				   label="Cell Phones &amp; Service"/>
+		<mx:Object value="apparel"
+				   label="Clothing &amp; Accessories"/>
+		<mx:Object value="electronics"
+				   label="Electronics"/>
+		<mx:Object value="misc"
+				   label="Everything Else"/>
+		<mx:Object value="gourmet"
+				   label="Gourmet Food"/>
+		<mx:Object value="grocery"
+				   label="Grocery"/>
+		<mx:Object value="hpc"
+				   label="Health &amp; Personal Care"/>
+
+		<mx:Object value="garden"
+				   label="Home &amp; Garden"/>
+		<mx:Object value="industrial"
+				   label="Industrial &amp; Scientific"/>
+		<mx:Object value="jewelry"
+				   label="Jewelry"/>
+		<mx:Object value="digital-text"
+				   label="Kindle Store"/>
+		<mx:Object value="magazines"
+				   label="Magazines"/>
+		<mx:Object value="dvd"
+				   label="Movies &amp; TV"/>
+
+		<mx:Object value="digital-music"
+				   label="MP3 Downloads"/>
+		<mx:Object value="popular"
+				   label="Music"/>
+		<mx:Object value="mi"
+				   label="Musical Instruments"/>
+		<mx:Object value="office-products"
+				   label="Office Products &amp; Supplies"/>
+		<mx:Object value="shoes"
+				   label="Shoes"/>
+		<mx:Object value="software"
+				   label="Software"/>
+		<mx:Object value="sporting"
+				   label="Sports &amp; Outdoors"/>
+
+		<mx:Object value="tools"
+				   label="Tools &amp; Home Improvement"/>
+		<mx:Object value="toys-and-games"
+				   label="Toys &amp; Games"/>
+		<mx:Object value="vhs"
+				   label="VHS"/>
+		<mx:Object value="videogames"
+				   label="Video Games"/>
+		<mx:Object value="amazontv"
+				   label="Video On Demand"/>
+		<mx:Object value="watches"
+				   label="Watches"/>
+
+	</mx:Array>
 	<mx:HTTPService id="googleRequest"
 					showBusyCursor="true"
 					useProxy="false"
@@ -74,33 +143,28 @@
 					result="{parseTranslateResults(event)}"/>
 	<mx:VBox width="100%">
 		<mx:HBox>
-			<mx:ComboBox id="countryComboBox"
+			<mx:ComboBox id="categoryCbx"
+						 prompt="Category"
 						 width="100"
-						 dropdownWidth="150"
+						 dropdownWidth="200"
+						 dataProvider="{categories}"/>
+			<mx:ComboBox id="countryComboBox"
 						 prompt="Country"
 						 dataProvider="{['USA', 'Russia']}"
 						 change="{}"/>
 			<mx:ComboBox id="langFromCbx"
-						 width="100"
-						 dropdownWidth="150"
 						 prompt="Language"
 						 dataProvider="{langFrom}"/>
-			<mx:ComboBox id="categoryCbx"
-						 width="100"
-						 dropdownWidth="150"
-						 prompt="Category"
-						 dataProvider="{langFrom}"/>
-		</mx:HBox>					 
-		<mx:HBox width="100%" paddingRight="10">
-			<mx:TextInput width="80%"
+		</mx:HBox>
+		<mx:HBox width="100%"
+				 paddingRight="10">
+			<mx:TextInput width="100%"
 						  id="keywordTextInput"
 						  change="{}"/>
 			<mx:Button label="Translate"
-					   click="{translate()}"
-					   width="10%"/>
+					   click="{translate()}"/>
 			<mx:Button label="Search"
-					   click="{findGoogleResults()}"
-					   width="10%"/>
+					   click="{findGoogleResults()}"/>
 		</mx:HBox>
 		<mx:Repeater id="rep"
 					 dataProvider="{searchDTO.searchItems}">
@@ -148,7 +212,7 @@
 
 			private function findGoogleResults():void
 			{
-				googleRequest.url='http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent('inurl:dp site:www.amazon.com ' + keywordTextInput.text);
+				googleRequest.url='http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent('inurl:dp site:www.amazon.com ' + keywordTextInput.text+ " " + (categoryCbx.value?categoryCbx.selectedItem.label : ""));
 				googleRequest.send();
 			}
 
