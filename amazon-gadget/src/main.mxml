@@ -162,6 +162,7 @@
 						  id="keywordTextInput"
 						  change="{}"/>
 			<mx:Button label="Translate"
+					   enabled="{langFromCbx.selectedIndex>0}"
 					   click="{translate()}"/>
 			<mx:Button label="Search"
 					   click="{findGoogleResults()}"/>
