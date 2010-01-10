@@ -2,10 +2,10 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 				backgroundColor="white"
 				horizontalScrollPolicy="off"
-				paddingBottom="0"
-				paddingLeft="0"
-				paddingRight="0"
-				paddingTop="0">
+				paddingBottom="2"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2">
 	<mx:HTTPService id="googleRequest"
 					useProxy="false"
 					method="GET"
@@ -17,19 +17,22 @@
 					resultFormat="text"
 					result="{parseAmazonResults(event)}"/>
 	<mx:VBox width="100%">
+		<mx:FormItem label="Country"
+					 width="20%">
+			<mx:ComboBox id="countryComboBox"
+						 width="100%"
+						 dataProvider="{['USA', 'Russia']}"
+						 change="{}"/>
+		</mx:FormItem>
 		<mx:HBox width="100%">
-			<mx:FormItem label="Country"
-						 width="20%">
-				<mx:ComboBox id="countryComboBox"
-							 width="100%"
-							 dataProvider="{['USA', 'Russia']}"
-							 change="{}"/>
-			</mx:FormItem>
 			<mx:FormItem width="70%">
 				<mx:TextInput width="100%"
 							  id="keywordTextInput"
 							  change="{}"/>
 			</mx:FormItem>
+			<mx:Button label="Translate"
+					   click="{translate()}"
+					   width="10%"/>
 			<mx:Button label="Search"
 					   click="{findGoogleResults()}"
 					   width="10%"/>
@@ -170,6 +173,9 @@
 			private function openAmazonItem(item:SearchItemDTO):void{
 				var urlRequest:URLRequest=new URLRequest(item.url);
 				navigateToURL(urlRequest, '_blank');
+			}
+			
+			private function translate():void{
 			}
 		]]>
 	</mx:Script>
