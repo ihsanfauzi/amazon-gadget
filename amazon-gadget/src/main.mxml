@@ -75,11 +75,14 @@
 	<mx:VBox width="100%">
 		<mx:HBox>
 			<mx:ComboBox id="countryComboBox"
-						 prompt="Select a country"
+						 prompt="Country"
 						 dataProvider="{['USA', 'Russia']}"
 						 change="{}"/>
 			<mx:ComboBox id="langFromCbx"
-						 prompt="Select a language"
+						 prompt="Language"
+						 dataProvider="{langFrom}"/>
+ 			<mx:ComboBox id="categoryCbx"
+						 prompt="Category"
 						 dataProvider="{langFrom}"/>
 		</mx:HBox>					 
 		<mx:HBox width="100%" paddingRight="10">
