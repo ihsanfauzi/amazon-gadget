@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 				backgroundColor="white"
-				horizontalScrollPolicy="off">
+				horizontalScrollPolicy="off"
+				paddingBottom="0"
+				paddingLeft="0"
+				paddingRight="0"
+				paddingTop="0">
 	<mx:HTTPService id="googleRequest"
 					useProxy="false"
 					method="GET"
