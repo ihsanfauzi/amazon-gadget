@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="Does Amazon ship to ...?"/>
-  <Content type="html">
+	<ModulePrefs title="Does Amazon ship to ...?" height="300" />
+	<Content type="html" view="home,profile,canvas">
 
-<![CDATA[
+		<![CDATA[
 
 
 <!-- saved from url=(0014)about:internet -->
@@ -139,6 +139,6 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 </html>
 
     ]]>
-  
-  </Content>
+
+	</Content>
 </Module>
