@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
   <ModulePrefs title="Does Amazon ship to ...?"/>
-  <Content type="url">
-    <![CDATA[
-http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/main.html
-    ]]>
+  <Content type="url" href="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/main.html">
   </Content>
 </Module>
