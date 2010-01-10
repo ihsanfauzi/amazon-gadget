@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jan 10, 2010 1:32:38 PM                                                        
+
+     project    
+     description
+                   
+     user                                                                
+     ====================================================================== -->
+<project name="project" default="default">
+	<description>
+            description
+    </description>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="clean" description="--> description">
+		<copydir dest="dist" src="bin-debug">
+		</copydir>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<delete>
+			<fileset dir="dist">
+				<include name="*" />
+				<exclude name="*SVN*" />
+			</fileset>
+		</delete>
+	</target>
+</project>
