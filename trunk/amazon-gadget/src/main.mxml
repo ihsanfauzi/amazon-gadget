@@ -6,28 +6,86 @@
 				paddingLeft="2"
 				paddingRight="2"
 				paddingTop="2">
+	<mx:Array id="langFrom">
+		<mx:Object value="auto"
+				   label="Select Language"/>
+		<mx:Object value="ar"
+				   label="Arabic"/>
+		<mx:Object value="bg"
+				   label="Bulgarian"/>
+		<mx:Object value="zh-CN"
+				   label="Chinese"/>
+		<mx:Object value="hr"
+				   label="Croatian"/>
+		<mx:Object value="cs"
+				   label="Czech"/>
+		<mx:Object value="da"
+				   label="Danish"/>
+		<mx:Object value="nl"
+				   label="Dutch"/>
+		<mx:Object value="en"
+				   label="English"/>
+		<mx:Object value="fi"
+				   label="Finnish"/>
+		<mx:Object value="fr"
+				   label="French"/>
+		<mx:Object value="de"
+				   label="German"/>
+		<mx:Object value="el"
+				   label="Greek"/>
+		<mx:Object value="hi"
+				   label="Hindi"/>
+		<mx:Object value="it"
+				   label="Italian"/>
+		<mx:Object value="ja"
+				   label="Japanese"/>
+		<mx:Object value="ko"
+				   label="Korean"/>
+		<mx:Object value="no"
+				   label="Norwegian"/>
+		<mx:Object value="pl"
+				   label="Polish"/>
+		<mx:Object value="pt"
+				   label="Portuguese"/>
+		<mx:Object value="ru"
+				   label="Russian"/>
+		<mx:Object value="es"
+				   label="Spanish"/>
+		<mx:Object value="sv"
+				   label="Swedish"/>
+	</mx:Array>
 	<mx:HTTPService id="googleRequest"
+					showBusyCursor="true"
 					useProxy="false"
 					method="GET"
 					resultFormat="text"
 					result="{parseGoogleResults(event)}"/>
 	<mx:HTTPService id="amazonRequest"
+					showBusyCursor="true"
 					useProxy="false"
 					method="GET"
 					resultFormat="text"
 					result="{parseAmazonResults(event)}"/>
+	<mx:HTTPService id="translateRequest"
+					showBusyCursor="true"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{parseTranslateResults(event)}"/>
 	<mx:VBox width="100%">
-		<mx:FormItem label="Country"
-					 width="20%">
+		<mx:HBox>
 			<mx:ComboBox id="countryComboBox"
-						 width="100%"
+						 prompt="Select a country"
 						 dataProvider="{['USA', 'Russia']}"
 						 change="{}"/>
-		</mx:FormItem>
-		<mx:HBox width="100%">
+			<mx:ComboBox id="langFromCbx"
+						 prompt="Select a language"
+						 dataProvider="{langFrom}"/>
+		</mx:HBox>					 
+		<mx:HBox width="100%" paddingRight="10">
 			<mx:TextInput width="80%"
-							  id="keywordTextInput"
-							  change="{}"/>
+						  id="keywordTextInput"
+						  change="{}"/>
 			<mx:Button label="Translate"
 					   click="{translate()}"
 					   width="10%"/>
@@ -64,11 +122,20 @@
 			import com.adobe.serialization.json.JSON;
 			import mx.rpc.events.ResultEvent;
 			[Bindable]
+			private var googleText:String="http://ajax.googleapis.com/ajax/services/language/";
+			[Bindable]
+			private var tsrc:String="translate?v=1.0&q=";
+			[Bindable]
+			private var lanpair:String="&langpair=";
+			[Bindable]
+			private var pairCode:String="%7C";
+			[Bindable]
 			private var page:String="0";
 			[Bindable]
 			private var keyword:String="";
 			[Bindable]
 			private var searchDTO:SearchDTO;
+
 
 			private function findGoogleResults():void
 			{
@@ -123,6 +190,20 @@
 				searchDTO=resDTO;
 			}
 
+			private function parseTranslateResults(event:ResultEvent):void
+			{
+				var rawData:String=String(event.result);
+				if (JSON.decode(rawData).responseData.translatedText != null)
+				{
+					var decoded:String=JSON.decode(rawData).responseData.translatedText;
+				}
+				else
+				{
+					decoded="None support";
+				}
+				keywordTextInput.text=decoded;
+			}
+
 			private function findSearchItem(searchItems:Array, id:String):SearchItemDTO
 			{
 				for each(var item:SearchItemDTO in searchItems)
@@ -167,14 +248,17 @@
 			{
 				return item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
 			}
-			
-			private function openAmazonItem(item:SearchItemDTO):void{
+
+			private function openAmazonItem(item:SearchItemDTO):void
+			{
 				var urlRequest:URLRequest=new URLRequest(item.url);
 				navigateToURL(urlRequest, '_blank');
 			}
-			
-			private function translate():void{
-				
+
+			private function translate():void
+			{
+				translateRequest.url=googleText + tsrc + encodeURI(keywordTextInput.text) + lanpair + String(langFromCbx.selectedItem.value) + pairCode + "en";
+				translateRequest.send();
 			}
 		]]>
 	</mx:Script>
