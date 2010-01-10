@@ -25,11 +25,9 @@
 						 change="{}"/>
 		</mx:FormItem>
 		<mx:HBox width="100%">
-			<mx:FormItem width="70%">
-				<mx:TextInput width="100%"
+			<mx:TextInput width="80%"
 							  id="keywordTextInput"
 							  change="{}"/>
-			</mx:FormItem>
 			<mx:Button label="Translate"
 					   click="{translate()}"
 					   width="10%"/>
