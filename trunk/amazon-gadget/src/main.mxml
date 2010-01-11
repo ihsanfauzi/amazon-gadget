@@ -66,7 +66,7 @@
 	<mx:HTTPService id="googleRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseGoogleResults(event)}"/>
 	<mx:HTTPService id="amazonRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseAmazonResults(event)}"/>
 	<mx:HTTPService id="translateRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseTranslateResults(event)}"/>
-	<mx:VBox width="100%">
+	<mx:VBox width="100%" height="100%" backgroundColor="white" paddingLeft="0">
 		<mx:HBox>
 			<mx:ComboBox id="categoryCbx" prompt="Category" width="100" dropdownWidth="200" dataProvider="{categories}"/>
 			<mx:ComboBox id="countryComboBox" prompt="Country" dataProvider="{['USA', 'Russia']}" change="{}"/>
