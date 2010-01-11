@@ -1,108 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="white" horizontalScrollPolicy="off" paddingBottom="2" paddingLeft="2" paddingRight="2" paddingTop="2">
-	<mx:Array id="langFrom">
-		<mx:Object value="auto" label="Language"/>
-		<mx:Object value="ar" label="Arabic"/>
-		<mx:Object value="bg" label="Bulgarian"/>
-		<mx:Object value="zh-CN" label="Chinese"/>
-		<mx:Object value="hr" label="Croatian"/>
-		<mx:Object value="cs" label="Czech"/>
-		<mx:Object value="da" label="Danish"/>
-		<mx:Object value="nl" label="Dutch"/>
-		<mx:Object value="en" label="English"/>
-		<mx:Object value="fi" label="Finnish"/>
-		<mx:Object value="fr" label="French"/>
-		<mx:Object value="de" label="German"/>
-		<mx:Object value="el" label="Greek"/>
-		<mx:Object value="hi" label="Hindi"/>
-		<mx:Object value="it" label="Italian"/>
-		<mx:Object value="ja" label="Japanese"/>
-		<mx:Object value="ko" label="Korean"/>
-		<mx:Object value="no" label="Norwegian"/>
-		<mx:Object value="pl" label="Polish"/>
-		<mx:Object value="pt" label="Portuguese"/>
-		<mx:Object value="ru" label="Russian"/>
-		<mx:Object value="es" label="Spanish"/>
-		<mx:Object value="sv" label="Swedish"/>
-	</mx:Array>
-	<mx:Array id="categories">
-		<mx:Object value="" label="All"/>
-		<mx:Object value="automotive" label="Automotive"/>
-		<mx:Object value="baby-products" label="Baby"/>
-		<mx:Object value="beauty" label="Beauty"/>
-		<mx:Object value="stripbooks" label="Books"/>
-
-		<mx:Object value="wireless-aps" label="Cell Phones &amp; Service"/>
-		<mx:Object value="apparel" label="Clothing &amp; Accessories"/>
-		<mx:Object value="electronics" label="Electronics"/>
-		<mx:Object value="misc" label="Everything Else"/>
-		<mx:Object value="gourmet" label="Gourmet Food"/>
-		<mx:Object value="grocery" label="Grocery"/>
-		<mx:Object value="hpc" label="Health &amp; Personal Care"/>
-
-		<mx:Object value="garden" label="Home &amp; Garden"/>
-		<mx:Object value="industrial" label="Industrial &amp; Scientific"/>
-		<mx:Object value="jewelry" label="Jewelry"/>
-		<mx:Object value="digital-text" label="Kindle Store"/>
-		<mx:Object value="magazines" label="Magazines"/>
-		<mx:Object value="dvd" label="Movies &amp; TV"/>
-
-		<mx:Object value="digital-music" label="MP3 Downloads"/>
-		<mx:Object value="popular" label="Music"/>
-		<mx:Object value="mi" label="Musical Instruments"/>
-		<mx:Object value="office-products" label="Office Products &amp; Supplies"/>
-		<mx:Object value="shoes" label="Shoes"/>
-		<mx:Object value="software" label="Software"/>
-		<mx:Object value="sporting" label="Sports &amp; Outdoors"/>
-
-		<mx:Object value="tools" label="Tools &amp; Home Improvement"/>
-		<mx:Object value="toys-and-games" label="Toys &amp; Games"/>
-		<mx:Object value="vhs" label="VHS"/>
-		<mx:Object value="videogames" label="Video Games"/>
-		<mx:Object value="amazontv" label="Video On Demand"/>
-		<mx:Object value="watches" label="Watches"/>
-
-	</mx:Array>
-	<mx:HTTPService id="googleRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseGoogleResults(event)}"/>
-	<mx:HTTPService id="amazonRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseAmazonResults(event)}"/>
-	<mx:HTTPService id="translateRequest" showBusyCursor="true" useProxy="false" method="GET" resultFormat="text" result="{parseTranslateResults(event)}"/>
-	<mx:VBox width="100%" height="100%" backgroundColor="white" paddingLeft="0">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				backgroundColor="white"
+				horizontalScrollPolicy="off"
+				paddingBottom="2"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2"
+				xmlns:resources="resources.*">
+	<resources:Resources id="res"/>
+	<mx:HTTPService id="googleRequest"
+					showBusyCursor="true"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{googleResultsHandler(event)}"/>
+	<mx:HTTPService id="amazonRequest"
+					showBusyCursor="true"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{amazonResultsHandler(event)}"/>
+	<mx:HTTPService id="translateRequest"
+					showBusyCursor="true"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{translateResultsHandler(event)}"/>
+	<mx:VBox width="100%"
+			 height="100%"
+			 backgroundColor="white"
+			 paddingLeft="0">
 		<mx:HBox>
-			<mx:ComboBox id="categoryCbx" prompt="Category" width="100" dropdownWidth="200" dataProvider="{categories}"/>
-			<mx:ComboBox id="countryComboBox" prompt="Country" dataProvider="{['USA', 'Russia']}" change="{}"/>
-			<mx:ComboBox id="langFromCbx" prompt="Language" dataProvider="{langFrom}"/>
+			<mx:ComboBox id="categoryCbx"
+						 prompt="Category"
+						 width="100"
+						 dropdownWidth="200"
+						 dataProvider="{res.categories}"/>
+			<mx:ComboBox id="countryComboBox"
+						 prompt="Country"
+						 dataProvider="{res.countries}"
+						 change="{}"/>
+			<mx:ComboBox id="langFromCbx"
+						 prompt="Language"
+						 dataProvider="{res.langs}"/>
 		</mx:HBox>
-		<mx:HBox width="100%" paddingRight="10">
-			<mx:TextInput width="100%" id="keywordTextInput" change="{}"/>
-			<mx:Button label="Translate" enabled="{langFromCbx.selectedIndex>0}" click="{translate()}"/>
-			<mx:Button label="Search" click="{findGoogleResults()}"/>
+		<mx:HBox width="100%"
+				 paddingRight="10">
+			<mx:TextInput width="100%"
+						  id="keywordTextInput"
+						  change="{}"/>
+			<mx:Button label="Translate"
+					   enabled="{langFromCbx.selectedIndex>0}"
+					   click="{translate()}"/>
+			<mx:Button label="Search"
+					   click="{findGoogleResults()}"/>
 		</mx:HBox>
-		<mx:Repeater id="rep" dataProvider="{searchDTO.searchItems}">
+		<mx:Repeater id="rep"
+					 dataProvider="{searchDTO.searchItems}">
 			<mx:HBox width="100%">
-				<mx:Image source="{SearchItemDTO(rep.currentItem).imgSrc}" width="70"/>
+				<mx:Image source="{SearchItemDTO(rep.currentItem).imgSrc}"
+						  width="70"/>
 				<mx:VBox width="80%">
-					<mx:Text width="100%" useHandCursor="true" textDecoration="underline" buttonMode="true" mouseChildren="false" color="blue" htmlText="{getTitle(SearchItemDTO(rep.currentItem))}" click="{openAmazonItem(SearchItemDTO(event.currentTarget.getRepeaterItem()))}"/>
-					<mx:Text width="100%" htmlText="{getDescription(SearchItemDTO(rep.currentItem))}"/>
-					<mx:Label htmlText="{getPrice(SearchItemDTO(rep.currentItem))} {getRating(SearchItemDTO(rep.currentItem))}"/>
+					<mx:Text width="100%"
+							 useHandCursor="true"
+							 textDecoration="underline"
+							 buttonMode="true"
+							 mouseChildren="false"
+							 color="blue"
+							 htmlText="{getTitle(SearchItemDTO(rep.currentItem))}"
+							 click="{openAmazonItem(SearchItemDTO(event.currentTarget.getRepeaterItem()))}"/>
+					<mx:Text width="100%"
+							 htmlText="{getDescription(SearchItemDTO(rep.currentItem))}"/>
+					<mx:Label htmlText="{getPriceRating(SearchItemDTO(rep.currentItem))}"/>
 				</mx:VBox>
 			</mx:HBox>
 		</mx:Repeater>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import services.Helper;
 			import mx.rpc.AsyncToken;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
 			import com.adobe.serialization.json.JSON;
 			import mx.rpc.events.ResultEvent;
-			[Bindable]
-			private var googleText:String="http://ajax.googleapis.com/ajax/services/language/";
-			[Bindable]
-			private var tsrc:String="translate?v=1.0&q=";
-			[Bindable]
-			private var lanpair:String="&langpair=";
-			[Bindable]
-			private var pairCode:String="%7C";
 			[Bindable]
 			private var page:String="0";
 			[Bindable]
@@ -113,93 +94,26 @@
 
 			private function findGoogleResults():void
 			{
-				googleRequest.url='http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent('inurl:dp site:www.amazon.com ' + keywordTextInput.text + " " + (categoryCbx.value ? categoryCbx.selectedItem.label : ""));
+				googleRequest.url=Helper.createGoogleSearchURL(page, keywordTextInput.text ? keywordTextInput.text : "", categoryCbx.value ? categoryCbx.selectedItem.label : "");
 				googleRequest.send();
 			}
 
-			private function parseGoogleResults(event:ResultEvent):void
+			private function googleResultsHandler(event:ResultEvent):void
 			{
-				var resDTO:SearchDTO=new SearchDTO();
-				var rawData:String=String(event.result);
-				var responseData:Object=JSON.decode(rawData).responseData;
-				var pages:Array=responseData.cursor.pages;
-				var pagesCount:int=pages.length;
-				var results:Array=responseData.results;
-				for each(var r:Object in results)
-				{
-					var unescapedUrl:String=r.unescapedUrl;
-					var title:String=r.title;
-					var content:String=r.content;
-					var item:SearchItemDTO=new SearchItemDTO();
-					var id:String=unescapedUrl.substring(unescapedUrl.indexOf("dp/") + 3);
-					id=id.replace("product-description/", "");
-					item.id=id;
-					item.description=content;
-					item.name=title;
-					if (unescapedUrl.indexOf("?") != -1)
-					{
-						item.url=unescapedUrl + "&tag=catalog0e-20";
-					}
-					else
-					{
-						item.url=unescapedUrl + "?tag=catalog0e-20";
-					}
-					resDTO.searchItems.push(item);
-				}
-				amazonRequest.url=getAmazonURL(resDTO);
+				var resDTO:SearchDTO=Helper.parseGoogleResults(event);
+				amazonRequest.url=Helper.createAmazonURL(resDTO);
 				var token:AsyncToken=amazonRequest.send();
 				token.resultDTO=resDTO;
 			}
 
-			private function parseAmazonResults(event:ResultEvent):void
+			private function amazonResultsHandler(event:ResultEvent):void
 			{
-				var resDTO:SearchDTO=event.token.resultDTO as SearchDTO;
-				var rawData:String=String(event.result);
-				ExternalInterface.call(rawData);
-				var data:Object=ExternalInterface.call("getRawData");
-				if (data && data.results)
-				{
-					for each(var r:Object in data.results)
-					{
-						var si:SearchItemDTO=findSearchItem(resDTO.searchItems, r.ASIN);
-						si.price=r.Price;
-						si.rating=r.Rating;
-						si.imgSrc=r.ThumbImageUrl;
-						if (r.DetailPageURL)
-						{
-							si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
-						}
-						si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
-					}
-				}
-
-				searchDTO=resDTO;
+				searchDTO=Helper.parseAmazonResults(event);
 			}
 
-			private function parseTranslateResults(event:ResultEvent):void
+			private function translateResultsHandler(event:ResultEvent):void
 			{
-				var rawData:String=String(event.result);
-				if (JSON.decode(rawData).responseData.translatedText != null)
-				{
-					var decoded:String=JSON.decode(rawData).responseData.translatedText;
-				}
-				else
-				{
-					decoded="None support";
-				}
-				keywordTextInput.text=decoded;
-			}
-
-			private function findSearchItem(searchItems:Array, id:String):SearchItemDTO
-			{
-				for each(var item:SearchItemDTO in searchItems)
-				{
-					if (item.id == id)
-					{
-						return item;
-					}
-				}
-				return null;
+				keywordTextInput.text=Helper.parseTranslateResults(event);
 			}
 
 			private function getTitle(item:SearchItemDTO):String
@@ -214,25 +128,18 @@
 				return res;
 			}
 
-			private function getAmazonURL(sdto:SearchDTO):String
+			private function getPriceRating(item:SearchItemDTO):String
 			{
-				var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&InstanceId=0&TemplateId=8001&ServiceVersion=20070822&MarketPlace=US&ItemId=";
-				for each(var r:SearchItemDTO in sdto.searchItems)
+				var price:String=item.price ? '<b>Price:' + item.price + "</b>" : "";
+				var rating:String=item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
+				if (price)
 				{
-					res+=r.id + ",";
+					return price + " " + rating;
 				}
-				res=res.substr(0, res.length - 1);
-				return res;
-			}
-
-			private function getPrice(item:SearchItemDTO):String
-			{
-				return item.price ? '<b>Price:' + item.price + "</b>" : "";
-			}
-
-			private function getRating(item:SearchItemDTO):String
-			{
-				return item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
+				else
+				{
+					return rating;
+				}
 			}
 
 			private function openAmazonItem(item:SearchItemDTO):void
@@ -243,7 +150,7 @@
 
 			private function translate():void
 			{
-				translateRequest.url=googleText + tsrc + encodeURI(keywordTextInput.text) + lanpair + String(langFromCbx.selectedItem.value) + pairCode + "en";
+				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(langFromCbx.selectedItem.value), "en");
 				translateRequest.send();
 			}
 		]]>
