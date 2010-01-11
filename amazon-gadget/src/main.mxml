@@ -232,9 +232,15 @@
 					var content:String=r.content;
 					var item:SearchItemDTO=new SearchItemDTO();
 					var id:String=unescapedUrl.substring(unescapedUrl.indexOf("dp/") + 3);
+					id = id.replace("product-description/", "");
 					item.id=id;
 					item.description=content;
 					item.name=title;
+					if (unescapedUrl.indexOf("?")!=-1){
+						item.url = unescapedUrl + "&tag=catalog0e-20";
+					} else {
+						item.url = unescapedUrl + "?tag=catalog0e-20";
+					}
 					resDTO.searchItems.push(item);
 				}
 				amazonRequest.url=getAmazonURL(resDTO);
@@ -256,7 +262,9 @@
 						si.price=r.Price;
 						si.rating=r.Rating;
 						si.imgSrc=r.ThumbImageUrl;
-						si.url=r.DetailPageURL;
+						if(r.DetailPageURL){
+							si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
+						}
 						si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
 					}
 				}
