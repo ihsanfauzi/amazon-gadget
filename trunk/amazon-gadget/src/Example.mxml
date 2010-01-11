@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:Barcode="com.scannerfly.barcode.util.*" width="640" height="512" layout="absolute" xmlns:local="*" creationComplete="sendRequest(event);">
+	<mx:HTTPService id="AmazonSearch" url="http://webservices.amazon.com/onca/xml" showBusyCursor="true"
+			fault="Alert.show(event.fault.faultString);"
+			resultFormat="object"
+			result="showItemLookupResults(event)">
+		<mx:request>
+			<AWSAccessKeyId>{amazonDeveloperId}</AWSAccessKeyId>
+			<IdType>EAN</IdType>
+			<ItemId>9781592400874</ItemId>
+			<Operation>ItemLookup</Operation>
+			<ResponseGroup>ItemAttributes,Images,Tracks,EditorialReview</ResponseGroup>
+			<SearchIndex>Books</SearchIndex>
+			<Service>AWSECommerceService</Service>
+			<Signature>{signature}</Signature>
+			<Timestamp>{timestamp}</Timestamp>
+		</mx:request>
+	</mx:HTTPService>
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.Sort;
+			import mx.collections.SortField;
+			
+			import mx.controls.Alert;
+			
+			import mx.formatters.DateFormatter;
+			
+			import mx.rpc.events.ResultEvent;
+			
+			import mx.utils.Base64Encoder;
+			
+			import com.hurlant.crypto.hash.HMAC;
+			import com.hurlant.crypto.hash.SHA256;
+			
+			
+			/**
+			 * The Amazon host providing the Product API web service.
+			 */
+			private const AWS_HOST:String = "webservices.amazon.com";
+			
+			/**
+			 * The HTTP method used to send the request.
+			 */
+			private const AWS_METHOD:String = "GET";
+			
+			/**
+			 * The path to the Product API web service on the Amazon host.
+			 */
+			private const AWS_PATH:String = "/onca/xml";
+			
+			/**
+			 * The AWS Access Key ID to use when querying Amazon.com.
+			 */
+			[Bindable]
+			private var amazonDeveloperId:String = "REPLACE THIS WITH YOUR AWS DEVELOPER ID";
+			
+			/**
+			 * The AWS Secret Key to use when querying Amazon.com.
+			 */
+			[Bindable]
+			private var amazonSecretAccessKey:String = "REPLACE THIS WITH YOUR AWS SECRET KEY";
+			
+			/**
+			 * The request signature string.
+			 */
+			[Bindable]
+			private var signature:String;
+			
+			/**
+			 * The request timestamp string, in UTC format (YYYY-MM-DDThh:mm:ssZ).
+			 */
+			[Bindable]
+			private var timestamp:String;
+			
+			
+			/**
+			 * Calls all of the registered Javascript callback functions with
+			 * the details on the barcodes that have been detected.
+			 */
+			private function sendRequest(event:Event):void
+			{
+				// Generate request signature and perform the search.
+				generateSignature();
+				AmazonSearch.send();
+			}
+			
+			/**
+			 * Displays the dialog box with the details retrieved from Amazon.
+			 * This function is called by the AmazonSearch object's ItemLookup
+			 * operation. Note that scanning is paused while the dialog box
+			 * is being displayed.
+			 *
+			 * @param res The results of the query to Amazon.com.
+			 */
+			private function showItemLookupResults(res:ResultEvent):void
+			{
+				var details:Object = res.result.ItemLookupResponse.Items.Item;
+				
+				
+				if (details != null)
+				{
+					// TODO: Do something with the result of the request.
+				}
+			}
+
+			/**
+			 * Handles generating the signature for the AWS request. See the
+			 * request authentication process details in the documentation for
+			 * Amazon's Product API, available at:
+			 * 
+			 * 		http://docs.amazonwebservices.com/AWSECommerceService/2009-07-01/DG/HMACSignatures.html
+			 * 
+			 * There are also examples of the necessary canonicalization at:
+			 * 
+			 * 		http://docs.amazonwebservices.com/AWSECommerceService/2009-07-01/DG/rest-signature.html
+			 * 
+			 * @return The base64-encoded Amazon request signature.
+			 */
+			private function generateSignature():void
+			{
+				var parameterArray:Array = new Array();
+				var parameterCollection:ArrayCollection = new ArrayCollection();
+				var parameterString:String = "";
+				var sort:Sort = new Sort();
+				var hmac:HMAC = new HMAC(new SHA256());
+				var requestBytes:ByteArray = new ByteArray();
+				var keyBytes:ByteArray = new ByteArray();
+				var hmacBytes:ByteArray;
+				var encoder:Base64Encoder = new Base64Encoder();
+				var formatter:DateFormatter = new DateFormatter();
+				var now:Date = new Date();
+				
+				
+				// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
+				// Note that we must convert to GMT.
+				formatter.formatString = "YYYY-MM-DDTHH:NN:SS.000Z";
+				now.setTime(now.getTime() + (now.getTimezoneOffset() * 60 * 1000));
+				timestamp = formatter.format(now);
+				
+				// Process the parameters.
+				for (var key:String in AmazonSearch.request )
+				{
+					// Ignore the "Signature" request parameter.
+					if (key != "Signature")
+					{
+						var urlEncodedKey:String = encodeURIComponent(decodeURIComponent(key));
+						var parameterBytes:ByteArray = new ByteArray();
+						var valueBytes:ByteArray = new ByteArray();
+						var value:String = AmazonSearch.request[key];
+						var urlEncodedValue:String = encodeURIComponent(decodeURIComponent(value.replace(/\+/g, "%20")));
+						
+						
+						// Use the byte values, not the string values.
+						parameterBytes.writeUTFBytes(urlEncodedKey);
+						valueBytes.writeUTFBytes(urlEncodedValue);
+						parameterCollection.addItem( { parameter : parameterBytes , value : valueBytes } );
+					}
+				}
+				
+				// Sort the parameters and formulate the parameter string to be signed.
+				parameterCollection.sort = sort;
+				sort.fields = [ new SortField("parameter", true), new SortField("value", true) ];
+				parameterCollection.refresh();
+				parameterString = AWS_METHOD + "\n" + AWS_HOST + "\n" + AWS_PATH + "\n";
+				for (var i:Number = 0; i < parameterCollection.length; i++)
+				{
+					var pair:Object = parameterCollection.getItemAt(i);
+					
+					
+					parameterString += pair.parameter + "=" + pair.value;
+					
+					if (i < parameterCollection.length - 1)
+						parameterString += "&";
+				}
+				
+				// Sign the parameter string to generate the request signature.
+				requestBytes.writeUTFBytes(parameterString);
+				keyBytes.writeUTFBytes(amazonSecretAccessKey);
+				hmacBytes = hmac.compute(keyBytes, requestBytes);
+				encoder.encodeBytes(hmacBytes);
+				signature = encodeURI(encoder.toString());
+			}
+		]]>
+	</mx:Script>
+</mx:Application>

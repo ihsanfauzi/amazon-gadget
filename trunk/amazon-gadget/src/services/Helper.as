@@ -1,13 +1,22 @@
 package services
 {
 	import com.adobe.serialization.json.JSON;
+	import com.hurlant.crypto.hash.HMAC;
+	import com.hurlant.crypto.hash.SHA256;
 	
 	import dto.SearchDTO;
 	import dto.SearchItemDTO;
 	
 	import flash.external.ExternalInterface;
+	import flash.utils.ByteArray;
 	
+	import mx.collections.ArrayCollection;
+	import mx.collections.Sort;
+	import mx.collections.SortField;
+	import mx.formatters.DateFormatter;
 	import mx.rpc.events.ResultEvent;
+	import mx.utils.Base64Encoder;
+	import mx.utils.StringUtil;
 
 	public class Helper
 	{
@@ -17,8 +26,87 @@ package services
 		private static const lanpair:String="&langpair=";
 		private static const pairCode:String="%7C";
 
-		public function Helper()
+
+
+// The Amazon host providing the Product API web service.
+		private static const AWS_HOST:String="ecs.amazonaws.com";
+
+// The HTTP method used to send the request.
+		private static const AWS_METHOD:String="GET";
+
+// The path to the Product API web service on the Amazon host.
+		private static const AWS_PATH:String="/onca/xml";
+
+// The AWS Access Key ID to use when querying Amazon.com.
+		private static const amazonDeveloperId:String="AKIAIT5IMBSSG3XMONBQ";
+
+// The AWS Secret Key to use when querying Amazon.com.
+		private static const amazonSecretAccessKey:String="aLbhK+32hvP6lxTClNoSwdZ1SOL4tjwmnaoicnnO";
+
+		public static function generateSignature(request:Object):void
 		{
+			var parameterArray:Array=new Array();
+			var parameterCollection:ArrayCollection=new ArrayCollection();
+			var parameterString:String="";
+			var sort:Sort=new Sort();
+			var hmac:HMAC=new HMAC(new SHA256());
+			var requestBytes:ByteArray=new ByteArray();
+			var keyBytes:ByteArray=new ByteArray();
+			var hmacBytes:ByteArray;
+			var encoder:Base64Encoder=new Base64Encoder();
+			var formatter:DateFormatter=new DateFormatter();
+			var now:Date=new Date();
+
+			request.AWSAccessKeyId = amazonDeveloperId;
+			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
+			// Note that we must convert to GMT.
+			formatter.formatString="YYYY-MM-DDTHH:NN:SS.000Z";
+			now.setTime(now.getTime() + (now.getTimezoneOffset() * 60 * 1000));
+			request.Timestamp=formatter.format(now);
+
+			// Process the parameters.
+			for(var key:String in request)
+			{
+				// Ignore the "Signature" request parameter.
+				if (key != "Signature")
+				{
+					request[key] = StringUtil.trim(String(request[key])); 
+					var urlEncodedKey:String=encodeURIComponent(decodeURIComponent(key));
+					var parameterBytes:ByteArray=new ByteArray();
+					var valueBytes:ByteArray=new ByteArray();
+					var value:String=request[key];
+					var urlEncodedValue:String=encodeURIComponent(decodeURIComponent(value.replace(/\+/g, "%20")));
+
+
+					// Use the byte values, not the string values.
+					parameterBytes.writeUTFBytes(urlEncodedKey);
+					valueBytes.writeUTFBytes(urlEncodedValue);
+					parameterCollection.addItem({parameter:parameterBytes, value:valueBytes});
+				}
+			}
+
+			// Sort the parameters and formulate the parameter string to be signed.
+			parameterCollection.sort=sort;
+			sort.fields=[new SortField("parameter", true), new SortField("value", true)];
+			parameterCollection.refresh();
+			parameterString=AWS_METHOD + "\n" + AWS_HOST + "\n" + AWS_PATH + "\n";
+			for(var i:Number=0; i < parameterCollection.length; i++)
+			{
+				var pair:Object=parameterCollection.getItemAt(i);
+
+
+				parameterString+=pair.parameter + "=" + pair.value;
+
+				if (i < parameterCollection.length - 1)
+					parameterString+="&";
+			}
+
+			// Sign the parameter string to generate the request signature.
+			requestBytes.writeUTFBytes(parameterString);
+			keyBytes.writeUTFBytes(amazonSecretAccessKey);
+			hmacBytes=hmac.compute(keyBytes, requestBytes);
+			encoder.encodeBytes(hmacBytes); 
+			request.Signature=encodeURIComponent(encoder.toString());
 		}
 
 		public static function parseGoogleResults(event:ResultEvent):SearchDTO
@@ -126,3 +214,6 @@ package services
 		}
 	}
 }
+
+
+
