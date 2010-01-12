@@ -70,14 +70,12 @@ package services
 				// Ignore the "Signature" request parameter.
 				if (key != "Signature")
 				{
-					request[key] = StringUtil.trim(String(request[key])); 
+					request[key] = StringUtil.trim(String(request[key]));
 					var urlEncodedKey:String=encodeURIComponent(decodeURIComponent(key));
 					var parameterBytes:ByteArray=new ByteArray();
 					var valueBytes:ByteArray=new ByteArray();
 					var value:String=request[key];
 					var urlEncodedValue:String=encodeURIComponent(decodeURIComponent(value.replace(/\+/g, "%20")));
-
-
 					// Use the byte values, not the string values.
 					parameterBytes.writeUTFBytes(urlEncodedKey);
 					valueBytes.writeUTFBytes(urlEncodedValue);
@@ -106,7 +104,7 @@ package services
 			keyBytes.writeUTFBytes(amazonSecretAccessKey);
 			hmacBytes=hmac.compute(keyBytes, requestBytes);
 			encoder.encodeBytes(hmacBytes); 
-			request.Signature=encodeURIComponent(encoder.toString());
+			request.Signature=encoder.toString();
 		}
 
 		public static function parseGoogleResults(event:ResultEvent):SearchDTO
@@ -214,6 +212,3 @@ package services
 		}
 	}
 }
-
-
-
