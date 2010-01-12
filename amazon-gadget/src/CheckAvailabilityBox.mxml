@@ -4,10 +4,12 @@
 			   label="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep">
-		<mx:Label text="{OfferDTO(checkAvailabilityRep.currentItem).merchantID}"/>
+		<mx:Label text="{OfferDTO(checkAvailabilityRep.currentItem).merchantShippingURL}"
+				  click="{Helper.openAmazonItem(OfferDTO(event.currentTarget.getRepeaterItem()).merchantShippingURL)}"/>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
+			import services.Helper;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.mxml.HTTPService;
@@ -17,16 +19,20 @@
 			public var dataProvider:SearchItemDTO;
 			
 			private function checkAvailabilityClickHandler(event:Event):void {
-				for each(var offer:OfferDTO in dataProvider.offers) {
-					var serv:HTTPService=new HTTPService();
-					serv.showBusyCursor=true;
-					serv.url=offer.merchantShippingURL;
-					serv.addEventListener(ResultEvent.RESULT, resultHandler);
-					serv.resultFormat="text";
-					var t:AsyncToken=serv.send();
-					t.service=serv;
-					t.offer=offer;
-				}
+				checkAvailabilityRep.dataProvider = dataProvider.offers;
+				//TODO check via google search
+				//Europe site:http://www.amazon.com/gp/help/seller/shipping.html
+				
+//				for each(var offer:OfferDTO in dataProvider.offers) {
+//					var serv:HTTPService=new HTTPService();
+//					serv.showBusyCursor=true;
+//					serv.url=offer.merchantShippingURL;
+//					serv.addEventListener(ResultEvent.RESULT, resultHandler);
+//					serv.resultFormat="text";
+//					var t:AsyncToken=serv.send();
+//					t.service=serv;
+//					t.offer=offer;
+//				}
 			}
 			
 			private function resultHandler(event:ResultEvent):void {

@@ -3,14 +3,15 @@ package services
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-
+	
 	import dto.OfferDTO;
 	import dto.SearchDTO;
 	import dto.SearchItemDTO;
-
+	
 	import flash.external.ExternalInterface;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
-
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -246,6 +247,11 @@ package services
 			}
 			return null;
 		}
+
+		public static function openAmazonItem(url:String):void
+		{
+			var urlRequest:URLRequest=new URLRequest(url);
+			flash.net.navigateToURL(urlRequest, '_blank');
+		}
 	}
 }
-
