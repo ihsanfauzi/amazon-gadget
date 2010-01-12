@@ -189,6 +189,14 @@ package services {
 					offer.price = off.OfferListing.Price.FormattedPrice;
 					searchItemDTO.offers.push(offer);					
 				}
+				if(searchItemDTO.offers.length == 0 && item.VariationSummary){
+					offer = new OfferDTO();
+					offer.merchantID = item.VariationSummary.SingleMerchantId;
+					offer.merchantGlanceURL = "http://www.amazon.com/gp/help/seller/home.html?seller="+offer.merchantID;
+					offer.merchantShippingURL = offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
+					offer.price = item.VariationSummary.LowestPrice.FormattedPrice;
+					searchItemDTO.offers.push(offer);				
+				}
 			}
 			return searchDTO;
 		}
