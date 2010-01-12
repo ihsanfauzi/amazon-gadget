@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Button id="checkAvailabilityButton"
-			   label="Check Availability For Selected Country"
+			   label="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep">
 		<mx:Label text="{OfferDTO(checkAvailabilityRep.currentItem).merchantID}"/>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.mxml.HTTPService;
 			import dto.OfferDTO;
 			import dto.SearchItemDTO;
 			[Bindable]
 			public var dataProvider:SearchItemDTO;
 			
 			private function checkAvailabilityClickHandler(event:Event):void {
+				for each(var offer:OfferDTO in dataProvider.offers) {
+					var serv:HTTPService=new HTTPService();
+					serv.showBusyCursor=true;
+					serv.url=offer.merchantShippingURL;
+					serv.addEventListener(ResultEvent.RESULT, resultHandler);
+					serv.resultFormat="text";
+					var t:AsyncToken=serv.send();
+					t.service=serv;
+					t.offer=offer;
+				}
+			}
+			
+			private function resultHandler(event:ResultEvent):void {
+				HTTPService(event.token.service).removeEventListener(ResultEvent.RESULT, resultHandler);
+				trace("Ok");
 			}
 		]]>
 	</mx:Script>
