@@ -6,7 +6,7 @@
 				paddingLeft="2"
 				paddingRight="2"
 				paddingTop="2"
-				xmlns:resources="resources.*">
+				xmlns:resources="resources.*" xmlns:local="*">
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
 					showBusyCursor="true"
@@ -40,9 +40,6 @@
 			<Operation>
 				ItemLookup
 			</Operation>
-			<ItemId>
-				B000KLV50S,B000CP86ZO,B000BMLIG2,B000CP86ZE,B00000ISAR,B000YBJM6I,B001JIIBGM,B001TGU6H6
-			</ItemId>
 			<ResponseGroup>
 				Offers,VariationSummary
 			</ResponseGroup>
@@ -101,12 +98,17 @@
 					<mx:Text width="100%"
 							 htmlText="{getDescription(SearchItemDTO(rep.currentItem))}"/>
 					<mx:Label htmlText="{getPriceRating(SearchItemDTO(rep.currentItem))}"/>
+					<local:CheckAvailabilityBox dataProvider="{SearchItemDTO(rep.currentItem)}"/>
 				</mx:VBox>
 			</mx:HBox>
 		</mx:Repeater>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import dto.OfferDTO;
+			import mx.collections.ArrayCollection;
+			import mx.utils.ObjectProxy;
+			import mx.utils.ObjectUtil;
 			import services.Helper;
 			import mx.rpc.AsyncToken;
 			import dto.SearchDTO;
@@ -129,17 +131,18 @@
 
 			private function googleResultsHandler(event:ResultEvent):void
 			{
-				var resDTO:SearchDTO=Helper.parseGoogleResults(event);
-				amazonRequest.url=Helper.createAmazonURL(resDTO);
-				var token:AsyncToken=amazonRequest.send();
-				token.resultDTO=resDTO;
+				searchDTO=Helper.parseGoogleResults(event);
+				amazonRequest.url=Helper.createAmazonURL(searchDTO);
+				amazonRequest.send();
+				amazonSearch.request.ItemId = Helper.createASINs(searchDTO);
+				Helper.generateSignature(amazonSearch.request);
+				amazonSearch.send();
 			}
 
 			private function amazonResultsHandler(event:ResultEvent):void
 			{
-				searchDTO=Helper.parseAmazonResults(event);
-				Helper.generateSignature(amazonSearch.request);
-				amazonSearch.send();
+				var rawData:String=String(event.result);
+				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
 			}
 
 			private function translateResultsHandler(event:ResultEvent):void
@@ -186,7 +189,9 @@
 			}
 			
 			private function amazonSearchResultHandler(event:ResultEvent):void{
-				trace('Ok');
+				var resp:ArrayCollection = event.result.ItemLookupResponse.Items.Item;
+				searchDTO = Helper.parseAmazonSearchResults(searchDTO, resp);
+				searchDTO.searchItems.refresh();
 			}
 		]]>
 	</mx:Script>

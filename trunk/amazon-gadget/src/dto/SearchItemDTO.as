@@ -21,6 +21,8 @@ package dto
 		public var id:String;
 		[Bindable]
 		public var imgSrc:String;
+		[Bindable]
+		public var offers:Array = [];
 	}
 }
 
