@@ -115,7 +115,9 @@ package services
 			var rawData:String=String(event.result);
 			var responseData:Object=JSON.decode(rawData).responseData;
 			var pages:Array=responseData.cursor.pages;
-			var pagesCount:int=pages.length;
+			if(pages) {
+				var pagesCount:int=pages.length;
+			}
 			var results:Array=responseData.results;
 			for each(var r:Object in results)
 			{
@@ -202,13 +204,20 @@ package services
 			{
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
 				searchItemDTO.offers=[];
-				for each(var off:Object in item.Offers.Offer as ArrayCollection)
+				var offers:ArrayCollection;
+				if (item.Offers.Offer is ArrayCollection){
+					offers = item.Offers.Offer; 
+				} else if (item.Offers.Offer){
+					offers = new ArrayCollection([item.Offers.Offer]);
+				}
+				for each(var off:Object in offers)
 				{
 					var offer:OfferDTO=new OfferDTO();
 					offer.merchantGlanceURL=off.Merchant.GlancePage;
 					offer.merchantID=off.Merchant.MerchantId;
+					offer.merchantName=off.Merchant.Name;
 					offer.merchantRating=off.Merchant.AverageFeedbackRating;
-					offer.merchantShippingURL=offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
+					offer.merchantShippingURL="http://www.amazon.com/gp/help/seller/shipping.html?seller="+offer.merchantID;
 					offer.offerListingID=off.OfferListing.OfferListingId;
 					offer.price=off.OfferListing.Price.FormattedPrice;
 					searchItemDTO.offers.push(offer);
@@ -225,10 +234,28 @@ package services
 			}
 			return searchDTO;
 		}
-
-		public static function createGoogleSearchURL(page:String, keyword:String, category:String):String
+		
+		public static function createGoogleSearchAmazonMerchantURL(country:String, offer:OfferDTO):String
 		{
-			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent('inurl:dp site:www.amazon.com ' + keyword + " " + category);
+			//inurl:"seller=" intitle:"Amazon.com Shipping Rates: BooksByTony" site:http://www.amazon.com/gp/help/seller/shipping.html
+			var keyword:String =''; 
+			keyword += offer.merchantName?'intitle:"Shipping Rates:" "'+offer.merchantName+'"':'"';
+//			keyword += 'intitle:"Shipping Rates:"';
+//			keyword += ' "seller='+offer.merchantID+'"';
+			keyword += ' site:amazon.com/'; 
+			trace(keyword);
+			var url:String=createGoogleSearchURL("1", keyword);
+			return url;
+		}
+
+		public static function createGoogleSearchAmazonURL(page:String, keyword:String, category:String):String
+		{
+			return createGoogleSearchURL(page, "inurl:dp site:www.amazon.com " + keyword + " " + category);
+		}
+
+		public static function createGoogleSearchURL(page:String, keyword:String):String
+		{
+			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent(keyword);
 		}
 
 		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String
@@ -252,6 +279,21 @@ package services
 		{
 			var urlRequest:URLRequest=new URLRequest(url);
 			flash.net.navigateToURL(urlRequest, '_blank');
+		}
+		
+		public static function checkCountry(country:String, description:String):Boolean {
+			var region:String = getRegionByCountry(country);
+			switch(region) {
+				case "Europe": {
+					var temp:String=description.replace("<b>Europe</b>, Albania", "");
+					return temp.indexOf("Europe") != -1;
+				}
+			}
+			return false;
+		}
+		public static function getRegionByCountry(country:String):String {
+			//TODO implement
+			return country;
 		}
 	}
 }
