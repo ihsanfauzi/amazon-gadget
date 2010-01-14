@@ -21,6 +21,8 @@ package dto {
 		[Bindable]
 		public var merchantRating:String;
 		[Bindable]
+		public var isSingleMerchant:Boolean;
+		[Bindable]
 		public var offerListingID:String;
 		[Bindable]
 		public var price:String;

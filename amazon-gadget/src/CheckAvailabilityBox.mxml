@@ -6,8 +6,9 @@
 	<mx:Repeater id="checkAvailabilityRep">
 		<mx:Label htmlText="{OfferDTO(checkAvailabilityRep.currentItem).merchantName+' '+
 							OfferDTO(checkAvailabilityRep.currentItem).availability}"
-				  click="{Helper.openAmazonItem(Helper.createGoogleSearchAmazonMerchantURL(country, OfferDTO(event.currentTarget.getRepeaterItem())))}"
-				  toolTip="{OfferDTO(checkAvailabilityRep.currentItem).merchantShippingURL}"/>
+				  click="{Helper.openAmazonItem(Helper.createMerchantItemURL(dataProvider.id, OfferDTO(event.currentTarget.getRepeaterItem())))}"/>
+		<mx:Label htmlText="Shpping Rates"
+				  click="{Helper.openAmazonItem(OfferDTO(event.currentTarget.getRepeaterItem()).merchantShippingURL)}"/>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
@@ -47,7 +48,10 @@
 					var ok:Boolean = checkCountry(searchItem.name, searchItem.description);
 					var offer:OfferDTO = OfferDTO(event.token.offer);
 					offer.availability = ok?OfferDTO.AVAILABILITY_YES:OfferDTO.AVAILABILITY_NO;
-					offer.merchantName = searchItem.name.replace("Amazon.com Shipping Rates: ", ""); 
+					if(!offer.merchantName){
+						offer.merchantName = searchItem.name.replace("Amazon.com Shipping Rates: ", "");
+					}
+					offer.merchantShippingURL = searchItem.originalUrl;
 				}
 			}
 			
