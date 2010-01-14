@@ -10,6 +10,7 @@ package services
 	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
+	import flash.ui.Keyboard;
 	import flash.utils.ByteArray;
 	
 	import mx.collections.ArrayCollection;
@@ -115,7 +116,8 @@ package services
 			var rawData:String=String(event.result);
 			var responseData:Object=JSON.decode(rawData).responseData;
 			var pages:Array=responseData.cursor.pages;
-			if(pages) {
+			if (pages)
+			{
 				var pagesCount:int=pages.length;
 			}
 			var results:Array=responseData.results;
@@ -125,6 +127,7 @@ package services
 				var title:String=r.title;
 				var content:String=r.content;
 				var item:SearchItemDTO=new SearchItemDTO();
+				item.originalUrl=unescapedUrl;
 				var id:String=unescapedUrl.substring(unescapedUrl.indexOf("dp/") + 3);
 				id=id.replace("product-description/", "");
 				item.id=id;
@@ -205,10 +208,13 @@ package services
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
 				searchItemDTO.offers=[];
 				var offers:ArrayCollection;
-				if (item.Offers.Offer is ArrayCollection){
-					offers = item.Offers.Offer; 
-				} else if (item.Offers.Offer){
-					offers = new ArrayCollection([item.Offers.Offer]);
+				if (item.Offers.Offer is ArrayCollection)
+				{
+					offers=item.Offers.Offer;
+				}
+				else if (item.Offers.Offer)
+				{
+					offers=new ArrayCollection([item.Offers.Offer]);
 				}
 				for each(var off:Object in offers)
 				{
@@ -217,7 +223,7 @@ package services
 					offer.merchantID=off.Merchant.MerchantId;
 					offer.merchantName=off.Merchant.Name;
 					offer.merchantRating=off.Merchant.AverageFeedbackRating;
-					offer.merchantShippingURL="http://www.amazon.com/gp/help/seller/shipping.html?seller="+offer.merchantID;
+					offer.merchantShippingURL="http://www.amazon.com/gp/help/seller/shipping.html?seller=" + offer.merchantID;
 					offer.offerListingID=off.OfferListing.OfferListingId;
 					offer.price=off.OfferListing.Price.FormattedPrice;
 					searchItemDTO.offers.push(offer);
@@ -225,6 +231,7 @@ package services
 				if (searchItemDTO.offers.length == 0 && item.VariationSummary)
 				{
 					offer=new OfferDTO();
+					offer.isSingleMerchant = true;
 					offer.merchantID=item.VariationSummary.SingleMerchantId;
 					offer.merchantGlanceURL="http://www.amazon.com/gp/help/seller/home.html?seller=" + offer.merchantID;
 					offer.merchantShippingURL=offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
@@ -234,16 +241,22 @@ package services
 			}
 			return searchDTO;
 		}
-		
+
 		public static function createGoogleSearchAmazonMerchantURL(country:String, offer:OfferDTO):String
 		{
-			//inurl:"seller=" intitle:"Amazon.com Shipping Rates: BooksByTony" site:http://www.amazon.com/gp/help/seller/shipping.html
-			var keyword:String =''; 
-			keyword += offer.merchantName?'intitle:"Shipping Rates:" "'+offer.merchantName+'"':'"';
-//			keyword += 'intitle:"Shipping Rates:"';
-//			keyword += ' "seller='+offer.merchantID+'"';
-			keyword += ' site:amazon.com/'; 
-			trace(keyword);
+			if (!offer.isSingleMerchant)
+			{
+				var keyword:String='';
+				keyword+=offer.merchantName ? 'intitle:"Shipping Rates:' + offer.merchantName + '"' : '"';
+				keyword+=' site:amazon.com inurl:"shipping.html"';
+			}
+			else
+			{
+				keyword='';
+				keyword+=' site:amazon.com inurl:"shipping.html" inurl:' + offer.merchantID;
+			}
+			keyword='"Europe" ' + keyword;
+			trace(keyword);			
 			var url:String=createGoogleSearchURL("1", keyword);
 			return url;
 		}
@@ -256,6 +269,11 @@ package services
 		public static function createGoogleSearchURL(page:String, keyword:String):String
 		{
 			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent(keyword);
+		}
+
+		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String
+		{
+			return "http://www.amazon.com/dp/" + asin + "/?m=" + offer.merchantID;
 		}
 
 		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String
@@ -280,18 +298,23 @@ package services
 			var urlRequest:URLRequest=new URLRequest(url);
 			flash.net.navigateToURL(urlRequest, '_blank');
 		}
-		
-		public static function checkCountry(country:String, description:String):Boolean {
-			var region:String = getRegionByCountry(country);
-			switch(region) {
-				case "Europe": {
+
+		public static function checkCountry(country:String, description:String):Boolean
+		{
+			var region:String=getRegionByCountry(country);
+			switch(region)
+			{
+				case "Europe":
+				{
 					var temp:String=description.replace("<b>Europe</b>, Albania", "");
 					return temp.indexOf("Europe") != -1;
 				}
 			}
 			return false;
 		}
-		public static function getRegionByCountry(country:String):String {
+
+		public static function getRegionByCountry(country:String):String
+		{
 			//TODO implement
 			return country;
 		}

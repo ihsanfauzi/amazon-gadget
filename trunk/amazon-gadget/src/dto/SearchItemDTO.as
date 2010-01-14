@@ -12,6 +12,8 @@ package dto
 		[Bindable]
 		public var description:String;
 		[Bindable]
+		public var originalUrl:String;
+		[Bindable]
 		public var url:String;
 		[Bindable]
 		public var rating:String;
