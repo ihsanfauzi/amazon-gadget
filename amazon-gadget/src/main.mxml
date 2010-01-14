@@ -41,7 +41,7 @@
 				ItemLookup
 			</Operation>
 			<ResponseGroup>
-				Offers,VariationSummary
+				OfferFull,VariationSummary
 			</ResponseGroup>
 			<Condition>
 				All
@@ -125,7 +125,7 @@
 
 			private function findGoogleResults():void
 			{
-				googleRequest.url=Helper.createGoogleSearchURL(page, keywordTextInput.text ? keywordTextInput.text : "", categoryCbx.value ? categoryCbx.selectedItem.label : "");
+				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, keywordTextInput.text ? keywordTextInput.text : "", categoryCbx.value ? categoryCbx.selectedItem.label : "");
 				googleRequest.send();
 			}
 
@@ -143,6 +143,7 @@
 			{
 				var rawData:String=String(event.result);
 				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
+				searchDTO.searchItems.refresh();
 			}
 
 			private function translateResultsHandler(event:ResultEvent):void
@@ -189,8 +190,12 @@
 			}
 			
 			private function amazonSearchResultHandler(event:ResultEvent):void{
-				var resp:ArrayCollection = event.result.ItemLookupResponse.Items.Item;
-				searchDTO = Helper.parseAmazonSearchResults(searchDTO, resp);
+				var raw:Object = event.result.ItemLookupResponse.Items.Item;
+				if(raw is ArrayCollection){
+					searchDTO = Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
+				} else if (raw){
+					searchDTO = Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+				}
 				searchDTO.searchItems.refresh();
 			}
 		]]>
