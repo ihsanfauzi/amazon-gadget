@@ -281,6 +281,7 @@ package services {
 				}
 				case "Asia": {
 					temp=description.replace("<b>Asia</b>, Australia", "");
+					temp=temp.replace("<b>Asia</b>, Brazil", "");
 					return temp.indexOf("Asia") != -1;
 				}
 				case "Outside US, Eur., CA, Asia": {

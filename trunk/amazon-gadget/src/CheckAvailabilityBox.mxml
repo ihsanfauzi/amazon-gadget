@@ -4,11 +4,13 @@
 			   label="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep">
-		<mx:Label htmlText="{OfferDTO(checkAvailabilityRep.currentItem).merchantName+' '+
+		<mx:HBox>
+			<mx:Label htmlText="{OfferDTO(checkAvailabilityRep.currentItem).merchantName+' '+
 							OfferDTO(checkAvailabilityRep.currentItem).availability}"
-				  click="{Helper.openAmazonItem(Helper.createMerchantItemURL(dataProvider.id, OfferDTO(event.currentTarget.getRepeaterItem())))}"/>
-		<mx:Label htmlText="Shpping Rates"
-				  click="{Helper.openAmazonItem(OfferDTO(event.currentTarget.getRepeaterItem()).merchantShippingURL)}"/>
+					  click="{Helper.openAmazonItem(Helper.createMerchantItemURL(dataProvider.id, OfferDTO(event.currentTarget.getRepeaterItem())))}"/>
+			<mx:Label htmlText="Shpping Rates"
+					  click="{Helper.openAmazonItem(OfferDTO(event.currentTarget.getRepeaterItem()).merchantShippingURL)}"/>
+		</mx:HBox>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
@@ -23,13 +25,15 @@
 			public var dataProvider:SearchItemDTO;
 			[Bindable]
 			public var region:String;
-			
-			private function checkAvailabilityClickHandler(event:Event):void {
-				checkAvailabilityRep.dataProvider = dataProvider.offers;
+
+			private function checkAvailabilityClickHandler(event:Event):void
+			{
+				checkAvailabilityRep.dataProvider=dataProvider.offers;
 				//TODO check via google search
 				//Europe site:http://www.amazon.com/gp/help/seller/shipping.html
-				
-				for each(var offer:OfferDTO in dataProvider.offers) {
+
+				for each(var offer:OfferDTO in dataProvider.offers)
+				{
 					var serv:HTTPService=new HTTPService();
 					serv.showBusyCursor=true;
 					serv.url=Helper.createGoogleSearchAmazonMerchantURL(region, offer);
@@ -39,23 +43,27 @@
 					t.offer=offer;
 				}
 			}
-			
-			private function resultHandler(event:ResultEvent):void {
+
+			private function resultHandler(event:ResultEvent):void
+			{
 				HTTPService(event.target).removeEventListener(ResultEvent.RESULT, resultHandler);
-				var sdto:SearchDTO = Helper.parseGoogleResults(event);
-				if(sdto.searchItems.length>0){
-					var searchItem:SearchItemDTO = SearchItemDTO(sdto.searchItems[0]);
-					var ok:Boolean = checkCountry(searchItem.name, searchItem.description);
-					var offer:OfferDTO = OfferDTO(event.token.offer);
-					offer.availability = ok?OfferDTO.AVAILABILITY_YES:OfferDTO.AVAILABILITY_NO;
-					if(!offer.merchantName){
-						offer.merchantName = searchItem.name.replace("Amazon.com Shipping Rates: ", "");
+				var sdto:SearchDTO=Helper.parseGoogleResults(event);
+				if (sdto.searchItems.length > 0)
+				{
+					var searchItem:SearchItemDTO=SearchItemDTO(sdto.searchItems[0]);
+					var ok:Boolean=checkCountry(searchItem.name, searchItem.description);
+					var offer:OfferDTO=OfferDTO(event.token.offer);
+					offer.availability=ok ? OfferDTO.AVAILABILITY_YES : OfferDTO.AVAILABILITY_NO;
+					if (!offer.merchantName)
+					{
+						offer.merchantName=searchItem.name.replace("Amazon.com Shipping Rates: ", "");
 					}
-					offer.merchantShippingURL = searchItem.originalUrl;
+					offer.merchantShippingURL=searchItem.originalUrl;
 				}
 			}
-			
-			private function checkCountry(name:String, description:String):Boolean {
+
+			private function checkCountry(name:String, description:String):Boolean
+			{
 				return Helper.checkCountry(region, description);
 			}
 		]]>
