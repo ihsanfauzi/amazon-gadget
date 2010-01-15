@@ -22,7 +22,7 @@
 			[Bindable]
 			public var dataProvider:SearchItemDTO;
 			[Bindable]
-			public var country:String = "Europe";
+			public var region:String;
 			
 			private function checkAvailabilityClickHandler(event:Event):void {
 				checkAvailabilityRep.dataProvider = dataProvider.offers;
@@ -32,7 +32,7 @@
 				for each(var offer:OfferDTO in dataProvider.offers) {
 					var serv:HTTPService=new HTTPService();
 					serv.showBusyCursor=true;
-					serv.url=Helper.createGoogleSearchAmazonMerchantURL(country, offer);
+					serv.url=Helper.createGoogleSearchAmazonMerchantURL(region, offer);
 					serv.addEventListener(ResultEvent.RESULT, resultHandler);
 					serv.resultFormat="text";
 					var t:AsyncToken=serv.send();
@@ -56,7 +56,7 @@
 			}
 			
 			private function checkCountry(name:String, description:String):Boolean {
-				return Helper.checkCountry(country, description);
+				return Helper.checkCountry(region, description);
 			}
 		]]>
 	</mx:Script>
