@@ -65,7 +65,7 @@
 			<mx:ComboBox id="countryComboBox"
 						 prompt="Country"
 						 dataProvider="{res.countries}"
-						 change="{}"/>
+						 change="{searchDTO?searchDTO.searchItems.refresh():{}}"/>
 			<mx:ComboBox id="langFromCbx"
 						 prompt="Language"
 						 dataProvider="{res.langs}"/>
@@ -98,7 +98,8 @@
 					<mx:Text width="100%"
 							 htmlText="{getDescription(SearchItemDTO(rep.currentItem))}"/>
 					<mx:Label htmlText="{getPriceRating(SearchItemDTO(rep.currentItem))}"/>
-					<local:CheckAvailabilityBox dataProvider="{SearchItemDTO(rep.currentItem)}"/>
+					<local:CheckAvailabilityBox dataProvider="{SearchItemDTO(rep.currentItem)}"
+												region="{countryComboBox.selectedItem.region}"/>
 				</mx:VBox>
 			</mx:HBox>
 		</mx:Repeater>
