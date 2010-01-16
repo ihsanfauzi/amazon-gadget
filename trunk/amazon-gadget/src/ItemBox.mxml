@@ -4,7 +4,7 @@
 		 xmlns:local="*">
 	<mx:Image source="{currentItem.imgSrc}"
 			  width="70"/>
-	<mx:VBox width="80%">
+	<mx:VBox width="80%" verticalGap="0">
 		<mx:Text width="100%"
 				 useHandCursor="true"
 				 textDecoration="underline"
@@ -14,6 +14,7 @@
 				 htmlText="{getTitle(currentItem)}"
 				 click="{openAmazonItem(currentItem)}"/>
 		<mx:Text width="100%"
+			
 				 htmlText="{getDescription(currentItem)}"/>
 		<mx:Label htmlText="{getPriceRating(currentItem)}"/>
 		<local:CheckAvailabilityBox dataProvider="{currentItem}"
