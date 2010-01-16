@@ -54,7 +54,7 @@
 		</mx:request>
 	</mx:HTTPService>
 
-	<mx:VBox width="100%"
+	<mx:VBox width="95%"
 			 height="100%"
 			 backgroundColor="white"
 			 paddingLeft="0">
