@@ -1,0 +1,10 @@
+Application {
+   backgroundColor: #ffffff;
+   backgroundGradientColors: #ffffff, #ffffff;
+   themeColor: #ffffff;
+   color: #000000;
+}
+
+ComboBox {
+   cornerRadius: 4;
+}
