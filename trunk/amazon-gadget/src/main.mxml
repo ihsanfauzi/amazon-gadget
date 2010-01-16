@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 				backgroundColor="white"
-				horizontalScrollPolicy="off"
 				paddingBottom="2"
 				paddingLeft="2"
 				paddingRight="2"
 				paddingTop="2"
-				xmlns:resources="resources.*" xmlns:local="*">
-				<mx:Style source="styles.css"/>
+				xmlns:resources="resources.*"
+				xmlns:local="*"
+				minWidth="300">
+	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
 					showBusyCursor="true"
@@ -79,12 +80,16 @@
 		<mx:HBox width="100%"
 				 paddingRight="10">
 			<mx:TextInput width="100%"
+						  height="18"
 						  id="keywordTextInput"
 						  change="{}"/>
 			<mx:Button label="Translate"
+					   height="18"
 					   enabled="{langFromCbx.selectedIndex>0}"
 					   click="{translate()}"/>
 			<mx:Button label="Search"
+					   height="18"
+					   styleName="alarmButton"
 					   click="{findGoogleResults()}"/>
 		</mx:HBox>
 		<mx:Repeater id="rep"
@@ -141,7 +146,7 @@
 				searchDTO=Helper.parseGoogleResults(event);
 				amazonRequest.url=Helper.createAmazonURL(searchDTO);
 				amazonRequest.send();
-				amazonSearch.request.ItemId = Helper.createASINs(searchDTO);
+				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
 				Helper.generateSignature(amazonSearch.request);
 				amazonSearch.send();
 			}
@@ -195,13 +200,17 @@
 				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(langFromCbx.selectedItem.value), "en");
 				translateRequest.send();
 			}
-			
-			private function amazonSearchResultHandler(event:ResultEvent):void{
-				var raw:Object = event.result.ItemLookupResponse.Items.Item;
-				if(raw is ArrayCollection){
-					searchDTO = Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
-				} else if (raw){
-					searchDTO = Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+
+			private function amazonSearchResultHandler(event:ResultEvent):void
+			{
+				var raw:Object=event.result.ItemLookupResponse.Items.Item;
+				if (raw is ArrayCollection)
+				{
+					searchDTO=Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
+				}
+				else if (raw)
+				{
+					searchDTO=Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
 				}
 				searchDTO.searchItems.refresh();
 			}

@@ -1,7 +1,6 @@
 Application {
    backgroundColor: #ffffff;
    backgroundGradientColors: #ffffff, #ffffff;
-   themeColor: #ffffff;
    color: #000000;
 }
 
@@ -9,4 +8,11 @@ ComboBox {
    cornerRadius: 3;
    fontSize: 9;
    height: 3;
+}
+
+Label {
+	padding-bottom:0;
+	padding-left:0;
+	padding-right:0;
+	padding-top0;
 }

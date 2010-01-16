@@ -7,5 +7,29 @@ Application {
 ComboBox {
    cornerRadius: 3;
    fontSize: 9;
-   height: 3;
+}
+
+Label {
+}
+
+TextInput {
+   borderStyle: solid;
+   borderThickness: 1;
+   cornerRadius: 3;
+   letterSpacing: 0;
+   paddingLeft: 0;
+   paddingRight: 0;
+   fontSize: 9;
+   dropShadowEnabled: false;
+}
+
+Button {
+   cornerRadius: 3;
+   paddingLeft: 2;
+   paddingRight: 2;
+   fontSize: 9;
+}
+
+.alarmButton {
+   fillColors: #ffff99, #ff9933, #ffff99, #ff9933;
 }
