@@ -4,7 +4,8 @@
 			   styleName="alarmButton"
 			   height="18"
 			   enabled="{region &amp;&amp; true}"
-			   label="Check Shipping to Selected Country"
+			   label="Check Shipping"
+			   toolTip="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep">
 		<mx:HBox>
