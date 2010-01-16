@@ -7,6 +7,7 @@ Application {
 ComboBox {
    cornerRadius: 3;
    fontSize: 9;
+   arrowButtonWidth: 8;
 }
 
 Label {
