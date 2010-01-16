@@ -7,7 +7,7 @@
 				paddingTop="2"
 				xmlns:resources="resources.*"
 				xmlns:local="*"
-				minWidth="300">
+				minWidth="250">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
@@ -61,18 +61,19 @@
 		<mx:HBox>
 			<mx:ComboBox id="categoryCbx"
 						 prompt="Category"
-						 width="100"
+						 width="80"
 						 height="15"
 						 dropdownWidth="200"
 						 dataProvider="{res.categories}"/>
 			<mx:ComboBox id="countryComboBox"
 						 prompt="Country"
-						 width="100"
+						 width="80"
 						 height="15"
-						 dropdownWidth="200"
+						 dropdownWidth="170"
 						 dataProvider="{res.countries}"
 						 change="{searchDTO?searchDTO.searchItems.refresh():{}}"/>
 			<mx:ComboBox id="langFromCbx"
+						 width="80"
 						 prompt="Language"
 						 height="15"
 						 dataProvider="{res.langs}"/>
