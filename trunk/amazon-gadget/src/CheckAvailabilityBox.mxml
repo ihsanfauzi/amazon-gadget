@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:Button id="checkAvailabilityButton"
+			   styleName="alarmButton"
+			   height="18"
+			   enabled="{region &amp;&amp; true}"
 			   label="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep">

@@ -9,7 +9,8 @@
 				xmlns:local="*"
 				minWidth="250"
 				horizontalAlign="left"
-				verticalScrollPolicy="off">
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
