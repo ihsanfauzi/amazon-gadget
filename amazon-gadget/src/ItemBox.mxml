@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox width="100%"
+		 xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:local="*">
+	<mx:Image source="{currentItem.imgSrc}"
+			  width="70"/>
+	<mx:VBox width="80%">
+		<mx:Text width="100%"
+				 useHandCursor="true"
+				 textDecoration="underline"
+				 buttonMode="true"
+				 mouseChildren="false"
+				 color="blue"
+				 htmlText="{getTitle(currentItem)}"
+				 click="{openAmazonItem(currentItem)}"/>
+		<mx:Text width="100%"
+				 htmlText="{getDescription(currentItem)}"/>
+		<mx:Label htmlText="{getPriceRating(currentItem)}"/>
+		<local:CheckAvailabilityBox dataProvider="{currentItem}"
+									region="{region}"/>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import dto.SearchItemDTO;
+			[Bindable]
+			public var region:String;
+			[Bindable]
+			public var currentItem:SearchItemDTO;
+
+			private function getDescription(item:SearchItemDTO):String
+			{
+				var res:String=item.description;
+				return res;
+			}
+
+			private function getPriceRating(item:SearchItemDTO):String
+			{
+				var price:String=item.price ? '<b>Price:' + item.price + "</b>" : "";
+				var rating:String=item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
+				if (price)
+				{
+					return price + " " + rating;
+				}
+				else
+				{
+					return rating;
+				}
+			}
+
+			private function getTitle(item:SearchItemDTO):String
+			{
+				var res:String=item.name;
+				return res;
+			}
+
+			private function openAmazonItem(item:SearchItemDTO):void
+			{
+				var urlRequest:URLRequest=new URLRequest(item.url);
+				navigateToURL(urlRequest, '_blank');
+			}
+		]]>
+	</mx:Script>
+</mx:HBox>
