@@ -6,5 +6,7 @@ Application {
 }
 
 ComboBox {
-   cornerRadius: 4;
+   cornerRadius: 3;
+   fontSize: 9;
+   height: 3;
 }
