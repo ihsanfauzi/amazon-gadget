@@ -7,6 +7,7 @@
 				paddingRight="2"
 				paddingTop="2"
 				xmlns:resources="resources.*" xmlns:local="*">
+				<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
 					showBusyCursor="true"
