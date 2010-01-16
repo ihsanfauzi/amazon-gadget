@@ -93,7 +93,7 @@
 					   click="{findGoogleResults()}"/>
 		</mx:HBox>
 	<mx:VBox width="100%"
-			 height="{this.height - 70>300?300:this.height - 70}"
+			 height="{this.height - 70>450?450:this.height - 70}"
 			 maxHeight="300"
 			 backgroundColor="white"
 			 paddingLeft="0"
