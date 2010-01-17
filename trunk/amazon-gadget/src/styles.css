@@ -40,6 +40,7 @@ LinkButton {
    letterSpacing: 0;
    fontWeight: normal;
    textDecoration: underline;
+   textAlign: left;
 }
 
 .alarmButton {

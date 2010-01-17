@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 horizontalAlign="left">
+	<mx:Text width="100%"
+			 text="{'Buy from ' + offerDTO.merchantName}"
+			 useHandCursor="true"
+			 textDecoration="underline"
+			 click="{Helper.openAmazonItem(Helper.createMerchantItemURL(asin, offerDTO))}"/>
+	<mx:Image id="errorIcon"
+			  source="@Embed('assets/error.icon.png')"
+			  visible="{offerDTO.availability == 0}"
+			  includeInLayout="{offerDTO.availability == 0}"
+			  useHandCursor="true"
+			  toolTip="Click to see shipping rates"
+			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+	<mx:Image id="goodIcon"
+			  source="@Embed('assets/good.icon.png')"
+			  visible="{offerDTO.availability>0}"
+			  includeInLayout="{offerDTO.availability>0}"
+			  toolTip="Click to see shipping rates"
+			  useHandCursor="true"
+			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+	<mx:Script>
+		<![CDATA[
+			import services.Helper;
+			import dto.OfferDTO;
+			[Bindable]
+			public var offerDTO:OfferDTO;
+			[Bindable]
+			public var asin:String;
+		]]>
+	</mx:Script>
+</mx:HBox>
