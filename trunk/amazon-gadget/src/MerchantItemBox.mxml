@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
 		 width="100%"
-		 horizontalAlign="left">
+		 horizontalAlign="left"
+		 verticalAlign="middle">
 	<mx:Text width="80%"
 			 useHandCursor="true"
 			 textDecoration="underline"
@@ -15,7 +16,18 @@
 			  visible="{offerDTO.availability == 0}"
 			  includeInLayout="{offerDTO.availability == 0}"
 			  useHandCursor="true"
+			  buttonMode="true"
 			  toolTip="Click to see shipping rates"
+			  mouseChildren="false"
+			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+	<mx:Label text="n/a"
+			  visible="{offerDTO.availability==-1}"
+			  includeInLayout="{offerDTO.availability==-1}"
+			  toolTip="Click to see shipping rates"
+			  textDecoration="underline"
+			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
 			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
 	<mx:Image id="goodIcon"
 			  source="@Embed('assets/good.icon.png')"
@@ -23,6 +35,8 @@
 			  includeInLayout="{offerDTO.availability>0}"
 			  toolTip="Click to see shipping rates"
 			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
 			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
 	<mx:Script>
 		<![CDATA[
