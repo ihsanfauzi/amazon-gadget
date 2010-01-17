@@ -105,6 +105,10 @@
 			<mx:HRule width="100%"/>
 		</mx:Repeater>
 	</mx:VBox>
+	<local:PaginationBox id="paginationBox"
+						 currentPage="{page}"
+						 pagesCount="{searchDTO.pagesCount}"
+						 changePage="{changePageHandler(event)}"/>
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferDTO;
@@ -118,7 +122,7 @@
 			import com.adobe.serialization.json.JSON;
 			import mx.rpc.events.ResultEvent;
 			[Bindable]
-			private var page:String="0";
+			private var page:int=1;
 			[Bindable]
 			private var keyword:String="";
 			[Bindable]
@@ -145,7 +149,6 @@
 			{
 				var rawData:String=String(event.result);
 				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
-				//searchDTO.searchItems.refresh();
 			}
 
 			private function translateResultsHandler(event:ResultEvent):void
@@ -170,7 +173,12 @@
 				{
 					searchDTO=Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
 				}
-				//searchDTO.searchItems.refresh();
+			}
+
+			private function changePageHandler(event:Event):void
+			{
+				page=paginationBox.currentPage;
+				findGoogleResults();
 			}
 		]]>
 	</mx:Script>

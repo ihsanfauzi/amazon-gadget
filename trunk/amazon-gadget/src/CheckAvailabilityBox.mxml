@@ -12,9 +12,9 @@
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep"
 				 width="100%">
-		<local:MerchantItem offerDTO="{checkAvailabilityRep.currentItem}"
-							asin="{dataProvider.id}"
-							backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
+		<local:MerchantItemBox offerDTO="{checkAvailabilityRep.currentItem}"
+							   asin="{dataProvider.id}"
+							   backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[

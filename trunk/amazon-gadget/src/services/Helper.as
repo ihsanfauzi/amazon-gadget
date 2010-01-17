@@ -111,6 +111,7 @@ package services {
 			var pages:Array=responseData.cursor.pages;
 			if (pages) {
 				var pagesCount:int=pages.length;
+				resDTO.pagesCount=pagesCount;
 			}
 			var results:Array=responseData.results;
 			for each(var r:Object in results) {
@@ -232,7 +233,7 @@ package services {
 			}
 			keyword='"' + getRegionKeyword(region) + '" ' + keyword;
 			trace(keyword);
-			var url:String=createGoogleSearchURL("1", keyword);
+			var url:String=createGoogleSearchURL(1, keyword);
 			return url;
 		}
 
@@ -292,13 +293,14 @@ package services {
 			return false;
 		}
 
-		public static function createGoogleSearchAmazonURL(page:String, keyword:String, category:String):String {
+		public static function createGoogleSearchAmazonURL(page:int, keyword:String, category:String):String {
 			return createGoogleSearchURL(page, "inurl:dp site:www.amazon.com " + keyword + " " + category);
 		}
 
-		public static function createGoogleSearchURL(page:String, keyword:String):String {
-			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page +
-				'&q=' + encodeURIComponent(keyword);
+		public static function createGoogleSearchURL(page:int, keyword:String):String
+		{
+			page=page * 8 - 8;
+			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent(keyword);
 		}
 
 		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String {
