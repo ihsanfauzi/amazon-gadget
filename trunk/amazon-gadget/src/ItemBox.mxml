@@ -19,13 +19,15 @@
 		<mx:Text width="100%"
 				 visible="{expanded}"
 				 includeInLayout="{expanded}"
-				 htmlText="{getDescription(currentItem)}"/>
-		<mx:Label htmlText="{getPriceRating(currentItem)}"/>
+				 htmlText="{currentItem.description}"/>
+		<mx:Label htmlText="{getPriceRating(currentItem.price)}"/>
 		<local:CheckAvailabilityBox dataProvider="{currentItem}"
 									region="{region}"/>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import mx.messaging.config.ServerConfig;
+			import dto.OfferDTO;
 			import dto.SearchItemDTO;
 			[Bindable]
 			public var region:String;
@@ -40,8 +42,9 @@
 				return res;
 			}
 
-			private function getPriceRating(item:SearchItemDTO):String
+			private function getPriceRating(value:String):String
 			{
+				var item:SearchItemDTO = currentItem;
 				var price:String=item.price ? '<b>Price:' + item.price + "</b>" : "";
 				var rating:String=item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
 				if (price)
