@@ -10,7 +10,8 @@
 				minWidth="250"
 				horizontalAlign="left"
 				verticalScrollPolicy="off"
-				horizontalScrollPolicy="off">
+				horizontalScrollPolicy="off"
+				creationComplete="{init()}">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
@@ -90,7 +91,8 @@
 		<mx:Button label="Search"
 				   height="18"
 				   styleName="alarmButton"
-				   click="{findGoogleResults()}"/>
+				   click="{page = 1; 
+				   findGoogleResults()}"/>
 	</mx:HBox>
 	<mx:VBox width="100%"
 			 height="{this.height - 70>450?450:this.height - 70}"
@@ -179,6 +181,10 @@
 			{
 				page=paginationBox.currentPage;
 				findGoogleResults();
+			}
+			
+			private function init():void{
+				res.countries.sortOn("label");
 			}
 		]]>
 	</mx:Script>

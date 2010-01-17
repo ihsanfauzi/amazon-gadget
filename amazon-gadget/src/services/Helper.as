@@ -1,16 +1,17 @@
-package services {
+package services
+{
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-	
+
 	import dto.OfferDTO;
 	import dto.SearchDTO;
 	import dto.SearchItemDTO;
-	
+
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
-	
+
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -19,7 +20,8 @@ package services {
 	import mx.utils.Base64Encoder;
 	import mx.utils.StringUtil;
 
-	public class Helper {
+	public class Helper
+	{
 
 		private static const googleText:String="http://ajax.googleapis.com/ajax/services/language/";
 		private static const tsrc:String="translate?v=1.0&q=";
@@ -43,7 +45,8 @@ package services {
 // The AWS Secret Key to use when querying Amazon.com.
 		private static const amazonSecretAccessKey:String="aLbhK+32hvP6lxTClNoSwdZ1SOL4tjwmnaoicnnO";
 
-		public static function generateSignature(request:Object):void {
+		public static function generateSignature(request:Object):void
+		{
 			var parameterArray:Array=new Array();
 			var parameterCollection:ArrayCollection=new ArrayCollection();
 			var parameterString:String="";
@@ -64,16 +67,17 @@ package services {
 			request.Timestamp=formatter.format(now);
 
 			// Process the parameters.
-			for(var key:String in request) {
+			for(var key:String in request)
+			{
 				// Ignore the "Signature" request parameter.
-				if (key != "Signature") {
+				if (key != "Signature")
+				{
 					request[key]=StringUtil.trim(String(request[key]));
 					var urlEncodedKey:String=encodeURIComponent(decodeURIComponent(key));
 					var parameterBytes:ByteArray=new ByteArray();
 					var valueBytes:ByteArray=new ByteArray();
 					var value:String=request[key];
-					var urlEncodedValue:String=encodeURIComponent(decodeURIComponent(value.replace(/\+/g,
-						"%20")));
+					var urlEncodedValue:String=encodeURIComponent(decodeURIComponent(value.replace(/\+/g, "%20")));
 					// Use the byte values, not the string values.
 					parameterBytes.writeUTFBytes(urlEncodedKey);
 					valueBytes.writeUTFBytes(urlEncodedValue);
@@ -86,7 +90,8 @@ package services {
 			sort.fields=[new SortField("parameter", true), new SortField("value", true)];
 			parameterCollection.refresh();
 			parameterString=AWS_METHOD + "\n" + AWS_HOST + "\n" + AWS_PATH + "\n";
-			for(var i:Number=0; i < parameterCollection.length; i++) {
+			for(var i:Number=0; i < parameterCollection.length; i++)
+			{
 				var pair:Object=parameterCollection.getItemAt(i);
 
 
@@ -104,17 +109,20 @@ package services {
 			request.Signature=encoder.toString();
 		}
 
-		public static function parseGoogleResults(event:ResultEvent):SearchDTO {
+		public static function parseGoogleResults(event:ResultEvent):SearchDTO
+		{
 			var resDTO:SearchDTO=new SearchDTO();
 			var rawData:String=String(event.result);
 			var responseData:Object=JSON.decode(rawData).responseData;
 			var pages:Array=responseData.cursor.pages;
-			if (pages) {
+			if (pages)
+			{
 				var pagesCount:int=pages.length;
 				resDTO.pagesCount=pagesCount;
 			}
 			var results:Array=responseData.results;
-			for each(var r:Object in results) {
+			for each(var r:Object in results)
+			{
 				var unescapedUrl:String=r.unescapedUrl;
 				var title:String=r.title;
 				var content:String=r.content;
@@ -131,41 +139,51 @@ package services {
 			return resDTO;
 		}
 
-		public static function addTag(s:String):String {
-			if (s.indexOf("?") != -1) {
+		public static function addTag(s:String):String
+		{
+			if (s.indexOf("?") != -1)
+			{
 				s=s + "&tag=catalog0e-20";
-			} else {
+			}
+			else
+			{
 				s=s + "?tag=catalog0e-20";
 			}
 			return s;
 		}
 
-		public static function createAmazonURL(sdto:SearchDTO):String {
-			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&InstanceId=0&TemplateId=8001&" +
-				"ServiceVersion=20070822&MarketPlace=US&ItemId=";
+		public static function createAmazonURL(sdto:SearchDTO):String
+		{
+			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&InstanceId=0&TemplateId=8001&" + "ServiceVersion=20070822&MarketPlace=US&ItemId=";
 			res+=createASINs(sdto);
 			return res;
 		}
 
-		public static function createASINs(sdto:SearchDTO):String {
+		public static function createASINs(sdto:SearchDTO):String
+		{
 			var res:String="";
-			for each(var r:SearchItemDTO in sdto.searchItems) {
+			for each(var r:SearchItemDTO in sdto.searchItems)
+			{
 				res+=r.id + ",";
 			}
 			res=res.substr(0, res.length - 1);
 			return res;
 		}
 
-		public static function parseAmazonResults(resDTO:SearchDTO, rawData:String):SearchDTO {
+		public static function parseAmazonResults(resDTO:SearchDTO, rawData:String):SearchDTO
+		{
 			ExternalInterface.call(rawData);
 			var data:Object=ExternalInterface.call("getRawData");
-			if (data && data.results) {
-				for each(var r:Object in data.results) {
+			if (data && data.results)
+			{
+				for each(var r:Object in data.results)
+				{
 					var si:SearchItemDTO=findSearchItem(resDTO.searchItems, r.ASIN);
 					si.price=r.Price;
 					si.rating=r.Rating;
 					si.imgSrc=r.ThumbImageUrl;
-					if (r.DetailPageURL) {
+					if (r.DetailPageURL)
+					{
 						si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
 					}
 					si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
@@ -175,44 +193,56 @@ package services {
 			return resDTO;
 		}
 
-		public static function parseTranslateResults(event:ResultEvent):String {
+		public static function parseTranslateResults(event:ResultEvent):String
+		{
 			var rawData:String=String(event.result);
-			if (JSON.decode(rawData).responseData.translatedText != null) {
+			if (JSON.decode(rawData).responseData.translatedText != null)
+			{
 				var decoded:String=JSON.decode(rawData).responseData.translatedText;
-			} else {
+			}
+			else
+			{
 				decoded="None support";
 			}
 			return decoded;
 		}
 
-		public static function parseAmazonSearchResults(searchDTO:SearchDTO, items:ArrayCollection):SearchDTO {
-			for each(var item:Object in items) {
+		public static function parseAmazonSearchResults(searchDTO:SearchDTO, items:ArrayCollection):SearchDTO
+		{
+			for each(var item:Object in items)
+			{
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
 				searchItemDTO.offers=[];
 				var offers:ArrayCollection;
-				if (item.Offers.Offer is ArrayCollection) {
+				if (item.Offers.Offer is ArrayCollection)
+				{
 					offers=item.Offers.Offer;
-				} else if (item.Offers.Offer) {
+				}
+				else if (item.Offers.Offer)
+				{
 					offers=new ArrayCollection([item.Offers.Offer]);
 				}
-				for each(var off:Object in offers) {
+				for each(var off:Object in offers)
+				{
 					var offer:OfferDTO=new OfferDTO();
 					offer.merchantGlanceURL=off.Merchant.GlancePage;
 					offer.merchantID=off.Merchant.MerchantId;
 					offer.merchantName=off.Merchant.Name;
 					offer.merchantRating=off.Merchant.AverageFeedbackRating;
-					offer.merchantShippingURL="http://www.amazon.com/gp/help/seller/shipping.html?seller=" +
-						offer.merchantID;
+					offer.merchantShippingURL="http://www.amazon.com/gp/help/seller/shipping.html?seller=" + offer.merchantID;
 					offer.offerListingID=off.OfferListing.OfferListingId;
 					offer.price=off.OfferListing.Price.FormattedPrice;
-					searchItemDTO.offers.push(offer);
+					if (!findOffer(searchItemDTO.offers, offer.merchantID))
+					{
+						searchItemDTO.offers.push(offer);
+					}
 				}
-				if (searchItemDTO.offers.length == 0 && item.VariationSummary) {
+				if (searchItemDTO.offers.length == 0 && item.VariationSummary)
+				{
 					offer=new OfferDTO();
 					offer.isSingleMerchant=true;
 					offer.merchantID=item.VariationSummary.SingleMerchantId;
-					offer.merchantGlanceURL="http://www.amazon.com/gp/help/seller/home.html?seller=" +
-						offer.merchantID;
+					offer.merchantGlanceURL="http://www.amazon.com/gp/help/seller/home.html?seller=" + offer.merchantID;
 					offer.merchantShippingURL=offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
 					offer.price=item.VariationSummary.LowestPrice.FormattedPrice;
 					searchItemDTO.offers.push(offer);
@@ -221,13 +251,16 @@ package services {
 			return searchDTO;
 		}
 
-		public static function createGoogleSearchAmazonMerchantURL(region:String, offer:OfferDTO):String {
-			if (!offer.isSingleMerchant) {
+		public static function createGoogleSearchAmazonMerchantURL(region:String, offer:OfferDTO):String
+		{
+			if (!offer.isSingleMerchant)
+			{
 				var keyword:String='';
-				keyword+=offer.merchantName ? 'intitle:"Shipping Rates:' + offer.merchantName + '"' :
-					'"';
+				keyword+=offer.merchantName ? 'intitle:"Shipping Rates:' + offer.merchantName + '"' : '"';
 				keyword+=' site:amazon.com inurl:"shipping.html"';
-			} else {
+			}
+			else
+			{
 				keyword='';
 				keyword+=' site:amazon.com inurl:"shipping.html" inurl:' + offer.merchantID;
 			}
@@ -237,55 +270,72 @@ package services {
 			return url;
 		}
 
-		public static function getRegionKeyword(region:String):String {
-			switch(region) {
-				case "Continental US": {
+		public static function getRegionKeyword(region:String):String
+		{
+			switch(region)
+			{
+				case "Continental US":
+				{
 					return "";
 				}
-				case "Alaska and Hawaii": {
+				case "Alaska and Hawaii":
+				{
 					return "Alaska and Hawaii Street";
 				}
-				case "US Protectorates": {
+				case "US Protectorates":
+				{
 					return "US Protectorates Street";
 				}
-				case "APO/FPO": {
+				case "APO/FPO":
+				{
 					return "APO/FPO Street";
 				}
-				case "Outside US, Eur., CA, Asia": {
+				case "Outside US, Eur., CA, Asia":
+				{
 					return "Outside US";
 				}
 			}
 			return region;
 		}
-		
-		public static function checkCountry(region:String, description:String):Boolean {
-			switch(region) {
-				case "Continental US": {
+
+		public static function checkCountry(region:String, description:String):Boolean
+		{
+			switch(region)
+			{
+				case "Continental US":
+				{
 					return true;
 				}
-				case "Alaska and Hawaii": {
+				case "Alaska and Hawaii":
+				{
 					return true;
 				}
-				case "US Protectorates": {
+				case "US Protectorates":
+				{
 					return true;
 				}
-				case "APO/FPO": {
+				case "APO/FPO":
+				{
 					return true;
 				}
-				case "Canada": {
+				case "Canada":
+				{
 					var temp:String=description.replace("<b>Canada</b>, <b>Canada</b>", "");
 					return temp.indexOf("Canada") != -1;
 				}
-				case "Europe": {
+				case "Europe":
+				{
 					temp=description.replace("<b>Europe</b>, Albania", "");
 					return temp.indexOf("Europe") != -1;
 				}
-				case "Asia": {
+				case "Asia":
+				{
 					temp=description.replace("<b>Asia</b>, Australia", "");
 					temp=temp.replace("<b>Asia</b>, Brazil", "");
 					return temp.indexOf("Asia") != -1;
 				}
-				case "Outside US, Eur., CA, Asia": {
+				case "Outside US, Eur., CA, Asia":
+				{
 					temp=description.replace("<b>Outside US</b>, Eur., CA, Asia, Brazil", "");
 					return temp.indexOf("Outside US") != -1;
 				}
@@ -293,7 +343,8 @@ package services {
 			return false;
 		}
 
-		public static function createGoogleSearchAmazonURL(page:int, keyword:String, category:String):String {
+		public static function createGoogleSearchAmazonURL(page:int, keyword:String, category:String):String
+		{
 			return createGoogleSearchURL(page, "inurl:dp site:www.amazon.com " + keyword + " " + category);
 		}
 
@@ -303,32 +354,53 @@ package services {
 			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent(keyword);
 		}
 
-		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String {
+		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String
+		{
 			return "http://www.amazon.com/dp/" + asin + "/?m=" + offer.merchantID;
 		}
 
-		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String {
+		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String
+		{
 			return googleText + tsrc + encodeURI(text) + lanpair + fromLang + pairCode + toLang;
 		}
 
-		private static function findSearchItem(searchItems:ArrayCollection, id:String):SearchItemDTO {
-			for each(var item:SearchItemDTO in searchItems) {
-				if (item.id == id) {
+		private static function findSearchItem(searchItems:ArrayCollection, id:String):SearchItemDTO
+		{
+			for each(var item:SearchItemDTO in searchItems)
+			{
+				if (item.id == id)
+				{
 					return item;
 				}
 			}
 			return null;
 		}
 
-		public static function openAmazonItem(url:String):void {
+		public static function openAmazonItem(url:String):void
+		{
 			var urlRequest:URLRequest=new URLRequest(url);
 			flash.net.navigateToURL(urlRequest, '_blank');
 		}
 
-		public static function getRegionByCountry(country:String):String {
+		public static function getRegionByCountry(country:String):String
+		{
 			//TODO implement
 			return country;
 		}
+
+		public static function findOffer(offers:Array, id:String):OfferDTO
+		{
+			for each(var off:OfferDTO in offers)
+			{
+				if (off.merchantID == id)
+				{
+					return off;
+				}
+			}
+			return null;
+		}
 	}
 }
+
+
 

@@ -219,8 +219,8 @@
 		<resources:Resource value="Montenegro"
 				   label="Montenegro"
 				   region="Europe"/>
-		<resources:Resource value="the Netherlands"
-				   label="the Netherlands"
+		<resources:Resource value="Netherlands"
+				   label="Netherlands"
 				   region="Europe"/>
 		<resources:Resource value="Norway"
 				   label="Norway"
