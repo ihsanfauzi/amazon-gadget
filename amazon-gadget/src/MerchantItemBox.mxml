@@ -19,7 +19,7 @@
 			  buttonMode="true"
 			  toolTip="Click to see shipping rates"
 			  mouseChildren="false"
-			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Label text="n/a"
 			  visible="{offerDTO.availability==-1}"
 			  includeInLayout="{offerDTO.availability==-1}"
@@ -28,7 +28,7 @@
 			  useHandCursor="true"
 			  mouseChildren="false"
 			  buttonMode="true"
-			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Image id="goodIcon"
 			  source="@Embed('assets/good.icon.png')"
 			  visible="{offerDTO.availability>0}"
@@ -37,7 +37,7 @@
 			  useHandCursor="true"
 			  mouseChildren="false"
 			  buttonMode="true"
-			  click="{Helper.openAmazonItem(offerDTO.merchantShippingURL)}"/>
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Script>
 		<![CDATA[
 			import services.Helper;
