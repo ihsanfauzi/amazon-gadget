@@ -10,7 +10,8 @@
 			   label="Check Shipping"
 			   toolTip="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
-	<mx:Repeater id="checkAvailabilityRep" width="100%">
+	<mx:Repeater id="checkAvailabilityRep"
+				 width="100%">
 		<local:MerchantItem offerDTO="{checkAvailabilityRep.currentItem}"
 							asin="{dataProvider.id}"
 							backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
@@ -69,13 +70,12 @@
 			{
 				return Helper.checkCountry(region, description);
 			}
-			
-						private function getBackgroundColor(num:Number):uint
+
+			private function getBackgroundColor(num:Number):uint
 			{
 				var b:Boolean=Math.round(num / 2) * 2 == num;
 				return b ? StyleManager.getColorName('#ffffff') : StyleManager.getColorName('#ffffcc');
 			}
-
 		]]>
 	</mx:Script>
 </mx:VBox>
