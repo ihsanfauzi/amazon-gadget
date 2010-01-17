@@ -4,7 +4,8 @@
 		 xmlns:local="*">
 	<mx:Image source="{currentItem.imgSrc}"
 			  width="70"/>
-	<mx:VBox width="80%" verticalGap="0">
+	<mx:VBox width="80%"
+			 verticalGap="0">
 		<mx:Text width="100%"
 				 useHandCursor="true"
 				 textDecoration="underline"
@@ -13,8 +14,11 @@
 				 color="blue"
 				 htmlText="{getTitle(currentItem)}"
 				 click="{openAmazonItem(currentItem)}"/>
+		<mx:LinkButton label="{expanded?'less':'more'}"
+					   click="{expanded = !expanded}"/>
 		<mx:Text width="100%"
-			
+				 visible="{expanded}"
+				 includeInLayout="{expanded}"
 				 htmlText="{getDescription(currentItem)}"/>
 		<mx:Label htmlText="{getPriceRating(currentItem)}"/>
 		<local:CheckAvailabilityBox dataProvider="{currentItem}"
@@ -27,6 +31,8 @@
 			public var region:String;
 			[Bindable]
 			public var currentItem:SearchItemDTO;
+			[Bindable]
+			private var expanded:Boolean;
 
 			private function getDescription(item:SearchItemDTO):String
 			{
