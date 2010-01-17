@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 verticalGap="0"
+		 xmlns:local="*"
+		 width="100%">
 	<mx:Button id="checkAvailabilityButton"
 			   styleName="alarmButton"
 			   height="18"
@@ -7,14 +10,9 @@
 			   label="Check Shipping"
 			   toolTip="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
-	<mx:Repeater id="checkAvailabilityRep">
-		<mx:HBox>
-			<mx:Label htmlText="{OfferDTO(checkAvailabilityRep.currentItem).merchantName+' '+
-							OfferDTO(checkAvailabilityRep.currentItem).availability}"
-					  click="{Helper.openAmazonItem(Helper.createMerchantItemURL(dataProvider.id, OfferDTO(event.currentTarget.getRepeaterItem())))}"/>
-			<mx:Label htmlText="Shpping Rates"
-					  click="{Helper.openAmazonItem(OfferDTO(event.currentTarget.getRepeaterItem()).merchantShippingURL)}"/>
-		</mx:HBox>
+	<mx:Repeater id="checkAvailabilityRep" width="100%">
+		<local:MerchantItem offerDTO="{checkAvailabilityRep.currentItem}"
+							asin="{dataProvider.id}"/>
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
