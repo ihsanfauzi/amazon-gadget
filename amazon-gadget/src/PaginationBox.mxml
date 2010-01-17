@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Metadata>
+		[Event(name="changePage", type="flash.events.Event")]
+	</mx:Metadata>
+	<mx:Repeater id="rep"
+				 dataProvider="{dataProvider}">
+		<mx:LinkButton label="{rep.currentItem}"
+					   fontWeight="{rep.currentIndex+1 == currentPage?'bold':'normal'}"
+					   click="{pageClickHandler(event)}"/>
+	</mx:Repeater>
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var currentPage:int;
+			[Bindable]
+			private var dataProvider:Array;
+			private var _pagesCount:int;
+			[Bindable]
+
+
+			public function set pagesCount(value:int):void
+			{
+				dataProvider = [];
+				var arr:Array = [];
+				for(var i:int; i<value; i++){
+					arr.push((i+1)+'');
+				}
+				_pagesCount=pagesCount;
+				dataProvider=arr;
+			}
+
+			public function get pagesCount():int
+			{
+				return _pagesCount;
+			}
+			
+			private function pageClickHandler(event:Event):void{
+				currentPage= Number(event.target.label);
+				dispatchEvent(new Event('changePage'));
+			}
+		]]>
+	</mx:Script>
+</mx:HBox>
