@@ -356,7 +356,7 @@ package services
 
 		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String
 		{
-			return "http://www.amazon.com/dp/" + asin + "/?m=" + offer.merchantID;
+			return  addTag("http://www.amazon.com/dp/" + asin + "/?m=" + offer.merchantID);
 		}
 
 		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String
