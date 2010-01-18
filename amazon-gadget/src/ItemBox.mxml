@@ -3,7 +3,7 @@
 		 xmlns:mx="http://www.adobe.com/2006/mxml"
 		 xmlns:local="*">
 	<mx:Image source="{currentItem.imgSrc}"
-			  width="70"/>
+			  width="70" height="{getImageHeight(currentItem.imgHeight)}"/>
 	<mx:VBox width="80%"
 			 verticalGap="0">
 		<mx:Text width="100%"
@@ -67,6 +67,20 @@
 			{
 				var urlRequest:URLRequest=new URLRequest(item.url);
 				navigateToURL(urlRequest, '_blank');
+			}
+			
+			private function getImageHeight(sHeight:String):Number{
+				if (!sHeight){
+					return NaN;
+				}
+				var height:Number = Number(sHeight);
+				var width:Number = Number(currentItem.imgWidth);
+				if(width<=70){
+					return height;
+				} else {
+					var res:Number = Math.round(height * (70 / width ));
+					return res; 
+				}
 			}
 		]]>
 	</mx:Script>

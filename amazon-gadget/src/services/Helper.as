@@ -3,15 +3,15 @@ package services
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-
+	
 	import dto.OfferDTO;
 	import dto.SearchDTO;
 	import dto.SearchItemDTO;
-
+	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
-
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -159,6 +159,12 @@ package services
 			return res;
 		}
 
+		public static function createAmazonNewReleasesURL():String
+		{
+			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=7&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US";
+			return res;
+		}
+		
 		public static function createASINs(sdto:SearchDTO):String
 		{
 			var res:String="";
@@ -172,9 +178,12 @@ package services
 
 		public static function parseAmazonResults(resDTO:SearchDTO, rawData:String):SearchDTO
 		{
+			if(rawData.indexOf("display_callback")==-1){
+				rawData = "display_callback("+rawData+")";
+			}
 			ExternalInterface.call(rawData);
 			var data:Object=ExternalInterface.call("getRawData");
-			if (data && data.results)
+			if (resDTO && data && data.results)
 			{
 				for each(var r:Object in data.results)
 				{
@@ -187,6 +196,28 @@ package services
 						si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
 					}
 					si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
+				}
+			} else if (!resDTO && data && data.results){
+				resDTO = new SearchDTO();
+				resDTO.pagesCount = 1;
+				for each(r in data.results)
+				{
+					si=new SearchItemDTO();
+					si.id = r.ASIN;
+					si.price=r.Price;
+					si.rating=r.Rating;
+					si.imgSrc=r.ThumbImageUrl?r.ThumbImageUrl:r.ImageUrl;
+					si.imgHeight = r.ImageHeight;
+					si.imgWidth= r.ImageWidth; 
+					si.name = r.Title;
+					if (r.DetailPageURL)
+					{
+						si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
+					}
+					si.description=r.Subtitle + "<br><b>" + r.category + "</b>";
+					if(si.id){
+						resDTO.searchItems.addItem(si);
+					}
 				}
 			}
 

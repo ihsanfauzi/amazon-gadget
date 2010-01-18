@@ -24,6 +24,10 @@ package dto
 		[Bindable]
 		public var imgSrc:String;
 		[Bindable]
+		public var imgWidth:String;
+		[Bindable]
+		public var imgHeight:String;
+		[Bindable]
 		public var offers:Array = [];
 	}
 }

@@ -140,17 +140,21 @@
 			private function googleResultsHandler(event:ResultEvent):void
 			{
 				searchDTO=Helper.parseGoogleResults(event);
-				amazonRequest.url=Helper.createAmazonURL(searchDTO);
-				amazonRequest.send();
-				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
-				Helper.generateSignature(amazonSearch.request);
-				amazonSearch.send();
+				sendAmazonRequest(Helper.createAmazonURL(searchDTO));				
 			}
 
+			private function sendAmazonRequest(url:String):void{
+				amazonRequest.url=url;
+				amazonRequest.send();
+			}
+			
 			private function amazonResultsHandler(event:ResultEvent):void
 			{
 				var rawData:String=String(event.result);
 				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
+				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
+				Helper.generateSignature(amazonSearch.request);
+				amazonSearch.send();
 			}
 
 			private function translateResultsHandler(event:ResultEvent):void
@@ -185,6 +189,7 @@
 			
 			private function init():void{
 				res.countries.sortOn("label");
+				sendAmazonRequest(Helper.createAmazonNewReleasesURL());
 			}
 		]]>
 	</mx:Script>
