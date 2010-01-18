@@ -71,12 +71,13 @@
 					 height="15"
 					 dropdownWidth="170"
 					 dataProvider="{res.countries}"
-					 change="{searchDTO?searchDTO.searchItems.refresh():{}}"/>
+					 change="{countryChangeHandler(event)}"/>
 		<mx:ComboBox id="langFromComboBox"
 					 width="80"
 					 prompt="Language"
 					 height="15"
-					 dataProvider="{res.langs}"/>
+					 dataProvider="{res.langs}"
+					 change="{languageChangeHandler(event)}"/>
 	</mx:HBox>
 	<mx:HBox width="100%"
 			 paddingRight="10">
@@ -189,8 +190,48 @@
 			
 			private function init():void{
 				res.countries.sortOn("label");
+				var cont:Number = getSelectedCountry();
+				if(cont) {
+					countryComboBox.selectedIndex = cont;
+				}
+				var lang:Number = getSelectedLanguage();
+				if(lang) {
+					langFromComboBox.selectedIndex = lang;
+				}
 				sendAmazonRequest(Helper.createAmazonNewReleasesURL());
 			}
+			
+			private function getSelectedCountry():Number{
+				var obj:SharedObject = SharedObject.getLocal("Preferencies");
+				if(obj.data.hasOwnProperty("selectedCountry")){
+					return Number(obj.data.selectedCountry);
+				}
+				return NaN;
+			}
+
+			private function getSelectedLanguage():Number{
+				var obj:SharedObject = SharedObject.getLocal("Preferencies");
+				if(obj.data.hasOwnProperty("selectedLanguage")){
+					return Number(obj.data.selectedLanguage);
+				}
+				return NaN;
+			}
+			
+			private function countryChangeHandler(event:Event):void {
+				var obj:SharedObject = SharedObject.getLocal("Preferencies");
+				obj.data.selectedCountry = countryComboBox.selectedIndex;
+				obj.flush();
+				if(searchDTO){
+					searchDTO.searchItems.refresh();
+				}				
+			}
+
+			private function languageChangeHandler(event:Event):void {
+				var obj:SharedObject = SharedObject.getLocal("Preferencies");
+				obj.data.selectedLanguage = langFromComboBox.selectedIndex;
+				obj.flush();
+			}
+			
 		]]>
 	</mx:Script>
 </mx:Application>
