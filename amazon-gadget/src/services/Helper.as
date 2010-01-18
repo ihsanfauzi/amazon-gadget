@@ -161,7 +161,7 @@ package services
 
 		public static function createAmazonNewReleasesURL():String
 		{
-			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=7&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US";
+			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=10&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US";
 			return res;
 		}
 		

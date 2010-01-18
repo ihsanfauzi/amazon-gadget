@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-	<ModulePrefs title="Does Amazon ship to ...?" height="300" />
+	<ModulePrefs 
+		title="Does Amazon ship to ...?"
+		description="Did you ever see such a message 'This item cannot be shipped to the address you selected.' on Amazon order page? If so this gadget could be useful for you. It is designed for quick check availability of interested Amazon items for your country." 
+		height="300"
+		width="100%"
+		author="Alex"
+		author_email="AYuzafovich@gmail.com"
+		screenshot="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
+		title_url="http://amazon-ship-to.blogspot.com"/>
 	<Content type="html" view="home,profile,canvas">
 
 		<![CDATA[
