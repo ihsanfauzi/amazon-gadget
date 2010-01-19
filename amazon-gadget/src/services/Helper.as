@@ -161,12 +161,30 @@ package services
 
 		public static function createAmazonNewReleasesURL():String
 		{
-			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=10&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US";
+			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=10&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US&SearchIndex="+getRandomSearhIndex();
 			return res;
 		}
-		
-		public static function createASINs(sdto:SearchDTO):String
-		{
+
+		private static const searchIndexes:Array=["All", "Apparel", "Automotive", "Baby", "Beauty", "Books",
+			"Classical", "DigitalMusic", "DVD", "Electronics", "GourmetFood", "Grocery", "HealthPersonalCare",
+			"HomeImprovement", "Industrial", "Jewelry", "KindleStore", "Kitchen", "Magazines", "Merchants",
+			"Miscellaneous", "MP3Downloads", "Music", "MusicalInstruments", "MusicTracks", "OfficeProducts",
+			"OutdoorLiving", "PCHardware", "PetSupplies", "Photo", "Shoes", "SilverMerchants", "Software",
+			"SportingGoods", "Tools", "Toys", "UnboxVideo", "VHS", "Video", "VideoGames", "Watches",
+			"Wireless", "WirelessAccessories"];
+
+		public static function getRandomSearhIndex():String{
+			var index:Number = randRange(0, searchIndexes.length-1);
+			trace(searchIndexes[index]);
+			return searchIndexes[index];
+		}
+
+		public static function randRange(min:Number, max:Number):Number {
+			var randomNum:Number=Math.floor(Math.random() * (max - min + 1)) + min;
+			return randomNum;
+		}
+
+		public static function createASINs(sdto:SearchDTO):String {
 			var res:String="";
 			for each(var r:SearchItemDTO in sdto.searchItems)
 			{
