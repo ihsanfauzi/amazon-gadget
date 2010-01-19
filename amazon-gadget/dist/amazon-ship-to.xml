@@ -15,9 +15,6 @@
 		<![CDATA[
 
 
-<!-- saved from url=(0014)about:internet -->
-<html lang="en">
-
 <!-- 
 Smart developers always View Source. 
 
@@ -154,7 +151,7 @@ var pageTracker = _gat._getTracker("UA-6463864-5");
 pageTracker._trackPageview();
 } catch(err) {}</script>
 </body>
-</html>
+
 
     ]]>
 
