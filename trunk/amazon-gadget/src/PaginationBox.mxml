@@ -40,7 +40,11 @@
 			}
 			
 			private function pageClickHandler(event:Event):void{
-				currentPage= Number(event.target.label);
+				var newPage:Number = Number(event.target.label);
+				if(newPage == currentPage){
+					return;
+				}
+				currentPage= newPage;
 				dispatchEvent(new Event('changePage'));
 			}
 		]]>
