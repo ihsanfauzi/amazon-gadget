@@ -8,7 +8,8 @@
 		author="Alex"
 		author_email="AYuzafovich@gmail.com"
 		screenshot="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
-		title_url="http://amazon-ship-to.blogspot.com"/>
+		title_url="http://amazon-ship-to.blogspot.com"
+		author_link="http://amazon-ship-to.blogspot.com"/>
 	<Content type="html" view="home,profile,canvas">
 
 		<![CDATA[
