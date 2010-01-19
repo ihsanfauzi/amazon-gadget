@@ -13,32 +13,8 @@
 	<Content type="html" view="home,profile,canvas">
 
 		<![CDATA[
-
-
-<!-- 
-Smart developers always View Source. 
-
-This application was built using Adobe Flex, an open source framework
-for building rich Internet applications that get delivered via the
-Flash Player or to desktops via Adobe AIR. 
-
-Learn more about Flex at http://flex.org 
-// -->
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--  BEGIN Browser History required section -->
-<link rel="stylesheet" type="text/css" href="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/history/history.css" />
-<!--  END Browser History required section -->
-
-<title></title>
 <script src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/AC_OETags.js" language="javascript"></script>
-
-<!--  BEGIN Browser History required section -->
 <script src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/history/history.js" language="javascript"></script>
-<!--  END Browser History required section -->
-
 <script>
 rawData="";
 function display_callback(input){
@@ -49,9 +25,6 @@ function getRawData(){
 }
 </script>
 
-<style>
-body { margin: 0px; overflow:hidden }
-</style>
 <script language="JavaScript" type="text/javascript">
 <!--
 // -----------------------------------------------------------------------------
@@ -65,9 +38,7 @@ var requiredRevision = 124;
 // -----------------------------------------------------------------------------
 // -->
 </script>
-</head>
 
-<body scroll="no">
 <script language="JavaScript" type="text/javascript">
 <!--
 // Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
@@ -150,8 +121,6 @@ try {
 var pageTracker = _gat._getTracker("UA-6463864-5");
 pageTracker._trackPageview();
 } catch(err) {}</script>
-</body>
-
 
     ]]>
 
