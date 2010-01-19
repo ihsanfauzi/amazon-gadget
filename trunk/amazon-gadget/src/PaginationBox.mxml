@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%">
 	<mx:Metadata>
 		[Event(name="changePage", type="flash.events.Event")]
 	</mx:Metadata>
@@ -9,8 +9,12 @@
 					   fontWeight="{rep.currentIndex+1 == currentPage?'bold':'normal'}"
 					   click="{pageClickHandler(event)}"/>
 	</mx:Repeater>
+	<mx:Spacer width="100%"/>
+	<mx:LinkButton label="Help"
+				   click="{Helper.openAmazonItem('http://amazon-ship-to.blogspot.com/2010/01/dose-amazon-ship-to-gadget-help.html')}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.Helper;
 			[Bindable]
 			public var currentPage:int;
 			[Bindable]
