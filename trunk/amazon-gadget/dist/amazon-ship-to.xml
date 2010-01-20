@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
 	<ModulePrefs 
-		title="Does Amazon ship to ...?"
-		description="Did you ever see such a message 'This item cannot be shipped to the address you selected.' on Amazon order page? If so this gadget could be useful for you. It is designed for quick check availability of interested Amazon items for your country." 
+		title="__MSG_title__"
+		description="__MSG_description__" 
 		height="300"
 		width="320"
 		author="Alex"
@@ -12,14 +12,14 @@
 		author_link="http://amazon-ship-to.blogspot.com"
 		thumbnail="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
 		category="tools">
-		<Locale messages="http://doc.examples.googlepages.com/ALL_ALL.xml"/>
-	    <Locale lang="de" messages="http://doc.examples.googlepages.com/de_ALL.xml"/>
-	    <!-- Locale lang="zh-cn" messages="http://doc.examples.googlepages.com/zh_cn_ALL.xml"/-->
+		<Locale messages="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/src/ALL_ALL.xml"/>
+	    <!-- Locale lang="de" messages="http://doc.examples.googlepages.com/de_ALL.xml"/>
+	    <Locale lang="zh-cn" messages="http://doc.examples.googlepages.com/zh_cn_ALL.xml"/>
 	    <Locale lang="fr" messages="http://doc.examples.googlepages.com/fr_ALL.xml"/>
 	    <Locale lang="ja" messages="http://doc.examples.googlepages.com/ja_ALL.xml"/>
 	    <Locale lang="es" messages="http://doc.examples.googlepages.com/es_ALL.xml"/>
 	    <Locale lang="it" messages="http://doc.examples.googlepages.com/it_ALL.xml"/>
-	    <Locale lang="ru" messages="http://doc.examples.googlepages.com/ru_ALL.xml"/> 
+	    <Locale lang="ru" messages="http://doc.examples.googlepages.com/ru_ALL.xml"/--> 
 		
 	</ModulePrefs>
 	<Content type="html" view="home,profile,canvas">
