@@ -27,7 +27,9 @@
 		<![CDATA[
 <script src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/AC_OETags.js" language="javascript"></script>
 <script src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/history/history.js" language="javascript"></script>
-<script>
+
+<script language="JavaScript" type="text/javascript">
+
 rawData="";
 function display_callback(input){
 	rawData=input;
@@ -35,10 +37,8 @@ function display_callback(input){
 function getRawData(){
 	return rawData;
 }
-</script>
 
-<script language="JavaScript" type="text/javascript">
-<!--
+
 // -----------------------------------------------------------------------------
 // Globals
 // Major version of Flash required
@@ -48,11 +48,9 @@ var requiredMinorVersion = 0;
 // Minor version of Flash required
 var requiredRevision = 124;
 // -----------------------------------------------------------------------------
-// -->
-</script>
 
-<script language="JavaScript" type="text/javascript">
-<!--
+
+
 // Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
 var hasProductInstall = DetectFlashVer(6, 0, 65);
 
@@ -103,17 +101,17 @@ if ( hasProductInstall && !hasRequestedVersion ) {
    	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
     document.write(alternateContent);  // insert non-flash content
   }
-// -->
-</script>
-<script type="text/javascript">
+
+
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
+
 try {
 var pageTracker = _gat._getTracker("UA-6463864-5");
 pageTracker._trackPageview();
-} catch(err) {}</script>
+} catch(err) {}
+
+</script>
 
     ]]>
 
