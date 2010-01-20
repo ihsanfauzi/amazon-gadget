@@ -12,7 +12,7 @@
 		author_link="http://amazon-ship-to.blogspot.com"
 		thumbnail="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
 		category="tools">
-		<Locale messages="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/src/ALL_ALL.xml"/>
+		<Locale messages="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/ALL_ALL.xml"/>
 	    <!-- Locale lang="de" messages="http://doc.examples.googlepages.com/de_ALL.xml"/>
 	    <Locale lang="zh-cn" messages="http://doc.examples.googlepages.com/zh_cn_ALL.xml"/>
 	    <Locale lang="fr" messages="http://doc.examples.googlepages.com/fr_ALL.xml"/>
