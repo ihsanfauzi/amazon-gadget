@@ -14,7 +14,7 @@
 		category="tools">
 		<Locale messages="http://doc.examples.googlepages.com/ALL_ALL.xml"/>
 	    <Locale lang="de" messages="http://doc.examples.googlepages.com/de_ALL.xml"/>
-	    <Locale lang="zh-cn" messages="http://doc.examples.googlepages.com/zh_cn_ALL.xml"/>
+	    <!-- Locale lang="zh-cn" messages="http://doc.examples.googlepages.com/zh_cn_ALL.xml"/-->
 	    <Locale lang="fr" messages="http://doc.examples.googlepages.com/fr_ALL.xml"/>
 	    <Locale lang="ja" messages="http://doc.examples.googlepages.com/ja_ALL.xml"/>
 	    <Locale lang="es" messages="http://doc.examples.googlepages.com/es_ALL.xml"/>
