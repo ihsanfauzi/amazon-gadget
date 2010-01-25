@@ -2,9 +2,11 @@
 <Module>
 	<ModulePrefs 
 		title="__MSG_title__"
-		description="__MSG_description__" 
-		screenshot="__MSG_screenshot__"
-		thumbnail="__MSG_thumbnail__"
+		directory_title="Does Amazon ship to ...?"
+		description="__MSG_description__"
+		directory_description="Did you ever see such a message 'This item cannot be shipped to the address you selected.' on Amazon order page? If so this gadget could be useful for you. It is designed for quick check availability of interested Amazon items for your country."
+		screenshot="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
+		thumbnail="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
 		height="300"
 		width="320"
 		author="Alex"
