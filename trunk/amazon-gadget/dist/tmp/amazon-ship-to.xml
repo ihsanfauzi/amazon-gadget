@@ -2,10 +2,9 @@
 <Module>
 	<ModulePrefs 
 		title="__MSG_title__"
-		directory_title="Does Amazon ship to ...?"
-		description="__MSG_description__"
-		screenshot="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
-		thumbnail="http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG"
+		description="__MSG_description__" 
+		screenshot="__MSG_screenshot__"
+		thumbnail="__MSG_thumbnail__"
 		height="300"
 		width="320"
 		author="Alex"
@@ -14,8 +13,6 @@
 		author_link="http://amazon-ship-to.blogspot.com"
 		category="tools">
 		<Locale messages="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/ALL_ALL.xml"/>
-		<Locale lang="ru" messages="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget/dist/ru_ALL.xml"/>
-		
 	</ModulePrefs>
 	<Content type="html" view="home,profile,canvas">
 
