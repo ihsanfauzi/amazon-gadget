@@ -112,6 +112,7 @@
 						 currentPage="{page}"
 						 pagesCount="{searchDTO.pagesCount}"
 						 changePage="{changePageHandler(event)}"/>
+	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={rnd}"/>
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferDTO;
@@ -230,6 +231,10 @@
 				var obj:SharedObject = SharedObject.getLocal("Preferencies");
 				obj.data.selectedLanguage = langFromComboBox.selectedIndex;
 				obj.flush();
+			}
+			
+			private function get rnd():Number {
+				return Math.random();
 			}
 			
 		]]>
