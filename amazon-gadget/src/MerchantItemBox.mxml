@@ -10,7 +10,7 @@
 			 mouseChildren="false"
 			 color="blue"
 			 text="{'Buy from ' + offerDTO.merchantName}"
-			 click="{Helper.openAmazonItem(Helper.createMerchantItemURL(asin, offerDTO))}"/>
+			 click="{buyFromClickHandler()}"/>
 	<mx:Image id="errorIcon"
 			  source="@Embed('assets/error.icon.png')"
 			  visible="{offerDTO.availability == 0}"
@@ -46,6 +46,12 @@
 			public var offerDTO:OfferDTO;
 			[Bindable]
 			public var asin:String;
+			private function buyFromClickHandler():void {
+				Helper.openAmazonItem(Helper.createMerchantItemURL(asin, offerDTO));
+				var img:Image = new Image();
+				img.source = "http://gadget.usefulhelper.com/1x1.gif?b=buy&r="+Math.random();
+				img.initialize();
+			}
 		]]>
 	</mx:Script>
 </mx:HBox>
