@@ -9,7 +9,7 @@
 			 buttonMode="true"
 			 mouseChildren="false"
 			 color="blue"
-			 text="{'Buy from ' + offerDTO.merchantName}"
+			 text="{'Buy from ' + offerDTO.merchantName + ' ' + offerDTO.price}"
 			 click="{buyFromClickHandler(event)}"/>
 	<mx:Image id="errorIcon"
 			  source="@Embed('assets/error.icon.png')"
