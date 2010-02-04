@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 maxHeight="300"
+		 backgroundColor="white"
+		 paddingLeft="0"
+		 verticalAlign="top"
+		 xmlns:components="components.*">
+	<mx:Repeater id="rep"
+				 dataProvider="{searchDTO.searchItems}">
+		<components:ItemBox region="{country.region}"
+							currentItem="{rep.currentItem}"/>
+		<mx:HRule width="100%"/>
+	</mx:Repeater>
+	<mx:Script>
+		<![CDATA[
+			import dto.SearchDTO;
+			[Bindable]
+			public var searchDTO:SearchDTO;
+			[Bindable]
+			public var country:Object;
+		]]>
+	</mx:Script>
+</mx:VBox>

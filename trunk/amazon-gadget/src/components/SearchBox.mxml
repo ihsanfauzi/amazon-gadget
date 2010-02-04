@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 paddingRight="10">
+	<mx:Metadata>
+		[Event (name="search", type="flash.events.Event")]
+	</mx:Metadata>
+	<mx:HTTPService id="translateRequest"
+					showBusyCursor="true"
+					useProxy="false"
+					method="GET"
+					resultFormat="text"
+					result="{translateResultsHandler(event)}"/>
+	<mx:TextInput id="keywordTextInput"
+				  width="100%"
+				  height="18"
+				  text="{keyword}"
+				  change="{changeKeywordHandler(event)}"/>
+	<mx:Button label="Translate"
+			   height="18"
+			   enabled="{language || false}"
+			   click="{translateClickHandler(event)}"/>
+	<mx:Button label="Search"
+			   height="18"
+			   styleName="alarmButton"
+			   click="{searchClickHandler(event)}"/>
+	<mx:Script>
+		<![CDATA[
+			import services.Helper;
+			import mx.rpc.events.ResultEvent;
+			[Bindable]
+			public var keyword:String;
+			[Bindable]
+			public var language:Object;
+
+			private function changeKeywordHandler(event:Event):void {
+				keyword=keywordTextInput.text;
+			}
+
+			private function translateClickHandler(event:Event):void {
+				translate();
+			}
+
+			private function searchClickHandler(event:Event):void {
+				dispatchEvent(new Event("search"));
+			}
+
+			private function translateResultsHandler(event:ResultEvent):void {
+				keyword=Helper.parseTranslateResults(event);
+			}
+
+			private function translate():void {
+				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(language.value),
+					"en");
+				translateRequest.send();
+			}
+		]]>
+	</mx:Script>
+</mx:HBox>
