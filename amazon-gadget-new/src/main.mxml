@@ -92,8 +92,7 @@
 		<mx:Button label="Search"
 				   height="18"
 				   styleName="alarmButton"
-				   click="{page = 1; 
-				   findGoogleResults()}"/>
+				   click="{searchClickHandler()}"/>
 	</mx:HBox>
 	<mx:VBox width="100%"
 			 height="{this.height - 70>450?450:this.height - 70}"
@@ -112,8 +111,10 @@
 						 currentPage="{page}"
 						 pagesCount="{searchDTO.pagesCount}"
 						 changePage="{changePageHandler(event)}"/>
+	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={rnd}"/>
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Image;
 			import dto.OfferDTO;
 			import mx.collections.ArrayCollection;
 			import mx.utils.ObjectProxy;
@@ -232,6 +233,18 @@
 				obj.flush();
 			}
 			
+			private function get rnd():Number {
+				return Math.random();
+			}
+			
+			private function searchClickHandler():void
+			{
+				page=1;
+				findGoogleResults();
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (keywordTextInput.text ? keywordTextInput.text : "");
+				img.initialize();
+			}			
 		]]>
 	</mx:Script>
 </mx:Application>
