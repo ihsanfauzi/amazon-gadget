@@ -196,6 +196,7 @@ package services
 
 		public static function parseAmazonResults(resDTO:SearchDTO, rawData:String):SearchDTO
 		{
+			rawData = rawData.replace("search_callback", "display_callback"); 
 			if(rawData.indexOf("display_callback")==-1){
 				rawData = "display_callback("+rawData+")";
 			}
@@ -218,15 +219,21 @@ package services
 			} else if (!resDTO && data && data.results){
 				resDTO = new SearchDTO();
 				resDTO.pagesCount = 1;
+				if (data.NumRecords){
+					var pagesCount:Number = Math.round(Number(data.NumRecords)/10);
+					resDTO.pagesCount=pagesCount > 5 ? 5 : pagesCount; 
+				}
 				for each(r in data.results)
 				{
 					si=new SearchItemDTO();
 					si.id = r.ASIN;
 					si.price=r.Price;
 					si.rating=r.Rating;
-					si.imgSrc=r.ThumbImageUrl?r.ThumbImageUrl:r.ImageUrl;
-					si.imgHeight = r.ImageHeight;
-					si.imgWidth= r.ImageWidth; 
+					si.imgSrc=r.ThumbImageUrl ? r.ThumbImageUrl : r.ImageUrl;
+					if (!r.ThumbImageUrl) {
+						si.imgHeight=r.ImageHeight;
+						si.imgWidth=r.ImageWidth;
+					} 
 					si.name = r.Title;
 					if (r.DetailPageURL)
 					{
@@ -447,6 +454,12 @@ package services
 				}
 			}
 			return null;
+		}
+
+		public static function createSearchAmazonURL(keyword:String, category:String, page:int):String {
+			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&Keywords=" + encodeURIComponent(keyword) +
+				"&SearchIndex=" + (category ? category : "All") + "&multipageStart=" + (page-1)*10 + "&InstanceId=0&multipageCount=10&TemplateId=8002&ServiceVersion=20070822&MarketPlace=US";
+			return res;
 		}
 	}
 }
