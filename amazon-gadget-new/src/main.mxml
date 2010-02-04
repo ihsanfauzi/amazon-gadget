@@ -19,12 +19,19 @@
 	<services:NewReleasesService id="newReleasesService"
 								 searchDTO="{searchDTO}"
 								 result="{searchDTO=newReleasesService.searchDTO}"/>
+	<services:AmazonSearchService id="amazonSearchService"
+								  searchDTO="{searchDTO}"
+								  keyword="{searchBox.keyword}"
+								  category="{settingsBox.selectedCategory}"
+								  page="{page}"
+								  result="{searchDTO=amazonSearchService.searchDTO}"/>
 	<services:GoogleSearchService id="googleSearchService"
 								  searchDTO="{searchDTO}"
 								  keyword="{searchBox.keyword}"
 								  category="{settingsBox.selectedCategory}"
 								  page="{page}"
 								  result="{searchDTO=googleSearchService.searchDTO}"/>
+								  
 	<components:SettingsBox id="settingsBox"
 							countries="{res.countries}"
 							categories="{res.categories}"
@@ -54,7 +61,8 @@
 
 			private function changePageHandler(event:Event):void {
 				page=paginationBox.currentPage;
-				googleSearchService.sendRequest();
+				amazonSearchService.sendRequest();
+				//googleSearchService.sendRequest();
 			}
 
 			private function init():void {
@@ -69,7 +77,8 @@
 
 			private function searchClickHandler():void {
 				page=1;
-				googleSearchService.sendRequest();
+				//googleSearchService.sendRequest();
+				amazonSearchService.sendRequest();
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (searchBox.keyword ?
 					searchBox.keyword : "");
