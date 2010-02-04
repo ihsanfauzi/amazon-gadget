@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messagebundle>  
+  <msg name="title">Доставляет ли Амазон (Amazon.com) в ...?</msg>  
+  <msg name="description">Доставляет ли Амазон (Amazon.com) в вашу страну? Если у вас возникал такой вопрос, то этот гаджет будет полезен для вас. Он дает возможность: 1.Bводить ключевое слово на русском языке и переводить его на английский. 2. Искать товары по этому ключевому слову. 3. Проверять, доставляется ли товар в вашу страну.</msg>
+  <msg name="screenshot">http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG</msg> 
+  <msg name="thumbnail">http://1.bp.blogspot.com/_mgJc9PqfBlw/S1S3aQBVx5I/AAAAAAAAAEY/4L6BQsDa0VQ/s400/Language.JPG</msg> 
+</messagebundle>

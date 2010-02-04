@@ -1,0 +1,48 @@
+Application {
+   backgroundColor: #ffffff;
+   backgroundGradientColors: #ffffff, #ffffff;
+   color: #000000;
+}
+
+ComboBox {
+   cornerRadius: 3;
+   fontSize: 9;
+   arrowButtonWidth: 8;
+}
+
+Label {
+}
+
+TextInput {
+   borderStyle: solid;
+   borderThickness: 1;
+   cornerRadius: 3;
+   letterSpacing: 0;
+   paddingLeft: 0;
+   paddingRight: 0;
+   fontSize: 9;
+   dropShadowEnabled: false;
+}
+
+Button {
+   cornerRadius: 3;
+   paddingLeft: 2;
+   paddingRight: 2;
+   fontSize: 9;
+}
+
+LinkButton {
+   cornerRadius: 3;
+   paddingLeft: 0;
+   paddingRight: 0;
+   paddingTop: 0;
+   paddingBottom: 0;
+   letterSpacing: 0;
+   fontWeight: normal;
+   textDecoration: underline;
+   textAlign: left;
+}
+
+.alarmButton {
+   fillColors: #ffff99, #ff9933, #ffff99, #ff9933;
+}
