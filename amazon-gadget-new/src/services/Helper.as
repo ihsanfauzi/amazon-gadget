@@ -114,6 +114,9 @@ package services
 			var resDTO:SearchDTO=new SearchDTO();
 			var rawData:String=String(event.result);
 			var responseData:Object=JSON.decode(rawData).responseData;
+			if (!responseData){
+				return resDTO;
+			}
 			var pages:Array=responseData.cursor.pages;
 			if (pages)
 			{
