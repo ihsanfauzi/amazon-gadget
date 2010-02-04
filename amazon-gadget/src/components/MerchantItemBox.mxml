@@ -47,11 +47,12 @@
 			public var offerDTO:OfferDTO;
 			[Bindable]
 			public var asin:String;
+
 			private function buyFromClickHandler(event:Event):void {
-				var url:String = Helper.createMerchantItemURL(asin, offerDTO);
+				var url:String=Helper.createMerchantItemURL(asin, offerDTO);
 				Helper.openAmazonItem(url);
-				var img:Image = new Image();
-				img.source = "http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" +url;
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
 				img.initialize();
 			}
 		]]>

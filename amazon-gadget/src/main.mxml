@@ -11,240 +11,88 @@
 				horizontalAlign="left"
 				verticalScrollPolicy="off"
 				horizontalScrollPolicy="off"
-				creationComplete="{init()}">
+				creationComplete="{init()}"
+				xmlns:components="components.*"
+				xmlns:services="services.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
-	<mx:HTTPService id="googleRequest"
-					showBusyCursor="true"
-					useProxy="false"
-					method="GET"
-					resultFormat="text"
-					result="{googleResultsHandler(event)}"/>
-	<mx:HTTPService id="amazonRequest"
-					showBusyCursor="true"
-					useProxy="false"
-					method="GET"
-					resultFormat="text"
-					result="{amazonResultsHandler(event)}"/>
-	<mx:HTTPService id="translateRequest"
-					showBusyCursor="true"
-					useProxy="false"
-					method="GET"
-					resultFormat="text"
-					result="{translateResultsHandler(event)}"/>
-	<mx:HTTPService id="amazonSearch"
-					url="http://ecs.amazonaws.com/onca/xml"
-					showBusyCursor="true"
-					result="{amazonSearchResultHandler(event)}">
-		<mx:request>
-			<Service>
-				AWSECommerceService
-			</Service>
-			<Version>
-				2009-03-31
-			</Version>
-			<Operation>
-				ItemLookup
-			</Operation>
-			<ResponseGroup>
-				OfferFull,VariationSummary
-			</ResponseGroup>
-			<Condition>
-				All
-			</Condition>
-			<MerchantId>
-				All
-			</MerchantId>
-		</mx:request>
-	</mx:HTTPService>
-
-	<mx:HBox>
-		<mx:ComboBox id="categoryComboBox"
-					 prompt="Category"
-					 width="80"
-					 height="15"
-					 dropdownWidth="200"
-					 dataProvider="{res.categories}"/>
-		<mx:ComboBox id="countryComboBox"
-					 prompt="Country"
-					 width="80"
-					 height="15"
-					 dropdownWidth="170"
-					 dataProvider="{res.countries}"
-					 change="{countryChangeHandler(event)}"/>
-		<mx:ComboBox id="langFromComboBox"
-					 width="80"
-					 prompt="Language"
-					 height="15"
-					 dataProvider="{res.langs}"
-					 change="{languageChangeHandler(event)}"/>
-	</mx:HBox>
-	<mx:HBox width="100%"
-			 paddingRight="10">
-		<mx:TextInput width="100%"
-					  height="18"
-					  id="keywordTextInput"
-					  change="{}"/>
-		<mx:Button label="Translate"
-				   height="18"
-				   enabled="{langFromComboBox.selectedIndex>0}"
-				   click="{translate()}"/>
-		<mx:Button label="Search"
-				   height="18"
-				   styleName="alarmButton"
-				   click="{searchClickHandler()}"/>
-	</mx:HBox>
-	<mx:VBox width="100%"
-			 height="{this.height - 70>450?450:this.height - 70}"
-			 maxHeight="300"
-			 backgroundColor="white"
-			 paddingLeft="0"
-			 verticalAlign="top">
-		<mx:Repeater id="rep"
-					 dataProvider="{searchDTO.searchItems}">
-			<local:ItemBox region="{countryComboBox.selectedItem.region}"
-						   currentItem="{rep.currentItem}"/>
-			<mx:HRule width="100%"/>
-		</mx:Repeater>
-	</mx:VBox>
-	<local:PaginationBox id="paginationBox"
-						 currentPage="{page}"
-						 pagesCount="{searchDTO.pagesCount}"
-						 changePage="{changePageHandler(event)}"/>
-	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={rnd}"/>
+	<services:NewReleasesService id="newReleasesService"
+								 searchDTO="{searchDTO}"
+								 result="{searchDTO=newReleasesService.searchDTO}"/>
+	<services:AmazonSearchService id="amazonSearchService"
+								  searchDTO="{searchDTO}"
+								  keyword="{searchBox.keyword}"
+								  category="{settingsBox.selectedCategory}"
+								  page="{page}"
+								  result="{amazonSearchResultHandler(event)}"/>
+	<services:GoogleSearchService id="googleSearchService"
+								  searchDTO="{searchDTO}"
+								  keyword="{searchBox.keyword}"
+								  category="{settingsBox.selectedCategory}"
+								  page="{page}"
+								  result="{searchDTO=googleSearchService.searchDTO}"/>
+								  
+	<components:SettingsBox id="settingsBox"
+							countries="{res.countries}"
+							categories="{res.categories}"
+							languages="{res.langs}"
+							changeCountry="{countryChangeHandler(event)}"/>
+	<components:SearchBox id="searchBox"
+						  language="{settingsBox.selectedLanguage}"
+						  search="{searchClickHandler()}"/>
+	<components:ContentBox height="{this.height - 70>450?450:this.height - 70}"
+						   country="{settingsBox.selectedCountry}"
+						   searchDTO="{searchDTO}"/>
+	<components:PaginationBox id="paginationBox"
+							  currentPage="{page}"
+							  pagesCount="{searchDTO.pagesCount}"
+							  changePage="{changePageHandler(event)}"/>
+	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={Math.random()}"/>
 	<mx:Script>
 		<![CDATA[
-			import mx.controls.Image;
-			import dto.OfferDTO;
-			import mx.collections.ArrayCollection;
-			import mx.utils.ObjectProxy;
-			import mx.utils.ObjectUtil;
-			import services.Helper;
-			import mx.rpc.AsyncToken;
 			import dto.SearchDTO;
-			import dto.SearchItemDTO;
-			import com.adobe.serialization.json.JSON;
-			import mx.rpc.events.ResultEvent;
 			[Bindable]
 			private var page:int=1;
 			[Bindable]
 			private var keyword:String="";
 			[Bindable]
 			private var searchDTO:SearchDTO;
+			[Bindable]
+			private var useGoogleFlag:Boolean=false; 
 
-
-			private function findGoogleResults():void
-			{
-				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, keywordTextInput.text ? keywordTextInput.text : "", categoryComboBox.value ? categoryComboBox.selectedItem.label : "");
-				googleRequest.send();
-			}
-
-			private function googleResultsHandler(event:ResultEvent):void
-			{
-				searchDTO=Helper.parseGoogleResults(event);
-				sendAmazonRequest(Helper.createAmazonURL(searchDTO));				
-			}
-
-			private function sendAmazonRequest(url:String):void{
-				amazonRequest.url=url;
-				amazonRequest.send();
-			}
-			
-			private function amazonResultsHandler(event:ResultEvent):void
-			{
-				var rawData:String=String(event.result);
-				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
-				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
-				Helper.generateSignature(amazonSearch.request);
-				amazonSearch.send();
-			}
-
-			private function translateResultsHandler(event:ResultEvent):void
-			{
-				keywordTextInput.text=Helper.parseTranslateResults(event);
-			}
-
-			private function translate():void
-			{
-				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(langFromComboBox.selectedItem.value), "en");
-				translateRequest.send();
-			}
-
-			private function amazonSearchResultHandler(event:ResultEvent):void
-			{
-				var raw:Object=event.result.ItemLookupResponse.Items.Item;
-				if (raw is ArrayCollection)
-				{
-					searchDTO=Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
-				}
-				else if (raw)
-				{
-					searchDTO=Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
-				}
-			}
-
-			private function changePageHandler(event:Event):void
-			{
+			private function changePageHandler(event:Event):void {
 				page=paginationBox.currentPage;
-				findGoogleResults();
-			}
-			
-			private function init():void{
-				res.countries.sortOn("label");
-				var cont:Number = getSelectedCountry();
-				if(cont) {
-					countryComboBox.selectedIndex = cont;
-				}
-				var lang:Number = getSelectedLanguage();
-				if(lang) {
-					langFromComboBox.selectedIndex = lang;
-				}
-				sendAmazonRequest(Helper.createAmazonNewReleasesURL());
-			}
-			
-			private function getSelectedCountry():Number{
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				if(obj.data.hasOwnProperty("selectedCountry")){
-					return Number(obj.data.selectedCountry);
-				}
-				return NaN;
+				useGoogleFlag ? googleSearchService.sendRequest() : amazonSearchService.sendRequest();
 			}
 
-			private function getSelectedLanguage():Number{
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				if(obj.data.hasOwnProperty("selectedLanguage")){
-					return Number(obj.data.selectedLanguage);
-				}
-				return NaN;
+			private function init():void {
+				newReleasesService.sendRequest();
 			}
-			
+
 			private function countryChangeHandler(event:Event):void {
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				obj.data.selectedCountry = countryComboBox.selectedIndex;
-				obj.flush();
-				if(searchDTO){
+				if (searchDTO) {
 					searchDTO.searchItems.refresh();
-				}				
+				}
 			}
 
-			private function languageChangeHandler(event:Event):void {
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				obj.data.selectedLanguage = langFromComboBox.selectedIndex;
-				obj.flush();
-			}
-			
-			private function get rnd():Number {
-				return Math.random();
-			}
-			
-			private function searchClickHandler():void
-			{
+			private function searchClickHandler():void {
 				page=1;
-				findGoogleResults();
+				useGoogleFlag=false;
+				amazonSearchService.sendRequest();
 				var img:Image=new Image();
-				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (keywordTextInput.text ? keywordTextInput.text : "");
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (searchBox.keyword ?
+					searchBox.keyword : "");
 				img.initialize();
-			}			
+			}
+			
+			private function amazonSearchResultHandler(event:Event):void {
+				if(amazonSearchService.searchDTO.searchItems.length>0 || page>1){
+					searchDTO = amazonSearchService.searchDTO;
+				} else {
+					useGoogleFlag=true;
+					googleSearchService.sendRequest();
+				}
+			}
 		]]>
 	</mx:Script>
 </mx:Application>

@@ -2,17 +2,17 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
 		 verticalGap="0"
 		 xmlns:local="*"
-		 width="100%">
+		 width="100%" xmlns:components="components.*">
 	<mx:Button id="checkAvailabilityButton"
 			   styleName="alarmButton"
 			   height="18"
-			   enabled="{region &amp;&amp; true}"
+			   enabled="{region || false}"
 			   label="Check Shipping"
 			   toolTip="Check Shipping to Selected Country"
 			   click="{checkAvailabilityClickHandler(event)}"/>
 	<mx:Repeater id="checkAvailabilityRep"
 				 width="100%">
-		<local:MerchantItemBox offerDTO="{checkAvailabilityRep.currentItem}"
+		<components:MerchantItemBox offerDTO="{checkAvailabilityRep.currentItem}"
 							   asin="{dataProvider.id}"
 							   backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
 	</mx:Repeater>
