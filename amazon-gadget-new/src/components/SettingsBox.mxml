@@ -10,20 +10,23 @@
 				 height="15"
 				 dropdownWidth="200"
 				 dataProvider="{categories}"
-				 change="{categoryChangeHandler(event)}"/>
+				 change="{categoryChangeHandler(event)}"
+				 selectedItem="{selectedCategory}"/>
 	<mx:ComboBox id="countryComboBox"
 				 prompt="Country"
 				 width="80"
 				 height="15"
 				 dropdownWidth="170"
 				 dataProvider="{countries}"
-				 change="{countryChangeHandler(event)}"/>
+				 change="{countryChangeHandler(event)}"
+				 selectedItem="{selectedCountry}"/>
 	<mx:ComboBox id="langFromComboBox"
 				 width="80"
 				 prompt="Language"
 				 height="15"
 				 dataProvider="{languages}"
-				 change="{languageChangeHandler(event)}"/>
+				 change="{languageChangeHandler(event)}"
+				 selectedItem="{selectedLanguage}"/>
 	<mx:Script>
 		<![CDATA[
 			[Bindable]
@@ -65,10 +68,12 @@
 				var cont:Number = getSelectedCountry();
 				if(cont) {
 					countryComboBox.selectedIndex = cont;
+					selectedCountry = countryComboBox.selectedItem; 
 				}
 				var lang:Number = getSelectedLanguage();
 				if(lang) {
 					langFromComboBox.selectedIndex = lang;
+					selectedLanguage = langFromComboBox.selectedItem; 
 				}
 			}
 			
