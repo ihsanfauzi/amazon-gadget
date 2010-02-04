@@ -11,7 +11,8 @@
 				horizontalAlign="left"
 				verticalScrollPolicy="off"
 				horizontalScrollPolicy="off"
-				creationComplete="{init()}" xmlns:components="components.*">
+				creationComplete="{init()}"
+				xmlns:components="components.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
@@ -26,12 +27,6 @@
 					method="GET"
 					resultFormat="text"
 					result="{amazonResultsHandler(event)}"/>
-	<mx:HTTPService id="translateRequest"
-					showBusyCursor="true"
-					useProxy="false"
-					method="GET"
-					resultFormat="text"
-					result="{translateResultsHandler(event)}"/>
 	<mx:HTTPService id="amazonSearch"
 					url="http://ecs.amazonaws.com/onca/xml"
 					showBusyCursor="true"
@@ -62,21 +57,9 @@
 							categories="{res.categories}"
 							languages="{res.langs}"
 							changeCountry="{countryChangeHandler(event)}"/>
-	<mx:HBox width="100%"
-			 paddingRight="10">
-		<mx:TextInput width="100%"
-					  height="18"
-					  id="keywordTextInput"
-					  change="{}"/>
-		<mx:Button label="Translate"
-				   height="18"
-				   enabled="{settingsBox.selectedLanguage || false}"
-				   click="{translate()}"/>
-		<mx:Button label="Search"
-				   height="18"
-				   styleName="alarmButton"
-				   click="{searchClickHandler()}"/>
-	</mx:HBox>
+	<components:SearchBox id="searchBox"
+						  language="{settingsBox.selectedLanguage}"
+						  search="{searchClickHandler()}"/>
 	<mx:VBox width="100%"
 			 height="{this.height - 70>450?450:this.height - 70}"
 			 maxHeight="300"
@@ -85,15 +68,15 @@
 			 verticalAlign="top">
 		<mx:Repeater id="rep"
 					 dataProvider="{searchDTO.searchItems}">
-			<local:ItemBox region="{settingsBox.selectedCountry.region}"
-						   currentItem="{rep.currentItem}"/>
+			<components:ItemBox region="{settingsBox.selectedCountry.region}"
+								currentItem="{rep.currentItem}"/>
 			<mx:HRule width="100%"/>
 		</mx:Repeater>
 	</mx:VBox>
-	<local:PaginationBox id="paginationBox"
-						 currentPage="{page}"
-						 pagesCount="{searchDTO.pagesCount}"
-						 changePage="{changePageHandler(event)}"/>
+	<components:PaginationBox id="paginationBox"
+							  currentPage="{page}"
+							  pagesCount="{searchDTO.pagesCount}"
+							  changePage="{changePageHandler(event)}"/>
 	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={rnd}"/>
 	<mx:Script>
 		<![CDATA[
@@ -116,25 +99,23 @@
 			private var searchDTO:SearchDTO;
 
 
-			private function findGoogleResults():void
-			{
-				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, keywordTextInput.text ? keywordTextInput.text : "", settingsBox.selectedCategory ? settingsBox.label : "");
+			private function findGoogleResults():void {
+				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, searchBox.keyword ? searchBox.keyword :
+					"", settingsBox.selectedCategory ? settingsBox.label : "");
 				googleRequest.send();
 			}
 
-			private function googleResultsHandler(event:ResultEvent):void
-			{
+			private function googleResultsHandler(event:ResultEvent):void {
 				searchDTO=Helper.parseGoogleResults(event);
-				sendAmazonRequest(Helper.createAmazonURL(searchDTO));				
+				sendAmazonRequest(Helper.createAmazonURL(searchDTO));
 			}
 
-			private function sendAmazonRequest(url:String):void{
+			private function sendAmazonRequest(url:String):void {
 				amazonRequest.url=url;
 				amazonRequest.send();
 			}
-			
-			private function amazonResultsHandler(event:ResultEvent):void
-			{
+
+			private function amazonResultsHandler(event:ResultEvent):void {
 				var rawData:String=String(event.result);
 				searchDTO=Helper.parseAmazonResults(searchDTO, rawData);
 				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
@@ -142,58 +123,43 @@
 				amazonSearch.send();
 			}
 
-			private function translateResultsHandler(event:ResultEvent):void
-			{
-				keywordTextInput.text=Helper.parseTranslateResults(event);
-			}
 
-			private function translate():void
-			{
-				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(settingsBox.selectedLanguage.value), "en");
-				translateRequest.send();
-			}
-
-			private function amazonSearchResultHandler(event:ResultEvent):void
-			{
+			private function amazonSearchResultHandler(event:ResultEvent):void {
 				var raw:Object=event.result.ItemLookupResponse.Items.Item;
-				if (raw is ArrayCollection)
-				{
+				if (raw is ArrayCollection) {
 					searchDTO=Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
-				}
-				else if (raw)
-				{
+				} else if (raw) {
 					searchDTO=Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
 				}
 			}
 
-			private function changePageHandler(event:Event):void
-			{
+			private function changePageHandler(event:Event):void {
 				page=paginationBox.currentPage;
 				findGoogleResults();
 			}
-			
-			private function init():void{
+
+			private function init():void {
 				sendAmazonRequest(Helper.createAmazonNewReleasesURL());
 			}
-			
+
 			private function countryChangeHandler(event:Event):void {
-				if(searchDTO){
+				if (searchDTO) {
 					searchDTO.searchItems.refresh();
-				}				
+				}
 			}
 
 			private function get rnd():Number {
 				return Math.random();
 			}
-			
-			private function searchClickHandler():void
-			{
+
+			private function searchClickHandler():void {
 				page=1;
 				findGoogleResults();
 				var img:Image=new Image();
-				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (keywordTextInput.text ? keywordTextInput.text : "");
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=search&p=" + (searchBox.keyword ?
+					searchBox.keyword : "");
 				img.initialize();
-			}			
+			}
 		]]>
 	</mx:Script>
 </mx:Application>
