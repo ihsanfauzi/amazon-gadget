@@ -60,24 +60,14 @@
 	<components:SearchBox id="searchBox"
 						  language="{settingsBox.selectedLanguage}"
 						  search="{searchClickHandler()}"/>
-	<mx:VBox width="100%"
-			 height="{this.height - 70>450?450:this.height - 70}"
-			 maxHeight="300"
-			 backgroundColor="white"
-			 paddingLeft="0"
-			 verticalAlign="top">
-		<mx:Repeater id="rep"
-					 dataProvider="{searchDTO.searchItems}">
-			<components:ItemBox region="{settingsBox.selectedCountry.region}"
-								currentItem="{rep.currentItem}"/>
-			<mx:HRule width="100%"/>
-		</mx:Repeater>
-	</mx:VBox>
+	<components:ContentBox height="{this.height - 70>450?450:this.height - 70}"
+						   country="{settingsBox.selectedCountry}"
+						   searchDTO="{searchDTO}"/>
 	<components:PaginationBox id="paginationBox"
 							  currentPage="{page}"
 							  pagesCount="{searchDTO.pagesCount}"
 							  changePage="{changePageHandler(event)}"/>
-	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={rnd}"/>
+	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={Math.random()}"/>
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.Image;
@@ -146,10 +136,6 @@
 				if (searchDTO) {
 					searchDTO.searchItems.refresh();
 				}
-			}
-
-			private function get rnd():Number {
-				return Math.random();
 			}
 
 			private function searchClickHandler():void {
