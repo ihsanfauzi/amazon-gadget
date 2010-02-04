@@ -46,6 +46,7 @@
 			{
 				var item:SearchItemDTO = currentItem;
 				var price:String=item.price ? '<b>Price:' + item.price + "</b>" : "";
+				//TODO reimplement http://wms.assoc-amazon.com/US/img/star45_tpng.png
 				var rating:String=item.rating ? '<b>Rating:' + item.rating + "</b>" : "";
 				if (price)
 				{
