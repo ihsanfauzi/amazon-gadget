@@ -11,7 +11,7 @@
 				horizontalAlign="left"
 				verticalScrollPolicy="off"
 				horizontalScrollPolicy="off"
-				creationComplete="{init()}">
+				creationComplete="{init()}" xmlns:components="components.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HTTPService id="googleRequest"
@@ -57,28 +57,11 @@
 			</MerchantId>
 		</mx:request>
 	</mx:HTTPService>
-
-	<mx:HBox>
-		<mx:ComboBox id="categoryComboBox"
-					 prompt="Category"
-					 width="80"
-					 height="15"
-					 dropdownWidth="200"
-					 dataProvider="{res.categories}"/>
-		<mx:ComboBox id="countryComboBox"
-					 prompt="Country"
-					 width="80"
-					 height="15"
-					 dropdownWidth="170"
-					 dataProvider="{res.countries}"
-					 change="{countryChangeHandler(event)}"/>
-		<mx:ComboBox id="langFromComboBox"
-					 width="80"
-					 prompt="Language"
-					 height="15"
-					 dataProvider="{res.langs}"
-					 change="{languageChangeHandler(event)}"/>
-	</mx:HBox>
+	<components:SettingsBox id="settingsBox"
+							countries="{res.countries}"
+							categories="{res.categories}"
+							languages="{res.langs}"
+							changeCountry="{countryChangeHandler(event)}"/>
 	<mx:HBox width="100%"
 			 paddingRight="10">
 		<mx:TextInput width="100%"
@@ -87,7 +70,7 @@
 					  change="{}"/>
 		<mx:Button label="Translate"
 				   height="18"
-				   enabled="{langFromComboBox.selectedIndex>0}"
+				   enabled="{settingsBox.selectedLanguage || false}"
 				   click="{translate()}"/>
 		<mx:Button label="Search"
 				   height="18"
@@ -102,7 +85,7 @@
 			 verticalAlign="top">
 		<mx:Repeater id="rep"
 					 dataProvider="{searchDTO.searchItems}">
-			<local:ItemBox region="{countryComboBox.selectedItem.region}"
+			<local:ItemBox region="{settingsBox.selectedCountry.region}"
 						   currentItem="{rep.currentItem}"/>
 			<mx:HRule width="100%"/>
 		</mx:Repeater>
@@ -135,7 +118,7 @@
 
 			private function findGoogleResults():void
 			{
-				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, keywordTextInput.text ? keywordTextInput.text : "", categoryComboBox.value ? categoryComboBox.selectedItem.label : "");
+				googleRequest.url=Helper.createGoogleSearchAmazonURL(page, keywordTextInput.text ? keywordTextInput.text : "", settingsBox.selectedCategory ? settingsBox.label : "");
 				googleRequest.send();
 			}
 
@@ -166,7 +149,7 @@
 
 			private function translate():void
 			{
-				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(langFromComboBox.selectedItem.value), "en");
+				translateRequest.url=Helper.createTranslateURL(keywordTextInput.text, String(settingsBox.selectedLanguage.value), "en");
 				translateRequest.send();
 			}
 
@@ -190,49 +173,15 @@
 			}
 			
 			private function init():void{
-				res.countries.sortOn("label");
-				var cont:Number = getSelectedCountry();
-				if(cont) {
-					countryComboBox.selectedIndex = cont;
-				}
-				var lang:Number = getSelectedLanguage();
-				if(lang) {
-					langFromComboBox.selectedIndex = lang;
-				}
 				sendAmazonRequest(Helper.createAmazonNewReleasesURL());
 			}
 			
-			private function getSelectedCountry():Number{
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				if(obj.data.hasOwnProperty("selectedCountry")){
-					return Number(obj.data.selectedCountry);
-				}
-				return NaN;
-			}
-
-			private function getSelectedLanguage():Number{
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				if(obj.data.hasOwnProperty("selectedLanguage")){
-					return Number(obj.data.selectedLanguage);
-				}
-				return NaN;
-			}
-			
 			private function countryChangeHandler(event:Event):void {
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				obj.data.selectedCountry = countryComboBox.selectedIndex;
-				obj.flush();
 				if(searchDTO){
 					searchDTO.searchItems.refresh();
 				}				
 			}
 
-			private function languageChangeHandler(event:Event):void {
-				var obj:SharedObject = SharedObject.getLocal("Preferencies");
-				obj.data.selectedLanguage = langFromComboBox.selectedIndex;
-				obj.flush();
-			}
-			
 			private function get rnd():Number {
 				return Math.random();
 			}
