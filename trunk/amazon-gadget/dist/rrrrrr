@@ -1,0 +1,1997 @@
+<report>
+  <scripts>
+    <script name="E:\workAstore\amazon-gadget\src\services\Helper.as" mod="1265306646828" size="11616" optimizedsize="8030">
+      <def id="services:Helper" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="mx.formatters:DateFormatter" />
+      <dep id="com.adobe.serialization.json:JSON" />
+      <dep id="com.hurlant.crypto.hash:HMAC" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="mx.collections:Sort" />
+      <dep id="trace" />
+      <dep id="com.hurlant.crypto.hash:SHA256" />
+      <dep id="mx.utils:StringUtil" />
+      <dep id="Math" />
+      <dep id="flash.net:navigateToURL" />
+      <dep id="mx.utils:Base64Encoder" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.collections:ArrayCollection" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="Date" />
+      <dep id="AS3" />
+      <dep id="flash.external:ExternalInterface" />
+      <dep id="mx.collections:SortField" />
+      <dep id="dto:SearchItemDTO" />
+      <dep id="dto:OfferDTO" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONParseError.as" mod="1265306162859" size="861" optimizedsize="366">
+      <def id="com.adobe.serialization.json:JSONParseError" />
+      <pre id="Error" />
+      <dep id="AS3" />
+    </script>
+    <script name="_services_GoogleSearchServiceWatcherSetupUtil.as" mod="1265464432125" size="1289" optimizedsize="833">
+      <def id="_services_GoogleSearchServiceWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="services:GoogleSearchService" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc(mx/resources/ResourceBundle)" mod="1234166244194" size="3591" optimizedsize="1670">
+      <def id="mx.resources:ResourceBundle" />
+      <pre id="mx.resources:IResourceBundle" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.utils:StringUtil" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="Error" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/systemClasses/PlaceholderData)" mod="1231356703757" size="696" optimizedsize="299">
+      <def id="mx.managers.systemClasses:PlaceholderData" />
+      <pre id="Object" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/SystemManagerProxy)" mod="1231356704648" size="4545" optimizedsize="2375">
+      <def id="mx.managers:SystemManagerProxy" />
+      <pre id="mx.managers:SystemManager" />
+      <dep id="mx.managers:IFocusManagerContainer" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="mx.core:ISWFBridgeGroup" />
+      <dep id="mx.core:ISWFBridgeProvider" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.events:SWFBridgeEvent" />
+      <dep id="mx.utils:NameUtil" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.utils:SecurityUtil" />
+      <dep id="mx.managers:ISystemManager" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/systemClasses/StageEventProxy)" mod="1231356703741" size="988" optimizedsize="499">
+      <def id="mx.managers.systemClasses:StageEventProxy" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="flash.display:Stage" />
+      <dep id="flash.utils:Dictionary" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONToken.as" mod="1265306163359" size="968" optimizedsize="371">
+      <def id="com.adobe.serialization.json:JSONToken" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_main_FlexInit-generated.as" mod="1265464432406" size="3663" optimizedsize="3326">
+      <def id="_main_FlexInit" />
+      <pre id="Object" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.collections:ArrayList" />
+      <dep id="mx.messaging.messages:MessagePerformanceInfo" />
+      <dep id="mx.messaging.messages:HTTPRequestMessage" />
+      <dep id="mx.messaging.messages:AcknowledgeMessage" />
+      <dep id="mx.messaging.messages:CommandMessage" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.collections:ArrayCollection" />
+      <dep id="mx.effects:EffectManager" />
+      <dep id="flash.net:registerClassAlias" />
+      <dep id="mx.utils:ObjectProxy" />
+      <dep id="mx.messaging.messages:AsyncMessageExt" />
+      <dep id="flash.net:getClassByAlias" />
+      <dep id="mx.messaging.messages:AcknowledgeMessageExt" />
+      <dep id="AS3" />
+      <dep id="mx.messaging.config:ConfigMap" />
+      <dep id="mx.messaging.messages:ErrorMessage" />
+      <dep id="mx.messaging.messages:AsyncMessage" />
+      <dep id="mx.messaging.messages:CommandMessageExt" />
+    </script>
+    <script name="_textAreaVScrollBarStyleStyle.as" mod="9223372036854775807" size="674" optimizedsize="460">
+      <def id="_textAreaVScrollBarStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHA256.as" mod="1265306166953" size="2657" optimizedsize="1785">
+      <def id="com.hurlant.crypto.hash:SHA256" />
+      <pre id="com.hurlant.crypto.hash:SHABase" />
+      <pre id="com.hurlant.crypto.hash:IHash" />
+      <dep id="AS3" />
+    </script>
+    <script name="_todayStyleStyle.as" mod="9223372036854775807" size="713" optimizedsize="530">
+      <def id="_todayStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_opaquePanelStyle.as" mod="9223372036854775807" size="807" optimizedsize="619">
+      <def id="_opaquePanelStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/modules/ModuleManager)" mod="1231356724023" size="10575" optimizedsize="5426">
+      <def id="mx.modules:ModuleManager" />
+      <pre id="mx.modules:IModuleInfo" />
+      <pre id="flash.events:EventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="flash.system:Security" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.display:Loader" />
+      <dep id="flash.events:SecurityErrorEvent" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="Error" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="flash.utils:getQualifiedClassName" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="mx.modules:ModuleManagerGlobals" />
+      <dep id="flash.events:ProgressEvent" />
+      <dep id="AS3" />
+      <dep id="mx.events:ModuleEvent" />
+      <dep id="flash.utils:Dictionary" />
+      <dep id="flash.system:LoaderContext" />
+      <dep id="flash.events:ErrorEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\rpc_rb.swc$locale/en_US/rpc.properties" mod="1231356667068" size="4200" optimizedsize="4124">
+      <def id="en_US$rpc_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\framework_rb.swc$locale/en_US/logging.properties" mod="1231356741852" size="728" optimizedsize="697">
+      <def id="en_US$logging_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHABase.as" mod="1265306166937" size="1456" optimizedsize="748">
+      <def id="com.hurlant.crypto.hash:SHABase" />
+      <pre id="com.hurlant.crypto.hash:IHash" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
+      <dep id="flash.utils:Endian" />
+    </script>
+    <script name="components\MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859.as" mod="1265306161546" size="969" optimizedsize="396">
+      <def id="components:MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859" />
+      <pre id="mx.core:BitmapAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\ItemBox.mxml" mod="1265306161890" size="7456" optimizedsize="5295">
+      <def id="components:ItemBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.containers:HBox" />
+      <dep id="mx.containers:VBox" />
+      <dep id="mx.controls:LinkButton" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="mx.controls:Text" />
+      <dep id="flash.net:navigateToURL" />
+      <dep id="Math" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.controls:Image" />
+      <dep id="mx.controls:Label" />
+      <dep id="AS3" />
+      <dep id="mx.binding:Binding" />
+      <dep id="_components_ItemBoxWatcherSetupUtil" />
+      <dep id="components:CheckAvailabilityBox" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="dto:SearchItemDTO" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_main_mx_managers_SystemManager.as" mod="1265464432406" size="3499" optimizedsize="3061">
+      <def id="_main_mx_managers_SystemManager" />
+      <pre id="mx.core:IFlexModuleFactory" />
+      <pre id="mx.managers:SystemManager" />
+      <dep id="en_US$collections_properties" />
+      <dep id="en_US$skins_properties" />
+      <dep id="en_US$containers_properties" />
+      <dep id="en_US$core_properties" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="en_US$formatters_properties" />
+      <dep id="en_US$styles_properties" />
+      <dep id="en_US$logging_properties" />
+      <dep id="en_US$controls_properties" />
+      <dep id="en_US$SharedResources_properties" />
+      <dep id="AS3" />
+      <dep id="en_US$effects_properties" />
+      <dep id="en_US$messaging_properties" />
+      <dep id="mx.core:IFlexModule" />
+      <dep id="en_US$rpc_properties" />
+      <dep id="mx.core:CrossDomainRSLItem" />
+    </script>
+    <script name="_components_ItemBoxWatcherSetupUtil.as" mod="1265464432171" size="1552" optimizedsize="1150">
+      <def id="_components_ItemBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="components:ItemBox" />
+      <dep id="AS3" />
+    </script>
+    <script name="_plainStyle.as" mod="9223372036854775807" size="798" optimizedsize="640">
+      <def id="_plainStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/ISWFBridgeProvider)" mod="1231356701616" size="785" optimizedsize="263">
+      <def id="mx.core:ISWFBridgeProvider" />
+      <pre id="Object" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/SystemManager)" mod="1233152389697" size="66648" optimizedsize="36838">
+      <def id="mx.managers:SystemManager" />
+      <pre id="mx.core:IFlexModuleFactory" />
+      <pre id="mx.managers:ISystemManager" />
+      <pre id="mx.core:ISWFBridgeProvider" />
+      <pre id="mx.core:IChildList" />
+      <pre id="flash.display:MovieClip" />
+      <pre id="mx.core:IFlexDisplayObject" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.core:ISWFBridgeGroup" />
+      <dep id="flash.display:DisplayObjectContainer" />
+      <dep id="flash.display:InteractiveObject" />
+      <dep id="Math" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="mx.core:IUIComponent" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="mx.events:SWFBridgeEvent" />
+      <dep id="mx.events:SandboxMouseEvent" />
+      <dep id="mx.managers:SystemRawChildrenList" />
+      <dep id="flash.display:Graphics" />
+      <dep id="flash.text:TextFormat" />
+      <dep id="mx.managers.systemClasses:PlaceholderData" />
+      <dep id="flash.events:TimerEvent" />
+      <dep id="mx.managers:SystemManagerGlobals" />
+      <dep id="mx.events:InvalidateRequestData" />
+      <dep id="flash.display:StageAlign" />
+      <dep id="flash.display:Sprite" />
+      <dep id="mx.utils:LoaderUtil" />
+      <dep id="mx.preloaders:Preloader" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="mx.messaging.config:LoaderConfig" />
+      <dep id="mx.managers.systemClasses:EventProxy" />
+      <dep id="flash.display:Loader" />
+      <dep id="mx.managers.systemClasses:RemotePopUp" />
+      <dep id="flash.geom:Point" />
+      <dep id="mx.managers:SystemChildrenList" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.utils:SecurityUtil" />
+      <dep id="flash.text:Font" />
+      <dep id="flash.system:Capabilities" />
+      <dep id="mx.events:FlexChangeEvent" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.display:Stage" />
+      <dep id="mx.styles:ISimpleStyleClient" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.core:SWFBridgeGroup" />
+      <dep id="ArgumentError" />
+      <dep id="mx.core:IRawChildrenContainer" />
+      <dep id="mx.events:InterManagerRequest" />
+      <dep id="QName" />
+      <dep id="mx.core:TextFieldFactory" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.managers:ILayoutManagerClient" />
+      <dep id="mx.resources:ResourceManager" />
+      <dep id="mx.core:FlexSprite" />
+      <dep id="mx.utils:EventUtil" />
+      <dep id="mx.managers:SystemManagerProxy" />
+      <dep id="mx.events:EventListenerRequest" />
+      <dep id="mx.resources:IResourceManager" />
+      <dep id="mx.core:RSLItem" />
+      <dep id="flash.utils:getQualifiedClassName" />
+      <dep id="AS3" />
+      <dep id="mx.core:Singleton" />
+      <dep id="mx.events:FlexEvent" />
+      <dep id="mx.managers:IFocusManager" />
+      <dep id="flash.utils:Dictionary" />
+      <dep id="mx.core:EmbeddedFontRegistry" />
+      <dep id="flash.display:StageScaleMode" />
+      <dep id="mx.preloaders:DownloadProgressBar" />
+      <dep id="mx.styles:IStyleClient" />
+      <dep id="SecurityError" />
+      <dep id="mx.managers:IFocusManagerContainer" />
+      <dep id="mx.managers.systemClasses:StageEventProxy" />
+      <dep id="mx.core:IInvalidating" />
+      <dep id="mx.resources:ResourceBundle" />
+      <dep id="Error" />
+      <dep id="mx.core:EventPriority" />
+      <dep id="mx.utils:NameUtil" />
+      <dep id="mx.core:ISWFLoader" />
+      <dep id="mx.events:SWFBridgeRequest" />
+      <dep id="flash.utils:Timer" />
+      <dep id="mx.managers:PopUpManagerChildList" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/utils/LoaderUtil)" mod="1231957127565" size="1149" optimizedsize="646">
+      <def id="mx.utils:LoaderUtil" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="Math" />
+      <dep id="flash.display:LoaderInfo" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/events/FlexEvent)" mod="1231356718898" size="2416" optimizedsize="1479">
+      <def id="mx.events:FlexEvent" />
+      <pre id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/preloaders/DownloadProgressBar)" mod="1231356704976" size="18080" optimizedsize="9348">
+      <def id="mx.preloaders:DownloadProgressBar" />
+      <pre id="mx.preloaders:IPreloaderDisplay" />
+      <pre id="flash.display:Sprite" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.graphics:RectangularDropShadow" />
+      <dep id="Math" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="flash.display:GradientType" />
+      <dep id="flash.display:Graphics" />
+      <dep id="flash.text:TextFormat" />
+      <dep id="AS3" />
+      <dep id="flash.geom:Matrix" />
+      <dep id="flash.events:TimerEvent" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:FlexEvent" />
+      <dep id="flash.text:TextFieldAutoSize" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.events:RSLEvent" />
+      <dep id="flash.display:Loader" />
+      <dep id="flash.utils:getTimer" />
+      <dep id="Error" />
+      <dep id="flash.events:ProgressEvent" />
+      <dep id="flash.text:TextField" />
+      <dep id="flash.system:Capabilities" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.utils:Timer" />
+      <dep id="flash.system:LoaderContext" />
+      <dep id="mx.graphics:RoundedRectangle" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/utils/SHA256)" mod="1231356706913" size="3483" optimizedsize="2295">
+      <def id="mx.utils:SHA256" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
+      <dep id="Math" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IFlexDisplayObject)" mod="1231356701241" size="6251" optimizedsize="1339">
+      <def id="mx.core:IFlexDisplayObject" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="flash.display:IBitmapDrawable" />
+      <pre id="Object" />
+      <dep id="flash.accessibility:AccessibilityProperties" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObjectContainer" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.display:Stage" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="flash.geom:Point" />
+      <dep id="flash.geom:Transform" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/managers/IFocusManagerContainer)" mod="1231356704663" size="1056" optimizedsize="358">
+      <def id="mx.managers:IFocusManagerContainer" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="mx.managers:ISystemManager" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="mx.managers:IFocusManager" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/Singleton)" mod="1231356701648" size="1089" optimizedsize="554">
+      <def id="mx.core:Singleton" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+    </script>
+    <script name="_ContainerStyle.as" mod="9223372036854775807" size="687" optimizedsize="509">
+      <def id="_ContainerStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\CheckAvailabilityBox.mxml" mod="1265306161937" size="7608" optimizedsize="5304">
+      <def id="components:CheckAvailabilityBox" />
+      <pre id="mx.containers:VBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="mx.rpc:AsyncToken" />
+      <dep id="Math" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.core:Repeater" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.controls:Button" />
+      <dep id="components:MerchantItemBox" />
+      <dep id="services:Helper" />
+      <dep id="_components_CheckAvailabilityBoxWatcherSetupUtil" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.binding:RepeatableBinding" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="AS3" />
+      <dep id="mx.binding:Binding" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="dto:SearchItemDTO" />
+      <dep id="mx.events:PropertyChangeEvent" />
+      <dep id="dto:OfferDTO" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/utils/SecurityUtil)" mod="1231356706820" size="820" optimizedsize="453">
+      <def id="mx.utils:SecurityUtil" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:ISWFBridgeProvider" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/graphics/RectangularDropShadow)" mod="1231356705913" size="6377" optimizedsize="3121">
+      <def id="mx.graphics:RectangularDropShadow" />
+      <pre id="Object" />
+      <dep id="mx.core:FlexShape" />
+      <dep id="flash.display:Graphics" />
+      <dep id="flash.display:BitmapData" />
+      <dep id="AS3" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="flash.geom:Matrix" />
+      <dep id="Math" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.utils:GraphicsUtil" />
+      <dep id="flash.geom:Point" />
+      <dep id="flash.filters:DropShadowFilter" />
+      <dep id="flash.display:Shape" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/containers.properties" mod="1234166223505" size="451" optimizedsize="422">
+      <def id="en_US$containers_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/IStyleManager2)" mod="1231356689679" size="817" optimizedsize="337">
+      <def id="mx.styles:IStyleManager2" />
+      <pre id="mx.styles:IStyleManager" />
+      <pre id="Object" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="flash.system:ApplicationDomain" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/resources/ResourceManagerImpl)" mod="1231356726664" size="11023" optimizedsize="5793">
+      <def id="mx.resources:ResourceManagerImpl" />
+      <pre id="mx.resources:IResourceManager" />
+      <pre id="flash.events:EventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.resources:LocaleSorter" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="mx.resources:IResourceModule" />
+      <dep id="trace" />
+      <dep id="mx.utils:StringUtil" />
+      <dep id="mx.resources:ResourceBundle" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="Error" />
+      <dep id="mx.modules:ModuleManager" />
+      <dep id="mx.modules:IModuleInfo" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="AS3" />
+      <dep id="mx.resources:IResourceBundle" />
+      <dep id="mx.events:ModuleEvent" />
+      <dep id="flash.system:Capabilities" />
+      <dep id="flash.utils:Timer" />
+      <dep id="mx.events:ResourceEvent" />
+      <dep id="flash.events:TimerEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/managers/IFocusManager)" mod="1231356703991" size="2728" optimizedsize="773">
+      <def id="mx.managers:IFocusManager" />
+      <pre id="Object" />
+      <dep id="mx.core:IButton" />
+      <dep id="mx.managers:IFocusManagerComponent" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="flash.display:InteractiveObject" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.display:Sprite" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONTokenizer.as" mod="1265306162984" size="5438" optimizedsize="3247">
+      <def id="com.adobe.serialization.json:JSONTokenizer" />
+      <pre id="Object" />
+      <dep id="com.adobe.serialization.json:JSONParseError" />
+      <dep id="AS3" />
+      <dep id="com.adobe.serialization.json:JSONToken" />
+      <dep id="com.adobe.serialization.json:JSONTokenType" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\dto\SearchDTO.as" mod="1265306162359" size="1640" optimizedsize="895">
+      <def id="dto:SearchDTO" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.collections:ArrayCollection" />
+      <dep id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/EmbeddedFontRegistry)" mod="1231356701132" size="3621" optimizedsize="1888">
+      <def id="mx.core:EmbeddedFontRegistry" />
+      <pre id="mx.core:IEmbeddedFontRegistry" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.core:EmbeddedFont" />
+      <dep id="AS3" />
+      <dep id="flash.text:FontStyle" />
+      <dep id="mx.core:Singleton" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.utils:Dictionary" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/managers/IFocusManagerComponent)" mod="1231356704757" size="1320" optimizedsize="326">
+      <def id="mx.managers:IFocusManagerComponent" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_ListBaseStyle.as" mod="9223372036854775807" size="892" optimizedsize="717">
+      <def id="_ListBaseStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:ListDropIndicator" />
+    </script>
+    <script name="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragLink_1713098714.as" mod="1231356682000" size="1020" optimizedsize="381">
+      <def id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragLink_1713098714" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/IStyleClient)" mod="1231356689757" size="1956" optimizedsize="564">
+      <def id="mx.styles:IStyleClient" />
+      <pre id="mx.styles:ISimpleStyleClient" />
+      <pre id="Object" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\resources\Resources.mxml" mod="1265306162531" size="34590" optimizedsize="17579">
+      <def id="resources:Resources" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.events:EventDispatcher" />
+      <dep id="resources:Resource" />
+      <dep id="AS3" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_headerDateTextStyle.as" mod="9223372036854775807" size="747" optimizedsize="544">
+      <def id="_headerDateTextStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/TextFieldFactory)" mod="1231356701195" size="1334" optimizedsize="742">
+      <def id="mx.core:TextFieldFactory" />
+      <pre id="mx.core:ITextFieldFactory" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="AS3" />
+      <dep id="flash.text:TextField" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.utils:Dictionary" />
+    </script>
+    <script name="_textAreaHScrollBarStyleStyle.as" mod="9223372036854775807" size="674" optimizedsize="460">
+      <def id="_textAreaHScrollBarStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_dataGridStylesStyle.as" mod="9223372036854775807" size="721" optimizedsize="519">
+      <def id="_dataGridStylesStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/IStyleManager)" mod="1231356689647" size="3763" optimizedsize="1115">
+      <def id="mx.styles:IStyleManager" />
+      <pre id="Object" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\services\MerchantsService.mxml" mod="1265306161687" size="2790" optimizedsize="1842">
+      <def id="services:MerchantsService" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="services:BaseService" />
+      <dep id="services:Helper" />
+      <dep id="mx.collections:ArrayCollection" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="AS3" />
+      <dep id="mx.events:PropertyChangeEvent" />
+      <dep id="dto:SearchDTO" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONDecoder.as" mod="1265306162875" size="2356" optimizedsize="1376">
+      <def id="com.adobe.serialization.json:JSONDecoder" />
+      <pre id="Object" />
+      <dep id="com.adobe.serialization.json:JSONTokenizer" />
+      <dep id="com.adobe.serialization.json:JSONToken" />
+      <dep id="AS3" />
+      <dep id="com.adobe.serialization.json:JSONTokenType" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\resources\Resource.as" mod="1265306162546" size="391" optimizedsize="187">
+      <def id="resources:Resource" />
+      <pre id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/EventPriority)" mod="1231356701210" size="770" optimizedsize="403">
+      <def id="mx.core:EventPriority" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_components_MerchantItemBoxWatcherSetupUtil.as" mod="1265464432265" size="1498" optimizedsize="1051">
+      <def id="_components_MerchantItemBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="components:MerchantItemBox" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/IStyleModule)" mod="1231356689444" size="466" optimizedsize="156">
+      <def id="mx.styles:IStyleModule" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/ISWFLoader)" mod="1231356701616" size="756" optimizedsize="272">
+      <def id="mx.core:ISWFLoader" />
+      <pre id="mx.core:ISWFBridgeProvider" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="flash.geom:Rectangle" />
+    </script>
+    <script name="_headerDragProxyStyleStyle.as" mod="9223372036854775807" size="764" optimizedsize="531">
+      <def id="_headerDragProxyStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_SWFLoaderStyle.as" mod="9223372036854775807" size="1252" optimizedsize="740">
+      <def id="_SWFLoaderStyle" />
+      <pre id="Object" />
+      <dep id="_SWFLoaderStyle__embed_css_Assets_swf___brokenImage_1630522675" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.skins.halo:BrokenImageBorderSkin" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/modules/ModuleManagerGlobals)" mod="1231356724039" size="522" optimizedsize="211">
+      <def id="mx.modules:ModuleManagerGlobals" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IFlexModule)" mod="1231356701163" size="572" optimizedsize="188">
+      <def id="mx.core:IFlexModule" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/collections.properties" mod="1234166223505" size="1321" optimizedsize="1278">
+      <def id="en_US$collections_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="_components_ContentBoxWatcherSetupUtil.as" mod="1265464432156" size="1503" optimizedsize="1084">
+      <def id="_components_ContentBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="components:ContentBox" />
+    </script>
+    <script name="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragReject_2119101689.as" mod="1231356682000" size="1030" optimizedsize="383">
+      <def id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragReject_2119101689" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/RSLListLoader)" mod="1231356700773" size="2335" optimizedsize="1109">
+      <def id="mx.core:RSLListLoader" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.core:RSLItem" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_mainWatcherSetupUtil.as" mod="1265464432062" size="1847" optimizedsize="1522">
+      <def id="_mainWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="main" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/RSLItem)" mod="1231356699710" size="2533" optimizedsize="1515">
+      <def id="mx.core:RSLItem" />
+      <pre id="Object" />
+      <dep id="mx.utils:LoaderUtil" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="trace" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.events:RSLEvent" />
+      <dep id="flash.display:Loader" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.events:SecurityErrorEvent" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="flash.events:ProgressEvent" />
+      <dep id="AS3" />
+      <dep id="flash.system:LoaderContext" />
+      <dep id="flash.events:ErrorEvent" />
+    </script>
+    <script name="_CursorManagerStyle__embed_css_Assets_swf_mx_skins_cursor_BusyCursor_1526773755.as" mod="1231356682000" size="1038" optimizedsize="385">
+      <def id="_CursorManagerStyle__embed_css_Assets_swf_mx_skins_cursor_BusyCursor_1526773755" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc(mx/core/mx_internal)" mod="1234166235225" size="188" optimizedsize="109">
+      <def id="mx.core:mx_internal" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\MerchantItemBox.mxml" mod="1265306161906" size="7316" optimizedsize="5163">
+      <def id="components:MerchantItemBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.containers:HBox" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="mx.controls:Text" />
+      <dep id="_components_MerchantItemBoxWatcherSetupUtil" />
+      <dep id="components:MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427" />
+      <dep id="components:MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.controls:Image" />
+      <dep id="mx.controls:Label" />
+      <dep id="AS3" />
+      <dep id="mx.binding:Binding" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:PropertyChangeEvent" />
+      <dep id="dto:OfferDTO" />
+    </script>
+    <script name="_SWFLoaderStyle__embed_css_Assets_swf___brokenImage_1630522675.as" mod="1231356682000" size="957" optimizedsize="368">
+      <def id="_SWFLoaderStyle__embed_css_Assets_swf___brokenImage_1630522675" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSON.as" mod="1265306163234" size="744" optimizedsize="335">
+      <def id="com.adobe.serialization.json:JSON" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="com.adobe.serialization.json:JSONEncoder" />
+      <dep id="com.adobe.serialization.json:JSONDecoder" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/SWFBridgeGroup)" mod="1231356699835" size="1994" optimizedsize="1027">
+      <def id="mx.core:SWFBridgeGroup" />
+      <pre id="mx.core:ISWFBridgeGroup" />
+      <pre id="Object" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="mx.managers:ISystemManager" />
+      <dep id="AS3" />
+      <dep id="mx.core:ISWFBridgeProvider" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.utils:Dictionary" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/utils/NameUtil)" mod="1231356706648" size="1624" optimizedsize="1100">
+      <def id="mx.utils:NameUtil" />
+      <pre id="Object" />
+      <dep id="mx.core:IRepeaterClient" />
+      <dep id="SecurityError" />
+      <dep id="flash.utils:getQualifiedClassName" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/StyleEvent)" mod="1231356719773" size="1020" optimizedsize="563">
+      <def id="mx.events:StyleEvent" />
+      <pre id="flash.events:ProgressEvent" />
+      <dep id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragCopy_1713360717.as" mod="1231356682000" size="1020" optimizedsize="381">
+      <def id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragCopy_1713360717" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/preloaders/IPreloaderDisplay)" mod="1231356704992" size="2125" optimizedsize="508">
+      <def id="mx.preloaders:IPreloaderDisplay" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="flash.display:Sprite" />
+    </script>
+    <script name="_HRuleStyle.as" mod="9223372036854775807" size="678" optimizedsize="520">
+      <def id="_HRuleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\services\GoogleSearchService.mxml" mod="1265306161656" size="6535" optimizedsize="3763">
+      <def id="services:GoogleSearchService" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="services:BaseService" />
+      <dep id="flash.events:Event" />
+      <dep id="services:MerchantsService" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="_services_GoogleSearchServiceWatcherSetupUtil" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.binding:BindingManager" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_components_CheckAvailabilityBoxWatcherSetupUtil.as" mod="1265464432265" size="1545" optimizedsize="1067">
+      <def id="_components_CheckAvailabilityBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="components:CheckAvailabilityBox" />
+    </script>
+    <script name="_ScrollBarStyle.as" mod="9223372036854775807" size="1000" optimizedsize="814">
+      <def id="_ScrollBarStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.skins.halo:ScrollTrackSkin" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.skins.halo:ScrollThumbSkin" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:ScrollArrowSkin" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/InterManagerRequest)" mod="1231356718742" size="1280" optimizedsize="727">
+      <def id="mx.events:InterManagerRequest" />
+      <pre id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/FlexVersion)" mod="1231356701070" size="2699" optimizedsize="1438">
+      <def id="mx.core:FlexVersion" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="en_US$core_properties" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.resources:ResourceManager" />
+      <dep id="Error" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/FlexChangeEvent)" mod="1233152389868" size="948" optimizedsize="502">
+      <def id="mx.events:FlexChangeEvent" />
+      <pre id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/FlexShape)" mod="1231356700116" size="834" optimizedsize="495">
+      <def id="mx.core:FlexShape" />
+      <pre id="flash.display:Shape" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+      <dep id="mx.utils:NameUtil" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONEncoder.as" mod="1265306163109" size="2806" optimizedsize="1729">
+      <def id="com.adobe.serialization.json:JSONEncoder" />
+      <pre id="Object" />
+      <dep id="flash.utils:describeType" />
+      <dep id="AS3" />
+      <dep id="XML" />
+    </script>
+    <script name="_ComboBoxStyle.as" mod="9223372036854775807" size="904" optimizedsize="729">
+      <def id="_ComboBoxStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:ComboBoxArrowSkin" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\dto\OfferDTO.as" mod="1265306162328" size="3314" optimizedsize="1813">
+      <def id="dto:OfferDTO" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_LinkButtonStyle.as" mod="9223372036854775807" size="923" optimizedsize="738">
+      <def id="_LinkButtonStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:LinkButtonSkin" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/SWFBridgeEvent)" mod="1231356718242" size="1546" optimizedsize="933">
+      <def id="mx.events:SWFBridgeEvent" />
+      <pre id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IChildList)" mod="1231356700835" size="1480" optimizedsize="497">
+      <def id="mx.core:IChildList" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.geom:Point" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/PopUpManagerChildList)" mod="1231356704116" size="742" optimizedsize="368">
+      <def id="mx.managers:PopUpManagerChildList" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_activeTabStyleStyle.as" mod="9223372036854775807" size="721" optimizedsize="519">
+      <def id="_activeTabStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/utils/EventUtil)" mod="1231356706648" size="1471" optimizedsize="882">
+      <def id="mx.utils:EventUtil" />
+      <pre id="Object" />
+      <dep id="mx.events:SandboxMouseEvent" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_richTextEditorTextAreaStyleStyle.as" mod="9223372036854775807" size="698" optimizedsize="468">
+      <def id="_richTextEditorTextAreaStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1265464432125" size="1289" optimizedsize="833">
+      <def id="_services_AmazonSearchServiceWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="services:AmazonSearchService" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\IHash.as" mod="1265306167218" size="822" optimizedsize="273">
+      <def id="com.hurlant.crypto.hash:IHash" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\PaginationBox.mxml" mod="1265306161937" size="6059" optimizedsize="4097">
+      <def id="components:PaginationBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.containers:HBox" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.controls:LinkButton" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.controls:Spacer" />
+      <dep id="mx.core:Repeater" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.binding:RepeatableBinding" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="_components_PaginationBoxWatcherSetupUtil" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\SettingsBox.mxml" mod="1265306161890" size="8376" optimizedsize="5289">
+      <def id="components:SettingsBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.containers:HBox" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.net:SharedObject" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="mx.events:ListEvent" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="_components_SettingsBoxWatcherSetupUtil" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:FlexEvent" />
+      <dep id="mx.controls:ComboBox" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/resources/LocaleSorter)" mod="1231356726586" size="9980" optimizedsize="6789">
+      <def id="mx.resources:LocaleSorter" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_ButtonStyle.as" mod="9223372036854775807" size="879" optimizedsize="715">
+      <def id="_ButtonStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.skins.halo:ButtonSkin" />
+      <dep id="AS3" />
+    </script>
+    <script name="_globalStyle.as" mod="9223372036854775807" size="2674" optimizedsize="2507">
+      <def id="_globalStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:HaloFocusRect" />
+      <dep id="mx.skins.halo:HaloBorder" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\rpc_rb.swc$locale/en_US/messaging.properties" mod="1231356667084" size="5888" optimizedsize="5789">
+      <def id="en_US$messaging_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="_linkButtonStyleStyle.as" mod="9223372036854775807" size="787" optimizedsize="579">
+      <def id="_linkButtonStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/graphics/RoundedRectangle)" mod="1231356705960" size="733" optimizedsize="352">
+      <def id="mx.graphics:RoundedRectangle" />
+      <pre id="flash.geom:Rectangle" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/IEmbeddedFontRegistry)" mod="1231356699757" size="1006" optimizedsize="313">
+      <def id="mx.core:IEmbeddedFontRegistry" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.core:EmbeddedFont" />
+      <dep id="AS3" />
+    </script>
+    <script name="_components_PaginationBoxWatcherSetupUtil.as" mod="1265464432062" size="1432" optimizedsize="997">
+      <def id="_components_PaginationBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="components:PaginationBox" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\services\BaseService.as" mod="1265306161734" size="408" optimizedsize="196">
+      <def id="services:BaseService" />
+      <pre id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\dto\SearchItemDTO.as" mod="1265306162343" size="3477" optimizedsize="1815">
+      <def id="dto:SearchItemDTO" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_ToolTipStyle.as" mod="9223372036854775807" size="953" optimizedsize="784">
+      <def id="_ToolTipStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="mx.skins.halo:ToolTipBorder" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/FlexSprite)" mod="1231356701351" size="902" optimizedsize="553">
+      <def id="mx.core:FlexSprite" />
+      <pre id="flash.display:Sprite" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+      <dep id="mx.utils:NameUtil" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/EventListenerRequest)" mod="1231356719476" size="1952" optimizedsize="1017">
+      <def id="mx.events:EventListenerRequest" />
+      <pre id="mx.events:SWFBridgeRequest" />
+      <dep id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_components_SearchBoxWatcherSetupUtil.as" mod="1265464432109" size="1269" optimizedsize="860">
+      <def id="_components_SearchBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="components:SearchBox" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+    </script>
+    <script name="_CursorManagerStyle.as" mod="9223372036854775807" size="1279" optimizedsize="736">
+      <def id="_CursorManagerStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+      <dep id="_CursorManagerStyle__embed_css_Assets_swf_mx_skins_cursor_BusyCursor_1526773755" />
+      <dep id="mx.skins.halo:BusyCursor" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/CSSStyleDeclaration)" mod="1231356689397" size="4838" optimizedsize="2833">
+      <def id="mx.styles:CSSStyleDeclaration" />
+      <pre id="flash.events:EventDispatcher" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="mx.core:Singleton" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.styles:IStyleManager2" />
+      <dep id="mx.managers:SystemManagerGlobals" />
+      <dep id="flash.utils:Dictionary" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\main.mxml" mod="1265308510562" size="12916" optimizedsize="9265">
+      <def id="main" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.core:Application" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="_LinkButtonStyle" />
+      <dep id="_alertButtonStyleStyle" />
+      <dep id="_SWFLoaderStyle" />
+      <dep id="Math" />
+      <dep id="_headerDateTextStyle" />
+      <dep id="resources:Resources" />
+      <dep id="_todayStyleStyle" />
+      <dep id="_windowStylesStyle" />
+      <dep id="_TextInputStyle" />
+      <dep id="_dateFieldPopupStyle" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="_ComboBoxStyle" />
+      <dep id="_dataGridStylesStyle" />
+      <dep id="_popUpMenuStyle" />
+      <dep id="_headerDragProxyStyleStyle" />
+      <dep id="components:SettingsBox" />
+      <dep id="_windowStatusStyle" />
+      <dep id="_ContainerStyle" />
+      <dep id="_DragManagerStyle" />
+      <dep id="_swatchPanelTextFieldStyle" />
+      <dep id="services:AmazonSearchService" />
+      <dep id="_textAreaHScrollBarStyleStyle" />
+      <dep id="mx.binding:BindingManager" />
+      <dep id="_comboDropdownStyle" />
+      <dep id="mx.controls:Image" />
+      <dep id="_ButtonStyle" />
+      <dep id="components:ContentBox" />
+      <dep id="services:NewReleasesService" />
+      <dep id="services:GoogleSearchService" />
+      <dep id="_linkButtonStyleStyle" />
+      <dep id="_richTextEditorTextAreaStyleStyle" />
+      <dep id="flash.events:Event" />
+      <dep id="_textAreaVScrollBarStyleStyle" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="dto:SearchDTO" />
+      <dep id="_globalStyle" />
+      <dep id="_main_FlexInit" />
+      <dep id="AS3" />
+      <dep id="_mainWatcherSetupUtil" />
+      <dep id="mx.binding:Binding" />
+      <dep id="_ListBaseStyle" />
+      <dep id="_ApplicationStyle" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="_ToolTipStyle" />
+      <dep id="mx.events:FlexEvent" />
+      <dep id="_CursorManagerStyle" />
+      <dep id="mx.events:PropertyChangeEvent" />
+      <dep id="_opaquePanelStyle" />
+      <dep id="_errorTipStyle" />
+      <dep id="components:SearchBox" />
+      <dep id="_HRuleStyle" />
+      <dep id="_activeTabStyleStyle" />
+      <dep id="_ScrollBarStyle" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="_plainStyle" />
+      <dep id="_activeButtonStyleStyle" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="components:PaginationBox" />
+      <dep id="_weekDayStyleStyle" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/StyleManagerImpl)" mod="1231356689288" size="10865" optimizedsize="6194">
+      <def id="mx.styles:StyleManagerImpl" />
+      <pre id="flash.events:EventDispatcher" />
+      <pre id="mx.styles:IStyleManager2" />
+      <pre id="Object" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.core:FlexVersion" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="mx.styles:IStyleModule" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="mx.resources:ResourceManager" />
+      <dep id="Error" />
+      <dep id="en_US$styles_properties" />
+      <dep id="mx.modules:ModuleManager" />
+      <dep id="mx.resources:IResourceManager" />
+      <dep id="mx.modules:IModuleInfo" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="AS3" />
+      <dep id="mx.events:ModuleEvent" />
+      <dep id="flash.utils:Timer" />
+      <dep id="flash.events:TimerEvent" />
+      <dep id="mx.managers:SystemManagerGlobals" />
+      <dep id="mx.events:StyleEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/IInvalidating)" mod="1231356700741" size="791" optimizedsize="250">
+      <def id="mx.core:IInvalidating" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\adobe\serialization\json\JSONTokenType.as" mod="1265306163375" size="1001" optimizedsize="505">
+      <def id="com.adobe.serialization.json:JSONTokenType" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_swatchPanelTextFieldStyle.as" mod="9223372036854775807" size="980" optimizedsize="747">
+      <def id="_swatchPanelTextFieldStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/InvalidateRequestData)" mod="1231356719148" size="722" optimizedsize="354">
+      <def id="mx.events:InvalidateRequestData" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/systemClasses/RemotePopUp)" mod="1231356703710" size="595" optimizedsize="232">
+      <def id="mx.managers.systemClasses:RemotePopUp" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragMove_1713054641.as" mod="1231356682000" size="1020" optimizedsize="381">
+      <def id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragMove_1713054641" />
+      <pre id="mx.core:SpriteAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/skins.properties" mod="1234166223615" size="286" optimizedsize="260">
+      <def id="en_US$skins_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\services\NewReleasesService.mxml" mod="1265306161718" size="4851" optimizedsize="2991">
+      <def id="services:NewReleasesService" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="services:BaseService" />
+      <dep id="flash.events:Event" />
+      <dep id="services:MerchantsService" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="_services_NewReleasesServiceWatcherSetupUtil" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.binding:BindingManager" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="_services_NewReleasesServiceWatcherSetupUtil.as" mod="1265464432109" size="1281" optimizedsize="831">
+      <def id="_services_NewReleasesServiceWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="services:NewReleasesService" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/core.properties" mod="1234166223521" size="896" optimizedsize="862">
+      <def id="en_US$core_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="_ApplicationStyle.as" mod="9223372036854775807" size="949" optimizedsize="758">
+      <def id="_ApplicationStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.skins.halo:ApplicationBackground" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IRepeaterClient)" mod="1231356699616" size="1225" optimizedsize="321">
+      <def id="mx.core:IRepeaterClient" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/resources/ResourceManager)" mod="1231356726664" size="949" optimizedsize="517">
+      <def id="mx.resources:ResourceManager" />
+      <pre id="Object" />
+      <dep id="mx.resources:IResourceManager" />
+      <dep id="AS3" />
+      <dep id="mx.resources:ResourceManagerImpl" />
+      <dep id="mx.core:Singleton" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/preloaders/Preloader)" mod="1231356704960" size="5970" optimizedsize="3567">
+      <def id="mx.preloaders:Preloader" />
+      <pre id="flash.display:Sprite" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="mx.core:ResourceModuleRSLItem" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.events:RSLEvent" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="Error" />
+      <dep id="mx.core:RSLItem" />
+      <dep id="mx.preloaders:IPreloaderDisplay" />
+      <dep id="flash.events:ProgressEvent" />
+      <dep id="AS3" />
+      <dep id="mx.core:RSLListLoader" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.utils:Timer" />
+      <dep id="flash.events:TimerEvent" />
+      <dep id="mx.events:FlexEvent" />
+      <dep id="flash.events:ErrorEvent" />
+      <dep id="flash.display:MovieClip" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/modules/IModuleInfo)" mod="1231356724070" size="1723" optimizedsize="531">
+      <def id="mx.modules:IModuleInfo" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
+      <dep id="mx.events:ModuleEvent" />
+      <dep id="flash.system:ApplicationDomain" />
+    </script>
+    <script name="_windowStylesStyle.as" mod="9223372036854775807" size="708" optimizedsize="515">
+      <def id="_windowStylesStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/ISimpleStyleClient)" mod="1231356689522" size="766" optimizedsize="225">
+      <def id="mx.styles:ISimpleStyleClient" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_TextInputStyle.as" mod="9223372036854775807" size="726" optimizedsize="548">
+      <def id="_TextInputStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/SystemChildrenList)" mod="1231356704023" size="3195" optimizedsize="1707">
+      <def id="mx.managers:SystemChildrenList" />
+      <pre id="mx.core:IChildList" />
+      <pre id="Object" />
+      <dep id="QName" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="mx.managers:SystemManager" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.geom:Point" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IButton)" mod="1231356700179" size="642" optimizedsize="230">
+      <def id="mx.core:IButton" />
+      <pre id="mx.core:IUIComponent" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_weekDayStyleStyle.as" mod="9223372036854775807" size="733" optimizedsize="540">
+      <def id="_weekDayStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1265306161703" size="5669" optimizedsize="3366">
+      <def id="services:AmazonSearchService" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="services:BaseService" />
+      <dep id="flash.events:Event" />
+      <dep id="services:MerchantsService" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.binding:BindingManager" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="_services_AmazonSearchServiceWatcherSetupUtil" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/ITextFieldFactory)" mod="1231356699835" size="580" optimizedsize="209">
+      <def id="mx.core:ITextFieldFactory" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="flash.text:TextField" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/managers/ISystemManager)" mod="1231356704007" size="4795" optimizedsize="1386">
+      <def id="mx.managers:ISystemManager" />
+      <pre id="mx.core:IFlexModuleFactory" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.core:IChildList" />
+      <pre id="Object" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.managers:IFocusManagerContainer" />
+      <dep id="flash.text:TextFormat" />
+      <dep id="AS3" />
+      <dep id="mx.core:ISWFBridgeGroup" />
+      <dep id="flash.geom:Rectangle" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.display:Stage" />
+      <dep id="flash.display:LoaderInfo" />
+      <dep id="flash.display:Sprite" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/resources/IResourceManager)" mod="1231356726711" size="3598" optimizedsize="1031">
+      <def id="mx.resources:IResourceManager" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="AS3" />
+      <dep id="mx.resources:IResourceBundle" />
+      <dep id="flash.system:ApplicationDomain" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/ResourceModuleRSLItem)" mod="1231356700523" size="1733" optimizedsize="1027">
+      <def id="mx.core:ResourceModuleRSLItem" />
+      <pre id="mx.core:RSLItem" />
+      <dep id="mx.resources:IResourceManager" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.events:ResourceEvent" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.resources:ResourceManager" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\SearchBox.mxml" mod="1265306161921" size="6591" optimizedsize="4379">
+      <def id="components:SearchBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <pre id="mx.containers:HBox" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="_components_SearchBoxWatcherSetupUtil" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.controls:Button" />
+      <dep id="services:Helper" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="mx.rpc.http.mxml:HTTPService" />
+      <dep id="mx.rpc.events:ResultEvent" />
+      <dep id="mx.controls:TextInput" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/controls.properties" mod="1234166223521" size="2587" optimizedsize="2523">
+      <def id="en_US$controls_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/events/ModuleEvent)" mod="1231356719195" size="1317" optimizedsize="724">
+      <def id="mx.events:ModuleEvent" />
+      <pre id="flash.events:ProgressEvent" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.modules:IModuleInfo" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="components\MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427.as" mod="1265306161546" size="961" optimizedsize="394">
+      <def id="components:MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427" />
+      <pre id="mx.core:BitmapAsset" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\HMAC.as" mod="1265306167187" size="1529" optimizedsize="842">
+      <def id="com.hurlant.crypto.hash:HMAC" />
+      <pre id="Object" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="AS3" />
+      <dep id="com.hurlant.crypto.hash:IHash" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/EmbeddedFont)" mod="1231356701195" size="884" optimizedsize="423">
+      <def id="mx.core:EmbeddedFont" />
+      <pre id="Object" />
+      <dep id="mx.core:EmbeddedFontRegistry" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/SystemRawChildrenList)" mod="1231356704742" size="2559" optimizedsize="1308">
+      <def id="mx.managers:SystemRawChildrenList" />
+      <pre id="mx.core:IChildList" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="mx.managers:SystemManager" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.geom:Point" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/effects.properties" mod="1234166223537" size="401" optimizedsize="374">
+      <def id="en_US$effects_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc(mx/resources/IResourceBundle)" mod="1234166244038" size="736" optimizedsize="221">
+      <def id="mx.resources:IResourceBundle" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_popUpMenuStyle.as" mod="9223372036854775807" size="711" optimizedsize="534">
+      <def id="_popUpMenuStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/messaging/config/LoaderConfig)" mod="1231356726883" size="866" optimizedsize="373">
+      <def id="mx.messaging.config:LoaderConfig" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="_components_SettingsBoxWatcherSetupUtil.as" mod="1265464432109" size="1498" optimizedsize="1073">
+      <def id="_components_SettingsBoxWatcherSetupUtil" />
+      <pre id="mx.binding:IWatcherSetupUtil" />
+      <pre id="flash.display:Sprite" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.binding:PropertyWatcher" />
+      <dep id="AS3" />
+      <dep id="components:SettingsBox" />
+    </script>
+    <script name="_comboDropdownStyle.as" mod="9223372036854775807" size="926" optimizedsize="728">
+      <def id="_comboDropdownStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\airframework_rb.swc$locale/en_US/SharedResources.properties" mod="1231356741946" size="638" optimizedsize="603">
+      <def id="en_US$SharedResources_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/resources/IResourceModule)" mod="1231356726680" size="551" optimizedsize="178">
+      <def id="mx.resources:IResourceModule" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_windowStatusStyle.as" mod="9223372036854775807" size="701" optimizedsize="509">
+      <def id="_windowStatusStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/events/RSLEvent)" mod="1231356719758" size="1211" optimizedsize="685">
+      <def id="mx.events:RSLEvent" />
+      <pre id="flash.events:ProgressEvent" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/utils/GraphicsUtil)" mod="1231356706695" size="1373" optimizedsize="779">
+      <def id="mx.utils:GraphicsUtil" />
+      <pre id="Object" />
+      <dep id="flash.display:Graphics" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/systemClasses/EventProxy)" mod="1231356703726" size="1176" optimizedsize="699">
+      <def id="mx.managers.systemClasses:EventProxy" />
+      <pre id="flash.events:EventDispatcher" />
+      <dep id="mx.events:SandboxMouseEvent" />
+      <dep id="flash.events:Event" />
+      <dep id="mx.managers:ISystemManager" />
+      <dep id="flash.events:MouseEvent" />
+      <dep id="AS3" />
+      <dep id="mx.utils:EventUtil" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/styles/StyleManager)" mod="1231356689772" size="4989" optimizedsize="2151">
+      <def id="mx.styles:StyleManager" />
+      <pre id="Object" />
+      <dep id="mx.styles:StyleManagerImpl" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="flash.system:SecurityDomain" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.core:Singleton" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.styles:IStyleManager2" />
+      <dep id="flash.system:ApplicationDomain" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/SWFBridgeRequest)" mod="1233074763613" size="2958" optimizedsize="1978">
+      <def id="mx.events:SWFBridgeRequest" />
+      <pre id="flash.events:Event" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/CrossDomainRSLItem)" mod="1231356699741" size="4348" optimizedsize="2749">
+      <def id="mx.core:CrossDomainRSLItem" />
+      <pre id="mx.core:RSLItem" />
+      <dep id="mx.utils:LoaderUtil" />
+      <dep id="flash.events:Event" />
+      <dep id="flash.net:URLRequest" />
+      <dep id="flash.system:Security" />
+      <dep id="flash.utils:ByteArray" />
+      <dep id="trace" />
+      <dep id="mx.events:RSLEvent" />
+      <dep id="flash.events:IOErrorEvent" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="flash.display:Loader" />
+      <dep id="flash.events:SecurityErrorEvent" />
+      <dep id="flash.system:ApplicationDomain" />
+      <dep id="flash.net:URLLoaderDataFormat" />
+      <dep id="flash.events:ProgressEvent" />
+      <dep id="AS3" />
+      <dep id="mx.utils:SHA256" />
+      <dep id="flash.net:URLLoader" />
+      <dep id="flash.system:LoaderContext" />
+      <dep id="flash.events:ErrorEvent" />
+    </script>
+    <script name="_dateFieldPopupStyle.as" mod="9223372036854775807" size="774" optimizedsize="572">
+      <def id="_dateFieldPopupStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_errorTipStyle.as" mod="9223372036854775807" size="874" optimizedsize="702">
+      <def id="_errorTipStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="_alertButtonStyleStyle.as" mod="9223372036854775807" size="728" optimizedsize="516">
+      <def id="_alertButtonStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\workAstore\amazon-gadget\src\components\ContentBox.mxml" mod="1265306161875" size="4800" optimizedsize="3526">
+      <def id="components:ContentBox" />
+      <pre id="mx.containers:VBox" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="mx.binding:IBindingClient" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="components:ItemBox" />
+      <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="_components_ContentBoxWatcherSetupUtil" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="mx.core:Repeater" />
+      <dep id="mx.controls:HRule" />
+      <dep id="dto:SearchDTO" />
+      <dep id="mx.binding:IWatcherSetupUtil" />
+      <dep id="mx.binding:RepeatableBinding" />
+      <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
+      <dep id="flash.utils:getDefinitionByName" />
+      <dep id="dto:SearchItemDTO" />
+      <dep id="mx.events:PropertyChangeEvent" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/formatters.properties" mod="1234166223552" size="758" optimizedsize="717">
+      <def id="en_US$formatters_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IFlexModuleFactory)" mod="1231356700054" size="602" optimizedsize="182">
+      <def id="mx.core:IFlexModuleFactory" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="_DragManagerStyle.as" mod="9223372036854775807" size="1972" optimizedsize="1248">
+      <def id="_DragManagerStyle" />
+      <pre id="Object" />
+      <dep id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragLink_1713098714" />
+      <dep id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragMove_1713054641" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="mx.skins.halo:DefaultDragImage" />
+      <dep id="AS3" />
+      <dep id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragCopy_1713360717" />
+      <dep id="_DragManagerStyle__embed_css_Assets_swf_mx_skins_cursor_DragReject_2119101689" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/events/ResourceEvent)" mod="1231356718867" size="1041" optimizedsize="569">
+      <def id="mx.events:ResourceEvent" />
+      <pre id="flash.events:ProgressEvent" />
+      <dep id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/SystemManagerGlobals)" mod="1231356703991" size="732" optimizedsize="351">
+      <def id="mx.managers:SystemManagerGlobals" />
+      <pre id="Object" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc(mx/utils/StringUtil)" mod="1234166247819" size="1697" optimizedsize="952">
+      <def id="mx.utils:StringUtil" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+      <dep id="RegExp" />
+    </script>
+    <script name="_activeButtonStyleStyle.as" mod="9223372036854775807" size="638" optimizedsize="448">
+      <def id="_activeButtonStyleStyle" />
+      <pre id="Object" />
+      <dep id="mx.core:IFlexModuleFactory" />
+      <dep id="mx.styles:StyleManager" />
+      <dep id="mx.styles:CSSStyleDeclaration" />
+      <dep id="AS3" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/core/IRawChildrenContainer)" mod="1231356699523" size="544" optimizedsize="178">
+      <def id="mx.core:IRawChildrenContainer" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:IChildList" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/ISWFBridgeGroup)" mod="1231356701632" size="1224" optimizedsize="397">
+      <def id="mx.core:ISWFBridgeGroup" />
+      <pre id="Object" />
+      <dep id="flash.events:IEventDispatcher" />
+      <dep id="AS3" />
+      <dep id="mx.core:ISWFBridgeProvider" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\flex.swc(mx/core/IUIComponent)" mod="1231356701148" size="4563" optimizedsize="1152">
+      <def id="mx.core:IUIComponent" />
+      <pre id="Object" />
+      <pre id="mx.core:IFlexDisplayObject" />
+      <dep id="mx.managers:ISystemManager" />
+      <dep id="AS3" />
+      <dep id="flash.display:DisplayObjectContainer" />
+      <dep id="flash.display:DisplayObject" />
+      <dep id="flash.display:Sprite" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/managers/ILayoutManagerClient)" mod="1231356704601" size="1848" optimizedsize="452">
+      <def id="mx.managers:ILayoutManagerClient" />
+      <pre id="flash.events:IEventDispatcher" />
+      <pre id="Object" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\libs\framework.swc(mx/events/SandboxMouseEvent)" mod="1231356719054" size="1672" optimizedsize="971">
+      <def id="mx.events:SandboxMouseEvent" />
+      <pre id="flash.events:Event" />
+      <dep id="AS3" />
+      <dep id="mx.core:mx_internal" />
+    </script>
+    <script name="E:\Program Files\Adobe\Flex Builder 3 Plug-in\sdks\3.3.0\frameworks\locale\en_US\datavisualization_rb.swc$locale/en_US/styles.properties" mod="1234166223646" size="301" optimizedsize="275">
+      <def id="en_US$styles_properties" />
+      <pre id="mx.resources:ResourceBundle" />
+      <dep id="AS3" />
+    </script>
+  </scripts>
+  <external-defs>
+    <ext id="flash.geom:Matrix" />
+    <ext id="flash.display:StageAlign" />
+    <ext id="mx.binding:BindingManager" />
+    <ext id="mx.messaging.messages:CommandMessageExt" />
+    <ext id="AS3" />
+    <ext id="flash.events:IOErrorEvent" />
+    <ext id="mx.controls:TextInput" />
+    <ext id="mx.messaging.messages:CommandMessage" />
+    <ext id="mx.skins.halo:ButtonSkin" />
+    <ext id="flash.net:SharedObject" />
+    <ext id="Error" />
+    <ext id="mx.controls:Spacer" />
+    <ext id="mx.skins.halo:BrokenImageBorderSkin" />
+    <ext id="mx.controls:Image" />
+    <ext id="flash.display:DisplayObject" />
+    <ext id="mx.skins.halo:ScrollTrackSkin" />
+    <ext id="mx.messaging.messages:AcknowledgeMessageExt" />
+    <ext id="mx.binding:Binding" />
+    <ext id="flash.net:URLLoader" />
+    <ext id="SecurityError" />
+    <ext id="flash.utils:Endian" />
+    <ext id="flash.display:Graphics" />
+    <ext id="mx.skins.halo:BusyCursor" />
+    <ext id="flash.geom:Point" />
+    <ext id="flash.events:MouseEvent" />
+    <ext id="flash.utils:getQualifiedClassName" />
+    <ext id="flash.utils:getDefinitionByName" />
+    <ext id="flash.display:StageScaleMode" />
+    <ext id="flash.text:TextFieldAutoSize" />
+    <ext id="mx.core:UIComponentDescriptor" />
+    <ext id="flash.utils:getTimer" />
+    <ext id="flash.utils:ByteArray" />
+    <ext id="flash.text:FontStyle" />
+    <ext id="mx.collections:SortField" />
+    <ext id="flash.filters:DropShadowFilter" />
+    <ext id="flash.net:URLRequest" />
+    <ext id="flash.display:InteractiveObject" />
+    <ext id="flash.display:Shape" />
+    <ext id="mx.skins.halo:ApplicationBackground" />
+    <ext id="mx.binding:PropertyWatcher" />
+    <ext id="flash.events:IEventDispatcher" />
+    <ext id="mx.rpc.http.mxml:HTTPService" />
+    <ext id="flash.system:Capabilities" />
+    <ext id="QName" />
+    <ext id="flash.utils:Dictionary" />
+    <ext id="flash.events:EventDispatcher" />
+    <ext id="flash.external:ExternalInterface" />
+    <ext id="mx.binding:RepeatableBinding" />
+    <ext id="mx.utils:ObjectProxy" />
+    <ext id="flash.system:SecurityDomain" />
+    <ext id="flash.events:SecurityErrorEvent" />
+    <ext id="flash.text:TextField" />
+    <ext id="flash.display:MovieClip" />
+    <ext id="flash.events:TimerEvent" />
+    <ext id="flash.text:Font" />
+    <ext id="flash.display:Stage" />
+    <ext id="flash.geom:Transform" />
+    <ext id="mx.binding:IBindingClient" />
+    <ext id="flash.system:Security" />
+    <ext id="mx.utils:Base64Encoder" />
+    <ext id="mx.collections:ArrayCollection" />
+    <ext id="mx.skins.halo:LinkButtonSkin" />
+    <ext id="RegExp" />
+    <ext id="flash.system:ApplicationDomain" />
+    <ext id="mx.controls:Button" />
+    <ext id="mx.controls:ComboBox" />
+    <ext id="flash.net:navigateToURL" />
+    <ext id="mx.controls:HRule" />
+    <ext id="mx.messaging.messages:ErrorMessage" />
+    <ext id="mx.events:PropertyChangeEvent" />
+    <ext id="mx.containers:VBox" />
+    <ext id="XML" />
+    <ext id="mx.containers:HBox" />
+    <ext id="mx.core:Application" />
+    <ext id="flash.net:registerClassAlias" />
+    <ext id="flash.net:URLLoaderDataFormat" />
+    <ext id="flash.events:ProgressEvent" />
+    <ext id="mx.controls:Text" />
+    <ext id="flash.accessibility:AccessibilityProperties" />
+    <ext id="mx.skins.halo:HaloFocusRect" />
+    <ext id="mx.binding:IWatcherSetupUtil" />
+    <ext id="flash.utils:Timer" />
+    <ext id="mx.messaging.messages:AsyncMessage" />
+    <ext id="mx.collections:ArrayList" />
+    <ext id="mx.rpc:AsyncToken" />
+    <ext id="mx.skins.halo:HaloBorder" />
+    <ext id="mx.skins.halo:ComboBoxArrowSkin" />
+    <ext id="mx.messaging.messages:MessagePerformanceInfo" />
+    <ext id="Math" />
+    <ext id="mx.messaging.messages:AcknowledgeMessage" />
+    <ext id="flash.net:getClassByAlias" />
+    <ext id="mx.skins.halo:ScrollThumbSkin" />
+    <ext id="flash.events:Event" />
+    <ext id="flash.display:BitmapData" />
+    <ext id="flash.display:GradientType" />
+    <ext id="flash.utils:describeType" />
+    <ext id="mx.skins.halo:ScrollArrowSkin" />
+    <ext id="flash.display:LoaderInfo" />
+    <ext id="flash.geom:Rectangle" />
+    <ext id="mx.core:Repeater" />
+    <ext id="ArgumentError" />
+    <ext id="flash.events:ErrorEvent" />
+    <ext id="trace" />
+    <ext id="mx.collections:Sort" />
+    <ext id="mx.controls:Label" />
+    <ext id="flash.display:IBitmapDrawable" />
+    <ext id="Date" />
+    <ext id="mx.core:BitmapAsset" />
+    <ext id="mx.messaging.messages:HTTPRequestMessage" />
+    <ext id="mx.effects:EffectManager" />
+    <ext id="mx.rpc.events:ResultEvent" />
+    <ext id="mx.controls:LinkButton" />
+    <ext id="mx.skins.halo:DefaultDragImage" />
+    <ext id="mx.skins.halo:ListDropIndicator" />
+    <ext id="Object" />
+    <ext id="mx.core:SpriteAsset" />
+    <ext id="flash.display:DisplayObjectContainer" />
+    <ext id="mx.events:ListEvent" />
+    <ext id="mx.messaging.messages:AsyncMessageExt" />
+    <ext id="flash.text:TextFormat" />
+    <ext id="flash.display:Sprite" />
+    <ext id="flash.display:Loader" />
+    <ext id="mx.messaging.config:ConfigMap" />
+    <ext id="flash.system:LoaderContext" />
+    <ext id="mx.formatters:DateFormatter" />
+    <ext id="mx.skins.halo:ToolTipBorder" />
+  </external-defs>
+</report>
