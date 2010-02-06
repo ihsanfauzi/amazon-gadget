@@ -1,19 +1,19 @@
 <report>
   <scripts>
-    <script name="E:\workAstore\amazon-gadget\src\services\Helper.as" mod="1265306646828" size="11616" optimizedsize="8030">
+    <script name="E:\workAstore\amazon-gadget\src\services\Helper.as" mod="1265306646828" size="11614" optimizedsize="8030">
       <def id="services:Helper" />
       <pre id="Object" />
       <dep id="flash.utils:ByteArray" />
+      <dep id="flash.net:URLRequest" />
       <dep id="mx.formatters:DateFormatter" />
       <dep id="com.adobe.serialization.json:JSON" />
       <dep id="com.hurlant.crypto.hash:HMAC" />
-      <dep id="flash.net:URLRequest" />
       <dep id="mx.collections:Sort" />
       <dep id="trace" />
       <dep id="com.hurlant.crypto.hash:SHA256" />
       <dep id="mx.utils:StringUtil" />
-      <dep id="Math" />
       <dep id="flash.net:navigateToURL" />
+      <dep id="Math" />
       <dep id="mx.utils:Base64Encoder" />
       <dep id="dto:SearchDTO" />
       <dep id="mx.collections:ArrayCollection" />
@@ -30,7 +30,7 @@
       <pre id="Error" />
       <dep id="AS3" />
     </script>
-    <script name="_services_GoogleSearchServiceWatcherSetupUtil.as" mod="1265464432125" size="1289" optimizedsize="833">
+    <script name="_services_GoogleSearchServiceWatcherSetupUtil.as" mod="1265465797671" size="1289" optimizedsize="833">
       <def id="_services_GoogleSearchServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -86,7 +86,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="_main_FlexInit-generated.as" mod="1265464432406" size="3663" optimizedsize="3326">
+    <script name="_main_FlexInit-generated.as" mod="1265465797953" size="3662" optimizedsize="3326">
       <def id="_main_FlexInit" />
       <pre id="Object" />
       <dep id="mx.styles:StyleManager" />
@@ -119,7 +119,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHA256.as" mod="1265306166953" size="2657" optimizedsize="1785">
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHA256.as" mod="1265465789671" size="2656" optimizedsize="1785">
       <def id="com.hurlant.crypto.hash:SHA256" />
       <pre id="com.hurlant.crypto.hash:SHABase" />
       <pre id="com.hurlant.crypto.hash:IHash" />
@@ -177,18 +177,13 @@
       <pre id="mx.resources:ResourceBundle" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHABase.as" mod="1265306166937" size="1456" optimizedsize="748">
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\SHABase.as" mod="1265465789515" size="1455" optimizedsize="748">
       <def id="com.hurlant.crypto.hash:SHABase" />
       <pre id="com.hurlant.crypto.hash:IHash" />
       <pre id="Object" />
       <dep id="flash.utils:ByteArray" />
       <dep id="AS3" />
       <dep id="flash.utils:Endian" />
-    </script>
-    <script name="components\MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859.as" mod="1265306161546" size="969" optimizedsize="396">
-      <def id="components:MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859" />
-      <pre id="mx.core:BitmapAsset" />
-      <dep id="AS3" />
     </script>
     <script name="E:\workAstore\amazon-gadget\src\components\ItemBox.mxml" mod="1265306161890" size="7456" optimizedsize="5295">
       <def id="components:ItemBox" />
@@ -215,7 +210,7 @@
       <dep id="dto:SearchItemDTO" />
       <dep id="mx.events:PropertyChangeEvent" />
     </script>
-    <script name="_main_mx_managers_SystemManager.as" mod="1265464432406" size="3499" optimizedsize="3061">
+    <script name="_main_mx_managers_SystemManager.as" mod="1265465797953" size="3498" optimizedsize="3061">
       <def id="_main_mx_managers_SystemManager" />
       <pre id="mx.core:IFlexModuleFactory" />
       <pre id="mx.managers:SystemManager" />
@@ -236,7 +231,7 @@
       <dep id="en_US$rpc_properties" />
       <dep id="mx.core:CrossDomainRSLItem" />
     </script>
-    <script name="_components_ItemBoxWatcherSetupUtil.as" mod="1265464432171" size="1552" optimizedsize="1150">
+    <script name="_components_ItemBoxWatcherSetupUtil.as" mod="1265465797796" size="1552" optimizedsize="1150">
       <def id="_components_ItemBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -647,7 +642,7 @@
       <dep id="flash.events:IEventDispatcher" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\MerchantsService.mxml" mod="1265306161687" size="2790" optimizedsize="1842">
+    <script name="E:\workAstore\amazon-gadget\src\services\MerchantsService.mxml" mod="1265306161687" size="2795" optimizedsize="1847">
       <def id="services:MerchantsService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="services:BaseService" />
@@ -679,7 +674,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="_components_MerchantItemBoxWatcherSetupUtil.as" mod="1265464432265" size="1498" optimizedsize="1051">
+    <script name="_components_MerchantItemBoxWatcherSetupUtil.as" mod="1265465797687" size="1498" optimizedsize="1051">
       <def id="_components_MerchantItemBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -734,7 +729,7 @@
       <pre id="mx.resources:ResourceBundle" />
       <dep id="AS3" />
     </script>
-    <script name="_components_ContentBoxWatcherSetupUtil.as" mod="1265464432156" size="1503" optimizedsize="1084">
+    <script name="_components_ContentBoxWatcherSetupUtil.as" mod="1265465797796" size="1503" optimizedsize="1084">
       <def id="_components_ContentBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -756,7 +751,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="_mainWatcherSetupUtil.as" mod="1265464432062" size="1847" optimizedsize="1522">
+    <script name="_mainWatcherSetupUtil.as" mod="1265465797781" size="1847" optimizedsize="1522">
       <def id="_mainWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -792,26 +787,24 @@
       <def id="mx.core:mx_internal" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\components\MerchantItemBox.mxml" mod="1265306161906" size="7316" optimizedsize="5163">
+    <script name="E:\workAstore\amazon-gadget\src\components\MerchantItemBox.mxml" mod="1265465228296" size="6989" optimizedsize="4946">
       <def id="components:MerchantItemBox" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
       <pre id="mx.containers:HBox" />
       <dep id="flash.events:Event" />
       <dep id="mx.styles:CSSStyleDeclaration" />
-      <dep id="mx.core:UIComponentDescriptor" />
       <dep id="mx.controls:Text" />
+      <dep id="mx.core:UIComponentDescriptor" />
       <dep id="_components_MerchantItemBoxWatcherSetupUtil" />
-      <dep id="components:MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427" />
-      <dep id="components:MerchantItemBox__embed_mxml_assets_error_icon_png_1612475859" />
       <dep id="mx.core:mx_internal" />
       <dep id="services:Helper" />
       <dep id="mx.binding:IWatcherSetupUtil" />
       <dep id="flash.events:MouseEvent" />
       <dep id="mx.controls:Image" />
       <dep id="mx.controls:Label" />
-      <dep id="AS3" />
       <dep id="mx.binding:Binding" />
+      <dep id="AS3" />
       <dep id="flash.utils:getDefinitionByName" />
       <dep id="mx.events:PropertyChangeEvent" />
       <dep id="dto:OfferDTO" />
@@ -876,7 +869,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\GoogleSearchService.mxml" mod="1265306161656" size="6535" optimizedsize="3763">
+    <script name="E:\workAstore\amazon-gadget\src\services\GoogleSearchService.mxml" mod="1265306161656" size="6534" optimizedsize="3763">
       <def id="services:GoogleSearchService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -896,7 +889,7 @@
       <dep id="flash.utils:getDefinitionByName" />
       <dep id="mx.events:PropertyChangeEvent" />
     </script>
-    <script name="_components_CheckAvailabilityBoxWatcherSetupUtil.as" mod="1265464432265" size="1545" optimizedsize="1067">
+    <script name="_components_CheckAvailabilityBoxWatcherSetupUtil.as" mod="1265465797812" size="1545" optimizedsize="1067">
       <def id="_components_CheckAvailabilityBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1022,7 +1015,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1265464432125" size="1289" optimizedsize="833">
+    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1265465797671" size="1289" optimizedsize="833">
       <def id="_services_AmazonSearchServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1031,7 +1024,7 @@
       <dep id="AS3" />
       <dep id="services:AmazonSearchService" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\IHash.as" mod="1265306167218" size="822" optimizedsize="273">
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\IHash.as" mod="1265465789625" size="822" optimizedsize="273">
       <def id="com.hurlant.crypto.hash:IHash" />
       <pre id="Object" />
       <dep id="flash.utils:ByteArray" />
@@ -1128,7 +1121,7 @@
       <dep id="mx.core:EmbeddedFont" />
       <dep id="AS3" />
     </script>
-    <script name="_components_PaginationBoxWatcherSetupUtil.as" mod="1265464432062" size="1432" optimizedsize="997">
+    <script name="_components_PaginationBoxWatcherSetupUtil.as" mod="1265465797796" size="1432" optimizedsize="997">
       <def id="_components_PaginationBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1175,7 +1168,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="_components_SearchBoxWatcherSetupUtil.as" mod="1265464432109" size="1269" optimizedsize="860">
+    <script name="_components_SearchBoxWatcherSetupUtil.as" mod="1265465797656" size="1269" optimizedsize="860">
       <def id="_components_SearchBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1249,8 +1242,8 @@
       <dep id="_globalStyle" />
       <dep id="_main_FlexInit" />
       <dep id="AS3" />
-      <dep id="_mainWatcherSetupUtil" />
       <dep id="mx.binding:Binding" />
+      <dep id="_mainWatcherSetupUtil" />
       <dep id="_ListBaseStyle" />
       <dep id="_ApplicationStyle" />
       <dep id="flash.utils:getDefinitionByName" />
@@ -1356,7 +1349,7 @@
       <dep id="flash.utils:getDefinitionByName" />
       <dep id="mx.events:PropertyChangeEvent" />
     </script>
-    <script name="_services_NewReleasesServiceWatcherSetupUtil.as" mod="1265464432109" size="1281" optimizedsize="831">
+    <script name="_services_NewReleasesServiceWatcherSetupUtil.as" mod="1265465797671" size="1281" optimizedsize="831">
       <def id="_services_NewReleasesServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1474,7 +1467,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1265306161703" size="5669" optimizedsize="3366">
+    <script name="E:\workAstore\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1265306161703" size="5668" optimizedsize="3366">
       <def id="services:AmazonSearchService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -1538,7 +1531,7 @@
       <dep id="mx.core:mx_internal" />
       <dep id="mx.resources:ResourceManager" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\components\SearchBox.mxml" mod="1265306161921" size="6591" optimizedsize="4379">
+    <script name="E:\workAstore\amazon-gadget\src\components\SearchBox.mxml" mod="1265306161921" size="6590" optimizedsize="4379">
       <def id="components:SearchBox" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -1573,12 +1566,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="components\MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427.as" mod="1265306161546" size="961" optimizedsize="394">
-      <def id="components:MerchantItemBox__embed_mxml_assets_good_icon_png_1100425427" />
-      <pre id="mx.core:BitmapAsset" />
-      <dep id="AS3" />
-    </script>
-    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\HMAC.as" mod="1265306167187" size="1529" optimizedsize="842">
+    <script name="E:\workAstore\amazon-gadget\src\com\hurlant\crypto\hash\HMAC.as" mod="1265465789609" size="1527" optimizedsize="842">
       <def id="com.hurlant.crypto.hash:HMAC" />
       <pre id="Object" />
       <dep id="flash.utils:ByteArray" />
@@ -1974,7 +1962,6 @@
     <ext id="mx.controls:Label" />
     <ext id="flash.display:IBitmapDrawable" />
     <ext id="Date" />
-    <ext id="mx.core:BitmapAsset" />
     <ext id="mx.messaging.messages:HTTPRequestMessage" />
     <ext id="mx.effects:EffectManager" />
     <ext id="mx.rpc.events:ResultEvent" />

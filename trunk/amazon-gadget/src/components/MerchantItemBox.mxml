@@ -12,7 +12,7 @@
 			 text="{'Buy from ' + offerDTO.merchantName + ' ' + offerDTO.price}"
 			 click="{buyFromClickHandler(event)}"/>
 	<mx:Image id="errorIcon"
-			  source="@Embed('assets/error.icon.png')"
+			  source="assets/error.icon.png"
 			  visible="{offerDTO.availability == 0}"
 			  includeInLayout="{offerDTO.availability == 0}"
 			  useHandCursor="true"
@@ -30,7 +30,7 @@
 			  buttonMode="true"
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Image id="goodIcon"
-			  source="@Embed('assets/good.icon.png')"
+			  source="assets/good.icon.png"
 			  visible="{offerDTO.availability>0}"
 			  includeInLayout="{offerDTO.availability>0}"
 			  toolTip="Click to see shipping rates"
