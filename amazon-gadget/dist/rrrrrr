@@ -21,7 +21,7 @@
       <dep id="flash.system:ApplicationDomain" />
       <dep id="Error" />
     </script>
-    <script name="_services_GoogleSearchServiceWatcherSetupUtil.as" mod="1265832343890" size="1289" optimizedsize="833">
+    <script name="_services_GoogleSearchServiceWatcherSetupUtil.as" mod="1266433269546" size="1289" optimizedsize="833">
       <def id="_services_GoogleSearchServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -384,7 +384,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\MerchantsService.mxml" mod="1265306161687" size="2790" optimizedsize="1842">
+    <script name="E:\workAstore\amazon-gadget\src\services\MerchantsService.mxml" mod="1266432186343" size="2810" optimizedsize="1862">
       <def id="services:MerchantsService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="services:BaseService" />
@@ -471,7 +471,7 @@
       <pre id="mx.core:SpriteAsset" />
       <dep id="AS3" />
     </script>
-    <script name="_mainWatcherSetupUtil.as" mod="1265832343875" size="1847" optimizedsize="1522">
+    <script name="_mainWatcherSetupUtil.as" mod="1266433269687" size="1847" optimizedsize="1522">
       <def id="_mainWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -821,7 +821,7 @@
       <dep id="mx.styles:CSSStyleDeclaration" />
       <dep id="AS3" />
     </script>
-    <script name="_components_SearchBoxWatcherSetupUtil.as" mod="1265832343890" size="1269" optimizedsize="860">
+    <script name="_components_SearchBoxWatcherSetupUtil.as" mod="1266433269562" size="1269" optimizedsize="860">
       <def id="_components_SearchBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1021,7 +1021,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\components\SearchBox.mxml" mod="1265306161921" size="6591" optimizedsize="4379">
+    <script name="E:\workAstore\amazon-gadget\src\components\SearchBox.mxml" mod="1265306161921" size="6590" optimizedsize="4379">
       <def id="components:SearchBox" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -1341,7 +1341,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="_main_FlexInit-generated.as" mod="1265832344093" size="3663" optimizedsize="3326">
+    <script name="_main_FlexInit-generated.as" mod="1266433729375" size="3663" optimizedsize="3326">
       <def id="_main_FlexInit" />
       <pre id="Object" />
       <dep id="mx.styles:StyleManager" />
@@ -1423,7 +1423,7 @@
       <dep id="AS3" />
       <dep id="flash.utils:Endian" />
     </script>
-    <script name="_components_ItemBoxWatcherSetupUtil.as" mod="1265832343921" size="1552" optimizedsize="1150">
+    <script name="_components_ItemBoxWatcherSetupUtil.as" mod="1266433269734" size="1552" optimizedsize="1150">
       <def id="_components_ItemBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -1479,7 +1479,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\components\CheckAvailabilityBox.mxml" mod="1265306161937" size="7608" optimizedsize="5304">
+    <script name="E:\workAstore\amazon-gadget\src\components\CheckAvailabilityBox.mxml" mod="1266433180546" size="7786" optimizedsize="5454">
       <def id="components:CheckAvailabilityBox" />
       <pre id="mx.containers:VBox" />
       <pre id="flash.events:IEventDispatcher" />
@@ -1972,7 +1972,7 @@
       <dep id="mx.messaging.messages:ErrorMessage" />
       <dep id="mx.messaging.messages:AsyncMessage" />
     </script>
-    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1265832343906" size="1289" optimizedsize="833">
+    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1266433269562" size="1289" optimizedsize="833">
       <def id="_services_AmazonSearchServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -2099,9 +2099,9 @@
       <dep id="_popUpMenuStyle" />
       <dep id="_headerDragProxyStyleStyle" />
       <dep id="components:SettingsBox" />
-      <dep id="_windowStatusStyle" />
-      <dep id="_ContainerStyle" />
       <dep id="_DragManagerStyle" />
+      <dep id="_ContainerStyle" />
+      <dep id="_windowStatusStyle" />
       <dep id="_swatchPanelTextFieldStyle" />
       <dep id="services:AmazonSearchService" />
       <dep id="_textAreaHScrollBarStyleStyle" />
@@ -2121,8 +2121,8 @@
       <dep id="_globalStyle" />
       <dep id="_main_FlexInit" />
       <dep id="AS3" />
-      <dep id="_mainWatcherSetupUtil" />
       <dep id="mx.binding:Binding" />
+      <dep id="_mainWatcherSetupUtil" />
       <dep id="_ListBaseStyle" />
       <dep id="_ApplicationStyle" />
       <dep id="flash.utils:getDefinitionByName" />
@@ -2135,11 +2135,11 @@
       <dep id="components:SearchBox" />
       <dep id="_HRuleStyle" />
       <dep id="_activeTabStyleStyle" />
-      <dep id="_ScrollBarStyle" />
       <dep id="mx.core:UIComponentDescriptor" />
+      <dep id="_ScrollBarStyle" />
       <dep id="_plainStyle" />
-      <dep id="_advancedDataGridStylesStyle" />
       <dep id="_activeButtonStyleStyle" />
+      <dep id="_advancedDataGridStylesStyle" />
       <dep id="mx.binding:IWatcherSetupUtil" />
       <dep id="components:PaginationBox" />
       <dep id="_weekDayStyleStyle" />
@@ -2294,7 +2294,7 @@
       <dep id="mx.core:mx_internal" />
       <dep id="mx.resources:ResourceManager" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1265306161703" size="5669" optimizedsize="3366">
+    <script name="E:\workAstore\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1265306161703" size="5668" optimizedsize="3366">
       <def id="services:AmazonSearchService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -2597,7 +2597,7 @@
       <dep id="mx.core:mx_internal" />
       <dep id="mx.controls.listClasses:IListItemRenderer" />
     </script>
-    <script name="_main_mx_managers_SystemManager.as" mod="1265832344109" size="3024" optimizedsize="2700">
+    <script name="_main_mx_managers_SystemManager.as" mod="1266433729375" size="3024" optimizedsize="2700">
       <def id="_main_mx_managers_SystemManager" />
       <pre id="mx.core:IFlexModuleFactory" />
       <pre id="mx.managers:SystemManager" />
@@ -3083,7 +3083,7 @@
       <pre id="flash.events:EventDispatcher" />
       <dep id="AS3" />
     </script>
-    <script name="_components_MerchantItemBoxWatcherSetupUtil.as" mod="1265832343937" size="1498" optimizedsize="1051">
+    <script name="_components_MerchantItemBoxWatcherSetupUtil.as" mod="1266433269578" size="1498" optimizedsize="1051">
       <def id="_components_MerchantItemBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -3129,7 +3129,7 @@
       <pre id="mx.resources:ResourceBundle" />
       <dep id="AS3" />
     </script>
-    <script name="_components_ContentBoxWatcherSetupUtil.as" mod="1265832343906" size="1503" optimizedsize="1084">
+    <script name="_components_ContentBoxWatcherSetupUtil.as" mod="1266433269703" size="1503" optimizedsize="1084">
       <def id="_components_ContentBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -3163,7 +3163,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\components\MerchantItemBox.mxml" mod="1265465228296" size="6994" optimizedsize="4950">
+    <script name="E:\workAstore\amazon-gadget\src\components\MerchantItemBox.mxml" mod="1266433268562" size="7271" optimizedsize="5087">
       <def id="components:MerchantItemBox" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -3182,6 +3182,7 @@
       <dep id="mx.binding:Binding" />
       <dep id="AS3" />
       <dep id="flash.utils:getDefinitionByName" />
+      <dep id="dto:SearchItemDTO" />
       <dep id="mx.events:PropertyChangeEvent" />
       <dep id="dto:OfferDTO" />
     </script>
@@ -3740,7 +3741,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="_services_NewReleasesServiceWatcherSetupUtil.as" mod="1265832343906" size="1281" optimizedsize="831">
+    <script name="_services_NewReleasesServiceWatcherSetupUtil.as" mod="1266433269546" size="1281" optimizedsize="831">
       <def id="_services_NewReleasesServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -4206,7 +4207,7 @@
       <pre id="mx.messaging.errors:ChannelError" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\Helper.as" mod="1265306646828" size="11616" optimizedsize="8030">
+    <script name="E:\workAstore\amazon-gadget\src\services\Helper.as" mod="1266433728828" size="11627" optimizedsize="8043">
       <def id="services:Helper" />
       <pre id="Object" />
       <dep id="flash.utils:ByteArray" />
@@ -4852,7 +4853,7 @@
       <dep id="mx.core:mx_internal" />
       <dep id="mx.core:IUIComponent" />
     </script>
-    <script name="_components_CheckAvailabilityBoxWatcherSetupUtil.as" mod="1265832343921" size="1545" optimizedsize="1067">
+    <script name="_components_CheckAvailabilityBoxWatcherSetupUtil.as" mod="1266433269734" size="1550" optimizedsize="1072">
       <def id="_components_CheckAvailabilityBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -5032,7 +5033,7 @@
       <dep id="mx.core:EmbeddedFont" />
       <dep id="AS3" />
     </script>
-    <script name="_components_PaginationBoxWatcherSetupUtil.as" mod="1265832343875" size="1432" optimizedsize="997">
+    <script name="_components_PaginationBoxWatcherSetupUtil.as" mod="1266433269703" size="1432" optimizedsize="997">
       <def id="_components_PaginationBoxWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -5204,7 +5205,7 @@
       <dep id="flash.events:Event" />
       <dep id="AS3" />
     </script>
-    <script name="E:\workAstore\amazon-gadget\src\services\NewReleasesService.mxml" mod="1265306161718" size="4852" optimizedsize="2991">
+    <script name="E:\workAstore\amazon-gadget\src\services\NewReleasesService.mxml" mod="1265306161718" size="4851" optimizedsize="2991">
       <def id="services:NewReleasesService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />

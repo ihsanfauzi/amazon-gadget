@@ -60,6 +60,8 @@ package services
 			var now:Date=new Date();
 
 			request.AWSAccessKeyId=amazonDeveloperId;
+			request.AssociateTag="catalog0e-20";
+
 			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
 			// Note that we must convert to GMT.
 			formatter.formatString="YYYY-MM-DDTHH:NN:SS.000Z";
@@ -87,7 +89,7 @@ package services
 
 			// Sort the parameters and formulate the parameter string to be signed.
 			parameterCollection.sort=sort;
-			sort.fields=[new SortField("parameter", true), new SortField("value", true)];
+			sort.fields=[new SortField("parameter", false), new SortField("value", false)];
 			parameterCollection.refresh();
 			parameterString=AWS_METHOD + "\n" + AWS_HOST + "\n" + AWS_PATH + "\n";
 			for(var i:Number=0; i < parameterCollection.length; i++)
@@ -271,6 +273,7 @@ package services
 			for each(var item:Object in items)
 			{
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
+				searchItemDTO.url=item.DetailPageURL;
 				searchItemDTO.offers=[];
 				var offers:ArrayCollection;
 				if (item.Offers.Offer is ArrayCollection)
@@ -413,9 +416,9 @@ package services
 			return 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&rsz=large&start=' + page + '&q=' + encodeURIComponent(keyword);
 		}
 
-		public static function createMerchantItemURL(asin:String, offer:OfferDTO):String
+		public static function createMerchantItemURL(searchItemDTO:SearchItemDTO, offer:OfferDTO):String
 		{
-			return  addTag("http://www.amazon.com/dp/" + asin + "/?m=" + offer.merchantID);
+			return  searchItemDTO.url + encodeURIComponent("&m=" + offer.merchantID);
 		}
 
 		public static function createTranslateURL(text:String, fromLang:String, toLang:String):String
