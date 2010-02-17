@@ -14,6 +14,7 @@
 				 width="100%">
 		<components:MerchantItemBox offerDTO="{checkAvailabilityRep.currentItem}"
 							   asin="{dataProvider.id}"
+							   searchItemDTO="{dataProvider}"
 							   backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
 	</mx:Repeater>
 	<mx:Script>

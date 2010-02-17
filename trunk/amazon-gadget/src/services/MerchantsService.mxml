@@ -19,7 +19,7 @@
 				ItemLookup
 			</Operation>
 			<ResponseGroup>
-				OfferFull,VariationSummary
+				ItemAttributes,OfferFull,VariationSummary
 			</ResponseGroup>
 			<Condition>
 				All
