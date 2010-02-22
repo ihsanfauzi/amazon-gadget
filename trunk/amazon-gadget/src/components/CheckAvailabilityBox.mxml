@@ -19,6 +19,7 @@
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
+			import services.CheckAvailabilityService;
 			import dto.SearchDTO;
 			import services.Helper;
 			import mx.rpc.AsyncToken;
@@ -30,46 +31,20 @@
 			public var dataProvider:SearchItemDTO;
 			[Bindable]
 			public var region:String;
+			[Bindable]
+			public var country:String;
 
 			private function checkAvailabilityClickHandler(event:Event):void
 			{
 				checkAvailabilityRep.dataProvider=dataProvider.offers;
-				//TODO check via google search
-				//Europe site:http://www.amazon.com/gp/help/seller/shipping.html
-
 				for each(var offer:OfferDTO in dataProvider.offers)
 				{
-					var serv:HTTPService=new HTTPService();
-					serv.showBusyCursor=true;
-					serv.url=Helper.createGoogleSearchAmazonMerchantURL(region, offer);
-					serv.addEventListener(ResultEvent.RESULT, resultHandler);
-					serv.resultFormat="text";
-					var t:AsyncToken=serv.send();
-					t.offer=offer;
+					var serv:CheckAvailabilityService=new CheckAvailabilityService();
+					serv.country = country;
+					serv.offer = offer;
+					serv.region = region;
+					serv.sendRequest();
 				}
-			}
-
-			private function resultHandler(event:ResultEvent):void
-			{
-				HTTPService(event.target).removeEventListener(ResultEvent.RESULT, resultHandler);
-				var sdto:SearchDTO=Helper.parseGoogleResults(event);
-				if (sdto.searchItems.length > 0)
-				{
-					var searchItem:SearchItemDTO=SearchItemDTO(sdto.searchItems[0]);
-					var ok:Boolean=checkCountry(searchItem.name, searchItem.description);
-					var offer:OfferDTO=OfferDTO(event.token.offer);
-					offer.availability=ok ? OfferDTO.AVAILABILITY_YES : OfferDTO.AVAILABILITY_NO;
-					if (!offer.merchantName)
-					{
-						offer.merchantName=searchItem.name.replace("Amazon.com Shipping Rates: ", "");
-					}
-					offer.merchantShippingURL=searchItem.originalUrl;
-				}
-			}
-
-			private function checkCountry(name:String, description:String):Boolean
-			{
-				return Helper.checkCountry(region, description);
 			}
 
 			private function getBackgroundColor(num:Number):uint
