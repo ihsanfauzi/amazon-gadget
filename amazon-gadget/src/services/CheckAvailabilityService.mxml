@@ -32,7 +32,6 @@
 				if (sdto.searchItems.length > 0) {
 					var searchItem:SearchItemDTO=SearchItemDTO(sdto.searchItems[0]);
 					var ok:Boolean=checkCountry(searchItem.name, searchItem.description);
-					var offer:OfferDTO=OfferDTO(event.token.offer);
 					offer.availability=ok ? OfferDTO.AVAILABILITY_YES : OfferDTO.AVAILABILITY_NO;
 					if (!offer.merchantName) {
 						offer.merchantName=searchItem.name.replace("Amazon.com Shipping Rates: ", "");
