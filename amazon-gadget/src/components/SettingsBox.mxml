@@ -13,6 +13,7 @@
 				 change="{categoryChangeHandler(event)}"
 				 selectedItem="{selectedCategory}"/>
 	<mx:ComboBox id="countryComboBox"
+				 styleName="alarmButton"
 				 prompt="Country"
 				 width="80"
 				 height="15"
