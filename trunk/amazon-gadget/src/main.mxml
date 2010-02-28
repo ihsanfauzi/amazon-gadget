@@ -50,6 +50,7 @@
 	<mx:Image source="http://gadget.usefulhelper.com/1x1.gif?r={Math.random()}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.Log;
 			import dto.SearchDTO;
 			[Bindable]
 			private var page:int=1;
@@ -67,6 +68,7 @@
 
 			private function init():void {
 				newReleasesService.sendRequest();
+				Log.initialized();
 			}
 
 			private function countryChangeHandler(event:Event):void {

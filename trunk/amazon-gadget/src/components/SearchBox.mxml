@@ -26,6 +26,7 @@
 			   click="{searchClickHandler(event)}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.Log;
 			import services.Helper;
 			import mx.rpc.events.ResultEvent;
 			[Bindable]
@@ -42,6 +43,7 @@
 			}
 
 			private function searchClickHandler(event:Event):void {
+				Log.searchClicked();
 				dispatchEvent(new Event("search"));
 			}
 

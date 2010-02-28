@@ -40,6 +40,7 @@
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.Log;
 			import dto.SearchItemDTO;
 			import mx.controls.Label;
 			import services.Helper;
@@ -52,6 +53,7 @@
 			public var asin:String;
 
 			private function buyFromClickHandler(event:Event):void {
+				Log.buyLinkClicked();
 				var url:String=Helper.createMerchantItemURL(searchItemDTO, offerDTO);
 				Helper.openAmazonItem(url);
 				var img:Image=new Image();
