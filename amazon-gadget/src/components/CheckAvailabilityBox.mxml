@@ -19,6 +19,7 @@
 	</mx:Repeater>
 	<mx:Script>
 		<![CDATA[
+			import services.Log;
 			import services.CheckAvailabilityService;
 			import dto.SearchDTO;
 			import services.Helper;
@@ -36,6 +37,7 @@
 
 			private function checkAvailabilityClickHandler(event:Event):void
 			{
+				Log.checkShippingClicked();
 				checkAvailabilityRep.dataProvider=dataProvider.offers;
 				for each(var offer:OfferDTO in dataProvider.offers)
 				{
