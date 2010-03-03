@@ -437,7 +437,7 @@
       <pre id="Object" />
       <dep id="AS3" />
     </script>
-    <script name="_mainWatcherSetupUtil.as" mod="1267606840921" size="1846" optimizedsize="1522">
+    <script name="_mainWatcherSetupUtil.as" mod="1267618600474" size="1846" optimizedsize="1522">
       <def id="_mainWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -548,7 +548,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="D:\My\PROJECTS\GADGET\amazon-gadget\src\main.mxml" mod="1267544304908" size="12960" optimizedsize="9297">
+    <script name="D:\My\PROJECTS\GADGET\amazon-gadget\src\main.mxml" mod="1267618600052" size="12994" optimizedsize="9319">
       <def id="main" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
@@ -1178,7 +1178,7 @@
       <dep id="com.adobe.serialization.json:JSONToken" />
       <dep id="com.adobe.serialization.json:JSONTokenType" />
     </script>
-    <script name="_main_FlexInit-generated.as" mod="1267606840984" size="2896" optimizedsize="2603">
+    <script name="_main_FlexInit-generated.as" mod="1267618600520" size="2896" optimizedsize="2603">
       <def id="_main_FlexInit" />
       <pre id="Object" />
       <dep id="mx.styles:StyleManager" />
@@ -1879,7 +1879,7 @@
       <dep id="mx.effects:IEffectTargetHost" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1267544308533" size="1289" optimizedsize="833">
+    <script name="_services_AmazonSearchServiceWatcherSetupUtil.as" mod="1267618342640" size="1288" optimizedsize="833">
       <def id="_services_AmazonSearchServiceWatcherSetupUtil" />
       <pre id="mx.binding:IWatcherSetupUtil" />
       <pre id="flash.display:Sprite" />
@@ -2632,7 +2632,7 @@
       <dep id="AS3" />
       <dep id="mx.core:mx_internal" />
     </script>
-    <script name="_main_mx_managers_SystemManager.as" mod="1267606840984" size="3024" optimizedsize="2700">
+    <script name="_main_mx_managers_SystemManager.as" mod="1267618600520" size="3024" optimizedsize="2700">
       <def id="_main_mx_managers_SystemManager" />
       <pre id="mx.core:IFlexModuleFactory" />
       <pre id="mx.managers:SystemManager" />
@@ -2640,7 +2640,7 @@
       <dep id="mx.core:IFlexModule" />
       <dep id="flash.system:ApplicationDomain" />
     </script>
-    <script name="D:\My\PROJECTS\GADGET\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1266585958297" size="5677" optimizedsize="3366">
+    <script name="D:\My\PROJECTS\GADGET\amazon-gadget\src\services\AmazonSearchService.mxml" mod="1267618342187" size="5676" optimizedsize="3366">
       <def id="services:AmazonSearchService" />
       <pre id="flash.events:IEventDispatcher" />
       <pre id="mx.binding:IBindingClient" />
