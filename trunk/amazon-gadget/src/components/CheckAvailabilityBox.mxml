@@ -2,7 +2,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
 		 verticalGap="0"
 		 xmlns:local="*"
-		 width="100%" xmlns:components="components.*">
+		 width="100%" xmlns:components="components.*" xmlns:services="services.*">
 	<mx:Button id="checkAvailabilityButton"
 			   styleName="alarmButton"
 			   height="18"
@@ -17,8 +17,12 @@
 							   searchItemDTO="{dataProvider}"
 							   backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
 	</mx:Repeater>
+	<services:MerchantsService id="merchantsService"
+							   searchDTO="{searchDTO}"
+							   result="{merchantsServiceResultHandler(event)}"/>	
 	<mx:Script>
 		<![CDATA[
+			import flash.net.sendToURL;
 			import services.Log;
 			import services.CheckAvailabilityService;
 			import dto.SearchDTO;
@@ -29,6 +33,8 @@
 			import dto.OfferDTO;
 			import dto.SearchItemDTO;
 			[Bindable]
+			public var searchDTO:SearchDTO;
+			[Bindable]
 			public var dataProvider:SearchItemDTO;
 			[Bindable]
 			public var region:String;
@@ -38,6 +44,18 @@
 			private function checkAvailabilityClickHandler(event:Event):void
 			{
 				Log.checkShippingClicked();
+				if(dataProvider.offers.length == 0){
+					merchantsService.sendRequest();
+				} else {
+					checkAvailability();
+				}
+			}
+			
+			private function merchantsServiceResultHandler(event:Event):void {
+				checkAvailability();
+			}
+			
+			private function checkAvailability():void{
 				checkAvailabilityRep.dataProvider=dataProvider.offers;
 				for each(var offer:OfferDTO in dataProvider.offers)
 				{

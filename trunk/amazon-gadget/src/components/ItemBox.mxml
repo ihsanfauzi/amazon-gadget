@@ -22,10 +22,12 @@
 				 htmlText="{currentItem.description}"/>
 		<mx:Label htmlText="{getPriceRating(currentItem.price)}"/>
 		<components:CheckAvailabilityBox dataProvider="{currentItem}"
-									region="{region}"/>
+									region="{region}"
+									searchDTO="{searchDTO}"/>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import dto.SearchDTO;
 			import mx.messaging.config.ServerConfig;
 			import dto.OfferDTO;
 			import dto.SearchItemDTO;
@@ -35,6 +37,8 @@
 			public var currentItem:SearchItemDTO;
 			[Bindable]
 			private var expanded:Boolean;
+			[Bindable]
+			public var searchDTO:SearchDTO;
 
 			private function getDescription(item:SearchItemDTO):String
 			{

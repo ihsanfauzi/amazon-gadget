@@ -9,7 +9,8 @@
 	<mx:Repeater id="rep"
 				 dataProvider="{searchDTO.searchItems}">
 		<components:ItemBox region="{country.region}"
-							currentItem="{rep.currentItem}"/>
+							currentItem="{rep.currentItem}"
+							searchDTO="{searchDTO}"/>
 		<mx:HRule width="100%"/>
 	</mx:Repeater>
 	<mx:Script>
