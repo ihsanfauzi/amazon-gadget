@@ -30,7 +30,8 @@
 			private function amazonResultsHandler(event:ResultEvent):void {
 				var rawData:String=String(event.result);
 				searchDTO = Helper.parseAmazonResults(searchDTO, rawData);
-				merchantsService.sendRequest();
+				//merchantsService.sendRequest();
+				dispatchEvent(new Event("result"));
 			}
 
 			private function merchantsServiceResultHandler(event:Event):void {
