@@ -20,6 +20,8 @@
 			[Bindable]
 			public var country:String;
 
+			private var MERCHANTS_OK:Array = ["Nova Musik", "FunkNFresh", "Etronics"];
+			private var MERCHANTS_NA:Array = ["TigerDirect", "CompUSA"];
 			public function sendRequest():void {
 				service.url=Helper.createGoogleSearchAmazonMerchantURL(region, offer);
 				service.addEventListener(ResultEvent.RESULT, firstStepResultHandler);
@@ -38,7 +40,17 @@
 					}
 					offer.merchantShippingURL=searchItem.originalUrl;
 				}
+				setPredefinedAvailability();
 				dispatchEvent(new Event("result"));
+			}
+
+			private function setPredefinedAvailability():void {
+				var merchant:String=offer.merchantName;
+				if (MERCHANTS_NA.indexOf(merchant)!=-1){
+					offer.availability=OfferDTO.AVAILABILITY_UNDEFINED;
+				} else if (MERCHANTS_OK.indexOf(merchant)!=-1){
+					offer.availability=OfferDTO.AVAILABILITY_YES;
+				}
 			}
 			
 			private function checkCountry(name:String, description:String):Boolean
