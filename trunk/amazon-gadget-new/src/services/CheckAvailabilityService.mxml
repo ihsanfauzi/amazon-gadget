@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<services:BaseService xmlns:mx="http://www.adobe.com/2006/mxml"
+					  xmlns:services="services.*">
+	<mx:Metadata>
+		[Event (name="result", type="flash.events.Event")]
+	</mx:Metadata>
+	<mx:HTTPService id="service"
+					showBusyCursor="true"
+					resultFormat="text"/>
+	<mx:Script>
+		<![CDATA[
+			import dto.SearchItemDTO;
+			import dto.SearchDTO;
+			import mx.rpc.events.ResultEvent;
+			import dto.OfferDTO;
+			[Bindable]
+			public var offer:OfferDTO;
+			[Bindable]
+			public var region:String;
+			[Bindable]
+			public var country:String;
+
+			public function sendRequest():void {
+				service.url=Helper.createGoogleSearchAmazonMerchantURL(region, offer);
+				service.addEventListener(ResultEvent.RESULT, firstStepResultHandler);
+				service.send();
+			}
+
+			private function firstStepResultHandler(event:ResultEvent):void {
+				HTTPService(event.target).removeEventListener(ResultEvent.RESULT, firstStepResultHandler);
+				var sdto:SearchDTO=Helper.parseGoogleResults(event);
+				if (sdto.searchItems.length > 0) {
+					var searchItem:SearchItemDTO=SearchItemDTO(sdto.searchItems[0]);
+					var ok:Boolean=checkCountry(searchItem.name, searchItem.description);
+					offer.availability=ok ? OfferDTO.AVAILABILITY_YES : OfferDTO.AVAILABILITY_NO;
+					if (!offer.merchantName) {
+						offer.merchantName=searchItem.name.replace("Amazon.com Shipping Rates: ", "");
+					}
+					offer.merchantShippingURL=searchItem.originalUrl;
+				}
+				dispatchEvent(new Event("result"));
+			}
+			
+			private function checkCountry(name:String, description:String):Boolean
+			{
+				return Helper.checkCountry(region, description);
+			}
+		]]>
+	</mx:Script>
+</services:BaseService>
