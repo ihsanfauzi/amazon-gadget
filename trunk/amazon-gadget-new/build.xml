@@ -20,7 +20,7 @@
 		</copydir>
 		<java jar="${flex.sdk.dir}/lib/optimizer.jar" fork="true" failonerror="true">
 			<jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${flex.sdk.dir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
-			<arg line="'${basedir}/dist/main.swf' --output '${basedir}/dist/main.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
+			<arg line="'${basedir}/dist/ShippingByASIN.swf' --output '${basedir}/dist/ShippingByASIN.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
 		</java>
 	</target>
 
