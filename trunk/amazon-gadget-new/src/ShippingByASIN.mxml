@@ -22,7 +22,7 @@
 								  result="{amazonSearchResultHandler(event)}"/>
 
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
-										dataProvider="{searchItemDTO}"
+									 dataProvider="{searchItemDTO}"
 									 region="{region}"
 									 searchDTO="{searchDTO}"/>
 	<mx:Script>
@@ -47,7 +47,12 @@
 				var params:Dictionary=getUrlParamateres();
 				asin=params["asin"];
 				region=params["region"];
-				amazonSearchService.sendRequest();
+				//amazonSearchService.sendRequest();
+				searchItemDTO = new SearchItemDTO();
+				searchItemDTO.id = asin;
+				searchDTO = new SearchDTO();
+				searchDTO.searchItems.addItem(searchItemDTO);
+				checkAvailabilityBox.checkAvailabilityClickHandler(null);
 			}
 
 			private function getUrlParamateres():Dictionary
