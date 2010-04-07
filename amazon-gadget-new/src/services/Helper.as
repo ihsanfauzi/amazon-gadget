@@ -27,6 +27,21 @@ package services
 		private static const tsrc:String="translate?v=1.0&q=";
 		private static const lanpair:String="&langpair=";
 		private static const pairCode:String="%7C";
+		private static const scripts:String = 
+'rawData="";'+
+'display_callback = function(input){'+
+'	rawData=input;'+
+'};'+
+'getRawData = function(){'+
+'	return rawData;'+
+'};'+
+'setApplicationHeight = function(h){'+
+'	alert(h);'+
+'	document.getElementById("ShippingByASINDiv").style.height=h;'+
+'};'+
+'getCurrentASIN = function(){'+
+'	return "B000V2QCQI";'+
+'};';
 
 
 
@@ -466,6 +481,10 @@ package services
 			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&Keywords=" + encodeURIComponent(keyword) +
 				"&SearchIndex=" + (category ? category : "All") + "&multipageStart=" + (page-1)*10 + "&InstanceId=0&multipageCount=10&TemplateId=8002&ServiceVersion=20070822&MarketPlace=US";
 			return res;
+		}
+		
+		public static function evalScripts():void {
+			//ExternalInterface.call("eval", scripts);
 		}
 	}
 }

@@ -2,18 +2,25 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<script>
-rawData="";
-function display_callback(input){
-	rawData=input;
-}
-function getRawData(){
-	return rawData;
-}
-</script>
 </head>
 <body>
+  	<div id="${application}Div" style="width:100%; height:0px;">
+	<script>
+	rawData="";
+	display_callback = function(input){
+		rawData=input;
+	}
+	getRawData = function(){
+		return rawData;
+	}
+	setApplicationHeight = function(height){
+		document.getElementById("${application}Div").style.height=height;
+	}
+	getCurrentASIN = function(){
+		return "B000V2QCQI";
+	}
+	</script>
+
   	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 			id="${application}" width="${width}" height="${height}"
 			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
@@ -21,7 +28,7 @@ function getRawData(){
 			<param name="quality" value="high" />
 			<param name="bgcolor" value="${bgcolor}" />
 			<param name="allowScriptAccess" value="sameDomain" />
-			<embed src="${swf}.swf" quality="high" bgcolor="${bgcolor}"
+			<embed src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-gadget-new/dist/ShippingByASIN.swf" quality="high" bgcolor="${bgcolor}"
 				width="${width}" height="${height}" name="${application}" align="middle"
 				play="true"
 				loop="false"
@@ -31,5 +38,7 @@ function getRawData(){
 				pluginspage="http://www.adobe.com/go/getflashplayer">
 			</embed>
 	</object>
+	</div>
+	Check Label
 </body>
 </html>
