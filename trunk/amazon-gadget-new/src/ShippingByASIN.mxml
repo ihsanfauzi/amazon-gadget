@@ -93,7 +93,11 @@
 			override protected function measure():void
 			{
 				super.measure();
-				ExternalInterface.call("setApplicationHeight", measuredHeight);
+				var h:Number = measuredHeight;
+				if (showBox) {
+					h = h>100?h:100;
+				}
+				ExternalInterface.call("setApplicationHeight", h);
 			}
 		]]>
 	</mx:Script>

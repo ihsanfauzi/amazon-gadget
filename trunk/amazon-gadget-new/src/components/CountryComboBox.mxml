@@ -38,11 +38,11 @@
 
 			private function getSelectedCountry():Number
 			{
-//				var obj:SharedObject=SharedObject.getLocal("Preferencies");
-//				if (obj.data.hasOwnProperty("selectedCountry"))
-//				{
-//					return Number(obj.data.selectedCountry);
-//				}
+				var obj:SharedObject=SharedObject.getLocal("Preferencies");
+				if (obj.data.hasOwnProperty("selectedCountry"))
+				{
+					return Number(obj.data.selectedCountry);
+				}
 				return NaN;
 			}
 		]]>
