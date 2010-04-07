@@ -2,31 +2,43 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 				width="100%"
 				height="100%"
-				backgroundColor="white"
 				paddingBottom="2"
 				paddingLeft="2"
 				paddingRight="2"
 				paddingTop="2"
+				backgroundColor="white"
 				horizontalAlign="left"
 				verticalScrollPolicy="off"
 				horizontalScrollPolicy="off"
 				creationComplete="{init()}"
 				xmlns:components="components.*"
-				xmlns:services="services.*">
+				xmlns:services="services.*"
+				xmlns:resources="resources.*">
 	<mx:Style source="styles.css"/>
+	<resources:Resources id="res"/>
 	<services:AmazonSearchService id="amazonSearchService"
 								  searchDTO="{searchDTO}"
 								  keyword="{asin}"
 								  category="{null}"
 								  page="{page}"
 								  result="{amazonSearchResultHandler(event)}"/>
-
+	<mx:HBox>
+		<mx:Button label="{showBox?'Hide Shipping Info':'Check Shipping'}"
+				   click="{checkAvailabilityClickHandler()}"/>
+		<components:CountryComboBox id="countryCombo" countries="{res.countries}"
+								visible="{showBox}"
+								includeInLayout="{showBox}"
+								changeCountry="{changeCountryHandler()}"/>
+	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
+									 includeInLayout="{showBox}"
+									 visible="{showBox}"
 									 dataProvider="{searchItemDTO}"
 									 region="{region}"
 									 searchDTO="{searchDTO}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.Helper;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
 			[Bindable]
@@ -41,35 +53,17 @@
 			private var searchDTO:SearchDTO;
 			[Bindable]
 			private var searchItemDTO:SearchItemDTO;
+			[Bindable]
+			private var showBox:Boolean;
 
 			private function init():void
 			{
-				var params:Dictionary=getUrlParamateres();
-				asin=params["asin"];
-				region=params["region"];
-				//amazonSearchService.sendRequest();
-				searchItemDTO = new SearchItemDTO();
-				searchItemDTO.id = asin;
-				searchDTO = new SearchDTO();
+				Helper.evalScripts();
+				asin=ExternalInterface.call("getCurrentASIN");
+				searchItemDTO=new SearchItemDTO();
+				searchItemDTO.id=asin;
+				searchDTO=new SearchDTO();
 				searchDTO.searchItems.addItem(searchItemDTO);
-				checkAvailabilityBox.checkAvailabilityClickHandler(null);
-			}
-
-			private function getUrlParamateres():Dictionary
-			{
-				var urlParams:Dictionary=new Dictionary();
-				var fullUrl:String=ExternalInterface.call('eval', 'document.location.href');
-				var paramStr:String=fullUrl.split('?')[1];
-				if (paramStr != null)
-				{
-					var params:Array=paramStr.split('&');
-					for(var i:int=0; i < params.length; i++)
-					{
-						var kv:Array=params[i].split('=');
-						urlParams[kv[0]]=kv[1];
-					}
-				}
-				return urlParams;
 			}
 
 			private function amazonSearchResultHandler(event:Event):void
@@ -80,6 +74,26 @@
 					searchItemDTO=searchDTO.searchItems.getItemAt(0)as SearchItemDTO;
 					checkAvailabilityBox.checkAvailabilityClickHandler(null);
 				}
+			}
+
+			private function checkAvailabilityClickHandler():void
+			{
+				showBox=!showBox;
+				if(showBox) {
+					checkAvailabilityBox.checkAvailabilityClickHandler(null);
+				}
+			}
+		
+			private function changeCountryHandler():void
+			{
+				region=countryCombo.selectedCountry.region;
+				checkAvailabilityBox.checkAvailabilityClickHandler(null);
+			}
+
+			override protected function measure():void
+			{
+				super.measure();
+				ExternalInterface.call("setApplicationHeight", measuredHeight);
 			}
 		]]>
 	</mx:Script>
