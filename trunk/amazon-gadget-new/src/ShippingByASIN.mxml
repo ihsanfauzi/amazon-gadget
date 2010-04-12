@@ -23,12 +23,13 @@
 								  page="{page}"
 								  result="{amazonSearchResultHandler(event)}"/>
 	<mx:HBox>
-		<mx:Button label="{showBox?'Hide Shipping Info':'Check Shipping'}"
+		<mx:Button label="{showBox?'Hide Shipping Info':'Check if the item could be shipped to your country'}"
 				   click="{checkAvailabilityClickHandler()}"/>
-		<components:CountryComboBox id="countryCombo" countries="{res.countries}"
-								visible="{showBox}"
-								includeInLayout="{showBox}"
-								changeCountry="{changeCountryHandler()}"/>
+		<components:CountryComboBox id="countryCombo"
+									countries="{res.countries}"
+									visible="{showBox}"
+									includeInLayout="{showBox}"
+									changeCountry="{changeCountryHandler()}"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 includeInLayout="{showBox}"
@@ -80,11 +81,12 @@
 			private function checkAvailabilityClickHandler():void
 			{
 				showBox=!showBox;
-				if(showBox) {
+				if (showBox)
+				{
 					checkAvailabilityBox.checkAvailabilityClickHandler(null);
 				}
 			}
-		
+
 			private function changeCountryHandler():void
 			{
 				region=countryCombo.selectedCountry.region;
@@ -94,9 +96,10 @@
 			override protected function measure():void
 			{
 				super.measure();
-				var h:Number = measuredHeight;
-				if (showBox) {
-					h = h>100?h:100;
+				var h:Number=measuredHeight;
+				if (showBox)
+				{
+					h=h > 130 ? h : 130;
 				}
 				ExternalInterface.call("setApplicationHeight", h);
 			}
