@@ -60,7 +60,9 @@
 			private function init():void
 			{
 				//Helper.evalScripts();
-				region=countryCombo.selectedCountry.region;
+				if(countryCombo.selectedCountry){
+					region=countryCombo.selectedCountry.region;
+				}
 				asin=ExternalInterface.call("getCurrentASIN");
 				searchItemDTO=new SearchItemDTO();
 				searchItemDTO.id=asin;
