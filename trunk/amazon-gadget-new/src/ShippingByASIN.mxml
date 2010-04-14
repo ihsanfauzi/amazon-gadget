@@ -39,6 +39,7 @@
 									 searchDTO="{searchDTO}"/>
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Image;
 			import services.Helper;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
@@ -68,6 +69,10 @@
 				searchItemDTO.id=asin;
 				searchDTO=new SearchDTO();
 				searchDTO.searchItems.addItem(searchItemDTO);
+				
+				var img:Image=new Image();
+				img.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
+				img.initialize();				
 			}
 
 			private function amazonSearchResultHandler(event:Event):void
