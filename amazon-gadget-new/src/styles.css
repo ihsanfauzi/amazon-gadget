@@ -2,8 +2,23 @@ Application {
    backgroundColor: #ffffff;
    backgroundGradientColors: #ffffff, #ffffff;
    color: #000000;
+   padding: 2;
+   cornerRadius: 3;
+   borderColor: blue;
+   borderThickness: 1;
+   borderStyle: solid;
 }
 
+.borderedContainer {
+   backgroundColor: #ffffff;
+   backgroundGradientColors: #ffffff, #ffffff;
+   color: #000000;
+   padding: 2;
+   cornerRadius: 3;
+   borderColor: black;
+   borderThickness: 1;
+   borderStyle: solid;
+}
 ComboBox {
    cornerRadius: 3;
    fontSize: 9;
