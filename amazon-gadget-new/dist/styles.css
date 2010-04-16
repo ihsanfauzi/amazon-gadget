@@ -4,7 +4,7 @@ Application {
    color: #000000;
    padding: 2;
    cornerRadius: 3;
-   borderColor: black;
+   borderColor: blue;
    borderThickness: 1;
    borderStyle: solid;
 }
