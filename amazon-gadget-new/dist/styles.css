@@ -2,10 +2,6 @@ Application {
    backgroundColor: #ffffff;
    backgroundGradientColors: #ffffff, #ffffff;
    color: #000000;
-   cornerRadius: 3;
-   borderColor: blue;
-   borderThickness: 1;
-   borderStyle: solid;
 }
 
 .borderedContainer {

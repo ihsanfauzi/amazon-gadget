@@ -23,7 +23,7 @@
 								  page="{page}"
 								  result="{amazonSearchResultHandler(event)}"/>
 	<mx:HBox>
-		<mx:Button label="{showBox?'Hide Shipping Info':'Check if the item could be shipped to your country'}"
+		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click="{checkAvailabilityClickHandler()}"/>
 		<components:CountryComboBox id="countryCombo"
 									countries="{res.countries}"
@@ -61,15 +61,6 @@
 			private function init():void
 			{
 				//Helper.evalScripts();
-				if(countryCombo.selectedCountry){
-					region=countryCombo.selectedCountry.region;
-				}
-				asin=ExternalInterface.call("getCurrentASIN");
-				searchItemDTO=new SearchItemDTO();
-				searchItemDTO.id=asin;
-				searchDTO=new SearchDTO();
-				searchDTO.searchItems.addItem(searchItemDTO);
-				
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox="+asin;
 				img.initialize();				
@@ -91,9 +82,18 @@
 
 			private function checkAvailabilityClickHandler():void
 			{
-				showBox=!showBox;
+				showBox=true;
 				if (showBox)
 				{
+					if(countryCombo.selectedCountry){
+						region=countryCombo.selectedCountry.region;
+					}
+					asin=ExternalInterface.call("getCurrentASIN");
+					searchItemDTO=new SearchItemDTO();
+					searchItemDTO.id=asin;
+					searchDTO=new SearchDTO();
+					searchDTO.searchItems.addItem(searchItemDTO);
+					
 					checkAvailabilityBox.checkAvailabilityClickHandler(null);
 				}
 			}
