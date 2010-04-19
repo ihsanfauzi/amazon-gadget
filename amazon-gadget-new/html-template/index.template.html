@@ -4,22 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
+	<input id="ASIN" type="hidden" value="B000V2QCQI">
   	<div id="${application}Div" style="width:100%; height:0px;">
-	<script>
-	rawData="";
-	display_callback = function(input){
-		rawData=input;
-	}
-	getRawData = function(){
-		return rawData;
-	}
-	setApplicationHeight = function(height){
-		document.getElementById("${application}Div").style.height=height;
-	}
-	getCurrentASIN = function(){
-		return "B000V2QCQI";
-	}
-	</script>
 
   	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
 			id="${application}" width="${width}" height="${height}"
