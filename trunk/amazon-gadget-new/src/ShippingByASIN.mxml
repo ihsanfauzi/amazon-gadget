@@ -39,6 +39,7 @@
 									 searchDTO="{searchDTO}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.JSInit;
 			import mx.controls.Image;
 			import services.Helper;
 			import dto.SearchDTO;
@@ -61,6 +62,8 @@
 			private function init():void
 			{
 				//Helper.evalScripts();
+				JSInit.init();
+				measure();
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox="+asin;
 				img.initialize();				
