@@ -16,12 +16,6 @@
 				xmlns:resources="resources.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
-	<services:AmazonSearchService id="amazonSearchService"
-								  searchDTO="{searchDTO}"
-								  keyword="{asin}"
-								  category="{null}"
-								  page="{page}"
-								  result="{amazonSearchResultHandler(event)}"/>
 	<mx:HBox>
 		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click="{checkAvailabilityClickHandler()}"/>
@@ -65,22 +59,12 @@
 				JSInit.init();
 				measure();
 				var img:Image=new Image();
-				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox="+asin;
-				img.initialize();				
+				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+				img.initialize();
 
 				var img1:Image=new Image();
 				img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
-				img1.initialize();				
-			}
-
-			private function amazonSearchResultHandler(event:Event):void
-			{
-				if (amazonSearchService.searchDTO.searchItems.length > 0)
-				{
-					searchDTO=amazonSearchService.searchDTO;
-					searchItemDTO=searchDTO.searchItems.getItemAt(0)as SearchItemDTO;
-					checkAvailabilityBox.checkAvailabilityClickHandler(null);
-				}
+				img1.initialize();
 			}
 
 			private function checkAvailabilityClickHandler():void
@@ -88,7 +72,8 @@
 				showBox=true;
 				if (showBox)
 				{
-					if(countryCombo.selectedCountry){
+					if (countryCombo.selectedCountry)
+					{
 						region=countryCombo.selectedCountry.region;
 					}
 					asin=ExternalInterface.call("getCurrentASIN");
@@ -96,7 +81,7 @@
 					searchItemDTO.id=asin;
 					searchDTO=new SearchDTO();
 					searchDTO.searchItems.addItem(searchItemDTO);
-					
+
 					checkAvailabilityBox.checkAvailabilityClickHandler(null);
 				}
 			}
