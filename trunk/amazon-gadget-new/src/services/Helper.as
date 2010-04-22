@@ -75,7 +75,7 @@ package services
 			var now:Date=new Date();
 
 			request.AWSAccessKeyId=amazonDeveloperId;
-			request.AssociateTag="catalog0e-20";
+			request.AssociateTag="7search-20";
 
 			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
 			// Note that we must convert to GMT.
@@ -163,11 +163,11 @@ package services
 		{
 			if (s.indexOf("?") != -1)
 			{
-				s=s + "&tag=catalog0e-20";
+				s=s + "&tag=7search-20";
 			}
 			else
 			{
-				s=s + "?tag=catalog0e-20";
+				s=s + "?tag=7search-20";
 			}
 			return s;
 		}
@@ -232,7 +232,7 @@ package services
 					si.imgSrc=r.ThumbImageUrl;
 					if (r.DetailPageURL)
 					{
-						si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
+						si.url=r.DetailPageURL + "?ie=UTF8&tag=7search-20";
 					}
 					si.description+=" <br>" + r.Title + "<br><b>" + r.category + "</b>";
 				}
@@ -257,7 +257,7 @@ package services
 					si.name = r.Title;
 					if (r.DetailPageURL)
 					{
-						si.url=r.DetailPageURL + "?ie=UTF8&tag=catalog0e-20";
+						si.url=r.DetailPageURL + "?ie=UTF8&tag=7search-20";
 					}
 					si.description=r.Subtitle + "<br><b>" + r.category + "</b>";
 					if(si.id){
