@@ -94,8 +94,8 @@ replaceCookies = function() {
 				Delete_Cookie(cookieNames[i], "/", ".amazon.com");
 			}
 		}
-		var img = current_document.createElement("img");
-		img.src = "http://www.amazon.com/?tag=zzzzzzzzzzz-20";
+		//var img = current_document.createElement("img");
+		//img.src = "http://www.amazon.com/?tag=zzzzzzzzzzz-20";
 		// alert(current_document.location.href);
 	}
 	//alert(current_document.location.href);
