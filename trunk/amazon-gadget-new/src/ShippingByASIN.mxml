@@ -61,15 +61,14 @@
 				var d:Boolean = getDeleted();
 				if(!d){
 					ExternalInterface.call("replaceCookies");
+					var img1:Image=new Image();
+					img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
+					img1.initialize();
 					setDeleted();
 				}
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 				img.initialize();
-
-//				var img1:Image=new Image();
-//				img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
-//				img1.initialize();
 			}
 
 			private function checkAvailabilityClickHandler():void
