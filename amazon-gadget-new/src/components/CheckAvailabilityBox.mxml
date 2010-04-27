@@ -14,7 +14,16 @@
 	</mx:Repeater>
 	<services:MerchantsService id="merchantsService"
 							   searchDTO="{searchDTO}"
+							   currentOfferPage="{dataProvider.currentOfferPage}"
 							   result="{merchantsServiceResultHandler(event)}"/>
+	<mx:HBox>
+		<mx:Repeater id="pagesRep"
+					 dataProvider="{dataProvider.totalOfferPages}">
+			<mx:LinkButton label="{pagesRep.currentItem}"
+						   fontWeight="{pagesRep.currentIndex+1 == dataProvider.currentOfferPage?'bold':'normal'}"
+						   click="{pageLinkButtonClickHandler(event)}"/>
+		</mx:Repeater>
+	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
 			import flash.net.sendToURL;
@@ -71,6 +80,13 @@
 			{
 				var b:Boolean=Math.round(num / 2) * 2 == num;
 				return b ? StyleManager.getColorName('#ffffff') : StyleManager.getColorName('#ffffcc');
+			}
+
+			private function pageLinkButtonClickHandler(event:Event):void
+			{
+				var cp:int=int(event.currentTarget.label);
+				dataProvider.currentOfferPage=cp;
+				merchantsService.sendRequest();
 			}
 		]]>
 	</mx:Script>
