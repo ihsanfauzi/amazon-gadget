@@ -290,6 +290,7 @@ package services
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
 				searchItemDTO.url=item.DetailPageURL;
 				searchItemDTO.offers=[];
+				searchItemDTO.setTotalOfferPages(item.Offers.TotalOfferPages); 
 				var offers:ArrayCollection;
 				if (item.Offers.Offer is ArrayCollection)
 				{

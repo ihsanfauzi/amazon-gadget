@@ -28,7 +28,23 @@ package dto
 		[Bindable]
 		public var imgHeight:String;
 		[Bindable]
-		public var offers:Array = [];
+		public var offers:Array=[];
+		[Bindable]
+		public var currentOfferPage:int=1;
+		[Bindable]
+		public var totalOfferPages:Array;
+
+		public function setTotalOfferPages(pages:int):void
+		{
+			var tmp:Array=[];
+			for(var i:int=0; i < pages; i++)
+			{
+				tmp.push(i + 1);
+			}
+			totalOfferPages=tmp;
+		}
 	}
 }
+
+
 

@@ -27,6 +27,9 @@
 			<MerchantId>
 				All
 			</MerchantId>
+			<OfferPage>
+				{currentOfferPage?currentOfferPage:1}
+			</OfferPage>
 		</mx:request>
 	</mx:HTTPService>
 	<mx:Script>
@@ -38,6 +41,8 @@
 
 			[Bindable]
 			public var searchDTO:SearchDTO;
+			[Bindable]
+			public var currentOfferPage:int;
 
 			public function sendRequest():void {
 				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
