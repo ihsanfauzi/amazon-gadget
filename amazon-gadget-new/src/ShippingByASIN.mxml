@@ -20,6 +20,7 @@
 		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click="{checkAvailabilityClickHandler()}"/>
 		<components:CountryComboBox id="countryCombo"
+									width="200"
 									countries="{res.countries}"
 									visible="{showBox}"
 									includeInLayout="{showBox}"
