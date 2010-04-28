@@ -2,6 +2,8 @@
 <flexLibProperties version="1">
   <includeClasses>
     <classEntry path="amazon.shipping.Services"/>
+    <classEntry path="resources.Resource"/>
+    <classEntry path="resources.Resources"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
