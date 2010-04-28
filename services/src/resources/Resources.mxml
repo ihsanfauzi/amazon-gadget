@@ -2,7 +2,7 @@
 <mx:Object xmlns="*"
 		   xmlns:mx="http://www.adobe.com/2006/mxml"
 		   xmlns:resources="resources.*">
-<mx:Array id="countries-de">
+<mx:Array id="countries_de">
 <resources:Resource value="EG" label="EG Egypt" region=""/>
 <resources:Resource value="AL" label="AL Albania" region=""/>
 <resources:Resource value="DZ" label="DZ Algeria" region=""/>
@@ -236,7 +236,7 @@
 <resources:Resource value="CF" label="CF Central African Republic" region=""/>
 <resources:Resource value="CY" label="CY Cyprus" region=""/>
 </mx:Array>
-<mx:Array id="countries-fr">
+<mx:Array id="countries_fr">
 <resources:Resource value="ZA" label="ZA South Africa" region=""/>
 <resources:Resource value="AL" label="AL Albania" region=""/>
 <resources:Resource value="DZ" label="DZ Algeria" region=""/>
@@ -470,7 +470,7 @@
 <resources:Resource value="ZM" label="ZM Zambia" region=""/>
 <resources:Resource value="ZW" label="ZW Zimbabwe" region=""/>
 </mx:Array>
-<mx:Array id="countries-uk">
+<mx:Array id="countries_uk">
 <resources:Resource value="AL" label="AL Albania" region=""/>
 <resources:Resource value="DZ" label="DZ Algeria" region=""/>
 <resources:Resource value="AS" label="AS American Samoa" region=""/>
@@ -704,7 +704,7 @@
 <resources:Resource value="ZM" label="ZM Zambia" region=""/>
 <resources:Resource value="ZW" label="ZW Zimbabwe" region=""/>
 </mx:Array>
-<mx:Array id="countries-us">
+<mx:Array id="countries_us">
 <resources:Resource value="AF" label="AF Afghanistan" region=""/>
 <resources:Resource value="AL" label="AL Albania" region=""/>
 <resources:Resource value="AX" label="AX Åland Islands" region=""/>
