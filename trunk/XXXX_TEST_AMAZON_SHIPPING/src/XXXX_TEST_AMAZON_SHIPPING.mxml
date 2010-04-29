@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+						layout="absolute">
+	<mx:VBox width="100%"
+			 height="100%">
+		<mx:ComboBox id="amazonStoresCombo"
+					 dataProvider="{amazonStores}"/>
+		<mx:Button id="startButton"
+				   label="Start"
+				   click="{startButtonClickHandler()}"/>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.serialization.json.JSON;
+			import mx.rpc.events.ResultEvent;
+			import services.Helper;
+			import mx.rpc.http.mxml.HTTPService;
+			[Bindable]
+			private var amazonStores:Array=["www.amazon.com", "www.amazon.de"];
+
+			private function startButtonClickHandler():void
+			{
+				retrieveSellersList(amazonStoresCombo.selectedLabel);
+			}
+
+			private function retrieveSellersList(amazonStore:String):void
+			{
+				var serv:HTTPService=new HTTPService();
+				serv.url=Helper.createGoogleSearchURL(1, "site:" + amazonStore + "/gp/help/seller/shipping.html");
+				serv.showBusyCursor=true;
+				serv.addEventListener(ResultEvent.RESULT, retrieveSellersListResultHandler);
+				serv.send();
+			}
+
+			private function retrieveSellersListResultHandler(event:ResultEvent):void
+			{
+				var res:String=event.result as String;
+				var dec:Object = JSON.decode(res);
+				var results:Array = dec.resonseData.results as Array;
+				for each (var result:Object in results){
+					//load
+				}
+				trace(res);
+			}
+		]]>
+	</mx:Script>
+</mx:WindowedApplication>
