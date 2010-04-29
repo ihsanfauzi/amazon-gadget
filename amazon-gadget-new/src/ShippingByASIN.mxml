@@ -34,6 +34,7 @@
 									 searchDTO="{searchDTO}"/>
 	<mx:Script>
 		<![CDATA[
+			import mx.utils.ObjectUtil;
 			import services.JSInit;
 			import mx.controls.Image;
 			import services.Helper;
@@ -119,7 +120,7 @@
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
 				if (obj.data.hasOwnProperty("date"))
 				{
-					var date:Date = obj.data.date as Date;
+					var date:Date = ObjectUtil.copy(obj.data.date) as Date;
 					date.date = date.date + 1;
 					var now:Date = new Date();
 					if (now > date){
