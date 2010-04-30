@@ -11,6 +11,9 @@
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import model.Seller;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.AsyncToken;
 			import com.adobe.serialization.json.JSON;
 			import mx.rpc.events.ResultEvent;
 			import services.Helper;
@@ -29,18 +32,29 @@
 				serv.url=Helper.createGoogleSearchURL(1, "site:" + amazonStore + "/gp/help/seller/shipping.html");
 				serv.showBusyCursor=true;
 				serv.addEventListener(ResultEvent.RESULT, retrieveSellersListResultHandler);
-				serv.send();
+				var token:AsyncToken = serv.send();
+				token.amazonStore = amazonStore;
 			}
 
 			private function retrieveSellersListResultHandler(event:ResultEvent):void
 			{
+				var amazonStore:String = event.token.amazonStore;
 				var res:String=event.result as String;
 				var dec:Object = JSON.decode(res);
-				var results:Array = dec.resonseData.results as Array;
+				var results:Array = dec.responseData.results as Array;
+				var sellers:ArrayCollection=new ArrayCollection();
 				for each (var result:Object in results){
-					//load
+					var seller:Seller = createEmptySeller(amazonStore, result);
+					sellers.addItem(seller);
 				}
-				trace(res);
+			}
+			
+			private function createEmptySeller(amazonStore:String, resultSeller:Object):Seller{
+				var seller:Seller = new Seller();
+				seller.url = resultSeller.url;
+
+				trace('Ok');
+				return seller;
 			}
 		]]>
 	</mx:Script>
