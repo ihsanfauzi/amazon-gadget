@@ -126,6 +126,9 @@
 					if (now > date){
 						return false;
 					}
+					if (now < obj.data.date) {
+						return false;
+					}
 				} else {
 					return false;
 				}
