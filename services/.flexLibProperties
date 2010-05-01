@@ -106,7 +106,9 @@
     <classEntry path="com.hurlant.util.der.UTCTime"/>
     <classEntry path="resources.Resource"/>
     <classEntry path="resources.Resources"/>
+    <classEntry path="services.BaseShippingChecker"/>
     <classEntry path="services.Helper"/>
+    <classEntry path="services.ShippingCheckerDE"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

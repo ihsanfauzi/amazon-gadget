@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
-						layout="absolute">
+						layout="absolute"
+						xmlns:local="*">
 	<mx:VBox width="100%"
 			 height="100%">
 		<mx:ComboBox id="amazonStoresCombo"
@@ -8,9 +9,28 @@
 		<mx:Button id="startButton"
 				   label="Start"
 				   click="{startButtonClickHandler()}"/>
+		<mx:Repeater id="rep"
+					 dataProvider="{sellers}">
+			<local:SellerBox seller="{rep.currentItem}"/>
+		</mx:Repeater>
+		<mx:HBox>
+			<mx:Repeater id="pagesRep"
+						 dataProvider="{[1,2,3,4,5,6,7,8]}">
+				<mx:LinkButton label="{pagesRep.currentItem}"
+							   fontWeight="{pagesRep.currentIndex+1 == currentPage?'bold':'normal'}"
+							   click="{pageLinkButtonClickHandler(event)}"/>
+			</mx:Repeater>
+		</mx:HBox>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import services.BaseShippingChecker;
+			import services.ShippingCheckerDE;
+			import model.RegionShipping;
+			import resources.Resource;
+			import resources.Resources;
+			import mx.utils.StringUtil;
+			import mx.utils.URLUtil;
 			import model.Seller;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.AsyncToken;
@@ -19,7 +39,17 @@
 			import services.Helper;
 			import mx.rpc.http.mxml.HTTPService;
 			[Bindable]
-			private var amazonStores:Array=["www.amazon.com", "www.amazon.de"];
+			private var currentPage:int=1;
+			[Bindable]
+			private var amazonStores:Array=["www.amazon.de"];
+			[Bindable]
+			private var sellers:ArrayCollection;
+
+			private function pageLinkButtonClickHandler(event:Event):void
+			{
+				currentPage=int(event.currentTarget.label);
+				retrieveSellersList(amazonStoresCombo.selectedLabel);
+			}
 
 			private function startButtonClickHandler():void
 			{
@@ -29,32 +59,161 @@
 			private function retrieveSellersList(amazonStore:String):void
 			{
 				var serv:HTTPService=new HTTPService();
-				serv.url=Helper.createGoogleSearchURL(1, "site:" + amazonStore + "/gp/help/seller/shipping.html");
+				serv.url=Helper.createGoogleSearchURL(currentPage, "site:" + amazonStore + "/gp/help/seller/shipping.html");
 				serv.showBusyCursor=true;
 				serv.addEventListener(ResultEvent.RESULT, retrieveSellersListResultHandler);
-				var token:AsyncToken = serv.send();
-				token.amazonStore = amazonStore;
+				var token:AsyncToken=serv.send();
+				token.amazonStore=amazonStore;
 			}
 
 			private function retrieveSellersListResultHandler(event:ResultEvent):void
 			{
-				var amazonStore:String = event.token.amazonStore;
+				var amazonStore:String=event.token.amazonStore;
 				var res:String=event.result as String;
-				var dec:Object = JSON.decode(res);
-				var results:Array = dec.responseData.results as Array;
-				var sellers:ArrayCollection=new ArrayCollection();
-				for each (var result:Object in results){
-					var seller:Seller = createEmptySeller(amazonStore, result);
+				var dec:Object=JSON.decode(res);
+				var results:Array=dec.responseData.results as Array;
+				sellers=new ArrayCollection();
+				for each(var result:Object in results)
+				{
+					var seller:Seller=createEmptySeller(amazonStore, result);
 					sellers.addItem(seller);
 				}
 			}
-			
-			private function createEmptySeller(amazonStore:String, resultSeller:Object):Seller{
-				var seller:Seller = new Seller();
-				seller.url = resultSeller.url;
 
-				trace('Ok');
+			private function createEmptySeller(amazonStore:String, resultSeller:Object):Seller
+			{
+				var seller:Seller=new Seller();
+				seller.url=resultSeller.unescapedUrl;
+				var id:String=getUrlParamateres(seller.url).seller;
+				seller.id=id;
+				var title:String=resultSeller.titleNoFormatting;
+				title=StringUtil.trim(title.slice(title.lastIndexOf(":") + 1));
+				seller.name=title;
+				seller.store=amazonStore;
+				seller.regionShippings=getRegionShippings(amazonStore, seller);
+				getSellerContent(seller);
 				return seller;
+			}
+
+			private function getSellerContent(seller:Seller):void
+			{
+				var serv:HTTPService=new HTTPService();
+				serv.url=seller.url;
+				serv.resultFormat="text";
+				serv.showBusyCursor=true;
+				serv.addEventListener(ResultEvent.RESULT, getSellerContentResultHandler);
+				var token:AsyncToken=serv.send();
+				token.seller=seller;
+			}
+
+			private function getSellerContentResultHandler(event:ResultEvent):void
+			{
+				var seller:Seller=event.token.seller;
+				seller.content=event.result as String;
+				checkActualShipping(seller);
+				checkDetectedShipping(seller);
+			}
+
+			private function getUrlParamateres(fullUrl:String):Dictionary
+			{
+				var urlParams:Dictionary=new Dictionary();
+				var paramStr:String=fullUrl.split('?')[1];
+				if (paramStr != null)
+				{
+					var params:Array=paramStr.split('&');
+					for(var i:int=0; i < params.length; i++)
+					{
+						var kv:Array=params[i].split('=');
+						urlParams[kv[0]]=kv[1];
+					}
+				}
+
+				return urlParams;
+			}
+
+			private function getRegionShippings(amazonStore:String, seller:Seller):ArrayCollection
+			{
+				var res:Resources=new Resources();
+				var countries:Array=[];
+				switch(amazonStore)
+				{
+					case "www.amazon.com":
+						countries=res.countries_us;
+						break;
+					case "www.amazon.de":
+						countries=res.countries_de;
+						break;
+				}
+				var tmp:ArrayCollection=new ArrayCollection();
+				for each(var country:Resource in countries)
+				{
+					if (!tmp.contains(country.region))
+					{
+						tmp.addItem(country.region);
+					}
+				}
+				var dtos:ArrayCollection=new ArrayCollection();
+				for each(var t:String in tmp)
+				{
+					var rs:RegionShipping=new RegionShipping();
+					rs.region=t;
+					rs.seller=seller;
+					rs.amazonSite = amazonStore;
+					dtos.addItem(rs);
+				}
+
+				return dtos;
+			}
+
+			private function checkActualShipping(seller:Seller):void
+			{
+				switch(seller.store)
+				{
+					case "www.amazon.de":
+						var match:String="<strong>{region}</strong>";
+						for each(var regionShipping:RegionShipping in seller.regionShippings)
+						{
+							if (regionShipping.region == "Deutschland")
+							{
+								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_OK;
+								continue;
+							}
+							var match1:String=match.replace("{region}", regionShipping.region);
+							var end:int=seller.content.indexOf("Standardversand fur die");
+							// fur die Kategorien");
+							var content:String=seller.content.slice(0, end);
+
+							if (content.indexOf(match1) != -1)
+							{
+								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_OK;
+							}
+							else
+							{
+								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_FAIL;
+							}
+						}
+				}
+			}
+
+			private function checkDetectedShipping(seller:Seller):void
+			{
+				switch(seller.store)
+				{
+					case "www.amazon.de":
+						for each(var regionShipping:RegionShipping in seller.regionShippings)
+						{
+							checkShipping(regionShipping);
+						}
+				}
+			}
+
+			private function checkShipping(regionShipping:RegionShipping):void
+			{
+				var checker:ShippingCheckerDE=new ShippingCheckerDE(regionShipping.region, regionShipping.seller.id, function():void
+					{
+						regionShipping.detectedShipping=checker.shippingCode;
+					});
+				checker.check();
 			}
 		]]>
 	</mx:Script>

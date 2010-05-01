@@ -13,6 +13,8 @@ package model
 		public var name:String;
 		public var url:String;
 		public var regionShippings:ArrayCollection;
+		public var content:String;
+		public var store:String;
 		
 	}
 }
