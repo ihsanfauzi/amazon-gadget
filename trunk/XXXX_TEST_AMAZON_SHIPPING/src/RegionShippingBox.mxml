@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 height="100%"
+		 paddingLeft="30">
+	<mx:HBox>
+		<mx:Text text="{regionShipping.region}"
+				 width="500"/>
+		<mx:Text text="Actual - {getActualShipping(regionShipping.actualShipping)}"
+				 width="100"/>
+		<mx:Text text="Detected - {getActualShipping(regionShipping.detectedShipping)}"
+				 width="100"
+				 click="{detectedClickHandler()}"/>
+	</mx:HBox>
+
+	<mx:Script>
+		<![CDATA[
+			import flash.net.navigateToURL;
+			import services.Helper;
+			import services.BaseShippingChecker;
+			import model.RegionShipping;
+			[Bindable]
+			public var regionShipping:RegionShipping;
+
+			private function getActualShipping(actualShipping:int):String
+			{
+				switch(actualShipping)
+				{
+					case BaseShippingChecker.SHIPPING_FAIL:
+						return "False";
+					case BaseShippingChecker.SHIPPING_OK:
+						return "True";
+					case BaseShippingChecker.SHIPPING_NA:
+						return "N/A";
+				}
+				return "";
+			}
+
+			private function detectedClickHandler():void
+			{
+				var query:String='site:' + regionShipping.amazonSite + '/gp/help/seller/shipping.html inurl:"seller=' + regionShipping.seller.id + '" "' + regionShipping.region + '"';
+				var url:String="http://www.google.com/search?q=" + encodeURIComponent(query);
+				navigateToURL(new URLRequest(url));
+			}
+		]]>
+	</mx:Script>
+</mx:VBox>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox width="100%"
+		 height="100%"
+		 xmlns:mx="http://www.adobe.com/2006/mxml"
+		 xmlns:local="*">
+	<mx:Text text="{seller.name}"
+			 click="{navigateToURL(new URLRequest(seller.url), '_blank')}"/>
+	<mx:Repeater id="rep"
+				 dataProvider="{seller.regionShippings}">
+		<local:RegionShippingBox regionShipping="{rep.currentItem}"/>
+	</mx:Repeater>
+	<mx:Script>
+		<![CDATA[
+			import model.Seller;
+			[Bindable]
+			public var seller:Seller;
+		]]>
+	</mx:Script>
+</mx:VBox>

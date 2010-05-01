@@ -24,7 +24,7 @@
 <resources:Resource value="BD" label="BD Bangladesh" region="Weltweit"/>
 <resources:Resource value="BB" label="BB Barbados" region="Weltweit"/>
 <resources:Resource value="BY" label="BY Belarus" region="Übriges Europa"/>
-<resources:Resource value="BE" label="BE Belgium" region="Belgien"/>
+<resources:Resource value="BE" label="BE Belgium" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="BZ" label="BZ Belize" region="Weltweit"/>
 <resources:Resource value="BJ" label="BJ Benin" region="Weltweit"/>
 <resources:Resource value="BM" label="BM Bermuda" region="Weltweit"/>
@@ -34,7 +34,7 @@
 <resources:Resource value="BW" label="BW Botswana" region="Weltweit"/>
 <resources:Resource value="BV" label="BV Bouvet Island" region="Weltweit"/>
 <resources:Resource value="BR" label="BR Brazil" region="Weltweit"/>
-<resources:Resource value="IO" label="IO British Indian Ocean Territory" region=""/>
+<resources:Resource value="IO" label="IO British Indian Ocean Territory" region="Weltweit"/>
 <resources:Resource value="VG" label="VG Brit. Virgin Islands" region="Weltweit"/>
 <resources:Resource value="BN" label="BN Brunei" region="Weltweit"/>
 <resources:Resource value="BG" label="BG Bulgaria" region="Übriges Europa"/>
@@ -46,8 +46,10 @@
 <resources:Resource value="CK" label="CK Cook Islands" region="Weltweit"/>
 <resources:Resource value="CR" label="CR Costa Rica" region="Weltweit"/>
 <resources:Resource value="CI" label="CI Côte d'Ivoire" region="Weltweit"/>
-<resources:Resource value="DK" label="DK Denmark" region="Dänemark"/>
+<resources:Resource value="DK" label="DK Denmark" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="DE" label="DE Germany" region="Deutschland"/>
+<resources:Resource value="DE_STR" label="DE Germany Street" region="Deutschland Straße"/>
+<resources:Resource value="DE_ML" label="DE Germany Mailbox" region="Deutschland Postfachzustellung"/>
 <resources:Resource value="DM" label="DM Dominica" region="Weltweit"/>
 <resources:Resource value="DO" label="DO Dominican Republic" region="Weltweit"/>
 <resources:Resource value="DJ" label="DJ Djibouti" region="Weltweit"/>
@@ -58,8 +60,8 @@
 <resources:Resource value="FK" label="FK Falkland Islands" region="Weltweit"/>
 <resources:Resource value="FO" label="FO Faroe Islands" region="Übriges Europa"/>
 <resources:Resource value="FJ" label="FJ Fiji" region="Weltweit"/>
-<resources:Resource value="FI" label="FI Finland" region="Finnland"/>
-<resources:Resource value="FR" label="FR France" region="Frankreich"/>
+<resources:Resource value="FI" label="FI Finland" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
+<resources:Resource value="FR" label="FR France" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="GF" label="GF French Guiana" region="Weltweit"/>
 <resources:Resource value="TF" label="TF French Oceania" region="Weltweit"/>
 <resources:Resource value="PF" label="PF French Polynesia" region="Weltweit"/>
@@ -69,7 +71,7 @@
 <resources:Resource value="GH" label="GH Ghana" region="Weltweit"/>
 <resources:Resource value="GI" label="GI Gibraltar" region="Übriges Europa"/>
 <resources:Resource value="GD" label="GD Grenada" region="Weltweit"/>
-<resources:Resource value="GR" label="GR Greece" region="Griechenland"/>
+<resources:Resource value="GR" label="GR Greece" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
 <resources:Resource value="GL" label="GL Greenland" region="Weltweit"/>
 <resources:Resource value="GP" label="GP Guadeloupe" region="Weltweit"/>
 <resources:Resource value="GU" label="GU Guam" region="Weltweit"/>
@@ -83,10 +85,10 @@
 <resources:Resource value="HK" label="HK Hong Kong" region="Weltweit"/>
 <resources:Resource value="IN" label="IN India" region="Weltweit"/>
 <resources:Resource value="ID" label="ID Indonesia" region="Weltweit"/>
-<resources:Resource value="IE" label="IE Ireland" region="Irland"/>
+<resources:Resource value="IE" label="IE Ireland" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="IS" label="IS Iceland" region="Übriges Europa"/>
 <resources:Resource value="IL" label="IL Israel" region="Weltweit"/>
-<resources:Resource value="IT" label="IT Italy" region="Italien"/>
+<resources:Resource value="IT" label="IT Italy" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
 <resources:Resource value="JM" label="JM Jamaica" region="Weltweit"/>
 <resources:Resource value="SJ" label="SJ Jan Mayen / Svalbard" region="Übriges Europa"/>
 <resources:Resource value="JP" label="JP Japan" region="Japan"/>
@@ -98,7 +100,7 @@
 <resources:Resource value="CV" label="CV Cape Verde" region="Weltweit"/>
 <resources:Resource value="KZ" label="KZ Kazakhstan" region="Weltweit"/>
 <resources:Resource value="QA" label="QA Qatar" region="Weltweit"/>
-<resources:Resource value="CC" label="CC Keeling Islands (Cocos Islands)" region=""/>
+<resources:Resource value="CC" label="CC Keeling Islands (Cocos Islands)" region="Weltweit"/>
 <resources:Resource value="KE" label="KE Kenya" region="Weltweit"/>
 <resources:Resource value="KG" label="KG Kyrgyzstan" region="Weltweit"/>
 <resources:Resource value="KI" label="KI Kiribati" region="Weltweit"/>
@@ -116,9 +118,9 @@
 <resources:Resource value="LB" label="LB Lebanon" region="Weltweit"/>
 <resources:Resource value="LR" label="LR Liberia" region="Weltweit"/>
 <resources:Resource value="LY" label="LY Libya" region="Weltweit"/>
-<resources:Resource value="LI" label="LI Liechtenstein" region="Liechtenstein"/>
+<resources:Resource value="LI" label="LI Liechtenstein" region="Schweiz, Liechtenstein, Luxemburg"/>
 <resources:Resource value="LT" label="LT Lithuania" region="Übriges Europa"/>
-<resources:Resource value="LU" label="LU Luxembourg" region="Luxemburg"/>
+<resources:Resource value="LU" label="LU Luxembourg" region="Schweiz, Liechtenstein, Luxemburg"/>
 <resources:Resource value="MO" label="MO Macau" region="Weltweit"/>
 <resources:Resource value="MG" label="MG Madagascar" region="Weltweit"/>
 <resources:Resource value="MK" label="MK Macedonia" region="Übriges Europa"/>
@@ -148,10 +150,10 @@
 <resources:Resource value="NC" label="NC New Caledonia" region="Weltweit"/>
 <resources:Resource value="NZ" label="NZ New Zealand" region="Weltweit"/>
 <resources:Resource value="NI" label="NI Nicaragua" region="Weltweit"/>
-<resources:Resource value="NL" label="NL Netherlands" region="Niederlande"/>
+<resources:Resource value="NL" label="NL Netherlands" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="AN" label="AN Netherlands Antilles" region="Weltweit"/>
 <resources:Resource value="NE" label="NE Niger" region="Weltweit"/>
-<resources:Resource value="NG" label="NG Nigeria" region=""/>
+<resources:Resource value="NG" label="NG Nigeria" region="Weltweit"/>
 <resources:Resource value="NU" label="NU Niue" region="Weltweit"/>
 <resources:Resource value="MP" label="MP Northern Marianas" region="Weltweit"/>
 <resources:Resource value="NF" label="NF Norfolk Island" region="Weltweit"/>
@@ -168,7 +170,7 @@
 <resources:Resource value="PH" label="PH Philippines" region="Weltweit"/>
 <resources:Resource value="PN" label="PN Pitcairn" region="Weltweit"/>
 <resources:Resource value="PL" label="PL Poland" region="Übriges Europa"/>
-<resources:Resource value="PT" label="PT Portugal" region="Portugal"/>
+<resources:Resource value="PT" label="PT Portugal" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
 <resources:Resource value="PR" label="PR Puerto Rico" region="Weltweit"/>
 <resources:Resource value="RE" label="RE Réunion" region="Weltweit"/>
 <resources:Resource value="RW" label="RW Rwanda" region="Weltweit"/>
@@ -177,11 +179,11 @@
 <resources:Resource value="SB" label="SB Solomon Islands" region="Weltweit"/>
 <resources:Resource value="ZM" label="ZM Zambia" region="Weltweit"/>
 <resources:Resource value="WS" label="WS Samoa (Independent)" region="Weltweit"/>
-<resources:Resource value="SM" label="SM San Marino" region="SM"/>
+<resources:Resource value="SM" label="SM San Marino" region="Weltweit"/>
 <resources:Resource value="ST" label="ST São Tomé and Principe" region="Weltweit"/>
 <resources:Resource value="SA" label="SA Saudi Arabia" region="Weltweit"/>
-<resources:Resource value="SE" label="SE Sweden" region="Schweden"/>
-<resources:Resource value="CH" label="CH Switzerland" region="Schweiz"/>
+<resources:Resource value="SE" label="SE Sweden" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
+<resources:Resource value="CH" label="CH Switzerland" region="Schweiz, Liechtenstein, Luxemburg"/>
 <resources:Resource value="SN" label="SN Senegal" region="Weltweit"/>
 <resources:Resource value="RS" label="RS Serbia" region="Übriges Europa"/>
 <resources:Resource value="SC" label="SC Seychelles" region="Weltweit"/>
@@ -191,7 +193,7 @@
 <resources:Resource value="SK" label="SK Slovakia" region="Übriges Europa"/>
 <resources:Resource value="SI" label="SI Slovenia" region="Übriges Europa"/>
 <resources:Resource value="SO" label="SO Somalia" region="Weltweit"/>
-<resources:Resource value="ES" label="ES Spain" region="Spanien"/>
+<resources:Resource value="ES" label="ES Spain" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
 <resources:Resource value="LK" label="LK Sri Lanka" region="Weltweit"/>
 <resources:Resource value="SH" label="SH St. Helena" region="Weltweit"/>
 <resources:Resource value="KN" label="KN St. Kitts and Nevis" region="Weltweit"/>
@@ -199,7 +201,7 @@
 <resources:Resource value="PM" label="PM St. Pierre and Miquelon" region="Weltweit"/>
 <resources:Resource value="VC" label="VC St. Vincent and Grenadines" region="Weltweit"/>
 <resources:Resource value="ZA" label="ZA South Africa" region="Weltweit"/>
-<resources:Resource value="GS" label="GS South Georgia and the South Sandwich Islands" region=""/>
+<resources:Resource value="GS" label="GS South Georgia and the South Sandwich Islands" region="Weltweit"/>
 <resources:Resource value="SR" label="SR Suriname" region="Weltweit"/>
 <resources:Resource value="SZ" label="SZ Swaziland" region="Weltweit"/>
 <resources:Resource value="TJ" label="TJ Tajikistan" region="Weltweit"/>
@@ -221,17 +223,17 @@
 <resources:Resource value="UA" label="UA Ukraine" region="Übriges Europa"/>
 <resources:Resource value="HU" label="HU Hungary" region="Übriges Europa"/>
 <resources:Resource value="UY" label="UY Uruguay" region="Weltweit"/>
-<resources:Resource value="UZ" label="UZ Uzbekistan" region=""/>
+<resources:Resource value="UZ" label="UZ Uzbekistan" region="Weltweit"/>
 <resources:Resource value="VI" label="VI U.S. Virgin Islands" region="Weltweit"/>
 <resources:Resource value="VU" label="VU Vanuatu" region="Weltweit"/>
 <resources:Resource value="VA" label="VA Vatican City" region="Übriges Europa"/>
 <resources:Resource value="VE" label="VE Venezuela" region="Weltweit"/>
 <resources:Resource value="AE" label="AE United Arab Emirates" region="Weltweit"/>
-<resources:Resource value="GB" label="GB United Kingdom" region="Großbritannien"/>
+<resources:Resource value="GB" label="GB United Kingdom" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
 <resources:Resource value="US" label="US United States of America" region="USA, Kanada"/>
 <resources:Resource value="VN" label="VN Vietnam" region="Weltweit"/>
-<resources:Resource value="WF" label="WF Wallis and Futuna" region=""/>
-<resources:Resource value="CX" label="CX Christmas Island (Christmas Islands)" region=""/>
+<resources:Resource value="WF" label="WF Wallis and Futuna" region="Weltweit"/>
+<resources:Resource value="CX" label="CX Christmas Island (Christmas Islands)" region="Weltweit"/>
 <resources:Resource value="EH" label="EH Western Sahara" region="Weltweit"/>
 <resources:Resource value="CF" label="CF Central African Republic" region="Weltweit"/>
 <resources:Resource value="CY" label="CY Cyprus" region="Übriges Europa"/>
