@@ -1,7 +1,7 @@
 package services
 {
 	import com.adobe.serialization.json.JSON;
-	
+
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.http.mxml.HTTPService;
@@ -40,10 +40,11 @@ package services
 			return "www.amazon.com";
 		}
 
-		protected function analyzeContent(results:Array):int {
+		protected function analyzeContent(results:Array):int
+		{
 			return SHIPPING_OK;
 		}
-		
+
 		private function checkResultHandler(event:ResultEvent):void
 		{
 			var query:String=event.token.query;
@@ -56,7 +57,7 @@ package services
 			}
 			else
 			{
-				this.shippingCode= analyzeContent(results);
+				this.shippingCode=analyzeContent(results);
 				resultHandler();
 			}
 		}
@@ -78,15 +79,21 @@ package services
 			trace(query);
 			var dec:Object=JSON.decode(event.result as String);
 			var results:Array=dec.responseData.results as Array;
+			this.shippingCode=analyzeContentPhase2(results);
+			resultHandler();
+		}
+
+		protected function analyzeContentPhase2(results:Array):int
+		{
 			if (results.length > 0)
 			{
-				this.shippingCode=SHIPPING_FAIL;
+				return SHIPPING_FAIL;
 			}
 			else
 			{
-				this.shippingCode=SHIPPING_NA;
+				return SHIPPING_NA;
 			}
-			resultHandler();
 		}
 	}
 }
+
