@@ -3,8 +3,8 @@
 		 height="100%"
 		 xmlns:mx="http://www.adobe.com/2006/mxml"
 		 xmlns:local="*">
-	<mx:Text text="{seller.name}"
-			 click="{navigateToURL(new URLRequest(seller.url), '_blank')}"/>
+	<mx:LinkButton label="{seller.name}"
+				   click="{navigateToURL(new URLRequest(seller.url), '_blank')}"/>
 	<mx:Repeater id="rep"
 				 dataProvider="{seller.regionShippings}">
 		<local:RegionShippingBox regionShipping="{rep.currentItem}"/>

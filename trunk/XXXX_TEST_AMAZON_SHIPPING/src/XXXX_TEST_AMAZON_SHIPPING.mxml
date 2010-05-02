@@ -4,11 +4,14 @@
 						xmlns:local="*">
 	<mx:VBox width="100%"
 			 height="100%">
-		<mx:ComboBox id="amazonStoresCombo"
-					 dataProvider="{amazonStores}"/>
-		<mx:Button id="startButton"
-				   label="Start"
-				   click="{startButtonClickHandler()}"/>
+		<mx:HBox>
+			<mx:ComboBox id="amazonStoresCombo"
+						 dataProvider="{amazonStores}"/>
+			<mx:TextInput id="randomText"/>
+			<mx:Button id="startButton"
+					   label="Start"
+					   click="{startButtonClickHandler()}"/>
+		</mx:HBox>
 		<mx:Repeater id="rep"
 					 dataProvider="{sellers}">
 			<local:SellerBox seller="{rep.currentItem}"/>
@@ -41,7 +44,7 @@
 			[Bindable]
 			private var currentPage:int=1;
 			[Bindable]
-			private var amazonStores:Array=["www.amazon.de"];
+			private var amazonStores:Array=["www.amazon.co.uk", "www.amazon.fr", "www.amazon.de"];
 			[Bindable]
 			private var sellers:ArrayCollection;
 
@@ -59,7 +62,8 @@
 			private function retrieveSellersList(amazonStore:String):void
 			{
 				var serv:HTTPService=new HTTPService();
-				serv.url=Helper.createGoogleSearchURL(currentPage, "site:" + amazonStore + "/gp/help/seller/shipping.html");
+				var rd:String=randomText.text ? randomText.text : "";
+				serv.url=Helper.createGoogleSearchURL(currentPage, "site:" + amazonStore + "/gp/help/seller/shipping.html " + rd);
 				serv.showBusyCursor=true;
 				serv.addEventListener(ResultEvent.RESULT, retrieveSellersListResultHandler);
 				var token:AsyncToken=serv.send();
@@ -143,6 +147,12 @@
 					case "www.amazon.de":
 						countries=res.countries_de;
 						break;
+					case "www.amazon.fr":
+						countries=res.countries_fr;
+						break;
+					case "www.amazon.co.uk":
+						countries=res.countries_uk;
+						break;
 				}
 				var tmp:ArrayCollection=new ArrayCollection();
 				for each(var country:Resource in countries)
@@ -158,7 +168,7 @@
 					var rs:RegionShipping=new RegionShipping();
 					rs.region=t;
 					rs.seller=seller;
-					rs.amazonSite = amazonStore;
+					rs.amazonSite=amazonStore;
 					dtos.addItem(rs);
 				}
 
@@ -170,6 +180,7 @@
 				switch(seller.store)
 				{
 					case "www.amazon.de":
+					{
 						var match:String="<strong>{region}</strong>";
 						for each(var regionShipping:RegionShipping in seller.regionShippings)
 						{
@@ -180,9 +191,18 @@
 							}
 							var match1:String=match.replace("{region}", regionShipping.region);
 							var end:int=seller.content.indexOf("Standardversand fur die");
+							if (end == -1)
+							{
+								end=seller.content.indexOf("Standardversand für die");
+							}
 							// fur die Kategorien");
 							var content:String=seller.content.slice(0, end);
 
+							if (content.indexOf("Versandkosten und Lieferzeiten für den Versand bei Amazon Marketplace") != -1)
+							{
+								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_NA;
+								continue;
+							}
 							if (content.indexOf(match1) != -1)
 							{
 								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_OK;
@@ -192,6 +212,7 @@
 								regionShipping.actualShipping=BaseShippingChecker.SHIPPING_FAIL;
 							}
 						}
+					}
 				}
 			}
 
