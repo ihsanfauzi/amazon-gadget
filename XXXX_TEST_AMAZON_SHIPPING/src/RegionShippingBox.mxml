@@ -5,16 +5,20 @@
 		 paddingLeft="30">
 	<mx:HBox>
 		<mx:Text text="{regionShipping.region}"
-				 width="500"/>
+				 width="300"/>
 		<mx:Text text="Actual - {getActualShipping(regionShipping.actualShipping)}"
 				 width="100"/>
-		<mx:Text text="Detected - {getActualShipping(regionShipping.detectedShipping)}"
-				 width="100"
-				 click="{detectedClickHandler()}"/>
+		<mx:LinkButton label="Detected - {getActualShipping(regionShipping.detectedShipping)}"
+					   width="130"
+					   click="{detectedClickHandler()}"/>
+		<mx:LinkButton label="Re-Check"
+					   click="{reCheckClickHandler()}"/>
 	</mx:HBox>
 
 	<mx:Script>
 		<![CDATA[
+			import services.ShippingCheckerDE;
+			import mx.formatters.SwitchSymbolFormatter;
 			import flash.net.navigateToURL;
 			import services.Helper;
 			import services.BaseShippingChecker;
@@ -41,6 +45,22 @@
 				var query:String='site:' + regionShipping.amazonSite + '/gp/help/seller/shipping.html inurl:"seller=' + regionShipping.seller.id + '" "' + regionShipping.region + '"';
 				var url:String="http://www.google.com/search?q=" + encodeURIComponent(query);
 				navigateToURL(new URLRequest(url));
+			}
+
+			private function reCheckClickHandler():void
+			{
+				regionShipping.detectedShipping=BaseShippingChecker.SHIPPING_NA;
+				switch(regionShipping.amazonSite)
+				{
+					case "www.amazon.de":
+					{
+						var checker:ShippingCheckerDE=new ShippingCheckerDE(regionShipping.region, regionShipping.seller.id, function():void
+							{
+								regionShipping.detectedShipping=checker.shippingCode;
+							});
+						checker.check();
+					}
+				}
 			}
 		]]>
 	</mx:Script>
