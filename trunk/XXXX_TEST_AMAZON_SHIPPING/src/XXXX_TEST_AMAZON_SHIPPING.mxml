@@ -27,6 +27,7 @@
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import services.ShippingCheckerAll;
 			import services.BaseShippingChecker;
 			import services.ShippingCheckerDE;
 			import model.RegionShipping;
@@ -101,21 +102,22 @@
 
 			private function getSellerContent(seller:Seller):void
 			{
-				var serv:HTTPService=new HTTPService();
-				serv.url=seller.url;
-				serv.resultFormat="text";
-				serv.showBusyCursor=true;
-				serv.addEventListener(ResultEvent.RESULT, getSellerContentResultHandler);
-				var token:AsyncToken=serv.send();
-				token.seller=seller;
+//				var serv:HTTPService=new HTTPService();
+//				serv.url=seller.url;
+//				serv.resultFormat="text";
+//				serv.showBusyCursor=true;
+//				serv.addEventListener(ResultEvent.RESULT, getSellerContentResultHandler);
+//				var token:AsyncToken=serv.send();
+//				token.seller=seller;
+				checkDetectedShipping(seller);
 			}
 
 			private function getSellerContentResultHandler(event:ResultEvent):void
 			{
 				var seller:Seller=event.token.seller;
 				seller.content=event.result as String;
-				checkActualShipping(seller);
-				checkDetectedShipping(seller);
+//				checkActualShipping(seller);
+//				checkDetectedShipping(seller);
 			}
 
 			private function getUrlParamateres(fullUrl:String):Dictionary
@@ -175,7 +177,7 @@
 				return dtos;
 			}
 
-			private function checkActualShipping(seller:Seller):void
+			private function checkActualShipping1(seller:Seller):void
 			{
 				switch(seller.store)
 				{
@@ -218,19 +220,15 @@
 
 			private function checkDetectedShipping(seller:Seller):void
 			{
-				switch(seller.store)
-				{
-					case "www.amazon.de":
 						for each(var regionShipping:RegionShipping in seller.regionShippings)
 						{
 							checkShipping(regionShipping);
 						}
-				}
 			}
 
 			private function checkShipping(regionShipping:RegionShipping):void
 			{
-				var checker:ShippingCheckerDE=new ShippingCheckerDE(regionShipping.region, regionShipping.seller.id, function():void
+				var checker:ShippingCheckerAll=new ShippingCheckerAll(regionShipping.region, regionShipping.seller.id, regionShipping.amazonSite, function():void
 					{
 						regionShipping.detectedShipping=checker.shippingCode;
 					});
