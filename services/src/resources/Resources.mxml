@@ -688,6 +688,8 @@
 <resources:Resource value="UA" label="UA Ukraine" region=""/>
 <resources:Resource value="AE" label="AE United Arab Emirates" region=""/>
 <resources:Resource value="GB" label="GB United Kingdom" region="UK Mainland"/>
+<resources:Resource value="GB_POB" label="GB United Kingdom Mainland PO Box" region="UK Mainland PO Box"/>
+<resources:Resource value="GB_BFPO" label="British Forces Post Office" region="BFPO"/>
 <resources:Resource value="US" label="US United States" region=""/>
 <resources:Resource value="UM" label="UM United States Minor Outlying Islands" region=""/>
 <resources:Resource value="UY" label="UY Uruguay" region=""/>
