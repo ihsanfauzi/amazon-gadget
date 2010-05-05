@@ -44,6 +44,8 @@
 			public var region:String;
 			[Bindable]
 			public var country:String;
+			[Bindable]
+			public var amazonSite:String;
 
 			public function checkAvailabilityClickHandler(event:Event):void
 			{
@@ -72,6 +74,7 @@
 					serv.country=country;
 					serv.offer=offer;
 					serv.region=region;
+					serv.amazonSite=amazonSite;
 					serv.sendRequest();
 				}
 			}

@@ -3,11 +3,15 @@ package services
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-	
+
+	import dto.OfferDTO;
+	import dto.SearchDTO;
+	import dto.SearchItemDTO;
+
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
-	
+
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -23,26 +27,6 @@ package services
 		private static const tsrc:String="translate?v=1.0&q=";
 		private static const lanpair:String="&langpair=";
 		private static const pairCode:String="%7C";
-		private static const scripts:String = 
-'rawData="";'+
-'display_callback = function(input){'+
-'	rawData=input;'+
-'};'+
-'getRawData = function(){'+
-'	return rawData;'+
-'};'+
-'setApplicationHeight = function(h){'+
-'	alert(h);'+
-'	document.getElementById("ShippingByASINDiv").style.height=h;'+
-'};'+
-'getCurrentASIN = function(){'+
-'	return "B000V2QCQI";'+
-'};';
-
-
-
-// The Amazon host providing the Product API web service.
-		private static const AWS_HOST:String="ecs.amazonaws.com";
 
 // The HTTP method used to send the request.
 		private static const AWS_METHOD:String="GET";
@@ -55,6 +39,110 @@ package services
 
 // The AWS Secret Key to use when querying Amazon.com.
 		private static const amazonSecretAccessKey:String="aLbhK+32hvP6lxTClNoSwdZ1SOL4tjwmnaoicnnO";
+
+		public static function getAWSDomain():String
+		{
+			var hostname:String=getHostName();
+			var dom:String=hostname.slice(hostname.lastIndexOf(".") + 1);
+			if (dom == "uk")
+			{
+				dom="co.uk";
+			}
+			return dom;
+		}
+
+		public static function getHostName():String
+		{
+			JSInit.init();
+			var hostname:String=ExternalInterface.call("getHostName");
+			return hostname;
+		}
+
+		public static function createMerchantItemURL(searchItemDTO:SearchItemDTO, offer:OfferDTO):String
+		{
+			return searchItemDTO.url + encodeURIComponent("&m=" + offer.merchantID);
+		}
+
+		public static function parseAmazonSearchResults(searchDTO:SearchDTO, items:ArrayCollection):SearchDTO
+		{
+			for each(var item:Object in items)
+			{
+				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
+				searchItemDTO.url=item.DetailPageURL;
+				searchItemDTO.offers=[];
+				searchItemDTO.setTotalOfferPages(item.Offers.TotalOfferPages);
+				var offers:ArrayCollection;
+				if (item.Offers.Offer is ArrayCollection)
+				{
+					offers=item.Offers.Offer;
+				}
+				else if (item.Offers.Offer)
+				{
+					offers=new ArrayCollection([item.Offers.Offer]);
+				}
+				for each(var off:Object in offers)
+				{
+					var offer:OfferDTO=new OfferDTO();
+					offer.merchantGlanceURL=off.Merchant.GlancePage;
+					offer.merchantID=off.Merchant.MerchantId;
+					offer.merchantName=off.Merchant.Name;
+					offer.merchantRating=off.Merchant.AverageFeedbackRating;
+					offer.merchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + offer.merchantID;
+					offer.offerListingID=off.OfferListing.OfferListingId;
+					offer.price=off.OfferListing.Price.FormattedPrice;
+					if (!findOffer(searchItemDTO.offers, offer.merchantID))
+					{
+						searchItemDTO.offers.push(offer);
+					}
+				}
+				if (searchItemDTO.offers.length == 0 && item.VariationSummary)
+				{
+					offer=new OfferDTO();
+					offer.isSingleMerchant=true;
+					offer.merchantID=item.VariationSummary.SingleMerchantId;
+					offer.merchantGlanceURL="http://www.amazon.com/gp/help/seller/home.html?seller=" + offer.merchantID;
+					offer.merchantShippingURL=offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
+					offer.price=item.VariationSummary.LowestPrice.FormattedPrice;
+					searchItemDTO.offers.push(offer);
+				}
+			}
+			return searchDTO;
+		}
+
+		private static function findSearchItem(searchItems:ArrayCollection, id:String):SearchItemDTO
+		{
+			for each(var item:SearchItemDTO in searchItems)
+			{
+				if (item.id == id)
+				{
+					return item;
+				}
+			}
+			return null;
+		}
+
+		public static function findOffer(offers:Array, id:String):OfferDTO
+		{
+			for each(var off:OfferDTO in offers)
+			{
+				if (off.merchantID == id)
+				{
+					return off;
+				}
+			}
+			return null;
+		}
+
+		public static function createASINs(sdto:SearchDTO):String
+		{
+			var res:String="";
+			for each(var r:SearchItemDTO in sdto.searchItems)
+			{
+				res+=r.id + ",";
+			}
+			res=res.substr(0, res.length - 1);
+			return res;
+		}
 
 		public static function generateSignature(request:Object):void
 		{
@@ -71,7 +159,7 @@ package services
 			var now:Date=new Date();
 
 			request.AWSAccessKeyId=amazonDeveloperId;
-			request.AssociateTag="7search-20";
+			//request.AssociateTag="7search-20";
 
 			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
 			// Note that we must convert to GMT.
@@ -102,7 +190,7 @@ package services
 			parameterCollection.sort=sort;
 			sort.fields=[new SortField("parameter", false), new SortField("value", false)];
 			parameterCollection.refresh();
-			parameterString=AWS_METHOD + "\n" + AWS_HOST + "\n" + AWS_PATH + "\n";
+			parameterString=AWS_METHOD + "\necs.amazonaws." + getAWSDomain() + "\n" + AWS_PATH + "\n";
 			for(var i:Number=0; i < parameterCollection.length; i++)
 			{
 				var pair:Object=parameterCollection.getItemAt(i);
@@ -137,25 +225,21 @@ package services
 
 		public static function createAmazonNewReleasesURL():String
 		{
-			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=10&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US&SearchIndex="+getRandomSearhIndex();
+			var res:String="http://ws.amazon.com/widgets/q?display%5FURL=SCRIPT%5FNOT%5FSUPPORTED&rankType=new%2Dreleases&numToRequest=10&Operation=GetResults&startAt=1&TemplateId=8010&ServiceVersion=20070822&MarketPlace=US&SearchIndex=" + getRandomSearhIndex();
 			return res;
 		}
 
-		private static const searchIndexes:Array=["All", "Apparel", "Automotive", "Baby", "Beauty", "Books",
-			"Classical", "DigitalMusic", "DVD", "Electronics", "GourmetFood", "Grocery", "HealthPersonalCare",
-			"HomeImprovement", "Industrial", "Jewelry", "KindleStore", "Kitchen", "Magazines", "Merchants",
-			"Miscellaneous", "MP3Downloads", "Music", "MusicalInstruments", "MusicTracks", "OfficeProducts",
-			"OutdoorLiving", "PCHardware", "PetSupplies", "Photo", "Shoes", "SilverMerchants", "Software",
-			"SportingGoods", "Tools", "Toys", "UnboxVideo", "VHS", "Video", "VideoGames", "Watches",
-			"Wireless", "WirelessAccessories"];
+		private static const searchIndexes:Array=["All", "Apparel", "Automotive", "Baby", "Beauty", "Books", "Classical", "DigitalMusic", "DVD", "Electronics", "GourmetFood", "Grocery", "HealthPersonalCare", "HomeImprovement", "Industrial", "Jewelry", "KindleStore", "Kitchen", "Magazines", "Merchants", "Miscellaneous", "MP3Downloads", "Music", "MusicalInstruments", "MusicTracks", "OfficeProducts", "OutdoorLiving", "PCHardware", "PetSupplies", "Photo", "Shoes", "SilverMerchants", "Software", "SportingGoods", "Tools", "Toys", "UnboxVideo", "VHS", "Video", "VideoGames", "Watches", "Wireless", "WirelessAccessories"];
 
-		public static function getRandomSearhIndex():String{
-			var index:Number = randRange(0, searchIndexes.length-1);
+		public static function getRandomSearhIndex():String
+		{
+			var index:Number=randRange(0, searchIndexes.length - 1);
 			trace(searchIndexes[index]);
 			return searchIndexes[index];
 		}
 
-		public static function randRange(min:Number, max:Number):Number {
+		public static function randRange(min:Number, max:Number):Number
+		{
 			var randomNum:Number=Math.floor(Math.random() * (max - min + 1)) + min;
 			return randomNum;
 		}
@@ -275,14 +359,16 @@ package services
 			return country;
 		}
 
-		public static function createSearchAmazonURL(keyword:String, category:String, page:int):String {
-			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&Keywords=" + encodeURIComponent(keyword) +
-				"&SearchIndex=" + (category ? category : "All") + "&multipageStart=" + (page-1)*10 + "&InstanceId=0&multipageCount=10&TemplateId=8002&ServiceVersion=20070822&MarketPlace=US";
+		public static function createSearchAmazonURL(keyword:String, category:String, page:int):String
+		{
+			var res:String="http://ws.amazon.com/widgets/q?Operation=GetResults&Keywords=" + encodeURIComponent(keyword) + "&SearchIndex=" + (category ? category : "All") + "&multipageStart=" + (page - 1) * 10 + "&InstanceId=0&multipageCount=10&TemplateId=8002&ServiceVersion=20070822&MarketPlace=US";
 			return res;
 		}
-		
-		public static function evalScripts():void {
-			//ExternalInterface.call("eval", scripts);
+
+		public static function evalScripts():void
+		{
+		//ExternalInterface.call("eval", scripts);
 		}
 	}
 }
+

@@ -11,6 +11,7 @@
 				verticalScrollPolicy="off"
 				horizontalScrollPolicy="off"
 				creationComplete="{init()}"
+				initialize="{JSInit.init()}"
 				xmlns:components="components.*"
 				xmlns:services="services.*"
 				xmlns:resources="resources.*">
@@ -21,7 +22,7 @@
 				   click="{checkAvailabilityClickHandler()}"/>
 		<components:CountryComboBox id="countryCombo"
 									width="204"
-									countries="{res.countries}"
+									countries="{getCountries()}"
 									visible="{showBox}"
 									includeInLayout="{showBox}"
 									changeCountry="{changeCountryHandler()}"/>
@@ -31,9 +32,11 @@
 									 visible="{showBox}"
 									 dataProvider="{searchItemDTO}"
 									 region="{region}"
-									 searchDTO="{searchDTO}"/>
+									 searchDTO="{searchDTO}"
+									 amazonSite="{Helper.getHostName()}"/>
 	<mx:Script>
 		<![CDATA[
+			import mx.formatters.SwitchSymbolFormatter;
 			import mx.utils.ObjectUtil;
 			import services.JSInit;
 			import mx.controls.Image;
@@ -55,13 +58,30 @@
 			[Bindable]
 			private var showBox:Boolean;
 
+			private function getCountries():Array
+			{
+				switch(Helper.getAWSDomain())
+				{
+					case "com":
+						return res.countries_us;
+					case "de":
+						return res.countries_de;
+					case "co.uk":
+						return res.countries_uk;
+					case "fr":
+						return res.countries_fr;
+
+				}
+				return null;
+			}
+
 			private function init():void
 			{
 				//Helper.evalScripts();
-				JSInit.init();
 				measure();
-				var d:Boolean = getDeleted();
-				if(!d){
+				var d:Boolean=getDeleted();
+				if (!d)
+				{
 					ExternalInterface.call("replaceCookies");
 					var img1:Image=new Image();
 					img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
@@ -109,33 +129,37 @@
 				}
 				ExternalInterface.call("setApplicationHeight", h);
 			}
-			
-			private function setDeleted():void {
+
+			private function setDeleted():void
+			{
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
-				obj.data.date = new Date();
+				obj.data.date=new Date();
 				obj.flush();
 			}
-			
+
 			private function getDeleted():Boolean
 			{
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
 				if (obj.data.hasOwnProperty("date"))
 				{
-					var date:Date = ObjectUtil.copy(obj.data.date) as Date;
-					date.date = date.date + 1;
-					var now:Date = new Date();
-					if (now > date){
+					var date:Date=ObjectUtil.copy(obj.data.date)as Date;
+					date.date=date.date + 1;
+					var now:Date=new Date();
+					if (now > date)
+					{
 						return false;
 					}
-					if (now < obj.data.date) {
+					if (now < obj.data.date)
+					{
 						return false;
 					}
-				} else {
+				}
+				else
+				{
 					return false;
 				}
 				return true;
 			}
-
 		]]>
 	</mx:Script>
 </mx:Application>

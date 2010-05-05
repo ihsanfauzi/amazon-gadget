@@ -98,3 +98,7 @@ replaceCookies = function() {
 		}
 	}
 };
+
+getHostName = function(){
+	return document.location.hostname;
+}

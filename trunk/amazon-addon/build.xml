@@ -16,12 +16,8 @@
           target: default              
          ================================= -->
 	<target name="default" depends="clean" description="--> description">
-		<copydir dest="dist" src="bin-debug">
+		<copydir dest="../amazon-check-shipping/war/dist" src="bin-debug">
 		</copydir>
-		<java jar="${flex.sdk.dir}/lib/optimizer.jar" fork="true" failonerror="true">
-			<jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${flex.sdk.dir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
-			<arg line="'${basedir}/dist/ShippingByASIN.swf' --output '${basedir}/dist/ShippingByASIN.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
-		</java>
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
