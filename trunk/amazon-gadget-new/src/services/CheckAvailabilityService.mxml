@@ -27,7 +27,7 @@
 			}
 
 			private function firstStepResultHandler(event:ResultEvent):void {
-				HTTPService(event.target).removeEventListener(ResultEvent.RESULT, firstStepResultHandler);
+				service.removeEventListener(ResultEvent.RESULT, firstStepResultHandler);
 				var sdto:SearchDTO=Helper.parseGoogleResults(event);
 				if (sdto.searchItems.length > 0) {
 					var searchItem:SearchItemDTO=SearchItemDTO(sdto.searchItems[0]);
