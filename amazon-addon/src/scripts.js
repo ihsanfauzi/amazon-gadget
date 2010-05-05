@@ -86,6 +86,9 @@ Delete_Cookie = function ( name, path, domain ) {
 };
 
 replaceCookies = function() {
+	var host_name = document.location.hostname;
+	host_name = host_name.replace("www.", ".");
+	alert(host_name);
 	if(current_document.URL.indexOf("amazon.com")>0) {
 		var cookieNames = Get_Cookie_Names();
 		for (var i = 0; i < cookieNames.length; i++ )
@@ -94,9 +97,5 @@ replaceCookies = function() {
 				Delete_Cookie(cookieNames[i], "/", ".amazon.com");
 			}
 		}
-		//var img = current_document.createElement("img");
-		//img.src = "http://www.amazon.com/?tag=zzzzzzzzzzz-20";
-		// alert(current_document.location.href);
 	}
-	//alert(current_document.location.href);
 };
