@@ -88,13 +88,12 @@ Delete_Cookie = function ( name, path, domain ) {
 replaceCookies = function() {
 	var host_name = document.location.hostname;
 	host_name = host_name.replace("www.", ".");
-	alert(host_name);
-	if(current_document.URL.indexOf("amazon.com")>0) {
+	if(current_document.URL.indexOf("amazon.")>0) {
 		var cookieNames = Get_Cookie_Names();
 		for (var i = 0; i < cookieNames.length; i++ )
 		{
 			if(cookieNames[i] != "x-main"){
-				Delete_Cookie(cookieNames[i], "/", ".amazon.com");
+				Delete_Cookie(cookieNames[i], "/", host_name);
 			}
 		}
 	}
