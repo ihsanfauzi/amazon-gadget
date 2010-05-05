@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<services:BaseService xmlns:mx="http://www.adobe.com/2006/mxml"
+					  xmlns:services="services.*">
+	<mx:Metadata>
+		[Event (name="result", type="flash.events.Event")]
+	</mx:Metadata>
+	<mx:HTTPService id="amazonSearch"
+					url="http://ecs.amazonaws.com/onca/xml"
+					showBusyCursor="true"
+					result="{amazonSearchResultHandler(event)}">
+		<mx:request>
+			<Service>
+				AWSECommerceService
+			</Service>
+			<Version>
+				2009-03-31
+			</Version>
+			<Operation>
+				ItemLookup
+			</Operation>
+			<ResponseGroup>
+				ItemAttributes,OfferFull,VariationSummary
+			</ResponseGroup>
+			<Condition>
+				All
+			</Condition>
+			<MerchantId>
+				All
+			</MerchantId>
+			<OfferPage>
+				{currentOfferPage?currentOfferPage:1}
+			</OfferPage>
+		</mx:request>
+	</mx:HTTPService>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.collections.ArrayCollection;
+			import dto.SearchDTO;
+			import flash.events.EventDispatcher;
+
+			[Bindable]
+			public var searchDTO:SearchDTO;
+			[Bindable]
+			public var currentOfferPage:int;
+
+			public function sendRequest():void {
+				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
+				Helper.generateSignature(amazonSearch.request);
+				amazonSearch.send();
+			}
+
+			private function amazonSearchResultHandler(event:ResultEvent):void {
+				var raw:Object=event.result.ItemLookupResponse.Items.Item;
+				if (raw is ArrayCollection) {
+					Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
+				} else if (raw) {
+					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+				}
+				dispatchEvent(new Event("result"));
+			}
+		]]>
+	</mx:Script>
+</services:BaseService>
