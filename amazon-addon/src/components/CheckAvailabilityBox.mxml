@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 verticalGap="0"
+		 xmlns:local="*"
+		 width="100%"
+		 xmlns:components="components.*"
+		 xmlns:services="services.*">
+	<mx:Repeater id="checkAvailabilityRep"
+				 width="100%">
+		<components:MerchantItemBox offerDTO="{checkAvailabilityRep.currentItem}"
+									asin="{dataProvider.id}"
+									searchItemDTO="{dataProvider}"
+									backgroundColor="{getBackgroundColor(checkAvailabilityRep.currentIndex)}"/>
+	</mx:Repeater>
+	<services:MerchantsService id="merchantsService"
+							   searchDTO="{searchDTO}"
+							   currentOfferPage="{dataProvider.currentOfferPage}"
+							   result="{merchantsServiceResultHandler(event)}"/>
+	<mx:HBox>
+		<mx:Repeater id="pagesRep"
+					 dataProvider="{dataProvider.totalOfferPages}">
+			<mx:LinkButton label="{pagesRep.currentItem}"
+						   fontWeight="{pagesRep.currentIndex+1 == dataProvider.currentOfferPage?'bold':'normal'}"
+						   click="{pageLinkButtonClickHandler(event)}"/>
+		</mx:Repeater>
+	</mx:HBox>
+	<mx:Script>
+		<![CDATA[
+			import flash.net.sendToURL;
+			import services.Log;
+			import services.CheckAvailabilityService;
+			import dto.SearchDTO;
+			import services.Helper;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.mxml.HTTPService;
+			import dto.OfferDTO;
+			import dto.SearchItemDTO;
+			[Bindable]
+			public var searchDTO:SearchDTO;
+			[Bindable]
+			public var dataProvider:SearchItemDTO;
+			[Bindable]
+			public var region:String;
+			[Bindable]
+			public var country:String;
+
+			public function checkAvailabilityClickHandler(event:Event):void
+			{
+				Log.checkShippingClicked();
+				if (dataProvider.offers.length == 0)
+				{
+					merchantsService.sendRequest();
+				}
+				else
+				{
+					checkAvailability();
+				}
+			}
+
+			private function merchantsServiceResultHandler(event:Event):void
+			{
+				checkAvailability();
+			}
+
+			private function checkAvailability():void
+			{
+				checkAvailabilityRep.dataProvider=dataProvider.offers;
+				for each(var offer:OfferDTO in dataProvider.offers)
+				{
+					var serv:CheckAvailabilityService=new CheckAvailabilityService();
+					serv.country=country;
+					serv.offer=offer;
+					serv.region=region;
+					serv.sendRequest();
+				}
+			}
+
+			private function getBackgroundColor(num:Number):uint
+			{
+				var b:Boolean=Math.round(num / 2) * 2 == num;
+				return b ? StyleManager.getColorName('#ffffff') : StyleManager.getColorName('#ffffcc');
+			}
+
+			private function pageLinkButtonClickHandler(event:Event):void
+			{
+				var cp:int=int(event.currentTarget.label);
+				dataProvider.currentOfferPage=cp;
+				merchantsService.sendRequest();
+			}
+		]]>
+	</mx:Script>
+</mx:VBox>

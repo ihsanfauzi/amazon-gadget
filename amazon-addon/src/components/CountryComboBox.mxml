@@ -1,0 +1,50 @@
+<mx:ComboBox xmlns:mx="http://www.adobe.com/2006/mxml"
+			 creationComplete="{init()}"
+			 styleName="alarmButton"
+			 prompt="Select Your Country"
+			 dataProvider="{countries}"
+			 change="{countryChangeHandler(event)}"
+			 selectedItem="{selectedCountry}">
+	<mx:Metadata>
+		[Event (name="changeCountry", type="flash.events.Event")]
+	</mx:Metadata>
+
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var selectedCountry:Object;
+			[Bindable]
+			public var countries:Array;
+
+			private function countryChangeHandler(event:Event):void
+			{
+				selectedCountry=selectedItem;
+				var obj:SharedObject=SharedObject.getLocal("Preferencies");
+				obj.data.selectedCountry=selectedIndex;
+				obj.flush();
+				dispatchEvent(new Event("changeCountry"));
+			}
+
+			private function init():void
+			{
+				countries.sortOn("label");
+				var cont:Number=getSelectedCountry();
+				if (cont)
+				{
+					selectedIndex=cont;
+					selectedCountry=selectedItem;
+				}
+			}
+
+			private function getSelectedCountry():Number
+			{
+				var obj:SharedObject=SharedObject.getLocal("Preferencies");
+				if (obj.data.hasOwnProperty("selectedCountry"))
+				{
+					return Number(obj.data.selectedCountry);
+				}
+				return NaN;
+			}
+		]]>
+	</mx:Script>
+</mx:ComboBox>
