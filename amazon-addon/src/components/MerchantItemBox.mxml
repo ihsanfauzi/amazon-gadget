@@ -15,16 +15,16 @@
 			 text="{offerDTO.price}"/>
 	<mx:Image id="errorIcon"
 			  source="assets/error.icon.png"
-			  visible="{offerDTO.availability == 0}"
-			  includeInLayout="{offerDTO.availability == 0}"
+			  visible="{offerDTO.availability == BaseShippingChecker.SHIPPING_FAIL}"
+			  includeInLayout="{offerDTO.availability == BaseShippingChecker.SHIPPING_FAIL}"
 			  useHandCursor="true"
 			  buttonMode="true"
 			  toolTip="Click to see shipping rates"
 			  mouseChildren="false"
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Label text="n/a"
-			  visible="{offerDTO.availability==-1}"
-			  includeInLayout="{offerDTO.availability==-1}"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
 			  toolTip="Click to see shipping rates"
 			  textDecoration="underline"
 			  useHandCursor="true"
@@ -33,8 +33,8 @@
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Image id="goodIcon"
 			  source="assets/good.icon.png"
-			  visible="{offerDTO.availability>0}"
-			  includeInLayout="{offerDTO.availability>0}"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_OK}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_OK}"
 			  toolTip="Click to see shipping rates"
 			  useHandCursor="true"
 			  mouseChildren="false"
@@ -42,6 +42,8 @@
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Script>
 		<![CDATA[
+			import services.BaseShippingChecker;
+			import services.ShippingCheckerAll;
 			import services.Log;
 			import dto.SearchItemDTO;
 			import mx.controls.Label;

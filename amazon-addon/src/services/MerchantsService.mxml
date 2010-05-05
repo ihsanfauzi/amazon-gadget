@@ -5,7 +5,7 @@
 		[Event (name="result", type="flash.events.Event")]
 	</mx:Metadata>
 	<mx:HTTPService id="amazonSearch"
-					url="http://ecs.amazonaws.com/onca/xml"
+					url="http://ecs.amazonaws.{Helper.getAWSDomain()}/onca/xml"
 					showBusyCursor="true"
 					result="{amazonSearchResultHandler(event)}">
 		<mx:request>
