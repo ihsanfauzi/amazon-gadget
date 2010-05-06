@@ -24,7 +24,8 @@
 				var checker:ShippingCheckerAll = new ShippingCheckerAll(region, offer.merchantID, amazonSite, 
 				function ():void {
 					offer.availability = checker.shippingCode;
-				}); 
+				});
+				offer.availability = BaseShippingChecker.SHIPPING_LOADING;
 				checker.check(); 				
 			}
 		]]>

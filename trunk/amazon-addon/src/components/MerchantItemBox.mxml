@@ -40,6 +40,15 @@
 			  mouseChildren="false"
 			  buttonMode="true"
 			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+	<mx:Image id="loadingIcon"
+			  source="assets/loading.gif"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_LOADING}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_LOADING}"
+			  toolTip="Click to see shipping rates"
+			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
 	<mx:Script>
 		<![CDATA[
 			import services.BaseShippingChecker;

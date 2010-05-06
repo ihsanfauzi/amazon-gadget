@@ -1,7 +1,7 @@
 package services
 {
 	import com.adobe.serialization.json.JSON;
-
+	
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.http.mxml.HTTPService;
@@ -11,6 +11,7 @@ package services
 		public static const SHIPPING_OK:int=1;
 		public static const SHIPPING_FAIL:int=2;
 		public static const SHIPPING_NA:int=0;
+		public static const SHIPPING_LOADING:int=3;
 
 		protected var region:String;
 		protected var seller:String;
