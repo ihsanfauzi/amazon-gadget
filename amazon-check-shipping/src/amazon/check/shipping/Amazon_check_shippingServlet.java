@@ -2,7 +2,9 @@ package amazon.check.shipping;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Collections;
+import java.util.List;
 
 import javax.cache.Cache;
 import javax.cache.CacheException;
@@ -45,8 +47,11 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 				HTTPRequest httpReq = new HTTPRequest(url);
 				httpReq.setHeader(new HTTPHeader("Accept-Charset", "utf-8"));
 				HTTPResponse result = serv.fetch(httpReq);
-				content = new String(result.getContent());
-				//System.out.println(content);
+				List<HTTPHeader> headers = result.getHeaders();
+				Charset charset = extractCharset(headers);
+				content = new String(result.getContent(), Charset
+						.defaultCharset());
+				// System.out.println(content);
 				cache.put(seller, content);
 			}
 			resp.setContentType("text/plain");
@@ -54,7 +59,37 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 		}
 	}
 
+	private Charset extractCharset(List<HTTPHeader> headers) {
+		for (HTTPHeader header : headers) {
+			System.err.println("Ok0 "+header.getName());
+			if ("Content-Type".equals(header.getName())) {
+				System.err.println("Ok1");
+				String contentType = header.getValue();
+				String[] entries = contentType.split(";");
+				for (String entry : entries) {
+					System.err.println("Ok2");
+					entry = entry.trim();
+					if (entry.toLowerCase().startsWith("charset=")) {
+						System.err.println("Ok3 "+entry);
+						String ch = entry.substring(entry.lastIndexOf("=") + 1);
+						if (ch != null && ch.length() > 0) {
+							Charset res = Charset.forName(ch);
+							System.err.println("Charset " + res.displayName());
+							return res;
+						}
+					}
+				}
+			}
+		}
+
+		return Charset.defaultCharset();
+	}
+
 	private char[] checkShipping(String store, String region, String content) {
+		int start = content.indexOf("Versandkosten und Lieferzeiten");
+		if (start > 0) {
+			System.err.println(content.substring(start));
+		}
 		BaseChecker ch = CheckerFactory.getChecker(store);
 		if (ch != null) {
 			int res = ch.check(region, content);
