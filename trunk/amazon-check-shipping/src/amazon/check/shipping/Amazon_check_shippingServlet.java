@@ -37,7 +37,7 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 				} catch (CacheException e) {
 				}
 			}
-			String content = (String) cache.get(seller);
+			String content = (String) cache.get(store + "-" + seller);
 			if (content == null) {
 				URL url = new URL("http://" + store
 						+ "/gp/help/seller/shipping.html?ie=UTF8&seller="
@@ -49,10 +49,9 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 				HTTPResponse result = serv.fetch(httpReq);
 				List<HTTPHeader> headers = result.getHeaders();
 				Charset charset = extractCharset(headers);
-				content = new String(result.getContent(), Charset
-						.defaultCharset());
+				content = new String(result.getContent(), charset);
 				// System.out.println(content);
-				cache.put(seller, content);
+				cache.put(store + "-" + seller, content);
 			}
 			resp.setContentType("text/plain");
 			resp.getWriter().print(checkShipping(store, region, content));
@@ -61,20 +60,21 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 
 	private Charset extractCharset(List<HTTPHeader> headers) {
 		for (HTTPHeader header : headers) {
-			System.err.println("Ok0 "+header.getName());
-			if ("Content-Type".equals(header.getName())) {
-				System.err.println("Ok1");
+			// System.err.println("Ok0 "+header.getName());
+			if ("content-type".equals(header.getName().toLowerCase())) {
+				// System.err.println("Ok1");
 				String contentType = header.getValue();
 				String[] entries = contentType.split(";");
 				for (String entry : entries) {
-					System.err.println("Ok2");
+					// System.err.println("Ok2");
 					entry = entry.trim();
 					if (entry.toLowerCase().startsWith("charset=")) {
-						System.err.println("Ok3 "+entry);
+						// System.err.println("Ok3 "+entry);
 						String ch = entry.substring(entry.lastIndexOf("=") + 1);
 						if (ch != null && ch.length() > 0) {
 							Charset res = Charset.forName(ch);
-							System.err.println("Charset " + res.displayName());
+							// System.err.println("Charset " +
+							// res.displayName());
 							return res;
 						}
 					}
@@ -88,7 +88,7 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 	private char[] checkShipping(String store, String region, String content) {
 		int start = content.indexOf("Versandkosten und Lieferzeiten");
 		if (start > 0) {
-			System.err.println(content.substring(start));
+			// System.err.println(content.substring(start));
 		}
 		BaseChecker ch = CheckerFactory.getChecker(store);
 		if (ch != null) {
@@ -99,6 +99,6 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 	}
 
 	private static boolean isEmpty(String s) {
-		return s == null || s.trim().length() == 0;
+		return s == null || s.trim().length() == 0 || s.equals("null");
 	}
 }
