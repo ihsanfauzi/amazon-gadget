@@ -45,7 +45,7 @@
 			[Bindable]
 			private var currentPage:int=1;
 			[Bindable]
-			private var amazonStores:Array=["www.amazon.co.uk", "www.amazon.fr", "www.amazon.de"];
+			private var amazonStores:Array=["www.amazon.com","www.amazon.co.uk", "www.amazon.fr", "www.amazon.de"];
 			[Bindable]
 			private var sellers:ArrayCollection;
 
