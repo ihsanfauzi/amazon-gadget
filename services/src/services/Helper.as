@@ -144,6 +144,31 @@ package services
 			return res;
 		}
 
+		public static function getTag():String
+		{
+			var site:String=getHostName();
+			switch(site)
+			{
+				case "www.amazon.com":
+				{
+					return "zzzzzzzzzzz-20";
+				}
+				case "www.amazon.co.uk":
+				{
+					return "searchengin0d-21";
+				}
+				case "www.amazon.de":
+				{
+					return "searamazasto-21";
+				}
+				case "www.amazon.fr":
+				{
+					return "searamazast0a-21";
+				}
+			}
+			return null;
+		}
+		
 		public static function generateSignature(request:Object):void
 		{
 			var parameterArray:Array=new Array();
@@ -159,7 +184,7 @@ package services
 			var now:Date=new Date();
 
 			request.AWSAccessKeyId=amazonDeveloperId;
-			//request.AssociateTag="7search-20";
+			request.AssociateTag=getTag();
 
 			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
 			// Note that we must convert to GMT.
