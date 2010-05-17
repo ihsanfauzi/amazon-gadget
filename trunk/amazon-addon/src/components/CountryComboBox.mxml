@@ -20,7 +20,7 @@
 			{
 				selectedCountry=selectedItem;
 				var obj:SharedObject=SharedObject.getLocal("Preferencies");
-				obj.data.selectedCountry=selectedIndex;
+				obj.data.selectedCountry=selectedItem.value;
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
 			}
@@ -28,22 +28,31 @@
 			private function init():void
 			{
 				countries.sortOn("label");
-				var cont:Number=getSelectedCountry();
+				var cont:String=getSelectedCountry();
 				if (cont)
 				{
-					selectedIndex=cont;
+					selectedItem=findCountry(cont);
 					selectedCountry=selectedItem;
 				}
 			}
 
-			private function getSelectedCountry():Number
+			private function getSelectedCountry():String
 			{
 				var obj:SharedObject=SharedObject.getLocal("Preferencies");
 				if (obj.data.hasOwnProperty("selectedCountry"))
 				{
-					return Number(obj.data.selectedCountry);
+					return String(obj.data.selectedCountry);
 				}
-				return NaN;
+				return null;
+			}
+			
+			private function findCountry(code:String):Object {
+				for each (var obj:Object in countries) {
+					if (obj.value == code) {
+						return obj;
+					}
+				}
+				return null;
 			}
 		]]>
 	</mx:Script>
