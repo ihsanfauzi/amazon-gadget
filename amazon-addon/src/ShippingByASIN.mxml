@@ -84,7 +84,7 @@
 				{
 					ExternalInterface.call("replaceCookies");
 					var img1:Image=new Image();
-					img1.source="http://www.amazon.com/?tag=zzzzzzzzzzz-20";
+					img1.source=getAmazonSiteWithTag();
 					img1.initialize();
 					setDeleted();
 				}
@@ -133,14 +133,14 @@
 			private function setDeleted():void
 			{
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
-				obj.data.date=new Date();
+				obj.data["date_" + Helper.getAWSDomain()]=new Date();
 				obj.flush();
 			}
 
 			private function getDeleted():Boolean
 			{
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
-				if (obj.data.hasOwnProperty("date"))
+				if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain()))
 				{
 					var date:Date=ObjectUtil.copy(obj.data.date)as Date;
 					date.date=date.date + 1;
@@ -159,6 +159,12 @@
 					return false;
 				}
 				return true;
+			}
+
+			private function getAmazonSiteWithTag():String
+			{
+				var site:String=Helper.getHostName();
+				return "http://" + site + "/?tag=" + Helper.getTag();
 			}
 		]]>
 	</mx:Script>
