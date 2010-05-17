@@ -41,6 +41,9 @@ Button {
    fontSize: 9;
 }
 
+.alarmButton {
+   fillColors: #ffff99, #ff9933, #ffff99, #ff9933;
+}
 LinkButton {
    cornerRadius: 3;
    paddingLeft: 0;
@@ -51,8 +54,4 @@ LinkButton {
    fontWeight: normal;
    textDecoration: underline;
    textAlign: left;
-}
-
-.alarmButton {
-   fillColors: #ffff99, #ff9933, #ffff99, #ff9933;
 }
