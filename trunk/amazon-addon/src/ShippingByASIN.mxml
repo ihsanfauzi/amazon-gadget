@@ -36,13 +36,15 @@
 									 amazonSite="{Helper.getHostName()}"/>
 	<mx:Script>
 		<![CDATA[
-			import mx.formatters.SwitchSymbolFormatter;
-			import mx.utils.ObjectUtil;
-			import services.JSInit;
-			import mx.controls.Image;
-			import services.Helper;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
+			
+			import mx.controls.Image;
+			import mx.formatters.SwitchSymbolFormatter;
+			import mx.utils.ObjectUtil;
+			
+			import services.Helper;
+			import services.JSInit;
 			[Bindable]
 			private var asin:String;
 			[Bindable]
@@ -139,25 +141,27 @@
 
 			private function getDeleted():Boolean
 			{
-				var obj:SharedObject=SharedObject.getLocal("Deleted");
-				if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain()))
-				{
-					var date:Date=ObjectUtil.copy(obj.data.date)as Date;
-					date.date=date.date + 1;
-					var now:Date=new Date();
-					if (now > date)
+				try {
+					var obj:SharedObject=SharedObject.getLocal("Deleted");
+					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain()))
+					{
+						var date:Date=ObjectUtil.copy(obj.data.date)as Date;
+						date.date=date.date + 1;
+						var now:Date=new Date();
+						if (now > date)
+						{
+							return false;
+						}
+						if (now < obj.data.date)
+						{
+							return false;
+						}
+					}
+					else
 					{
 						return false;
 					}
-					if (now < obj.data.date)
-					{
-						return false;
-					}
-				}
-				else
-				{
-					return false;
-				}
+				} catch (err:Error) {}
 				return true;
 			}
 
