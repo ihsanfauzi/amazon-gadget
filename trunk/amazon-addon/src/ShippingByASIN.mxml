@@ -41,6 +41,7 @@
 			
 			import mx.controls.Image;
 			import mx.formatters.SwitchSymbolFormatter;
+			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
 			
 			import services.Helper;
