@@ -43,6 +43,9 @@ package services
 		public static function getAWSDomain():String
 		{
 			var hostname:String=getHostName();
+			if (hostname == "localhost") {
+				hostname = hostname + ".com";
+			}
 			var dom:String=hostname.slice(hostname.lastIndexOf(".") + 1);
 			if (dom == "uk")
 			{
@@ -90,7 +93,7 @@ package services
 					offer.merchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + offer.merchantID;
 					offer.offerListingID=off.OfferListing.OfferListingId;
 					offer.price=off.OfferListing.Price.FormattedPrice;
-					if (!findOffer(searchItemDTO.offers, offer.merchantID))
+					if (!findOffer(searchItemDTO.offers, offer.merchantName))
 					{
 						searchItemDTO.offers.push(offer);
 					}
@@ -121,11 +124,11 @@ package services
 			return null;
 		}
 
-		public static function findOffer(offers:Array, id:String):OfferDTO
+		public static function findOffer(offers:Array, name:String):OfferDTO
 		{
 			for each(var off:OfferDTO in offers)
 			{
-				if (off.merchantID == id)
+				if (off.merchantName == name)
 				{
 					return off;
 				}
@@ -147,6 +150,9 @@ package services
 		public static function getTag():String
 		{
 			var site:String=getHostName();
+			if (site == "localhost") {
+				site = "www.amazon.com"; 
+			}
 			switch(site)
 			{
 				case "www.amazon.com":
