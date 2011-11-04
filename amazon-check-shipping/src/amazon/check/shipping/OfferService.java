@@ -1,6 +1,5 @@
 package amazon.check.shipping;
 
-import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -11,13 +10,13 @@ import javax.cache.Cache;
 import javax.cache.CacheException;
 import javax.cache.CacheManager;
 
+import amazon.check.shipping.dto.OfferDTO;
+
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-
-import amazon.check.shipping.dto.OfferDTO;
 
 public class OfferService {
 	public List<OfferDTO> getOffers(String asin, String country, int page) {
@@ -32,11 +31,80 @@ public class OfferService {
 	}
 
 	private List<OfferDTO> extractOffers(String content) {
-		return null;
+		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
+		List<String> tbodyResults = extractTBodyResults(content);
+		for (String tbodyResult : tbodyResults) {
+			res.add(extractOfferDTO(tbodyResult));
+		}
+		return res;
+	}
+
+	private OfferDTO extractOfferDTO(String tbodyResult) {
+		OfferDTO res = new OfferDTO();
+		extractSellerInfo(res, tbodyResult);
+		extractPrice(res, tbodyResult);
+		return res;
+	}
+
+	private void extractPrice(OfferDTO res, String info) {
+		//<span class="price">
+		String sStart = "<span class=\"price\">";
+		int start = info.indexOf(sStart) + sStart.length();
+		String subStr = info.substring(start);
+		String sPrice = subStr.substring(0, subStr.indexOf("</span>"));
+		res.setPrice(sPrice);
+	}
+
+	private void extractSellerInfo(OfferDTO res, String tbodyResult) {
+		String sStart = "<ul class=\"sellerInformation\">";
+		String sEnd = "</ul>";
+		int start = tbodyResult.indexOf(sStart);
+		String subStr = tbodyResult.substring(start);
+		int end = subStr.indexOf(sEnd) + sEnd.length();
+		String sRes = subStr.substring(0, end);
+		extractMerchantID(res, sRes);
+		extractMerhantName(res, sRes);
+	}
+
+	private void extractMerhantName(OfferDTO res, String info) {
+		// <img width="120" height="30" border="0" alt="
+		String sStart = "width=\"120\" alt=\"";
+		int start = info.indexOf(sStart) + sStart.length();
+		String subStr = info.substring(start);
+		String sName = subStr.substring(0, subStr.indexOf("\""));
+		res.setMerchantName(sName);
+	}
+
+	private void extractMerchantID(OfferDTO res, String info) {
+		String sStart = "seller=";
+		int start = info.indexOf(sStart) + sStart.length();
+		String subStr = info.substring(start);
+		String sID = subStr.substring(0, subStr.indexOf("\""));
+		res.setMerchantID(sID);
+	}
+
+	private List<String> extractTBodyResults(String content) {
+		ArrayList<String> res = new ArrayList<String>();
+		try {
+			String sStart = "<tbody class=\"result\">";
+			String sEnd = "</tbody>";
+			while (true) {
+				int start = content.indexOf(sStart) + sStart.length();
+				if (start == sStart.length() - 1) {
+					break;
+				} 
+				String subStr =  content.substring(start);
+				int end = subStr.indexOf(sEnd);
+				String sRes = subStr.substring(0, end);
+				res.add(sRes);
+				content = subStr;
+			}
+		} catch (Throwable e) {}
+		return res;
 	}
 
 	private String fetchContent(String asin, String country, int page)
-			throws IOException {
+			throws Exception {
 		Cache cache = null;
 		try {
 			cache = CacheManager.getInstance().getCacheFactory()
@@ -64,8 +132,10 @@ public class OfferService {
 		return content;
 	}
 
-	private URL constructUrl(String asin, String country, int page) {
-		return null;
+	private URL constructUrl(String asin, String country, int page) throws Exception {
+		int startIndex = (page - 1) * 15;
+		String res = "http://www.amazon."+country+"/gp/offer-listing/"+asin+"/?ie=UTF8&startIndex="+startIndex+"&condition=new";
+		return new URL(res);
 	}
 
 	private Charset extractCharset(List<HTTPHeader> headers) {
