@@ -10,9 +10,9 @@
         <channel ref="my-amf"/>
     </default-channels>
 
-	<destination id="pingService">
+	<destination id="amazon.check.shipping.OfferService">
         <properties>
-                <source>slim3.service.PingService</source>
+                <source>amazon.check.shipping.OfferService</source>
                 <scope>application</scope>
         </properties>
     </destination>
