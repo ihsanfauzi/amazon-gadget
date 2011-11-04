@@ -10,7 +10,9 @@ import javax.cache.Cache;
 import javax.cache.CacheException;
 import javax.cache.CacheManager;
 
+import amazon.check.shipping.dto.ItemDTO;
 import amazon.check.shipping.dto.OfferDTO;
+import amazon.check.shipping.dto.OffersDTO;
 
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPRequest;
@@ -19,7 +21,15 @@ import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 
 public class OfferService {
-	public List<OfferDTO> getOffers(String asin, String country, int page) {
+	public ItemDTO getItem(String asin, String country, int page) {
+		ItemDTO res = new ItemDTO();
+		res.ASIN = asin;
+		res.DetailPageURL = "";
+		res.Offers = new OffersDTO();
+		res.Offers.Offer = getOffers(asin, country, page);
+		return res ;
+	}
+	private List<OfferDTO> getOffers(String asin, String country, int page) {
 		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
 		try {
 			String content = fetchContent(asin, country, page);
@@ -52,7 +62,7 @@ public class OfferService {
 		int start = info.indexOf(sStart) + sStart.length();
 		String subStr = info.substring(start);
 		String sPrice = subStr.substring(0, subStr.indexOf("</span>"));
-		res.setPrice(sPrice);
+		res.OfferListing.Price.FormattedPrice = sPrice;
 	}
 
 	private void extractSellerInfo(OfferDTO res, String tbodyResult) {
@@ -72,7 +82,7 @@ public class OfferService {
 		int start = info.indexOf(sStart) + sStart.length();
 		String subStr = info.substring(start);
 		String sName = subStr.substring(0, subStr.indexOf("\""));
-		res.setMerchantName(sName);
+		res.Merchant.Name = sName;
 	}
 
 	private void extractMerchantID(OfferDTO res, String info) {
@@ -80,7 +90,7 @@ public class OfferService {
 		int start = info.indexOf(sStart) + sStart.length();
 		String subStr = info.substring(start);
 		String sID = subStr.substring(0, subStr.indexOf("\""));
-		res.setMerchantID(sID);
+		res.Merchant.MerchantId = sID;
 	}
 
 	private List<String> extractTBodyResults(String content) {
