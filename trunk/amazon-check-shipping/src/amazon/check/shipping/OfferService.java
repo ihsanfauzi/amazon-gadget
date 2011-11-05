@@ -69,6 +69,9 @@ public class OfferService {
 		int start = info.indexOf(sStart) + sStart.length();
 		String subStr = info.substring(start);
 		String sPrice = subStr.substring(0, subStr.indexOf("</span>"));
+		if (sPrice.indexOf("<span>")!=-1) {
+			sPrice = "-";
+		}
 		res.OfferListing.Price.FormattedPrice = sPrice;
 	}
 
