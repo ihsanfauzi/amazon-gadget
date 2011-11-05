@@ -71,7 +71,7 @@ package services
 			for each(var item:Object in items)
 			{
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
-				searchItemDTO.url=item.DetailPageURL;
+				searchItemDTO.url=searchItemDTO.url?searchItemDTO.url:item.DetailPageURL;
 				searchItemDTO.offers=[];
 				searchItemDTO.setTotalOfferPages(item.Offers.TotalOfferPages);
 				var offers:ArrayCollection;
