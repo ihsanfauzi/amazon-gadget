@@ -52,9 +52,13 @@
 			public var currentOfferPage:int;
 
 			public function sendRequest():void {
-				amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
-				Helper.generateSignature(amazonSearch.request);
-				amazonSearch.send();
+				if (searchDTO && searchDTO.searchItems && searchDTO.searchItems.length == 1) {
+					ro.getItem (Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
+				} else {
+					amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
+					Helper.generateSignature(amazonSearch.request);
+					amazonSearch.send();
+				}
 			}
 
 			private function amazonSearchResultHandler(event:ResultEvent):void {
@@ -64,21 +68,23 @@
 					dispatchEvent(new Event("result"));
 				} else if (raw) {
 					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
-					ro.getItem (raw.ASIN, Helper.getAWSDomain(), currentOfferPage);
+					
 				}
 				
 			}
 			protected function ro_resultHandler(event:ResultEvent):void
 			{
-				trace(event.result);
+				//trace(event.result);
 				var raw:Object=event.result;
+				raw.DetailPageURL = "http://amazon."+Helper.getAWSDomain()+"/dp/"+raw.ASIN+
+				"%3FSubscriptionId%3D%26tag%3D"+Helper.getTag()+"%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D"+raw.ASIN;
 				Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
 				dispatchEvent(new Event("result"));
 			}
 			
 			protected function ro_faultHandler(event:FaultEvent):void
 			{
-				trace(event.fault);
+				//trace(event.fault);
 			}
 			
 		]]>
