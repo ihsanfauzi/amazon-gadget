@@ -4,6 +4,10 @@
 	<mx:Metadata>
 		[Event (name="result", type="flash.events.Event")]
 	</mx:Metadata>
+	<mx:RemoteObject id="ro" 
+					 destination="amazon.check.shipping.OfferService" 
+					 result="ro_resultHandler(event)"
+					 fault="ro_faultHandler(event)"/>
 	<mx:HTTPService id="amazonSearch"
 					url="http://ecs.amazonaws.{Helper.getAWSDomain()}/onca/xml"
 					showBusyCursor="true"
@@ -34,10 +38,13 @@
 	</mx:HTTPService>
 	<mx:Script>
 		<![CDATA[
-			import mx.rpc.events.ResultEvent;
-			import mx.collections.ArrayCollection;
 			import dto.SearchDTO;
+			
 			import flash.events.EventDispatcher;
+			
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
 
 			[Bindable]
 			public var searchDTO:SearchDTO;
@@ -54,11 +61,26 @@
 				var raw:Object=event.result.ItemLookupResponse.Items.Item;
 				if (raw is ArrayCollection) {
 					Helper.parseAmazonSearchResults(searchDTO, ArrayCollection(raw));
+					dispatchEvent(new Event("result"));
 				} else if (raw) {
 					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+					ro.getItem (raw.ASIN, Helper.getAWSDomain(), currentOfferPage);
 				}
+				
+			}
+			protected function ro_resultHandler(event:ResultEvent):void
+			{
+				trace(event.result);
+				var raw:Object=event.result;
+				Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
 				dispatchEvent(new Event("result"));
 			}
+			
+			protected function ro_faultHandler(event:FaultEvent):void
+			{
+				trace(event.fault);
+			}
+			
 		]]>
 	</mx:Script>
 </services:BaseService>
