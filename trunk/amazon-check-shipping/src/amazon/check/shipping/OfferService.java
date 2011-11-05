@@ -26,20 +26,27 @@ public class OfferService {
 		res.ASIN = asin;
 		res.DetailPageURL = "";
 		res.Offers = new OffersDTO();
-		res.Offers.Offer = getOffers(asin, country, page);
+		getOffers(res, asin, country, page);
+		
 		return res ;
 	}
-	private List<OfferDTO> getOffers(String asin, String country, int page) {
+	private List<OfferDTO> getOffers(ItemDTO item, String asin, String country, int page) {
 		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
 		try {
 			String content = fetchContent(asin, country, page);
-			return extractOffers(content);
+			item.Offers.Offer = extractOffers(content);
+			item.Offers.TotalOfferPages = extractTotalPages(content);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		return res;
 	}
 
+	private int extractTotalPages(String content) {
+		content = content.replace("pagenumberon", "pagenumberoff");
+		String[] arr = content.split("\"pagenumberoff\"");
+		return arr.length - 1;
+	}
 	private List<OfferDTO> extractOffers(String content) {
 		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
 		List<String> tbodyResults = extractTBodyResults(content);
@@ -78,10 +85,30 @@ public class OfferService {
 
 	private void extractMerhantName(OfferDTO res, String info) {
 		// <img width="120" height="30" border="0" alt="
-		String sStart = "width=\"120\" alt=\"";
+		String sStart = " alt=\"";
 		int start = info.indexOf(sStart) + sStart.length();
+		if (start == sStart.length() - 1) {
+			extractMerhantNameB(res, info);
+			return;
+		}
 		String subStr = info.substring(start);
 		String sName = subStr.substring(0, subStr.indexOf("\""));
+		if (sName.length() == 0) {
+			extractMerhantNameB(res, info);
+			return;
+		}
+		res.Merchant.Name = sName;
+	}
+
+	private void extractMerhantNameB(OfferDTO res, String info) {
+		String sStart = "<b>";
+		int start = info.indexOf(sStart) + sStart.length();
+		if (start == sStart.length() - 1) {
+			res.Merchant.Name = "n/a";
+			return;
+		}
+		String subStr = info.substring(start);
+		String sName = subStr.substring(0, subStr.indexOf("</b>"));
 		res.Merchant.Name = sName;
 	}
 
