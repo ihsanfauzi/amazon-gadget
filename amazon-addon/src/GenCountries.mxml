@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="100%"
+				height="100%"
+				paddingBottom="2"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2"
+				backgroundColor="white"
+				horizontalAlign="left"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off"
+				creationComplete="application1_creationCompleteHandler(event)"
+				xmlns:components="components.*"
+				xmlns:services="services.*"
+				xmlns:resources="resources.*">
+	<resources:Resources id="ress"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				for each (var res:* in ress.countries_uk) {
+					//c = new Country("", "", "");
+					//countries.add(c);
+
+					trace('c = new Country("'+res.value+'", "'+res.label+'", "'+res.region+'");');
+					trace('countries.add(c);');
+				}
+			}
+
+		]]>
+	</mx:Script>
+</mx:Application>
