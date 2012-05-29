@@ -1,10 +1,16 @@
 package amazon.check.shipping;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 import javax.cache.Cache;
 import javax.cache.CacheException;
@@ -27,9 +33,10 @@ public class OfferService {
 		res.DetailPageURL = "";
 		res.Offers = new OffersDTO();
 		getOffers(res, asin, country, page);
-		
-		return res ;
+
+		return res;
 	}
+
 	private List<OfferDTO> getOffers(ItemDTO item, String asin, String country, int page) {
 		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
 		try {
@@ -47,6 +54,7 @@ public class OfferService {
 		String[] arr = content.split("\"pagenumberoff\"");
 		return arr.length - 1;
 	}
+
 	private List<OfferDTO> extractOffers(String content) {
 		ArrayList<OfferDTO> res = new ArrayList<OfferDTO>();
 		List<String> tbodyResults = extractTBodyResults(content);
@@ -64,12 +72,12 @@ public class OfferService {
 	}
 
 	private void extractPrice(OfferDTO res, String info) {
-		//<span class="price">
+		// <span class="price">
 		String sStart = "<span class=\"price\">";
 		int start = info.indexOf(sStart) + sStart.length();
 		String subStr = info.substring(start);
 		String sPrice = subStr.substring(0, subStr.indexOf("</span>"));
-		if (sPrice.indexOf("<span>")!=-1) {
+		if (sPrice.indexOf("<span>") != -1) {
 			sPrice = "-";
 		}
 		res.OfferListing.Price.FormattedPrice = sPrice;
@@ -84,6 +92,12 @@ public class OfferService {
 		String sRes = subStr.substring(0, end);
 		extractMerchantID(res, sRes);
 		extractMerhantName(res, sRes);
+		extractMerhantInternational(res, sRes);
+	}
+
+	private void extractMerhantInternational(OfferDTO res, String sRes) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private void extractMerhantName(OfferDTO res, String info) {
@@ -132,38 +146,40 @@ public class OfferService {
 				int start = content.indexOf(sStart) + sStart.length();
 				if (start == sStart.length() - 1) {
 					break;
-				} 
-				String subStr =  content.substring(start);
+				}
+				String subStr = content.substring(start);
 				int end = subStr.indexOf(sEnd);
 				String sRes = subStr.substring(0, end);
 				res.add(sRes);
 				content = subStr;
 			}
-		} catch (Throwable e) {}
+		} catch (Throwable e) {
+		}
 		return res;
 	}
 
-	private String fetchContent(String asin, String country, int page)
-			throws Exception {
+	private String fetchContent(String asin, String country, int page) throws Exception {
 		Cache cache = null;
 		try {
-			cache = CacheManager.getInstance().getCacheFactory()
-					.createCache(Collections.emptyMap());
+			cache = CacheManager.getInstance().getCacheFactory().createCache(Collections.emptyMap());
 		} catch (CacheException e) {
 		}
 		String content = null;
 		if (cache != null) {
-			content = (String) cache.get(asin + "-" + country + "-" + page);
+			// content = (String) cache.get(asin + "-" + country + "-" + page);
 		}
 		if (content == null) {
 			URL url = constructUrl(asin, country, page);
 			URLFetchService serv = URLFetchServiceFactory.getURLFetchService();
 			HTTPRequest httpReq = new HTTPRequest(url);
 			httpReq.setHeader(new HTTPHeader("Accept-Charset", "utf-8"));
+			httpReq.setHeader(new HTTPHeader("Accept-Encoding", "gzip, deflate"));
 			HTTPResponse result = serv.fetch(httpReq);
 			List<HTTPHeader> headers = result.getHeaders();
 			Charset charset = extractCharset(headers);
-			content = new String(result.getContent(), charset);
+			byte[] zipped = result.getContent();
+			GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(zipped));
+			content = new String(toByteArray(gis), charset);
 			// System.out.println(content);
 			if (cache != null) {
 				cache.put(asin + "-" + country + "-" + page, content);
@@ -172,9 +188,20 @@ public class OfferService {
 		return content;
 	}
 
+	public static byte[] toByteArray(InputStream is) throws IOException {
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		int nRead;
+		byte[] data = new byte[16384];
+		while ((nRead = is.read(data, 0, data.length)) != -1) {
+			buffer.write(data, 0, nRead);
+		}
+		buffer.flush();
+		return buffer.toByteArray();
+	}
+
 	private URL constructUrl(String asin, String country, int page) throws Exception {
 		int startIndex = (page - 1) * 15;
-		String res = "http://www.amazon."+country+"/gp/offer-listing/"+asin+"/?ie=UTF8&startIndex="+startIndex+"&condition=new";
+		String res = "http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
 		return new URL(res);
 	}
 
