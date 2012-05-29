@@ -3,15 +3,15 @@ package services
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-
+	
 	import dto.OfferDTO;
 	import dto.SearchDTO;
 	import dto.SearchItemDTO;
-
+	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
-
+	
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
@@ -79,11 +79,15 @@ package services
 				{
 					offers=item.Offers.Offer;
 				}
+				else if (item.Offers.Offer is Array)
+				{
+					offers=new ArrayCollection(item.Offers.Offer as Array);
+				}
 				else if (item.Offers.Offer)
 				{
 					offers=new ArrayCollection([item.Offers.Offer]);
 				}
-				for each(var off:Object in offers)
+				for each (var off:Object in offers)
 				{
 					var offer:OfferDTO=new OfferDTO();
 					offer.merchantGlanceURL=off.Merchant.GlancePage;
