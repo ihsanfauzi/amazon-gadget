@@ -127,11 +127,16 @@ testFrameLoaded = function() {
 	 testFrameContent = ifrm.contentWindow.document.body.innerHTML;
 };
 
-ifrm = document.createElement("IFRAME");
+ifrm = null;
 
-makeTestFrame = function() {
-	ifrm.id = "testFrame";  
-	ifrm.setAttribute("src", "http://www.amazon.com/gp/offer-listing/B003QR0IA6/ref=dp_olp_new?ie=UTF8&condition=new");
+makeTestFrame = function(_url) {
+	testFrameContent = "";
+	if (ifrm!=null) {
+		document.body.removeChild(ifrm);
+	}
+	ifrm = document.createElement("IFRAME");
+	ifrm.id = "testFrame";
+	ifrm.setAttribute("src", _url);
 	ifrm.style.width = 1+"px";
 	ifrm.style.height = 1+"px";
 	ifrm.onload = testFrameLoaded;
