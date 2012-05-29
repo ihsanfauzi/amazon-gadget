@@ -5,4 +5,5 @@ public class MerchantDTO {
 	public String MerchantId;
 	public String Name;
 	public String AverageFeedbackRating;
+	public Boolean International;
 }
