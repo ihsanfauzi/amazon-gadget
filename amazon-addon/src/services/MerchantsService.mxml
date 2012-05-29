@@ -4,11 +4,6 @@
 	<mx:Metadata>
 		[Event (name="result", type="flash.events.Event")]
 	</mx:Metadata>
-	<mx:HTTPService id="serv" 
-					url="{'http://www.amazon.com/gp/offer-listing/B003QR0IA6/ref=dp_olp_new?ie=UTF8&amp;condition=new'}"
-					result="serv_resultHandler(event)"
-					method="get"
-					resultFormat="text"/>
 	<mx:RemoteObject id="ro" 
 					 destination="amazon.check.shipping.OfferService" 
 					 result="ro_resultHandler(event)"
@@ -62,8 +57,10 @@
 
 			public function sendRequest():void {
 				if (searchDTO && searchDTO.searchItems && searchDTO.searchItems.length == 1) {
-					ro.getItem (Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
-					ExternalInterface.call("makeTestFrame");
+					//ro.getItem (Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
+					
+					var url:String = OfferService.constructUrl(Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
+					ExternalInterface.call("makeTestFrame", url);
 					intervalId = setInterval(getIFrameContent, 100);
 					//serv.send();
 				} else {
@@ -79,9 +76,11 @@
 					if (intervalId) {
 						clearInterval(intervalId);
 					}
-					var obj:Object = ExternalInterface.call("getPersonObject");
-					trace (content);
-					
+					var raw:Object = OfferService.getItem(Helper.createASINs(searchDTO), content);
+					raw.DetailPageURL = "http://amazon."+Helper.getAWSDomain()+"/dp/"+raw.ASIN+
+						"%3FSubscriptionId%3D%26tag%3D"+Helper.getTag()+"%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D"+raw.ASIN;
+					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+					dispatchEvent(new Event("result"));
 				}
 			} 
 
@@ -92,9 +91,7 @@
 					dispatchEvent(new Event("result"));
 				} else if (raw) {
 					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
-					
 				}
-				
 			}
 			protected function ro_resultHandler(event:ResultEvent):void
 			{
@@ -110,12 +107,6 @@
 			{
 				//trace(event.fault);
 			}
-			
-			protected function serv_resultHandler(event:ResultEvent):void
-			{
-				trace(event.result);				
-			}
-			
 		]]>
 	</mx:Script>
 </services:BaseService>
