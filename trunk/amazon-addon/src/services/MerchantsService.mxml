@@ -4,6 +4,11 @@
 	<mx:Metadata>
 		[Event (name="result", type="flash.events.Event")]
 	</mx:Metadata>
+	<mx:HTTPService id="serv" 
+					url="{'http://www.amazon.com/gp/offer-listing/B003QR0IA6/ref=dp_olp_new?ie=UTF8&amp;condition=new'}"
+					result="serv_resultHandler(event)"
+					method="get"
+					resultFormat="text"/>
 	<mx:RemoteObject id="ro" 
 					 destination="amazon.check.shipping.OfferService" 
 					 result="ro_resultHandler(event)"
@@ -41,6 +46,8 @@
 			import dto.SearchDTO;
 			
 			import flash.events.EventDispatcher;
+			import flash.utils.clearInterval;
+			import flash.utils.setInterval;
 			
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.FaultEvent;
@@ -50,16 +57,33 @@
 			public var searchDTO:SearchDTO;
 			[Bindable]
 			public var currentOfferPage:int;
+			
+			private var intervalId:uint;
 
 			public function sendRequest():void {
 				if (searchDTO && searchDTO.searchItems && searchDTO.searchItems.length == 1) {
 					ro.getItem (Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
+					ExternalInterface.call("makeTestFrame");
+					intervalId = setInterval(getIFrameContent, 100);
+					//serv.send();
 				} else {
 					amazonSearch.request.ItemId=Helper.createASINs(searchDTO);
 					Helper.generateSignature(amazonSearch.request);
 					amazonSearch.send();
 				}
 			}
+			
+			private function getIFrameContent():void {
+				var content:String = ExternalInterface.call("getTestFrameContent");
+				if (content) {
+					if (intervalId) {
+						clearInterval(intervalId);
+					}
+					var obj:Object = ExternalInterface.call("getPersonObject");
+					trace (content);
+					
+				}
+			} 
 
 			private function amazonSearchResultHandler(event:ResultEvent):void {
 				var raw:Object=event.result.ItemLookupResponse.Items.Item;
@@ -85,6 +109,11 @@
 			protected function ro_faultHandler(event:FaultEvent):void
 			{
 				//trace(event.fault);
+			}
+			
+			protected function serv_resultHandler(event:ResultEvent):void
+			{
+				trace(event.result);				
 			}
 			
 		]]>

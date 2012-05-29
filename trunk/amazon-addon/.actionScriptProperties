@@ -43,6 +43,7 @@
   </compiler>
   <applications>
     <application path="ShippingByASIN.mxml"/>
+    <application path="GenCountries.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
