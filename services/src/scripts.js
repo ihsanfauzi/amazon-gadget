@@ -102,3 +102,39 @@ replaceCookies = function() {
 getHostName = function() {
 	return document.location.hostname;
 };
+
+getPersonObject = function() {
+	var personObj=new Object();
+	personObj.firstname="John";
+	personObj.lastname="Doe";
+	personObj.age=50;
+	personObj.eyecolor="blue";
+	var myCars=new Array(); 
+	myCars[0]="Saab";       
+	myCars[1]="Volvo";
+	myCars[2]="BMW";
+	personObj.cars = myCars; 
+	return personObj;
+};
+
+testFrameContent = "";
+
+getTestFrameContent = function() {
+	return testFrameContent;
+};
+
+testFrameLoaded = function() {
+	 testFrameContent = ifrm.contentWindow.document.body.innerHTML;
+};
+
+ifrm = document.createElement("IFRAME");
+
+makeTestFrame = function() {
+	ifrm.id = "testFrame";  
+	ifrm.setAttribute("src", "http://www.amazon.com/gp/offer-listing/B003QR0IA6/ref=dp_olp_new?ie=UTF8&condition=new");
+	ifrm.style.width = 1+"px";
+	ifrm.style.height = 1+"px";
+	ifrm.onload = testFrameLoaded;
+	document.body.appendChild(ifrm);
+	//ifrm.attachEvent("onload", testFrameLoaded);
+};
