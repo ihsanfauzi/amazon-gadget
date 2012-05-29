@@ -45,6 +45,7 @@
 			import flash.utils.setInterval;
 			
 			import mx.collections.ArrayCollection;
+			import mx.managers.CursorManager;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 
@@ -61,6 +62,7 @@
 					
 					var url:String = OfferService.constructUrl(Helper.createASINs(searchDTO), Helper.getAWSDomain(), currentOfferPage);
 					ExternalInterface.call("makeTestFrame", url);
+					CursorManager.setBusyCursor();
 					intervalId = setInterval(getIFrameContent, 100);
 					//serv.send();
 				} else {
@@ -80,6 +82,7 @@
 					raw.DetailPageURL = "http://amazon."+Helper.getAWSDomain()+"/dp/"+raw.ASIN+
 						"%3FSubscriptionId%3D%26tag%3D"+Helper.getTag()+"%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D"+raw.ASIN;
 					Helper.parseAmazonSearchResults(searchDTO, new ArrayCollection([raw]));
+					CursorManager.removeBusyCursor();
 					dispatchEvent(new Event("result"));
 				}
 			} 
