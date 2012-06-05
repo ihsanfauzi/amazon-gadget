@@ -18,7 +18,8 @@ public class UsChecker extends BaseChecker {
 			content = content.substring(0, end);
 		}
 
-		if (content.indexOf("Amazon Marketplace Shipping for Buyers") != -1) {
+		//if (content.indexOf("Amazon Marketplace Shipping for Buyers") != -1) {
+		if (content.indexOf("Marketplace Shipping Times") != -1) {
 			return SHIPPING_NA;
 		}
 		if (content.indexOf(match1) != -1 || content.indexOf(match2) != -1) {
