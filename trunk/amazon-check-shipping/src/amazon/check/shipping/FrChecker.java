@@ -7,6 +7,9 @@ public class FrChecker extends BaseChecker {
 		if ("France métropolitaine et Monaco".equals(region)) {
 			return SHIPPING_OK;
 		}
+		if ("amazon".equals(content)) {
+			return SHIPPING_NA;
+		}
 		String match = "<strong>{region}</strong>";
 		String match1 = match.replace("{region}", region);
 		int end = content.indexOf("Tarifs d'expédition pour les Livres");

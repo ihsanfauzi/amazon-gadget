@@ -29,7 +29,14 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 		String seller = req.getParameter("seller");
 		String store = req.getParameter("store");
 		String region = req.getParameter("region");
+		if ("null".equals(seller)) {
+			seller = "amazon";
+		}
 		if (!isEmpty(seller) && !isEmpty(store) && !isEmpty(region)) {
+			String content = null;
+			if ("amazon".equals(seller)) {
+				content = "amazon";
+			}
 			if (cache == null) {
 				try {
 					cache = CacheManager.getInstance().getCacheFactory()
@@ -37,7 +44,9 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 				} catch (CacheException e) {
 				}
 			}
-			String content = (String) cache.get(store + "-" + seller);
+			if (content == null) {
+				content = (String) cache.get(store + "-" + seller);
+			}
 			if (content == null) {
 				URL url = new URL("http://" + store
 						+ "/gp/help/seller/shipping.html?ie=UTF8&seller="
@@ -86,10 +95,10 @@ public class Amazon_check_shippingServlet extends HttpServlet {
 	}
 
 	private char[] checkShipping(String store, String region, String content) {
-		int start = content.indexOf("Versandkosten und Lieferzeiten");
-		if (start > 0) {
-			// System.err.println(content.substring(start));
-		}
+//		int start = content.indexOf("Versandkosten und Lieferzeiten");
+//		if (start > 0) {
+//			// System.err.println(content.substring(start));
+//		}
 		BaseChecker ch = CheckerFactory.getChecker(store);
 		if (ch != null) {
 			int res = ch.check(region, content);

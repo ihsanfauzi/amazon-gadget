@@ -7,6 +7,9 @@ public class UsChecker extends BaseChecker {
 		if ("Continental US".equals(region)) {
 			return SHIPPING_OK;
 		}
+		if ("amazon".equals(content)) {
+			return SHIPPING_NA;
+		}
 		String match = "<strong>{region}</strong>";
 		String match1 = match.replace("{region}", region);
 		String match2 = match.replace("{region}", region + " Street");
