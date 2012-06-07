@@ -21,7 +21,7 @@ public class FrChecker extends BaseChecker {
 		}
 
 		if (content
-				.indexOf("Versandkosten und Lieferzeiten für den Versand bei Amazon Marketplace") != -1) {
+				.indexOf("propos de Ambroise") != -1) {
 			return SHIPPING_NA;
 		}
 		if (content.indexOf(match1) != -1) {
