@@ -93,6 +93,9 @@ package services {
 				extractMerhantNameB(res, info);
 				return ;
 			}
+			if(!res.Merchant) {
+				res.Merchant = new Object();
+			}
 			res.Merchant.Name=sName;
 		}
 		
@@ -109,13 +112,17 @@ package services {
 		}
 		
 		private static function extractMerchantID(res:Object, info:String):void {
-			var sStart:String="seller=";
-			var start:Number=info.indexOf(sStart) + sStart.length;
-			var subStr:String=info.substring(start);
-			var sID:String=subStr.substring(0, subStr.indexOf("\""));
 			if(!res.Merchant) {
 				res.Merchant = new Object();
 			}
+
+			var sStart:String="seller=";
+			var start:Number=info.indexOf(sStart) + sStart.length;
+			if (start == sStart.length - 1) {
+				return;
+			}
+			var subStr:String=info.substring(start);
+			var sID:String=subStr.substring(0, subStr.indexOf("\""));
 			res.Merchant.MerchantId=sID;
 		}
 		
