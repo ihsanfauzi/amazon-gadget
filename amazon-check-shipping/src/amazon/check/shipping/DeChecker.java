@@ -7,18 +7,22 @@ public class DeChecker extends BaseChecker {
 		if ("Deutschland".equals(region)) {
 			return SHIPPING_OK;
 		}
+		if ("amazon".equals(content)) {
+			return SHIPPING_NA;
+		}
 		String match = "<strong>{region}</strong>";
 		String match1 = match.replace("{region}", region);
 		int end = content.indexOf("Standardversand fur die");
 		if (end == -1) {
-			end = content.indexOf("Standardversand für die");
+			end = content.indexOf("* Standardversand ");
 		}
 		if (end != -1) {
 			content = content.substring(0, end);
 		}
 
-		if (content
-				.indexOf("Versandkosten und Lieferzeiten für den Versand bei Amazon Marketplace") != -1) {
+//		if (content
+//				.indexOf("Versandkosten und Lieferzeiten für den Versand bei Amazon Marketplace") != -1) {
+		if (content.indexOf("Versandkosten bei Amazon.de Marketplace") != -1) {
 			return SHIPPING_NA;
 		}
 		if (content.indexOf(match1) != -1) {

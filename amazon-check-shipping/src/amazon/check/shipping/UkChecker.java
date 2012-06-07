@@ -7,6 +7,9 @@ public class UkChecker extends BaseChecker {
 		if ("UK Mainland".equals(region)) {
 			return SHIPPING_OK;
 		}
+		if ("amazon".equals(content)) {
+			return SHIPPING_NA;
+		}
 		String match = "<strong>{region}</strong>";
 		String match1 = match.replace("{region}", region);
 		int end = content.indexOf("Delivery Rates for Books, Music, Video");
