@@ -97,7 +97,7 @@ package services {
 				res.Merchant = new Object();
 			}
 			if (sName) {
-				while (sName.indexOf("&amp;")!=1) {
+				while (sName.indexOf("&amp;")!=-1) {
 					sName = sName.replace("&amp;", "&");
 				}
 			}
@@ -114,7 +114,7 @@ package services {
 			var subStr:String=info.substring(start);
 			var sName:String=subStr.substring(0, subStr.indexOf("</b>"));
 			if (sName) {
-				while (sName.indexOf("&amp;")!=1) {
+				while (sName.indexOf("&amp;")!=-1) {
 					sName = sName.replace("&amp;", "&");
 				}
 			}
