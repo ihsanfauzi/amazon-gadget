@@ -96,6 +96,11 @@ package services {
 			if(!res.Merchant) {
 				res.Merchant = new Object();
 			}
+			if (sName) {
+				while (sName.indexOf("&amp;")!=1) {
+					sName = sName.replace("&amp;", "&");
+				}
+			}
 			res.Merchant.Name=sName;
 		}
 		
@@ -108,6 +113,11 @@ package services {
 			}
 			var subStr:String=info.substring(start);
 			var sName:String=subStr.substring(0, subStr.indexOf("</b>"));
+			if (sName) {
+				while (sName.indexOf("&amp;")!=1) {
+					sName = sName.replace("&amp;", "&");
+				}
+			}
 			res.Merchant.Name=sName;
 		}
 		
