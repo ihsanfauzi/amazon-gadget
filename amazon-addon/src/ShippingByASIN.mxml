@@ -28,16 +28,27 @@
 									changeCountry="{changeCountryHandler()}"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
-									 includeInLayout="{showBox}"
+									 includeInLayout="{checkAvailabilityBox.visible}"
 									 visible="{showBox}"
 									 dataProvider="{searchItemDTO}"
 									 region="{region}"
 									 searchDTO="{searchDTO}"
 									 amazonSite="{Helper.getHostName()}"/>
+	<!--mx:VBox id="noData"
+			 visible="{searchItemDTO.offers.length==0}"
+			 includeInLayout="{noData.visible}"
+			 horizontalAlign="center"
+			 verticalAlign="middle"
+			 width="100%"
+			 height="100%">
+		<mx:Label text="No data"/>
+	</mx:VBox-->
 	<mx:Script>
 		<![CDATA[
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
+			
+			import flash.utils.setInterval;
 			
 			import mx.controls.Image;
 			import mx.formatters.SwitchSymbolFormatter;
@@ -95,6 +106,16 @@
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 				img.initialize();
+				setInterval(monitorASIN, 100);
+			}
+			
+			private function monitorASIN():void {
+				if (showBox) {
+					var newAsin:String = ExternalInterface.call("getCurrentASIN");
+					if (asin != newAsin) {
+						checkAvailabilityClickHandler();
+					}
+				}
 			}
 
 			private function checkAvailabilityClickHandler():void
