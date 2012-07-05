@@ -29,20 +29,18 @@
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 includeInLayout="{checkAvailabilityBox.visible}"
-									 visible="{showBox}"
+									 visible="{showBox &amp;&amp; !noData.visible}"
 									 dataProvider="{searchItemDTO}"
 									 region="{region}"
 									 searchDTO="{searchDTO}"
 									 amazonSite="{Helper.getHostName()}"/>
-	<!--mx:VBox id="noData"
-			 visible="{searchItemDTO.offers.length==0}"
+	<mx:VBox id="noData"
+			 visible="{showBox &amp;&amp; searchItemDTO &amp;&amp; searchItemDTO.offers &amp;&amp; !(searchItemDTO.offers.length>0)}"
 			 includeInLayout="{noData.visible}"
 			 horizontalAlign="center"
-			 verticalAlign="middle"
-			 width="100%"
-			 height="100%">
+			 width="100%">
 		<mx:Label text="No data"/>
-	</mx:VBox-->
+	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
 			import dto.SearchDTO;
