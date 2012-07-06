@@ -108,12 +108,14 @@
 			}
 			
 			private function monitorASIN():void {
-				if (showBox) {
-					var newAsin:String = ExternalInterface.call("getCurrentASIN");
-					if (asin != newAsin) {
-						checkAvailabilityClickHandler();
+				try {
+					if (showBox) {
+						var newAsin:String = ExternalInterface.call("getCurrentASIN");
+						if (asin != newAsin) {
+							checkAvailabilityClickHandler();
+						}
 					}
-				}
+				} catch (err:Error) {}
 			}
 
 			private function checkAvailabilityClickHandler():void
