@@ -75,8 +75,14 @@ package services {
 		}
 		
 		private static function extractMerhantInternational(res:Object, sRes:String):void {
-			// TODO Auto-generated method stub
-			
+			res.International = true;
+			if (sRes && 
+				(sRes.indexOf("Domestic shipping rates") > 0 ||
+				sRes.indexOf("Domestic delivery rates") > 0 ||
+				sRes.indexOf("cknahmerichtlinien") > 0 ||
+				sRes.indexOf("dition nationale") > 0)) {
+				res.International = false;
+			}
 		}
 		
 		private static function extractMerhantName(res:Object, info:String):void {

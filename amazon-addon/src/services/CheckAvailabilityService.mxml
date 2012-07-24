@@ -26,7 +26,11 @@
 					offer.availability = checker.shippingCode;
 				});
 				offer.availability = BaseShippingChecker.SHIPPING_LOADING;
-				checker.check(); 				
+				if (offer.international) {
+					checker.check();
+				} else {
+					offer.availability = BaseShippingChecker.SHIPPING_FAIL;
+				}
 			}
 		]]>
 	</mx:Script>
