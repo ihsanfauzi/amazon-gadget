@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 width="100%"
+		 horizontalAlign="left"
+		 verticalAlign="middle">
+	<mx:Text width="60%"
+			 useHandCursor="true"
+			 textDecoration="underline"
+			 buttonMode="true"
+			 mouseChildren="false"
+			 color="blue"
+			 text="{offerDTO.merchantName}"
+			 click="{buyFromClickHandler(event)}"/>
+	<mx:Text width="30%"
+			 text="{offerDTO.price}"/>
+	<mx:Image id="errorIcon"
+			  source="assets/error.icon.png"
+			  visible="{offerDTO.availability == BaseShippingChecker.SHIPPING_FAIL}"
+			  includeInLayout="{offerDTO.availability == BaseShippingChecker.SHIPPING_FAIL}"
+			  useHandCursor="true"
+			  buttonMode="true"
+			  toolTip="Click to see shipping rates"
+			  mouseChildren="false"
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+	<mx:Label text="n/a"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
+			  toolTip="Click to see shipping rates"
+			  textDecoration="underline"
+			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+	<mx:Image id="goodIcon"
+			  source="assets/good.icon.png"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_OK}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_OK}"
+			  toolTip="Click to see shipping rates"
+			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+	<mx:Image id="loadingIcon"
+			  source="assets/loading.gif"
+			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_LOADING}"
+			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_LOADING}"
+			  toolTip="Click to see shipping rates"
+			  useHandCursor="true"
+			  mouseChildren="false"
+			  buttonMode="true"
+			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+	<mx:Script>
+		<![CDATA[
+			import services.BaseShippingChecker;
+			import services.ShippingCheckerAll;
+			import services.Log;
+			import dto.SearchItemDTO;
+			import mx.controls.Label;
+			import services.Helper;
+			import dto.OfferDTO;
+			[Bindable]
+			public var offerDTO:OfferDTO;
+			[Bindable]
+			public var searchItemDTO:SearchItemDTO;
+			[Bindable]
+			public var asin:String;
+
+			private function buyFromClickHandler(event:Event):void
+			{
+				Log.buyLinkClicked();
+				var url:String=Helper.createMerchantItemURL(searchItemDTO, offerDTO);
+				Helper.openAmazonItem(url);
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+				img.initialize();
+			}
+		]]>
+	</mx:Script>
+</mx:HBox>

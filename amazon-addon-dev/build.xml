@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jan 10, 2010 1:32:38 PM                                                        
+
+     project    
+     description
+                   
+     user                                                                
+     ====================================================================== -->
+<project name="project" default="default">
+	<description>
+            description
+    </description>
+	<property file="build.properties" />
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="clean" description="--> description">
+		<copydir dest="dist" src="bin-debug" />
+
+		<java jar="${flex.sdk.dir}/lib/optimizer.jar" fork="true" failonerror="true">
+			<jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${flex.sdk.dir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+			<arg line="'${basedir}/dist/ShippingByASINDev.swf' --output '${basedir}/dist/ShippingByASINDev.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
+		</java>
+
+		<mkdir dir="../amazon-check-shipping/war/dist-dev"/>
+		<copydir dest="../amazon-check-shipping/war/dist-dev" src="dist" />
+		
+		<eclipse.refreshLocal resource=""/>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<delete>
+			<fileset dir="dist">
+				<include name="*" />
+				<exclude name="*SVN*" />
+			</fileset>
+		</delete>
+		<delete failonerror="false">
+			<fileset dir="../amazon-check-shipping/war/dist-dev">
+				<include name="*" />
+				<exclude name="*SVN*" />
+			</fileset>
+		</delete>
+	</target>
+</project>

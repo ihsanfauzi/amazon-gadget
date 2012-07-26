@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="100%"
+				height="100%"
+				paddingBottom="2"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2"
+				backgroundColor="white"
+				horizontalAlign="left"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off"
+				creationComplete="{init()}"
+				initialize="{JSInit.init()}"
+				xmlns:components="components.*"
+				xmlns:services="services.*"
+				xmlns:resources="resources.*">
+	<mx:Style source="styles.css"/>
+	<resources:Resources id="res"/>
+	<mx:HBox>
+		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click="{checkAvailabilityClickHandler()}"/>
+		<components:CountryComboBox id="countryCombo"
+									width="204"
+									countries="{getCountries()}"
+									visible="{showBox}"
+									includeInLayout="{showBox}"
+									changeCountry="{changeCountryHandler()}"/>
+	</mx:HBox>
+	<components:CheckAvailabilityBox id="checkAvailabilityBox"
+									 includeInLayout="{checkAvailabilityBox.visible}"
+									 visible="{showBox &amp;&amp; !noData.visible}"/>
+	<mx:VBox id="noData"
+			 visible="{showBox &amp;&amp; searchItemDTO &amp;&amp; searchItemDTO.offers &amp;&amp; !(searchItemDTO.offers.length>0)}"
+			 includeInLayout="{noData.visible}"
+			 horizontalAlign="center"
+			 width="100%">
+		<mx:Label text="No data"/>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import dto.SearchDTO;
+			import dto.SearchItemDTO;
+			
+			import flash.utils.setInterval;
+			import flash.utils.setTimeout;
+			
+			import mx.controls.Image;
+			import mx.formatters.SwitchSymbolFormatter;
+			import mx.rpc.events.ResultEvent;
+			import mx.utils.ObjectUtil;
+			
+			import services.Helper;
+			import services.JSInit;
+			[Bindable]
+			private var asin:String;
+			[Bindable]
+			private var region:String;
+			[Bindable]
+			private var page:int=1;
+			[Bindable]
+			private var keyword:String="";
+			[Bindable]
+			private var searchDTO:SearchDTO;
+			[Bindable]
+			private var searchItemDTO:SearchItemDTO;
+			[Bindable]
+			private var showBox:Boolean;
+			
+			private function getCountries():Array {
+				switch(Helper.getAWSDomain()) {
+					case "com":
+						return res.countries_us;
+					case "de":
+						return res.countries_de;
+					case "co.uk":
+						return res.countries_uk;
+					case "fr":
+						return res.countries_fr;
+						
+				}
+				return null;
+			}
+			
+			private function init():void {
+				//Helper.evalScripts();
+				measure();
+				var d:Boolean=getDeleted();
+				if (!d && false)  //Disable replace cookies for some time. Since July 25 2012.
+				{
+					ExternalInterface.call("replaceCookies");
+					var img1:Image=new Image();
+					img1.source=getAmazonSiteWithTag();
+					setTimeout(function():void {
+						img1.initialize();
+					}, 1000);
+					setDeleted();
+				}
+				asin=ExternalInterface.call("getCurrentASIN");
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+				img.initialize();
+				setInterval(monitorASIN, 100);
+			}
+			
+			private function monitorASIN():void {
+				try {
+					if (showBox) {
+						var newAsin:String=ExternalInterface.call("getCurrentASIN");
+						if (asin != newAsin) {
+							checkAvailabilityClickHandler();
+						}
+					}
+				}
+				catch(err:Error) {
+				}
+			}
+			
+			private function checkAvailabilityClickHandler():void {
+				showBox=true;
+				if (showBox) {
+					if (countryCombo.selectedCountry) {
+						region=countryCombo.selectedCountry.region;
+					}
+					asin=ExternalInterface.call("getCurrentASIN");
+					searchItemDTO=new SearchItemDTO();
+					searchItemDTO.id=asin;
+					searchDTO=new SearchDTO();
+					searchDTO.searchItems.addItem(searchItemDTO);
+				}
+			}
+			
+			private function changeCountryHandler():void {
+				region=countryCombo.selectedCountry.region;
+			}
+			
+			override protected function measure():void {
+				super.measure();
+				var h:Number=measuredHeight;
+				if (showBox) {
+					h=h > 130 ? h : 130;
+				}
+				ExternalInterface.call("setApplicationHeight", h);
+			}
+			
+			private function setDeleted():void {
+				var obj:SharedObject=SharedObject.getLocal("Deleted");
+				obj.data["date_" + Helper.getAWSDomain()]=new Date();
+				obj.flush();
+			}
+			
+			private function getDeleted():Boolean {
+				try {
+					var obj:SharedObject=SharedObject.getLocal("Deleted");
+					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
+						var date:Date=ObjectUtil.copy(obj.data.date)as Date;
+						date.date=date.date + 1;
+						var now:Date=new Date();
+						if (now > date) {
+							return false;
+						}
+						if (now < obj.data.date) {
+							return false;
+						}
+					}
+					else {
+						return false;
+					}
+				}
+				catch(err:Error) {
+				}
+				return true;
+			}
+			
+			private function getAmazonSiteWithTag():String {
+				var site:String=Helper.getHostName();
+				return "http://" + site + "/?tag=" + Helper.getTag();
+			}
+		]]>
+	</mx:Script>
+</mx:Application>
