@@ -30,7 +30,7 @@
           target: depends                      
          - - - - - - - - - - - - - - - - - -->
 	<target name="clean">
-		<delete>
+		<delete failonerror="false">
 			<fileset dir="dist">
 				<include name="*" />
 				<exclude name="*SVN*" />
