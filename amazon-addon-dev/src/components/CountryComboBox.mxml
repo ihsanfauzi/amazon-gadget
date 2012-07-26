@@ -8,48 +8,50 @@
 	<mx:Metadata>
 		[Event (name="changeCountry", type="flash.events.Event")]
 	</mx:Metadata>
-
+	
 	<mx:Script>
 		<![CDATA[
+			import mx.events.EffectEvent;
 			[Bindable]
 			public var selectedCountry:Object;
 			[Bindable]
 			public var countries:Array;
-
-			private function countryChangeHandler(event:Event):void
-			{
+			
+			private function countryChangeHandler(event:Event):void {
 				selectedCountry=selectedItem;
+				if (selectedCountry && warningEffect.isPlaying) {
+					warningEffect.stop();
+				}
 				var obj:SharedObject=SharedObject.getLocal("Preferencies");
 				obj.data.selectedCountry=selectedItem.value;
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
 			}
-
-			private function init():void
-			{
+			
+			private function init():void {
 				if (countries) {
 					countries.sortOn("label");
 				}
 				var cont:String=getSelectedCountry();
-				if (cont)
-				{
+				if (cont) {
 					selectedItem=findCountry(cont);
 					selectedCountry=selectedItem;
 				}
+				if (!selectedCountry) {
+					warningEffect.play();
+				}
 			}
-
-			private function getSelectedCountry():String
-			{
+			
+			private function getSelectedCountry():String {
 				var obj:SharedObject=SharedObject.getLocal("Preferencies");
-				if (obj.data.hasOwnProperty("selectedCountry"))
-				{
+				if (obj.data.hasOwnProperty("selectedCountry")) {
 					return String(obj.data.selectedCountry);
 				}
 				return null;
 			}
 			
 			private function findCountry(code:String):Object {
-				for each (var obj:Object in countries) {
+				for each(var obj:Object in countries) {
 					if (obj.value == code) {
 						return obj;
 					}
@@ -58,4 +60,15 @@
 			}
 		]]>
 	</mx:Script>
+	<mx:Sequence id="warningEffect"
+				 repeatCount="0"
+				 repeatDelay="0"
+				 target="{this}">
+		<mx:Glow alphaFrom="1"
+				 alphaTo="0"
+				 color="red"/>
+		<mx:Glow alphaFrom="0"
+				 alphaTo="1"
+				 color="red"/>
+	</mx:Sequence>
 </mx:ComboBox>

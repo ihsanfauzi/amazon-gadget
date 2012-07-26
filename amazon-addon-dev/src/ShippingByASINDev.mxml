@@ -18,14 +18,15 @@
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
 	<mx:HBox>
-		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-				   click="{checkAvailabilityClickHandler()}"/>
 		<components:CountryComboBox id="countryCombo"
-									width="204"
+									width="100%"
 									countries="{getCountries()}"
 									visible="{showBox}"
 									includeInLayout="{showBox}"
 									changeCountry="{changeCountryHandler()}"/>
+		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click="{checkAvailabilityClickHandler()}"
+				   enabled="{!showBox || countryCombo.selectedCountry}"/>
 		<mx:Button id="collapseButton"
 				   label="-"
 				   visible="{showBox}"
