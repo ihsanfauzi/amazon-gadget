@@ -18,15 +18,12 @@
 	<target name="default" depends="clean" description="--> description">
 		<copydir dest="dist" src="bin-debug" />
 
-		<java jar="${flex.sdk.dir}/lib/optimizer.jar" fork="true" failonerror="true">
-			<jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${flex.sdk.dir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
-			<arg line="'${basedir}/dist/ShippingByASINDev.swf' --output '${basedir}/dist/ShippingByASINDev.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
-		</java>
+		<!--antcall target="optimize"/-->
 
-		<mkdir dir="../amazon-check-shipping/war/dist-dev"/>
+		<mkdir dir="../amazon-check-shipping/war/dist-dev" />
 		<copydir dest="../amazon-check-shipping/war/dist-dev" src="dist" />
-		
-		<eclipse.refreshLocal resource=""/>
+
+		<eclipse.refreshLocal resource="" />
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
@@ -45,5 +42,12 @@
 				<exclude name="*SVN*" />
 			</fileset>
 		</delete>
+	</target>
+
+	<target name="optimize">
+		<java jar="${flex.sdk.dir}/lib/optimizer.jar" fork="true" failonerror="true">
+			<jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${flex.sdk.dir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false" />
+			<arg line="'${basedir}/dist/ShippingByASINDev.swf' --output '${basedir}/dist/ShippingByASINDev.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient' " />
+		</java>
 	</target>
 </project>

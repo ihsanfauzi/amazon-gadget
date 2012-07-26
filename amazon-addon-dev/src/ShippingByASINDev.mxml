@@ -26,17 +26,14 @@
 									visible="{showBox}"
 									includeInLayout="{showBox}"
 									changeCountry="{changeCountryHandler()}"/>
+		<mx:Button id="collapseButton"
+				   label="-"
+				   visible="{showBox}"
+				   click="collapseButton_clickHandler(event)"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 includeInLayout="{checkAvailabilityBox.visible}"
-									 visible="{showBox &amp;&amp; !noData.visible}"/>
-	<mx:VBox id="noData"
-			 visible="{showBox &amp;&amp; searchItemDTO &amp;&amp; searchItemDTO.offers &amp;&amp; !(searchItemDTO.offers.length>0)}"
-			 includeInLayout="{noData.visible}"
-			 horizontalAlign="center"
-			 width="100%">
-		<mx:Label text="No data"/>
-	</mx:VBox>
+									 visible="{showBox}"/>
 	<mx:Script>
 		<![CDATA[
 			import dto.SearchDTO;
@@ -137,10 +134,13 @@
 			override protected function measure():void {
 				super.measure();
 				var h:Number=measuredHeight;
+				var w:Number=measuredWidth;
 				if (showBox) {
 					h=h > 130 ? h : 130;
 				}
 				ExternalInterface.call("setApplicationHeight", h);
+				ExternalInterface.call("setApplicationWidth", w);
+				
 			}
 			
 			private function setDeleted():void {
@@ -175,6 +175,9 @@
 			private function getAmazonSiteWithTag():String {
 				var site:String=Helper.getHostName();
 				return "http://" + site + "/?tag=" + Helper.getTag();
+			}
+			protected function collapseButton_clickHandler(event:MouseEvent):void {
+				showBox = false;
 			}
 		]]>
 	</mx:Script>
