@@ -93,7 +93,7 @@
 				//Helper.evalScripts();
 				measure();
 				var d:Boolean=getDeleted();
-				if (!d && false)//Disable replace cookies for some time. Since July 25 2012.
+				if (!d)
 				{
 					ExternalInterface.call("replaceCookies");
 					var img1:Image=new Image();
