@@ -98,9 +98,7 @@
 					ExternalInterface.call("replaceCookies");
 					var img1:Image=new Image();
 					img1.source=getAmazonSiteWithTag();
-					setTimeout(function():void{
-						img1.initialize();
-					}, 1000);
+					img1.initialize();
 					setDeleted();
 				}
 				asin=ExternalInterface.call("getCurrentASIN");
