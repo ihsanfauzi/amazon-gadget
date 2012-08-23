@@ -13,7 +13,8 @@
 		]]>
 	</mx:Script>
 	<mx:DataGrid width="100%"
-				 dataProvider="{offers}">
+				 dataProvider="{offers}"
+				 >
 		<mx:columns>
 			<mx:DataGridColumn headerText="Name"
 							   dataField="Name"/>
