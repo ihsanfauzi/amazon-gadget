@@ -11,6 +11,7 @@
 			<mx:DataGridColumn headerText="Price"/>
 			<mx:DataGridColumn headerText="Min Shipping Price"/>
 			<mx:DataGridColumn headerText="Net Price"/>
+			<mx:DataGridColumn headerText="Shipping"/>
 		</mx:columns>
 	</mx:DataGrid>
 </mx:VBox>

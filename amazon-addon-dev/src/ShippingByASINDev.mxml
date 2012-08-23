@@ -24,8 +24,9 @@
 									visible="{showBox}"
 									includeInLayout="{showBox}"
 									changeCountry="{changeCountryHandler()}"/>
-		<mx:Button label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-				   click="{checkAvailabilityClickHandler()}"
+		<mx:Button id="checkShippingButton" 
+			label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click="checkShippingButton_clickHandler(event)"
 				   enabled="{!showBox || countryCombo.selectedCountry}"/>
 		<mx:Button id="collapseButton"
 				   label="-"
@@ -40,6 +41,7 @@
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
 			
+			import flash.utils.clearInterval;
 			import flash.utils.setInterval;
 			import flash.utils.setTimeout;
 			
@@ -50,6 +52,9 @@
 			
 			import services.Helper;
 			import services.JSInit;
+			import util.OfferService;
+			
+			import util.IFrameContentService;
 			[Bindable]
 			private var asin:String;
 			[Bindable]
@@ -106,25 +111,11 @@
 					if (showBox) {
 						var newAsin:String=ExternalInterface.call("getCurrentASIN");
 						if (asin != newAsin) {
-							checkAvailabilityClickHandler();
+							checkShippingButton_clickHandler(null);
 						}
 					}
 				}
 				catch(err:Error) {
-				}
-			}
-			
-			private function checkAvailabilityClickHandler():void {
-				showBox=true;
-				if (showBox) {
-					if (countryCombo.selectedCountry) {
-						region=countryCombo.selectedCountry.region;
-					}
-					asin=ExternalInterface.call("getCurrentASIN");
-					searchItemDTO=new SearchItemDTO();
-					searchItemDTO.id=asin;
-					searchDTO=new SearchDTO();
-					searchDTO.searchItems.addItem(searchItemDTO);
 				}
 			}
 			
@@ -179,6 +170,20 @@
 			}
 			protected function collapseButton_clickHandler(event:MouseEvent):void {
 				showBox = false;
+			}
+			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
+				showBox=true;
+				if (showBox) {
+					if (countryCombo.selectedCountry) {
+						region=countryCombo.selectedCountry.region;
+					}
+					var asin:String = ExternalInterface.call("getCurrentASIN");
+					var url:String = Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
+					IFrameContentService.getContent(url, function(content:String):void {
+						var raw:Object = OfferService.getItem(asin, content);
+						trace(content);
+					});
+				}
 			}
 		]]>
 	</mx:Script>
