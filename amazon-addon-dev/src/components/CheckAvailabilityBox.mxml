@@ -5,13 +5,26 @@
 		 width="100%"
 		 xmlns:components="components.*"
 		 xmlns:services="services.*">
-	<mx:DataGrid width="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			public var offers:ArrayCollection=new ArrayCollection();
+		]]>
+	</mx:Script>
+	<mx:DataGrid width="100%"
+				 dataProvider="{offers}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Name"/>
-			<mx:DataGridColumn headerText="Price"/>
-			<mx:DataGridColumn headerText="Min Shipping Price"/>
-			<mx:DataGridColumn headerText="Net Price"/>
-			<mx:DataGridColumn headerText="Shipping"/>
+			<mx:DataGridColumn headerText="Name"
+							   dataField="Name"/>
+			<mx:DataGridColumn headerText="Price"
+							   dataField="Price"/>
+			<mx:DataGridColumn headerText="Min Shipping Price"
+							   dataField="Min Shipping Price"/>
+			<mx:DataGridColumn headerText="Net Price"
+							   dataField="NetPrice"/>
+			<mx:DataGridColumn headerText="Shipping"
+							   dataField="Shipping"/>
 		</mx:columns>
 	</mx:DataGrid>
 </mx:VBox>

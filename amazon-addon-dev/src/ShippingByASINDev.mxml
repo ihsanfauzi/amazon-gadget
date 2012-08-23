@@ -24,8 +24,8 @@
 									visible="{showBox}"
 									includeInLayout="{showBox}"
 									changeCountry="{changeCountryHandler()}"/>
-		<mx:Button id="checkShippingButton" 
-			label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+		<mx:Button id="checkShippingButton"
+				   label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click="checkShippingButton_clickHandler(event)"
 				   enabled="{!showBox || countryCombo.selectedCountry}"/>
 		<mx:Button id="collapseButton"
@@ -34,10 +34,12 @@
 				   click="collapseButton_clickHandler(event)"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
+									 offers="{offers}"
 									 includeInLayout="{checkAvailabilityBox.visible}"
 									 visible="{showBox}"/>
 	<mx:Script>
 		<![CDATA[
+			import dto.OfferInfoDTO;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
 			
@@ -45,6 +47,7 @@
 			import flash.utils.setInterval;
 			import flash.utils.setTimeout;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
 			import mx.formatters.SwitchSymbolFormatter;
 			import mx.rpc.events.ResultEvent;
@@ -52,9 +55,9 @@
 			
 			import services.Helper;
 			import services.JSInit;
-			import util.OfferService;
 			
 			import util.IFrameContentService;
+			import util.OfferService;
 			[Bindable]
 			private var asin:String;
 			[Bindable]
@@ -69,6 +72,8 @@
 			private var searchItemDTO:SearchItemDTO;
 			[Bindable]
 			private var showBox:Boolean;
+			[Bindable]
+			private var offers:ArrayCollection = new ArrayCollection();
 			
 			private function getCountries():Array {
 				switch(Helper.getAWSDomain()) {
@@ -112,6 +117,7 @@
 						var newAsin:String=ExternalInterface.call("getCurrentASIN");
 						if (asin != newAsin) {
 							checkShippingButton_clickHandler(null);
+							asin = newAsin;
 						}
 					}
 				}
@@ -168,22 +174,61 @@
 				var site:String=Helper.getHostName();
 				return "http://" + site + "/?tag=" + Helper.getTag();
 			}
+			
 			protected function collapseButton_clickHandler(event:MouseEvent):void {
-				showBox = false;
+				showBox=false;
 			}
+			
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
 				showBox=true;
+				offers.removeAll();
 				if (showBox) {
 					if (countryCombo.selectedCountry) {
 						region=countryCombo.selectedCountry.region;
 					}
-					var asin:String = ExternalInterface.call("getCurrentASIN");
-					var url:String = Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
+					var asin:String=ExternalInterface.call("getCurrentASIN");
+					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
 					IFrameContentService.getContent(url, function(content:String):void {
-						var raw:Object = OfferService.getItem(asin, content);
-						trace(content);
+						var raw:Object=OfferService.getItem(asin, content);
+						collectOffers(raw);
+						var pages:Number = raw.Offers.TotalOfferPages;
+						retrieveAllPages(pages);
 					});
 				}
+			}
+			private function retrieveAllPages(pages:Number):void {
+				if (pages <= 1) {
+					return ;
+				}
+				for(var i:int=2; i <= pages; i++) {
+					var asin:String=ExternalInterface.call("getCurrentASIN");
+					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i);
+					IFrameContentService.getContent(url, function(content:String):void {
+						var raw:Object=OfferService.getItem(asin, content);
+						collectOffers(raw);
+					});
+				}
+			}
+
+			
+			private function collectOffers(raw:Object):void {
+				for each (var offer:Object in raw.Offers.Offer) {
+					if(!findOffer(offer.Merchant.Name)){
+						var off:OfferInfoDTO = new OfferInfoDTO();
+						off.Name = offer.Merchant.Name;
+						off.Price = offer.OfferListing.Price.FormattedPrice;
+						offers.addItem(off);
+					}
+				}
+			}
+			
+			private function findOffer(name:String):OfferInfoDTO {
+				for each (var o:OfferInfoDTO in offers) {
+					if (o.Name == name) {
+						return o;
+					}
+				}
+				return null;
 			}
 		]]>
 	</mx:Script>

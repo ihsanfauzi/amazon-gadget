@@ -114,6 +114,7 @@
 						var newAsin:String = ExternalInterface.call("getCurrentASIN");
 						if (asin != newAsin) {
 							checkAvailabilityClickHandler();
+							asin = newAsin;
 						}
 					}
 				} catch (err:Error) {}
