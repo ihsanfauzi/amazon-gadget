@@ -9,6 +9,10 @@ getRawData = function() {
 setApplicationHeight = function(height) {
 	document.getElementById("ShippingByASINDiv").style.height = height;
 };
+setApplicationWidth = function(width) {
+	document.getElementById("ShippingByASINDiv").style.width = width;
+};
+
 getCurrentASIN = function() {
 	return document.getElementById("ASIN").value;
 };
@@ -142,4 +146,14 @@ makeTestFrame = function(_url) {
 	ifrm.onload = testFrameLoaded;
 	document.body.appendChild(ifrm);
 	//ifrm.attachEvent("onload", testFrameLoaded);
+};
+
+createIFrame = function(_name, _url, _onload) {
+	var ifrm = document.createElement("IFRAME");
+	ifrm.id = _name;
+	ifrm.setAttribute("src", _url);
+	ifrm.style.width = 1+"px";
+	ifrm.style.height = 1+"px";
+	ifrm.onload = function(){eval(_onload)};
+	document.body.appendChild(ifrm);
 };
