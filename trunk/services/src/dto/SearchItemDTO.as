@@ -1,5 +1,6 @@
 package dto
 {
+	import mx.collections.ArrayCollection;
 
 	public class SearchItemDTO
 	{
@@ -28,7 +29,7 @@ package dto
 		[Bindable]
 		public var imgHeight:String;
 		[Bindable]
-		public var offers:Array=[];
+		public var offers:ArrayCollection=new ArrayCollection();
 		[Bindable]
 		public var currentOfferPage:int=1;
 		[Bindable]

@@ -72,7 +72,7 @@ package services
 			{
 				var searchItemDTO:SearchItemDTO=findSearchItem(searchDTO.searchItems, item.ASIN);
 				searchItemDTO.url=searchItemDTO.url?searchItemDTO.url:item.DetailPageURL;
-				searchItemDTO.offers=[];
+				searchItemDTO.offers=new ArrayCollection();
 				searchItemDTO.setTotalOfferPages(item.Offers.TotalOfferPages);
 				var offers:ArrayCollection;
 				if (item.Offers.Offer is ArrayCollection)
@@ -90,6 +90,7 @@ package services
 				for each (var off:Object in offers)
 				{
 					var offer:OfferDTO=new OfferDTO();
+					offer.international = off.International;
 					offer.merchantGlanceURL=off.Merchant.GlancePage;
 					offer.merchantID=off.Merchant.MerchantId;
 					offer.merchantName=off.Merchant.Name;
@@ -97,9 +98,9 @@ package services
 					offer.merchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + offer.merchantID;
 					offer.offerListingID=off.OfferListing.OfferListingId;
 					offer.price=off.OfferListing.Price.FormattedPrice;
-					if (!findOffer(searchItemDTO.offers, offer.merchantName))
+					if (!findOffer(searchItemDTO.offers.source, offer.merchantName))
 					{
-						searchItemDTO.offers.push(offer);
+						searchItemDTO.offers.addItem(offer);
 					}
 				}
 				if (searchItemDTO.offers.length == 0 && item.VariationSummary)
@@ -110,7 +111,7 @@ package services
 					offer.merchantGlanceURL="http://www.amazon.com/gp/help/seller/home.html?seller=" + offer.merchantID;
 					offer.merchantShippingURL=offer.merchantGlanceURL.replace("home.html?", "shipping.html?");
 					offer.price=item.VariationSummary.LowestPrice.FormattedPrice;
-					searchItemDTO.offers.push(offer);
+					searchItemDTO.offers.addItem(offer);
 				}
 			}
 			return searchDTO;
@@ -403,6 +404,12 @@ package services
 		public static function evalScripts():void
 		{
 		//ExternalInterface.call("eval", scripts);
+		}
+		
+		public static function constructPageUrl(asin:String, country:String, page:Number):String {
+			var startIndex:Number=(page - 1) * 15;
+			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
+			return res;
 		}
 	}
 }

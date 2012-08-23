@@ -26,5 +26,7 @@ package dto {
 		public var offerListingID:String;
 		[Bindable]
 		public var price:String;
+		[Bindable]
+		public var international:Boolean;
 	}
 }
