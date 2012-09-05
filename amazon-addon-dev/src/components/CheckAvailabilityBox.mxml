@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
-		 verticalGap="0"
-		 xmlns:local="*"
-		 width="100%"
-		 xmlns:components="components.*"
-		 xmlns:services="services.*">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" xmlns:local="*" width="100%" xmlns:components="components.*" xmlns:services="services.*">
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -12,20 +7,41 @@
 			public var offers:ArrayCollection=new ArrayCollection();
 		]]>
 	</mx:Script>
-	<mx:DataGrid width="100%"
-				 dataProvider="{offers}"
-				 >
+	<mx:DataGrid width="100%" dataProvider="{offers}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Name"
-							   dataField="Name"/>
-			<mx:DataGridColumn headerText="Price"
-							   dataField="Price"/>
-			<mx:DataGridColumn headerText="Min Shipping Price"
-							   dataField="Min Shipping Price"/>
-			<mx:DataGridColumn headerText="Net Price"
-							   dataField="NetPrice"/>
-			<mx:DataGridColumn headerText="Shipping"
-							   dataField="Shipping"/>
+			<mx:DataGridColumn headerText="Name" dataField="Name">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Text width="60%" useHandCursor="true" textDecoration="underline" buttonMode="true" mouseChildren="false" color="blue" text="{data.Name}" click="clickHandler(event)">
+							<mx:Script>
+								<![CDATA[
+									import dto.OfferInfoDTO;
+									
+									import mx.controls.Image;
+									
+									import services.Helper;
+									
+									protected function clickHandler(event:MouseEvent):void
+									{
+										var offer:OfferInfoDTO = data as OfferInfoDTO;
+										var url:String=offer.BuyURL;
+										Helper.openAmazonItem(url);
+										var img:Image=new Image();
+										img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+										img.initialize();
+										
+									}
+								]]>
+							</mx:Script>
+						</mx:Text>
+						
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Price" dataField="Price"/>
+			<mx:DataGridColumn headerText="Min Shipping Price" dataField="Min Shipping Price"/>
+			<mx:DataGridColumn headerText="Net Price" dataField="NetPrice"/>
+			<mx:DataGridColumn headerText="Shipping" dataField="Shipping"/>
 		</mx:columns>
 	</mx:DataGrid>
 </mx:VBox>
