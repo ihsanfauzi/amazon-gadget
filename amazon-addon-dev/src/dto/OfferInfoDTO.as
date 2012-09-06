@@ -9,6 +9,10 @@ package dto {
 		public var Shipping:String;
 		public var MerchantId:String;
 		public var BuyURL:String;
+		public var MerchantShippingURL:String;
+		public var Availability:int;
+		public var International:Boolean;
+		
 		
 		public function OfferInfoDTO() {
 		}

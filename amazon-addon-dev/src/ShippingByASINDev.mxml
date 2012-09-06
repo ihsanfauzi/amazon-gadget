@@ -36,7 +36,8 @@
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 offers="{offers}"
 									 includeInLayout="{checkAvailabilityBox.visible}"
-									 visible="{showBox}"/>
+									 visible="{showBox}"
+									 region="{region}"/>
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferInfoDTO;
@@ -53,8 +54,10 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
 			
+			import services.BaseShippingChecker;
 			import services.Helper;
 			import services.JSInit;
+			import services.ShippingCheckerAll;
 			
 			import util.IFrameContentService;
 			import util.OfferService;
@@ -219,6 +222,9 @@
 						off.Price = offer.OfferListing.Price.FormattedPrice;
 						off.MerchantId = offer.Merchant.MerchantId;
 						off.BuyURL = raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
+						off.International = offer.International;
+						off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
+						sendRequest(off);
 						offers.addItem(off);
 					}
 				}
@@ -232,6 +238,23 @@
 				}
 				return null;
 			}
+			
+			public function sendRequest(offer:OfferInfoDTO):void {
+				if (offer.Availability > 0) {
+					return;
+				}
+				var checker:ShippingCheckerAll=new ShippingCheckerAll(region, offer.MerchantId, Helper.getHostName(), function():void {
+					offer.Availability=checker.shippingCode;
+				});
+				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
+				if (offer.International) {
+					checker.check();
+				}
+				else {
+					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
+				}
+			}
+
 		]]>
 	</mx:Script>
 </mx:Application>

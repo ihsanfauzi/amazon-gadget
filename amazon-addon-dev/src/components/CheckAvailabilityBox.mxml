@@ -1,18 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" xmlns:local="*" width="100%" xmlns:components="components.*" xmlns:services="services.*">
+<?xml version = "1.0" encoding = "utf-8"?>
+<mx:VBox xmlns:mx = "http://www.adobe.com/2006/mxml"
+		 verticalGap = "0"
+		 xmlns:local = "*"
+		 width = "100%"
+		 xmlns:components = "components.*"
+		 xmlns:services = "services.*">
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			[Bindable]
 			public var offers:ArrayCollection=new ArrayCollection();
+			[Bindable]
+			public var region:String;
 		]]>
 	</mx:Script>
-	<mx:DataGrid width="100%" dataProvider="{offers}">
+	<mx:DataGrid width = "100%"
+				 dataProvider = "{offers}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Name" dataField="Name">
+			<mx:DataGridColumn headerText = "Name"
+							   dataField = "Name">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Text width="60%" useHandCursor="true" textDecoration="underline" buttonMode="true" mouseChildren="false" color="blue" text="{data.Name}" click="clickHandler(event)">
+						<mx:Label truncateToFit = "true"
+								  useHandCursor = "true"
+								  textDecoration = "underline"
+								  buttonMode = "true"
+								  mouseChildren = "false"
+								  color = "blue"
+								  text = "{data.Name}"
+								  click = "clickHandler(event)"
+								  toolTip = "{data.Name}">
 							<mx:Script>
 								<![CDATA[
 									import dto.OfferInfoDTO;
@@ -21,27 +38,93 @@
 									
 									import services.Helper;
 									
-									protected function clickHandler(event:MouseEvent):void
-									{
-										var offer:OfferInfoDTO = data as OfferInfoDTO;
+									protected function clickHandler(event:MouseEvent):void {
+										var offer:OfferInfoDTO=data as OfferInfoDTO;
 										var url:String=offer.BuyURL;
 										Helper.openAmazonItem(url);
 										var img:Image=new Image();
 										img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
 										img.initialize();
-										
 									}
 								]]>
 							</mx:Script>
-						</mx:Text>
-						
+						</mx:Label>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-			<mx:DataGridColumn headerText="Price" dataField="Price"/>
-			<mx:DataGridColumn headerText="Min Shipping Price" dataField="Min Shipping Price"/>
-			<mx:DataGridColumn headerText="Net Price" dataField="NetPrice"/>
-			<mx:DataGridColumn headerText="Shipping" dataField="Shipping"/>
+			<mx:DataGridColumn headerText = "Price"
+							   dataField = "Price"
+							   width = "110"/>
+			<mx:DataGridColumn headerText = "Min Shipping Price"
+							   dataField = "Min Shipping Price"
+							   width = "110"/>
+			<mx:DataGridColumn headerText = "Net Price"
+							   dataField = "NetPrice"
+							   width = "110"/>
+			<mx:DataGridColumn headerText = "Shipping"
+							   dataField = "Availability"
+							   width = "55">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:HBox horizontalAlign = "center"
+								 verticalAlign = "middle">
+							<mx:Image id = "errorIcon"
+									  source = "assets/error.icon.png"
+									  visible = "{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
+									  includeInLayout = "{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
+									  useHandCursor = "true"
+									  buttonMode = "true"
+									  toolTip = "Click to see shipping rates"
+									  mouseChildren = "false"
+									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+							<mx:Label text = "n/a"
+									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
+									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
+									  toolTip = "Click to see shipping rates"
+									  textDecoration = "underline"
+									  useHandCursor = "true"
+									  mouseChildren = "false"
+									  buttonMode = "true"
+									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+							<mx:Image id = "goodIcon"
+									  source = "assets/good.icon.png"
+									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
+									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
+									  toolTip = "Click to see shipping rates"
+									  useHandCursor = "true"
+									  mouseChildren = "false"
+									  buttonMode = "true"
+									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+							<mx:Image id = "loadingIcon"
+									  source = "assets/loading.gif"
+									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
+									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
+									  toolTip = "Click to see shipping rates"
+									  useHandCursor = "true"
+									  mouseChildren = "false"
+									  buttonMode = "true"
+									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+							<mx:Script>
+								<![CDATA[
+									import dto.OfferInfoDTO;
+									
+									import services.BaseShippingChecker;
+									import services.Helper;
+									import services.ShippingCheckerAll;
+									[Bindable]
+									public var offer:OfferInfoDTO;
+									[Bindable]
+									
+									override public function set data(o:Object):void {
+										super.data=o;
+										offer=data as OfferInfoDTO;
+									}
+								]]>
+							</mx:Script>
+						</mx:HBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 		</mx:columns>
 	</mx:DataGrid>
 </mx:VBox>
