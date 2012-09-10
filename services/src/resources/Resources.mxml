@@ -687,7 +687,7 @@
 <resources:Resource value="UG" label="UG Uganda" region="Rest of World"/>
 <resources:Resource value="UA" label="UA Ukraine" region="Europe Zone 3"/>
 <resources:Resource value="AE" label="AE United Arab Emirates" region="Rest of World"/>
-<resources:Resource value="GB" label="GB United Kingdom" region="UK Mainland"/>
+<resources:Resource value="GB" label="GB United Kingdom" region="UK Street"/>
 <resources:Resource value="GB_POB" label="GB United Kingdom Mainland PO Box" region="UK Mainland PO Box"/>
 <resources:Resource value="GB_BFPO" label="British Forces Post Office" region="BFPO"/>
 <resources:Resource value="US" label="US United States" region="North America"/>
