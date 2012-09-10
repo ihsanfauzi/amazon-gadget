@@ -2,9 +2,7 @@ package test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 
 import org.junit.Before;
 import org.junit.Test;
