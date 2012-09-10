@@ -12,6 +12,9 @@
 			public var offers:ArrayCollection=new ArrayCollection();
 			[Bindable]
 			public var region:String;
+			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
+			public static var LOADING : Class;
+			
 		]]>
 	</mx:Script>
 	<mx:DataGrid width = "100%"
@@ -69,7 +72,7 @@
 						<mx:HBox horizontalAlign = "center"
 								 verticalAlign = "middle">
 							<mx:Image id = "errorIcon"
-									  source = "assets/error.icon.png"
+									  source = "@Embed('assets/error.icon.png')"
 									  visible = "{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
 									  includeInLayout = "{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
 									  useHandCursor = "true"
@@ -87,7 +90,7 @@
 									  buttonMode = "true"
 									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 							<mx:Image id = "goodIcon"
-									  source = "assets/good.icon.png"
+									  source = "@Embed('assets/good.icon.png')"
 									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
 									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
 									  toolTip = "Click to see shipping rates"
@@ -95,15 +98,17 @@
 									  mouseChildren = "false"
 									  buttonMode = "true"
 									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
-							<mx:Image id = "loadingIcon"
-									  source = "assets/loading.gif"
-									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
-									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
-									  toolTip = "Click to see shipping rates"
-									  useHandCursor = "true"
-									  mouseChildren = "false"
-									  buttonMode = "true"
-									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+							<components:GIFPlayerComponent id = "loadingIcon"
+														   byteArray = "{new CheckAvailabilityBox.LOADING()}"
+														   visible = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
+														   includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
+														   toolTip = "Click to see shipping rates"
+														   useHandCursor = "true"
+														   mouseChildren = "false"
+														   buttonMode = "true"
+														   click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
+														   width="13"
+														   height="13"/>
 							<mx:Script>
 								<![CDATA[
 									import dto.OfferInfoDTO;
