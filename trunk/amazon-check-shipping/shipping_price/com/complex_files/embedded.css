@@ -1,0 +1,472 @@
+/*
+ * A mixin for doing inset (TBD: outset) borders with more control over the 
+ * color difference
+ *
+ * @param The "average color" of the two colors used for the inset
+ * @param The %-age amount to shift the color lighter/darker
+ * e.g. precise-inset("#777", 0.2)
+ */
+#quorus {
+  font-family: arial, helvetica, verdana, sans-serif;
+  font-size: 12px;
+  line-height: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  text-shadow: none;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333;
+  position: absolute;
+  z-index: 50001; }
+  #quorus .q_clearfix {
+    display: block; }
+    #quorus .q_clearfix:after {
+      display: block;
+      visibility: hidden;
+      clear: both;
+      content: ".";
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+      overflow: hidden; }
+  #quorus div, #quorus span, #quorus h1, #quorus h2, #quorus h3, #quorus h4, #quorus h5, #quorus h6, #quorus p, #quorus blockquote, #quorus pre,
+  #quorus a, #quorus abbr, #quorus acronym, #quorus address, #quorus big, #quorus cite, #quorus code,
+  #quorus del, #quorus dfn, #quorus em, #quorus ins, #quorus kbd, #quorus q, #quorus s, #quorus samp,
+  #quorus small, #quorus strike, #quorus strong, #quorus sub, #quorus sup, #quorus tt, #quorus var,
+  #quorus dl, #quorus dt, #quorus dd, #quorus ol, #quorus ul, #quorus li,
+  #quorus fieldset, #quorus form, #quorus label, #quorus legend, #quorus caption, #quorus input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: inherit;
+    text-transform: inherit;
+    text-decoration: inherit;
+    text-shadow: inherit;
+    vertical-align: baseline;
+    letter-spacing: inherit;
+    float: none;
+    color: inherit;
+    width: auto;
+    height: auto; }
+  #quorus img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: inherit;
+    text-transform: inherit;
+    text-decoration: inherit;
+    text-shadow: inherit;
+    vertical-align: baseline;
+    letter-spacing: inherit;
+    float: none;
+    color: inherit;
+    display: inline; }
+  #quorus p {
+    display: block;
+    margin: 1em 0px; }
+  #quorus div, #quorus layer, #quorus article, #quorus aside, #quorus footer, #quorus header, #quorus nav, #quorus section {
+    display: block; }
+  #quorus blockquote {
+    display: block;
+    margin: 1em 40px 1em 40px; }
+  #quorus q {
+    display: inline; }
+    #quorus q:before, #quorus q:after {
+      content: "\""; }
+  #quorus hr {
+    display: block;
+    margin: 0.5em auto;
+    border-style: inset;
+    border-width: 1px; }
+  #quorus h1 {
+    display: block;
+    font-size: 2em;
+    margin: 0.67em 0 0.67em 0;
+    font-weight: bold; }
+  #quorus h2 {
+    display: block;
+    font-size: 1.5em;
+    margin: 0.83em 0 0.83em 0;
+    font-weight: bold;
+    height: auto; }
+  #quorus h3 {
+    display: block;
+    font-size: 1.17em;
+    margin: 1em 0 1em 0;
+    font-weight: bold; }
+  #quorus h4 {
+    display: block;
+    margin: 1.33em 0 1.33em 0;
+    font-weight: bold; }
+  #quorus h5 {
+    display: block;
+    font-size: 0.83em;
+    margin: 1.67em 0 1.67em 0;
+    font-weight: bold; }
+  #quorus h6 {
+    display: block;
+    font-size: 0.67em;
+    margin: 2.33em 0 2.33em 0;
+    font-weight: bold; }
+  #quorus table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray; }
+  #quorus table > tr {
+    vertical-align: middle; }
+  #quorus tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit; }
+  #quorus td {
+    display: table-cell;
+    vertical-align: inherit; }
+  #quorus th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold; }
+  #quorus ul, #quorus menu, #quorus dir {
+    display: block;
+    list-style-type: disc;
+    margin: 0 15px 10px 30px; }
+  #quorus ol {
+    display: block;
+    list-style-type: decimal;
+    margin: 1em 0 1em 0; }
+  #quorus li {
+    display: list-item; }
+  #quorus ul ul {
+    list-style-type: circle; }
+  #quorus ol ul {
+    list-style-type: circle; }
+  #quorus ol ol ul, #quorus ol ul ul {
+    list-style-type: square; }
+  #quorus ul ol ul, #quorus ul ul ul {
+    list-style-type: square; }
+  #quorus dd {
+    display: block; }
+  #quorus dl {
+    display: block;
+    margin: 1em 0 1em 0; }
+  #quorus dt {
+    display: block; }
+  #quorus ol ul {
+    margin-top: 0;
+    margin-bottom: 0; }
+  #quorus ul ol, #quorus ul ul {
+    margin-top: 0;
+    margin-bottom: 0; }
+  #quorus ol ol {
+    margin-top: 0;
+    margin-bottom: 0; }
+  #quorus form {
+    display: block;
+    margin-top: 0em; }
+  #quorus label {
+    cursor: default; }
+  #quorus u, #quorus ins {
+    text-decoration: underline; }
+  #quorus strong, #quorus b {
+    font-weight: bolder; }
+  #quorus i, #quorus cite, #quorus em, #quorus var, #quorus address {
+    font-style: italic; }
+  #quorus tt, #quorus code, #quorus kbd, #quorus samp {
+    font-family: monospace; }
+  #quorus pre, #quorus xmp, #quorus plaintext, #quorus listing {
+    display: block;
+    font-family: monospace;
+    white-space: pre;
+    margin: 1em 0; }
+  #quorus big {
+    font-size: larger; }
+  #quorus small {
+    font-size: smaller; }
+  #quorus s, #quorus strike, #quorus del {
+    text-decoration: line-through; }
+  #quorus sub {
+    vertical-align: sub;
+    font-size: smaller; }
+  #quorus sup {
+    vertical-align: super;
+    font-size: smaller; }
+  #quorus nobr {
+    white-space: nowrap; }
+  #quorus a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #004b91; }
+  #quorus a:hover {
+    text-decoration: underline;
+    color: #004b91; }
+  #quorus a:visited {
+    color: #004b91; }
+  #quorus input {
+    background: white;
+    border: 2px inset #EEE; }
+  #quorus input[type='submit'] {
+    background-color: buttonface;
+    border: 2px outset buttonface;
+    color: buttontext;
+    cursor: default;
+    padding: 2px 6px 3px;
+    text-align: center; }
+  #quorus textarea {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    outline: 0; }
+  #quorus button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-align: inherit;
+    text-transform: inherit;
+    text-decoration: inherit;
+    text-shadow: inherit;
+    vertical-align: baseline;
+    letter-spacing: inherit;
+    float: none;
+    color: inherit;
+    color: #333;
+    background: #F7CD5E;
+    height: auto;
+    line-height: 125%;
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    padding: 0.25em;
+    cursor: pointer;
+    font-weight: bolder; }
+  #quorus table {
+    border-collapse: collapse; }
+  #quorus input {
+    font-family: inherit;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box; }
+  #quorus textarea {
+    font-family: inherit;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box; }
+  #quorus .q_widget_stacked .q_shim {
+    opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    position: absolute;
+    border: none;
+    top: 0px;
+    left: 0px;
+    padding: 0;
+    margin: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    _width: 0;
+    _height: 0; }
+  #quorus .q_fixed_container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10; }
+  #quorus .q_bug {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 2px;
+    font-weight: bold;
+    color: white;
+    background: red; }
+    #quorus .q_bug span {
+      display: block;
+      margin-top: 1px; }
+  #quorus .q_bar_sizer {
+    position: absolute;
+    right: 15px;
+    left: 15px;
+    width: auto;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    height: 0; }
+  #quorus .q_bar {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    padding: 0;
+    clear: both;
+    margin: 0;
+    height: 29px;
+    z-index: 9;
+    background: #F6F6F6;
+    box-shadow: 0 0 5px #888888;
+    border-top-left-radius: 2px 2px;
+    border-top-right-radius: 2px 2px;
+    color: #222; }
+    #quorus .q_bar .q_clickable:hover, #quorus .q_bar .q_selected {
+      background-color: #2F3841;
+      border-color: #2F3841;
+      color: #FFF;
+      box-shadow: 0 0 3px #888888; }
+  #quorus .q_bar > div {
+    float: right; }
+  #quorus .q_hidden {
+    visibility: hidden; }
+  #quorus .q_contents {
+    position: relative;
+    margin: 0 auto;
+    width: 974px;
+    height: 29px; }
+  #quorus .q_baritem {
+    height: 100%;
+    border-left: 1px solid #d0d0d0;
+    border-top-right-radius: 2px 2px;
+    border-top-left-radius: 2px 2px; }
+  #quorus .q_barbutton {
+    padding: 0 8px;
+    font-size: 13px;
+    color: #333; }
+    #quorus .q_barbutton > * {
+      overflow: auto; }
+    #quorus .q_barbutton .q_action_icon {
+      float: right;
+      text-indent: -999em;
+      position: relative;
+      cursor: pointer;
+      margin: 8px -2px 0 8px;
+      padding: 2px; }
+      #quorus .q_barbutton .q_action_icon span {
+        height: 11px;
+        width: 11px;
+        display: block; }
+    #quorus .q_barbutton .q_close {
+      visibility: hidden; }
+    #quorus .q_barbutton:hover .q_close {
+      visibility: visible; }
+    #quorus .q_barbutton .q_close span {
+      background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -55px -50px no-repeat; }
+    #quorus .q_barbutton .q_close:hover span {
+      background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -42px -50px no-repeat; }
+  #quorus .q_bar > .q_last {
+    padding-left: 3px;
+    padding-right: 1px;
+    border-left: none;
+    height: 100%;
+    line-height: 29px;
+    vertical-align: middle; }
+  #quorus .q_bar > .q_first {
+    border-right: none; }
+  #quorus .q_as_a_button {
+    background: #f7cd5e url(https://d2idp7oxq0j5iu.cloudfront.net/images/q_btn_bkg.png?1346877332) repeat-x left bottom;
+    border: 1px outset #e5a536;
+    border-radius: 3px; }
+    #quorus .q_as_a_button:active {
+      border-style: inset; }
+  #quorus form.q_loading .q_as_a_button {
+    visibility: hidden; }
+  #quorus .q_floated_label {
+    position: relative; }
+    #quorus .q_floated_label label {
+      word-wrap: break-word;
+      display: none;
+      position: absolute;
+      color: #777;
+      cursor: text;
+      width: 100%;
+      height: 100%; }
+      #quorus .q_floated_label label.q_show_label {
+        display: block;
+        vertical-align: middle; }
+  #quorus .q_barpane {
+    position: absolute;
+    opacity: 1; }
+    #quorus .q_barpane.q_hidden {
+      opacity: 0; }
+      #quorus .q_barpane.q_hidden .q_barpane_content {
+        top: 10px; }
+  #quorus .q_barpane_content {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #888888;
+    background-color: #F6F6F6;
+    position: relative;
+    top: 0; }
+    #quorus .q_barpane_content:after, #quorus .q_barpane_content:before {
+      content: ' ';
+      position: absolute;
+      top: 100%;
+      right: 30px;
+      width: 0;
+      height: 0;
+      border: 8px solid transparent;
+      border-top-color: #F6F6F6; }
+    #quorus .q_barpane_content:before {
+      right: 29px;
+      border: 9px solid transparent;
+      border-top-color: #aaa;
+      opacity: 0.6; }
+  #quorus .q_titlebar {
+    line-height: 29px;
+    margin: 0;
+    padding: 0 5px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: left;
+    border: 1px solid #F6F6F6;
+    border-top-left-radius: 2px 2px;
+    border-top-right-radius: 2px 2px;
+    border-bottom: none;
+    background-color: #2F3841;
+    color: #fff; }
+  #quorus .q_titletwo {
+    font-size: 0.8em;
+    border-bottom: 1px solid #777;
+    padding: 0 10px;
+    line-height: 19px; }
+  #quorus .q_titlebtn {
+    text-indent: -999em;
+    float: right;
+    position: relative;
+    z-index: 11;
+    margin: 5px 0 0 5px;
+    cursor: pointer; }
+    #quorus .q_titlebtn span {
+      display: block;
+      height: 20px;
+      width: 20px; }
+  #quorus .q_whats_this span {
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) 0 -42px no-repeat; }
+  #quorus .q_whats_this:hover span {
+    background-position: 0 -62px; }
+  #quorus .q_hide_pane span {
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -20px -42px no-repeat; }
+  #quorus .q_hide_pane:hover span {
+    background-position: -20px -62px; }
+  #quorus .q_close_pane span {
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -40px -42px no-repeat; }
+  #quorus .q_close_pane:hover span {
+    background-position: -40px -62px; }
+  #quorus .q_loadingpane .q_loadingpane_content {
+    box-shadow: none;
+    min-height: 29px;
+    min-width: 5em;
+    background: transparent url(https://d2idp7oxq0j5iu.cloudfront.net/images/spinner.gif?1346877332) no-repeat center center;
+    border: none; }
+    #quorus .q_loadingpane .q_loadingpane_content:after, #quorus .q_loadingpane .q_loadingpane_content:before {
+      display: none; }
