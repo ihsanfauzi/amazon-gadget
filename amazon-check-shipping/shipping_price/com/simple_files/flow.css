@@ -1,0 +1,890 @@
+/*
+ * A mixin for doing inset (TBD: outset) borders with more control over the 
+ * color difference
+ *
+ * @param The "average color" of the two colors used for the inset
+ * @param The %-age amount to shift the color lighter/darker
+ * e.g. precise-inset("#777", 0.2)
+ */
+#quorus.q_treatment_no_google_teaser .q_contacts_img {
+  display: none; }
+#quorus .q_mobilesharebutton {
+  cursor: pointer; }
+  #quorus .q_mobilesharebutton .q_mobilesharebutton_content {
+    line-height: 29px;
+    white-space: nowrap;
+    height: 100%; }
+  #quorus .q_mobilesharebutton .q_cta {
+    display: none;
+    line-height: 23px;
+    margin-top: 2px;
+    margin-right: 8px;
+    border-right: 1px solid #ddd;
+    padding-right: 8px; }
+    #quorus .q_mobilesharebutton .q_cta .q_logo {
+      display: block;
+      float: left;
+      margin: 2px 8px 0 0;
+      width: 22px;
+      height: 22px;
+      background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) 0 0 no-repeat; }
+    #quorus .q_mobilesharebutton .q_cta .q_cta_text {
+      line-height: 25px; }
+  #quorus .q_mobilesharebutton.q_show_cta .q_cta {
+    display: inline-block; }
+  #quorus .q_mobilesharebutton .q_speech_bubble {
+    display: block;
+    float: right;
+    margin: 6px 0 0 0;
+    width: 18px;
+    height: 18px;
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -26px -23px no-repeat; }
+  #quorus .q_mobilesharebutton:hover .q_logo, #quorus .q_mobilesharebutton.q_selected .q_logo {
+    background-position: -24px 0; }
+  #quorus .q_mobilesharebutton:hover .q_speech_bubble, #quorus .q_mobilesharebutton.q_selected .q_speech_bubble {
+    background-position: -2px -23px; }
+#quorus .q_mobileflowbutton {
+  cursor: pointer;
+  max-width: 225px; }
+  #quorus .q_mobileflowbutton.q_loading {
+    display: none; }
+#quorus .q_mobileflowbutton_content {
+  line-height: 30px;
+  min-width: 125px;
+  max-width: 225px;
+  overflow: hidden; }
+  #quorus .q_mobileflowbutton_content .q_buttontext {
+    margin-right: 22px; }
+    #quorus .q_mobileflowbutton_content .q_buttontext > span {
+      display: block;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden; }
+#quorus .q_mobileflowpane_hidden {
+  visibility: hidden; }
+#quorus .q_mobileflowpane_content {
+  width: 290px; }
+  #quorus .q_mobileflowpane_content > .q_titlebar {
+    text-align: left; }
+    #quorus .q_mobileflowpane_content > .q_titlebar .q_titletext {
+      margin-right: 22px; }
+      #quorus .q_mobileflowpane_content > .q_titlebar .q_titletext > span {
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden; }
+  #quorus .q_mobileflowpane_content .q_advice {
+    position: absolute;
+    padding: 1px 1px 0 1px;
+    background-color: white;
+    z-index: 1; }
+  #quorus .q_mobileflowpane_content .q_advice_content {
+    padding: 10px;
+    background-color: #DEECF4;
+    border-bottom: 1px solid #d0d0d0; }
+    #quorus .q_mobileflowpane_content .q_advice_content p {
+      margin: 0 15px 0 0;
+      font-size: 11px;
+      line-height: 1.25em; }
+    #quorus .q_mobileflowpane_content .q_advice_content [rel=q_advice_dismiss] {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 2px;
+      text-indent: -999em;
+      cursor: pointer; }
+      #quorus .q_mobileflowpane_content .q_advice_content [rel=q_advice_dismiss] span {
+        height: 11px;
+        width: 11px;
+        display: block;
+        background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -55px -50px no-repeat; }
+      #quorus .q_mobileflowpane_content .q_advice_content [rel=q_advice_dismiss]:hover span {
+        background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -42px -50px no-repeat; }
+  #quorus .q_mobileflowpane_content .q_advice_hidden {
+    visibility: hidden; }
+  #quorus .q_mobileflowpane_content .q_flowlogarea {
+    position: relative;
+    height: 214px;
+    background-color: white;
+    padding: 3px; }
+  #quorus .q_mobileflowpane_content .q_flowlogarea_content {
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+    width: 284px;
+    background-color: white;
+    overflow: auto;
+    word-wrap: break-word; }
+  #quorus .q_mobileflowpane_content .q_system_message {
+    padding: 4px 8px;
+    margin: 5px 0;
+    line-height: 1.25;
+    font-style: italic;
+    background-color: #FFFF99; }
+  #quorus .q_mobileflowpane_content .q_author_confirmation {
+    display: none; }
+  #quorus .q_mobileflowpane_content .q_timestamp {
+    float: right;
+    color: #777;
+    font-size: 10px;
+    font-style: italic;
+    margin-right: -10px; }
+  #quorus .q_mobileflowpane_content .q_inline_login.q_show_login_options .q_login_options {
+    display: inherit; }
+  #quorus .q_mobileflowpane_content .q_inline_login.q_show_login_options .q_click_to_reply {
+    display: none; }
+  #quorus .q_mobileflowpane_content .q_inline_login .q_login_options {
+    display: none;
+    padding: 0 12px; }
+    #quorus .q_mobileflowpane_content .q_inline_login .q_login_options p {
+      margin-top: 8px; }
+    #quorus .q_mobileflowpane_content .q_inline_login .q_login_options ul {
+      margin: 0.5em 0; }
+    #quorus .q_mobileflowpane_content .q_inline_login .q_login_options li {
+      list-style-type: none;
+      float: left;
+      width: 49%;
+      margin: 2px 0; }
+      #quorus .q_mobileflowpane_content .q_inline_login .q_login_options li img {
+        vertical-align: text-bottom; }
+  #quorus .q_mobileflowpane_content .q_inline_login .q_click_to_reply {
+    padding: 8px 12px;
+    color: #F7CD5E;
+    font-size: 1.2em;
+    text-align: center;
+    cursor: pointer; }
+    #quorus .q_mobileflowpane_content .q_inline_login .q_click_to_reply p {
+      margin: 0; }
+    #quorus .q_mobileflowpane_content .q_inline_login .q_click_to_reply a {
+      color: #F7CD5E;
+      text-decoration: underline; }
+  #quorus .q_mobileflowpane_content .q_compose_area {
+    padding: 10px;
+    border-top: 1px solid #d9d9d9; }
+    #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment {
+      border: 1px solid;
+      border-top-color: #aaaaaa;
+      border-right-color: #d0d0d0;
+      border-bottom-color: #d0d0d0;
+      border-left-color: #aaaaaa;
+      border-radius: 2px;
+      background-color: white;
+      margin-bottom: 5px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_attachment {
+        display: none;
+        border-top: 1px solid #d0d0d0;
+        padding: 7px 0;
+        margin: 0 7px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_unattach {
+        display: block;
+        float: right; }
+        #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_unattach span {
+          display: block;
+          text-indent: -9999em;
+          width: 11px;
+          height: 11px;
+          background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -55px -50px no-repeat; }
+          #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_unattach span:hover {
+            background-position: -42px -50px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_attachment_name {
+        margin: 0 20px 0 30px;
+        width: 204px;
+        max-height: 2.2em;
+        font-size: 11px;
+        line-height: 1.1em;
+        overflow: hidden; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_item_image {
+        float: left;
+        border: 1px solid #d0d0d0; }
+        #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_item_image img {
+          float: none; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_body_and_attachment .q_item_name {
+        font-style: bold; }
+    #quorus .q_mobileflowpane_content .q_compose_area .q_message_field {
+      margin: 0;
+      padding: 7px;
+      overflow: hidden; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_message_field label {
+        padding: 0;
+        line-height: 1.2em;
+        height: 2.5em;
+        width: 175px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_message_field textarea {
+        display: block;
+        background: transparent;
+        border: none;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 2.5em;
+        color: black;
+        font-size: 12px;
+        overflow: hidden;
+        resize: none; }
+        #quorus .q_mobileflowpane_content .q_compose_area .q_message_field textarea.q_expanded {
+          height: 6em;
+          overflow-y: auto; }
+    #quorus .q_mobileflowpane_content .q_compose_area .q_item_image {
+      display: inline-block;
+      vertical-align: middle;
+      overflow: hidden;
+      border: 1px solid #aeaeae;
+      margin-right: 4px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_item_image img {
+        display: block; }
+    #quorus .q_mobileflowpane_content .q_compose_area .q_attach_action {
+      margin-right: 60px;
+      line-height: 26px; }
+      #quorus .q_mobileflowpane_content .q_compose_area .q_attach_action a {
+        text-decoration: none; }
+        #quorus .q_mobileflowpane_content .q_compose_area .q_attach_action a:hover span {
+          text-decoration: underline; }
+    #quorus .q_mobileflowpane_content .q_compose_area .q_send_message_btn {
+      font-size: inherit;
+      width: 60px;
+      height: 26px;
+      margin: 1px 0;
+      float: right; }
+    #quorus .q_mobileflowpane_content .q_compose_area form.q_loading {
+      background-image: url(https://d2idp7oxq0j5iu.cloudfront.net/images/spinner.gif?1346877332);
+      background-repeat: no-repeat;
+      background-position: 234px 60px; }
+#quorus .q_compose_area.q_item_absent .q_attach_action, #quorus .q_compose_area.q_item_absent .q_attached {
+  visibility: hidden; }
+#quorus .q_compose_area.q_item_detached .q_attached {
+  visibility: hidden; }
+#quorus .q_compose_area.q_item_attached form.q_loading {
+  background-position: 234px 100px; }
+#quorus .q_compose_area.q_item_present.q_item_attached .q_attachment, #quorus .q_compose_area.q_item_present.q_item_attached .q_attached.q_show_label {
+  display: block;
+  visibility: inherit; }
+#quorus .q_compose_area.q_item_present.q_item_attached .q_attach_action, #quorus .q_compose_area.q_item_present.q_item_attached .q_unattached {
+  visibility: hidden; }
+
+#quorus .q_mobileauthoringpane_content .q_short_message, #quorus .q_mobileflowpane_content .q_short_message {
+  padding: 4px 18px;
+  line-height: 1.25; }
+  #quorus .q_mobileauthoringpane_content .q_short_message .q_from, #quorus .q_mobileflowpane_content .q_short_message .q_from {
+    margin-left: -10px;
+    font-weight: bolder; }
+  #quorus .q_mobileauthoringpane_content .q_short_message .q_topic, #quorus .q_mobileflowpane_content .q_short_message .q_topic {
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0.5em 0 0 0;
+    list-style-type: none; }
+    #quorus .q_mobileauthoringpane_content .q_short_message .q_topic .q_item_name, #quorus .q_mobileflowpane_content .q_short_message .q_topic .q_item_name {
+      max-height: 26px;
+      overflow: hidden; }
+      #quorus .q_mobileauthoringpane_content .q_short_message .q_topic .q_item_name a, #quorus .q_mobileflowpane_content .q_short_message .q_topic .q_item_name a {
+        font-weight: bold; }
+    #quorus .q_mobileauthoringpane_content .q_short_message .q_topic a:hover, #quorus .q_mobileflowpane_content .q_short_message .q_topic a:hover {
+      text-decoration: none; }
+    #quorus .q_mobileauthoringpane_content .q_short_message .q_topic li, #quorus .q_mobileflowpane_content .q_short_message .q_topic li {
+      margin-bottom: 3px; }
+      #quorus .q_mobileauthoringpane_content .q_short_message .q_topic li.q_item_image, #quorus .q_mobileflowpane_content .q_short_message .q_topic li.q_item_image {
+        display: inline-block;
+        vertical-align: middle;
+        float: left;
+        margin-right: 6px;
+        border: 1px solid #aeaeae;
+        overflow: hidden; }
+        #quorus .q_mobileauthoringpane_content .q_short_message .q_topic li.q_item_image img, #quorus .q_mobileflowpane_content .q_short_message .q_topic li.q_item_image img {
+          display: block; }
+
+@-webkit-keyframes quorus_rotate {
+  0% {
+    opacity: 1; }
+
+  15% {
+    opacity: 1; }
+
+  20% {
+    opacity: 0; }
+
+  95% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-moz-keyframes quorus_rotate {
+  0% {
+    opacity: 1; }
+
+  15% {
+    opacity: 1; }
+
+  20% {
+    opacity: 0; }
+
+  95% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-ms-keyframes quorus_rotate {
+  0% {
+    opacity: 1; }
+
+  15% {
+    opacity: 1; }
+
+  20% {
+    opacity: 0; }
+
+  95% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-o-keyframes quorus_rotate {
+  0% {
+    opacity: 1; }
+
+  15% {
+    opacity: 1; }
+
+  20% {
+    opacity: 0; }
+
+  95% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@keyframes quorus_rotate {
+  0% {
+    opacity: 1; }
+
+  15% {
+    opacity: 1; }
+
+  20% {
+    opacity: 0; }
+
+  95% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-webkit-keyframes sys_msg {
+  0% {
+    height: 0; }
+
+  90% {
+    height: 0; }
+
+  100% {
+    height: 4em; } }
+
+@-moz-keyframes sys_msg {
+  0% {
+    height: 0; }
+
+  90% {
+    height: 0; }
+
+  100% {
+    height: 4em; } }
+
+@keyframes sys_msg {
+  0% {
+    height: 0; }
+
+  90% {
+    height: 0; }
+
+  100% {
+    height: 4em; } }
+
+#quorus .q_mobileauthoringpane .q_enter_message_btn {
+  float: right;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background-color: #F7CD5E;
+  color: #333;
+  cursor: pointer; }
+  #quorus .q_mobileauthoringpane .q_enter_message_btn span {
+    font-size: 12px;
+    font-weight: bold; }
+#quorus .q_mobileauthoringpane form.q_loading .q_button_area {
+  background-image: url(https://d2idp7oxq0j5iu.cloudfront.net/images/spinner.gif?1346877332);
+  background-repeat: no-repeat;
+  background-position: 99% center; }
+#quorus .q_mobileauthoringpane .q_message_body {
+  position: relative;
+  margin: 4px 0 8px 0;
+  border: 1px solid #d0d0d0;
+  border-radius: 2px;
+  background-color: white;
+  padding-bottom: 70px; }
+#quorus .q_mobileauthoringpane .q_message_body textarea, #quorus .q_mobileauthoringpane .q_message_body label {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 52px;
+  line-height: 16px;
+  padding: 10px; }
+#quorus .q_mobileauthoringpane .q_message_body textarea {
+  display: block;
+  border: none;
+  font-size: 12px;
+  resize: none; }
+#quorus .q_mobileauthoringpane .q_topic_area {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  border-top: 1px solid #d0d0d0;
+  padding: 10px 0; }
+#quorus .q_mobileauthoringpane .q_item_image {
+  display: block;
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #d0d0d0;
+  overflow: hidden; }
+  #quorus .q_mobileauthoringpane .q_item_image img {
+    display: block; }
+#quorus .q_mobileauthoringpane .q_item_name {
+  color: #004b91;
+  font-weight: bold; }
+#quorus .q_mobileauthoringpane .q_error, #quorus .q_mobileauthoringpane .q_error input, #quorus .q_mobileauthoringpane .q_error textarea {
+  border-color: red !important;
+  background-color: #fff4f5; }
+#quorus .q_mobileauthoringpane .q_error_participant, #quorus .q_mobileauthoringpane .q_error_message {
+  font-family: arial;
+  font-size: 12px;
+  color: #aa0000;
+  margin: 4px 0 4px; }
+  #quorus .q_mobileauthoringpane .q_error_participant:empty, #quorus .q_mobileauthoringpane .q_error_message:empty {
+    min-height: 1em; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows {
+  float: left;
+  width: 236px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows h3 {
+    line-height: 1;
+    margin-bottom: 10px;
+    color: #666; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows ul {
+    margin: 0; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_recent_flow {
+    display: block;
+    min-height: 32px;
+    padding: 10px 0;
+    cursor: pointer; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_recent_flow:not(:last-child) {
+      border-bottom: 1px solid #d0d0d0; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_recent_flow:hover .q_users {
+      text-decoration: underline; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_recent_flow.q_loading {
+      background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/spinner.gif?1346877332) no-repeat 99% 30px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_timestamp {
+    float: right;
+    margin: 2px 0 0 6px;
+    color: #666;
+    font-size: 0.8em; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_users {
+    display: block;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #004b91; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_blurb {
+    margin-top: 4px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_recent_flows .q_message {
+    display: block;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_with_preview #q_message_preview_area {
+  display: block; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area {
+  display: none;
+  position: absolute;
+  left: 0px;
+  top: 30px;
+  border-right: 1px solid  #d0d0d0; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body {
+    background-color: white;
+    width: 400px;
+    height: 402px;
+    background-position-x: -42px;
+    margin: 0 auto;
+    padding-top: 1px; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img {
+      position: absolute;
+      left: 0;
+      -webkit-animation-name: quorus_rotate;
+      -webkit-animation-timing-function: ease-in-out;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-duration: 20s;
+      -moz-animation-name: quorus_rotate;
+      -moz-animation-timing-function: ease-in-out;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-duration: 20s;
+      -ms-animation-name: quorus_rotate;
+      -ms-animation-timing-function: ease-in-out;
+      -ms-animation-iteration-count: infinite;
+      -ms-animation-duration: 20s;
+      -o-animation-name: quorus_rotate;
+      -o-animation-timing-function: ease-in-out;
+      -o-animation-iteration-count: infinite;
+      -o-animation-duration: 20s;
+      animation-name: quorus_rotate;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-duration: 20s; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img:nth-of-type(1) {
+      -webkit-animation-delay: 16s;
+      -ms-animation-delay: 16s;
+      -moz-animation-delay: 16s;
+      -o-animation-delay: 16s;
+      animation-delay: 16s; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img:nth-of-type(2) {
+      -webkit-animation-delay: 12s;
+      -ms-animation-delay: 12s;
+      -moz-animation-delay: 12s;
+      -o-animation-delay: 12s;
+      animation-delay: 12s; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img:nth-of-type(3) {
+      -webkit-animation-delay: 8s;
+      -ms-animation-delay: 8s;
+      -moz-animation-delay: 8s;
+      -o-animation-delay: 8s;
+      animation-delay: 8s; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img:nth-of-type(4) {
+      -webkit-animation-delay: 4s;
+      -ms-animation-delay: 4s;
+      -moz-animation-delay: 4s;
+      -o-animation-delay: 4s;
+      animation-delay: 4s; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) #q_message_preview_area .q_message_preview_body img:nth-of-type(5) {
+      -webkit-animation-delay: 0;
+      -ms-animation-delay: 0;
+      -moz-animation-delay: 0;
+      -o-animation-delay: 0;
+      animation-delay: 0; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane.q_loading {
+  background: transparent url(https://d2idp7oxq0j5iu.cloudfront.net/images/spinner.gif?1346877332) no-repeat center center;
+  min-height: 29px;
+  border: none;
+  box-shadow: none; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane.q_loading .q_mobileauthoringpane_content {
+    display: none; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h2, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h3, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h4, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h5, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h6 {
+  margin: 0;
+  font-weight: normal; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h3 {
+  color: #222;
+  font-size: 110%;
+  font-weight: bold;
+  min-width: 3em;
+  margin-bottom: 8px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content h4 {
+  font-size: 90%; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_logo {
+  display: block;
+  float: left;
+  margin: 4px 6px 0 0;
+  width: 22px;
+  height: 22px;
+  background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -24px 0 no-repeat; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_beta {
+  position: relative;
+  bottom: 5px;
+  font-family: verdana;
+  font-weight: normal;
+  color: #ddd;
+  vertical-align: baseline; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_header {
+  float: left;
+  margin-right: 0.3em; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_authoring_area {
+  padding: 15px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_intro_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area {
+  margin-top: 34px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_intro_area p, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area p {
+    font-size: 16px;
+    margin: 0 0 14px 0; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_intro_area {
+  float: left;
+  width: 230px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_intro_area a {
+    font-size: 13px;
+    text-decoration: underline; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_intro_area small {
+    display: block;
+    font-size: 11px;
+    color: #777; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_needs_purchase_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area {
+  width: 259px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_needs_purchase_area {
+  height: 180px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area {
+  height: 222px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area p {
+    font-weight: bold; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area a {
+    margin-top: 16px;
+    display: block;
+    width: 81px;
+    height: 27px;
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/signin.gif?1346877332) no-repeat top left;
+    text-indent: -9999em; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_needs_purchase_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_signin_area {
+  border-left: 1px solid #d0d0d0;
+  margin-left: 251px;
+  padding-left: 15px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_with_preview .q_compose_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_with_preview .q_needs_purchase_area, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_with_preview .q_signin_area {
+  margin-left: 388px;
+  padding-left: 15px;
+  height: 373px;
+  border-left: none; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area a {
+  color: blue; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_from_line {
+  width: 299px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_post {
+  display: none;
+  border-top: 1px solid #d0d0d0;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: 18px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_post a {
+    float: left;
+    background: transparent url(https://d2idp7oxq0j5iu.cloudfront.net/images/connect_sprite.png?1346877332) no-repeat left -232px;
+    padding: 0 0.4em 0 22px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select {
+  white-space: nowrap; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_floated_label {
+    display: inline-block; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select label, #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select input {
+    padding: 4px 4px 4px 10px;
+    width: 305px;
+    height: 28px;
+    line-height: 22px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select label {
+    border: 1px solid transparent; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select input {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select.q_invalid input {
+    border: 1px solid red; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select.q_valid input {
+    border: 1px solid #8BB14F; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_aclist_content {
+    padding: 6px;
+    background-color: white;
+    border: 1px solid gray; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_contacts_img {
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/gmail.png?1346877332) 0px 0 no-repeat;
+    padding: 3px 10px;
+    background-size: 20px;
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 0.5; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_contact_import_link {
+    float: right;
+    text-align: left;
+    width: 20px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_friend_email_input {
+    clear: none;
+    display: inline;
+    float: left;
+    margin: 0;
+    width: 269px;
+    height: 22px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_horizontal_rule {
+    color: gray;
+    background-color: gray;
+    height: 1px;
+    zoom: 1;
+    filter: alpha(opacity=40);
+    opacity: 0.4; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_aclist_list {
+    margin: 0;
+    z-index: 10; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_aclist_item {
+    padding: 4px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_aclist_item.q_aclist_item_active {
+    color: #004b91;
+    text-decoration: underline; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_aclist_explanation {
+    display: none;
+    color: gray;
+    font-size: 12px;
+    padding-bottom: 4px; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_select .q_contact {
+    line-height: 20px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_flow_participants {
+  display: none;
+  clear: both; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_formed_participant {
+  margin-top: 2px;
+  overflow: auto; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_formed_participant .q_remove {
+    display: block;
+    float: right;
+    width: 11px;
+    height: 11px;
+    margin-top: 2px;
+    text-indent: -9999em;
+    cursor: pointer;
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/askafriend_sprite.png?1346877332) -55px -50px no-repeat; }
+    #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_formed_participant .q_remove:hover {
+      background-position: -42px -50px; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_search_field_participant {
+  display: none; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_actions {
+  display: none;
+  clear: both;
+  overflow: hidden;
+  margin: 4px 0;
+  font-size: smaller;
+  font-weight: bolder; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_actions a {
+    text-decoration: none; }
+  #quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_mobileauthoringpane_content .q_compose_area .q_participant_actions .q_add_friend_link {
+    float: right; }
+#quorus .q_mobileauthoringpane:not(.q_as_a_flow) .q_flowlogarea {
+  display: none; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_recent_flows {
+  display: none; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_compose_area {
+  background: #F6F6F6; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_mobileauthoringpane_content {
+  width: 290px; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_flowlogarea {
+  background-color: white;
+  padding: 10px;
+  position: relative;
+  border-bottom: 1px solid #d0d0d0;
+  min-height: 8em;
+  overflow: hidden; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_intro_text {
+  position: absolute;
+  padding-right: 10px;
+  height: 4em;
+  bottom: 5px;
+  overflow: hidden;
+  -webkit-animation-name: sys_msg;
+  -webkit-animation-duration: 2s;
+  -moz-animation-name: sys_msg;
+  -moz-animation-duration: 2s;
+  animation-name: sys_msg;
+  animation-duration: 2s; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_from_line {
+  display: none;
+  border-top: 1px solid #d0d0d0;
+  padding: 10px 10px 0 10px; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select {
+  white-space: nowrap;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 10px 0 10px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select > * {
+    width: 100%; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_floated_label {
+    display: inline-block; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select label, #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select input {
+    padding: 4px 4px 4px 10px;
+    width: 100%;
+    height: 28px;
+    line-height: 22px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select label {
+    border: 1px solid transparent; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select input {
+    border: 1px solid #d0d0d0;
+    border-radius: 2px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select.q_invalid input {
+    border: 1px solid red; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select.q_valid input {
+    border: 1px solid #8BB14F; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_aclist_content {
+    padding: 6px;
+    background-color: white;
+    border: 1px solid gray; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_contacts_img {
+    background: url(https://d2idp7oxq0j5iu.cloudfront.net/images/icons/gmail.png?1346877332) 0px 0 no-repeat;
+    padding: 3px 10px;
+    background-size: 20px;
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 0.5; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_contact_import_link {
+    float: right;
+    text-align: left;
+    width: 20px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_friend_email_input {
+    clear: none;
+    display: inline;
+    float: left;
+    margin: 0;
+    width: 269px;
+    height: 22px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_horizontal_rule {
+    color: gray;
+    background-color: gray;
+    height: 1px;
+    zoom: 1;
+    filter: alpha(opacity=40);
+    opacity: 0.4; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_aclist_list {
+    margin: 0;
+    z-index: 10; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_aclist_item {
+    padding: 4px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_aclist_item.q_aclist_item_active {
+    color: #004b91;
+    text-decoration: underline; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_aclist_explanation {
+    display: none;
+    color: gray;
+    font-size: 12px;
+    padding-bottom: 4px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_select .q_contact {
+    line-height: 20px; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_contacts_img {
+  display: none; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_participant_actions {
+  display: none; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_button_area {
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #F6F6F6;
+  margin-bottom: 0; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_message_body {
+  padding: 0 0 10px 0;
+  background-color: white;
+  margin: 0 10px 10px;
+  padding: 4px; }
+  #quorus .q_mobileauthoringpane.q_as_a_flow .q_message_body .q_topic_area {
+    position: static; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_button_area {
+  padding-bottom: 10px;
+  margin-top: 0; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_post {
+  display: none; }
+#quorus .q_mobileauthoringpane.q_as_a_flow .q_intro_area {
+  display: none; }
+#quorus .q_mobileauthoringpane_content:after {
+  right: 10px; }
+#quorus .q_mobileauthoringpane_content:before {
+  right: 9px; }

@@ -1,0 +1,31 @@
+div.quorusInPage {
+  clear: both;
+  margin: 4px auto;
+  width: 158px !important;
+  cursor: pointer;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  height: 20px;
+  border: 1px solid #79794B;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f9f9ec), to(#b9b99b), color-stop(0.3, #e9e9c5), color-stop(0.8, #dcdcb9));
+  -webkit-background-origin: padding-box;
+  -webkit-background-clip: content-box;
+  background-image: -moz-linear-gradient(top, #f9f9ec, #e9e9c5 30%, #dcdcb9 80%, #b9b99b);
+  background-image: linear-gradient(to bottom, #f9f9ec, #e9e9c5 30%, #dcdcb9 80%, #b9b99b);
+  letter-spacing: -1px; }
+
+span.quorusInPage {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #000066;
+  margin-left: auto; }
+
+a.quorus-discuss {
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline; }
+
+.quorus-spacer {
+  margin-bottom: 10px; }
