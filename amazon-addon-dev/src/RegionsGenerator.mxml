@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<mx:Application xmlns:mx = "http://www.adobe.com/2006/mxml"
+				creationComplete = "creationCompleteHandler(event)" xmlns:resources="resources.*">
+	<resources:Resources id="res"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import resources.Resource;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				var regions:ArrayCollection = new ArrayCollection();
+				for each (var r:Resource in res.countries_fr) {
+					if (regions.getItemIndex(r.region)==-1) {
+						regions.addItem(r.region);
+						var region:String = r.region as String;
+						var regionVar:String = region.split(' ').join('_');
+						trace ("public static String REGION_" + regionVar + ' = "' + region + '";' )
+					}
+				}
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Application>

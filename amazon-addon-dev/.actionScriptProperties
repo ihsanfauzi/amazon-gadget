@@ -21,6 +21,7 @@
   <applications>
     <application path="ShippingByASINDev.mxml"/>
     <application path="GenCountries.mxml"/>
+    <application path="RegionsGenerator.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
