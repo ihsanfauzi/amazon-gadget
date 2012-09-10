@@ -16,7 +16,14 @@ public class UsShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_APO_FPO = "APO/FPO";
 	public static String REGION_APO_FPO_PO_Box = "APO/FPO PO Box";
 	
-	public ShippingPriceDTO calculate(String region, String content) {
+	@Override
+	public ShippingPriceDTO calculateComplex(String region, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ShippingPriceDTO calculateSimple(String region, String content) {
 		// TODO Auto-generated method stub
 		return null;
 	}

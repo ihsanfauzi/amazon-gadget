@@ -10,7 +10,14 @@ public class FrShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_France_metropolitaine_et_Monaco = "France métropolitaine et Monaco";
 	public static String REGION_DOM_TOM = "DOM TOM";
 
-	public ShippingPriceDTO calculate(String region, String content) {
+	@Override
+	public ShippingPriceDTO calculateComplex(String region, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ShippingPriceDTO calculateSimple(String region, String content) {
 		// TODO Auto-generated method stub
 		return null;
 	}

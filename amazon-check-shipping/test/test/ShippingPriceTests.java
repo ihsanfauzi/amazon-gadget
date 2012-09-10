@@ -57,7 +57,7 @@ public class ShippingPriceTests {
 			res = c.calculate(region, content);
 			System.out.println(res.minPrice + " - " + region);
 
-			region = UkShippingPriceCalculator.REGION_UK_Mainland;
+			region = UkShippingPriceCalculator.REGION_UK_Street;
 			res = c.calculate(region, content);
 			System.out.println(res.minPrice + " - " + region);
 

@@ -14,7 +14,15 @@ public class DeShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_Schweiz_Liechtenstein_Luxemburg = "Schweiz, Liechtenstein, Luxemburg";
 	public static String REGION_Osterreich = "Österreich";
 
-	public ShippingPriceDTO calculate(String region, String content) {
+	@Override
+	public ShippingPriceDTO calculateComplex(String region, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ShippingPriceDTO calculateSimple(String region, String content) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
