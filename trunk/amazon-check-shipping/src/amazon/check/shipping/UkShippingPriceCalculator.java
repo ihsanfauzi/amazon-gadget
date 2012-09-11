@@ -16,7 +16,7 @@ public class UkShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_BFPO = "BFPO";
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		return null;
+		return super.calculateComplex(region, content);
 	}
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {

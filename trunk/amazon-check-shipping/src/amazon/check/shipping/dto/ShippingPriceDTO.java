@@ -1,11 +1,11 @@
 package amazon.check.shipping.dto;
 
+import java.util.ArrayList;
+
 public class ShippingPriceDTO {
 
-	public Double[] perShipmentBandsStandard;
-	public Double[] shipmentRatesStandard;
-	public Double[] perShipmentBandsExpedited;
-	public Double[] shipmentRatesExpedited;
+	public ArrayList<ShipmentBandsDTO> perShipmentBandsStandard = new ArrayList<ShipmentBandsDTO>();
+	public ArrayList<ShipmentBandsDTO> perShipmentBandsExpedited = new ArrayList<ShipmentBandsDTO>();
 	
 	public Double perItemStandard;
 	public Double perWeightStandard;

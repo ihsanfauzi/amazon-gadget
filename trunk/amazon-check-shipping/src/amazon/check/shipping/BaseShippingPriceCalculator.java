@@ -1,5 +1,6 @@
 package amazon.check.shipping;
 
+import amazon.check.shipping.dto.ShipmentBandsDTO;
 import amazon.check.shipping.dto.ShippingPriceDTO;
 
 public abstract class BaseShippingPriceCalculator {
@@ -11,7 +12,93 @@ public abstract class BaseShippingPriceCalculator {
 		}
 	}
 
-	public abstract ShippingPriceDTO calculateComplex(String region, String content);
+	public ShippingPriceDTO calculateComplex(String region, String content) {
+		region = "bgcolor=\"#FFFFFF\">" + region;
+		ShippingPriceDTO dto = new ShippingPriceDTO();
+		String regionSub = subContent(content, region);
+		while (regionSub != null) {
+			String regionSub1 = subContent(regionSub, "<strong>", "</tbody>");
+			if (isStandardRegionSub(regionSub1)) {
+				extractStandardBands(regionSub1, dto);
+			}
+			if (isExpeditedRegionSub(regionSub1)) {
+				extractExpeditedBands(regionSub1, dto);
+			}
+			regionSub = subContent(regionSub, region);
+		}
+		return dto;
+	}
+
+	protected void extractStandardBands(String content, ShippingPriceDTO dto) {
+		content = subContent(content, "</tr>");
+		content = subContent(content, "</tr>");
+		String subContent = subContent(content, "<tr");
+		while (subContent != null) {
+			ShipmentBandsDTO d = new ShipmentBandsDTO();
+			boolean b = extractShipmentBandsDTO(subContent(subContent, "bgcolor=", "</tr>"), d);
+			if (b) {
+				dto.perShipmentBandsStandard.add(d);
+			}
+			subContent = subContent(subContent, "<tr");
+		}
+		
+		$noop();
+	}
+	
+	protected void extractExpeditedBands(String content, ShippingPriceDTO dto) {
+		content = subContent(content, "</tr>");
+		content = subContent(content, "</tr>");
+		String subContent = subContent(content, "<tr");
+		while (subContent != null) {
+			ShipmentBandsDTO d = new ShipmentBandsDTO();
+			boolean b = extractShipmentBandsDTO(subContent(subContent, "bgcolor=", "</tr>"), d);
+			if (b) {
+				dto.perShipmentBandsExpedited.add(d);
+			}
+			subContent = subContent(subContent, "<tr");
+		}
+		
+		$noop();
+	}
+
+	private boolean extractShipmentBandsDTO(String content, ShipmentBandsDTO dto) {
+		String from = subContent(content, "<td", "</td>");
+		from = subContent(from, ">");
+		dto.from = toDouble(from);
+
+		content = subContent(content, "</td>");
+		content = subContent(content, "</td>");
+		
+		String to = subContent(content, "<td", "</td>");
+		to = subContent(to, ">");
+		dto.to = toDouble(to);
+		
+		content = subContent(content, "</td>");
+		
+		String price = subContent(content, "<td", "</td>");
+		price = subContent(price, ">");
+		dto.price = toDouble(price);
+
+		$noop();
+		return true;
+	}
+
+	protected boolean isExpeditedRegionSub(String content) {
+		if (content != null && content.indexOf("Expedited")!=-1) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean isStandardRegionSub(String content) {
+		if (content != null && content.indexOf("Standard")!=-1) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 
 	public ShippingPriceDTO calculateSimple(String region, String content) {
 		ShippingPriceDTO dto = new ShippingPriceDTO();
@@ -55,7 +142,7 @@ public abstract class BaseShippingPriceCalculator {
 		String expeditedPriceSub = subContent(content, "align=\"right\">", "</td>");
 		dto.perItemExpedited = toDouble(expeditedPriceSub);
 		
-		$void();
+		$noop();
 		return true;
 	}
 
@@ -82,7 +169,7 @@ public abstract class BaseShippingPriceCalculator {
 		String expeditedPriceSub = subContent(content, "align=\"right\">", "</td>");
 		dto.perWeightExpedited = toDouble(expeditedPriceSub);
 		
-		$void();
+		$noop();
 		return true;
 	}
 	
@@ -109,7 +196,7 @@ public abstract class BaseShippingPriceCalculator {
 		String expeditedPriceSub = subContent(content, "align=\"right\">", "</td>");
 		dto.perShipmentExpedited = toDouble(expeditedPriceSub);
 		
-		$void();
+		$noop();
 		return true;
 	}
 
@@ -160,6 +247,6 @@ public abstract class BaseShippingPriceCalculator {
 		return null;
 	}
 
-	private void $void() {
+	private void $noop() {
 	}
 }
