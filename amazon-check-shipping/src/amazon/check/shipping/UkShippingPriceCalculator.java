@@ -16,12 +16,12 @@ public class UkShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_BFPO = "BFPO";
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
-		// TODO Auto-generated method stub
+		String regionSub = subContent(content, region);
+		String perItemSub = subContent(regionSub, "<tr bgcolor=");
 		return null;
 	}
 }
