@@ -6,6 +6,7 @@ import amazon.check.shipping.BaseShippingPriceCalculator;
 import amazon.check.shipping.CheckerFactory;
 import amazon.check.shipping.ShippingPriceCalculatorFactory;
 import amazon.check.shipping.UkShippingPriceCalculator;
+import amazon.check.shipping.UsShippingPriceCalculator;
 import amazon.check.shipping.dto.ShippingPriceDTO;
 
 public class ShippingPriceComplexTests extends ShippingPriceBaseTestCase {
@@ -52,6 +53,60 @@ public class ShippingPriceComplexTests extends ShippingPriceBaseTestCase {
 			traceComplex(region, res);
 
 			region = UkShippingPriceCalculator.REGION_UK_PO_Box;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testUsComplex() {
+		try {
+			String content = loadContent("shipping_price/com/complex.html");
+			BaseShippingPriceCalculator c = ShippingPriceCalculatorFactory.getCalulator(CheckerFactory.WWW_AMAZON_COM);
+
+			String region = UsShippingPriceCalculator.REGION_Alaska_and_Hawaii;
+			ShippingPriceDTO res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Alaska_and_Hawaii_PO_Box;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_APO_FPO;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_APO_FPO_PO_Box;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Asia;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Canada;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Continental_US;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Continental_US_PO_Box;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Europe;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_Outside_US_Eur_CA_Asia;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = UsShippingPriceCalculator.REGION_US_Protectorates;
 			res = c.calculate(region, content);
 			traceComplex(region, res);
 		} catch (Exception e) {

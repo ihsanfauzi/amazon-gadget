@@ -18,7 +18,6 @@ public class UsShippingPriceCalculator extends BaseShippingPriceCalculator {
 	
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.calculateComplex(region, content);
 	}
 }
