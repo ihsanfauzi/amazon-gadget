@@ -16,6 +16,9 @@ public class UkShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_BFPO = "BFPO";
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
+		if (REGION_Rest_of_World.equals(region)) {
+			region = "M@ UK - Rest of World";
+		}
 		return super.calculateComplex(region, content);
 	}
 	@Override
