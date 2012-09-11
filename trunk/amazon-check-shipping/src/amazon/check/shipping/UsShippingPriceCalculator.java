@@ -24,8 +24,32 @@ public class UsShippingPriceCalculator extends BaseShippingPriceCalculator {
 
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		ShippingPriceDTO dto = new ShippingPriceDTO();
+		String regionSub = subContent(content, region);
+		String perItemSub = subContent(regionSub, "<tr bgcolor=", "</tr>");
+		extractPerItem(perItemSub, dto);
+		return dto;
 	}
 
+	private void extractPerItem(String content, ShippingPriceDTO dto) {
+		if (content == null) {
+			return;
+		}
+		//Skip 2 columns
+		content = subContent(content, "</td>");
+		content = subContent(content, "</td>");
+		
+		String standardPriceSub = subContent(content, "align=\"right\">", "</td>");
+		dto.perItemStandard = toDouble(standardPriceSub);
+		
+		content = subContent(content, "</td>");
+		
+		String expeditedPriceSub = subContent(content, "align=\"right\">", "</td>");
+		dto.perItemExpedited = toDouble(expeditedPriceSub);
+		
+		$void();
+	}
+
+	private void $void() {
+	}
 }
