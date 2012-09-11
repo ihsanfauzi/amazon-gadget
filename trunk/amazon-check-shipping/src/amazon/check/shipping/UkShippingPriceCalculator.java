@@ -12,7 +12,7 @@ public class UkShippingPriceCalculator extends BaseShippingPriceCalculator {
 	public static String REGION_Europe_Zone_2 = "Europe Zone 2";
 	public static String REGION_Japan = "Japan";
 	public static String REGION_UK_Street = "UK Street";
-	public static String REGION_UK_Mainland_PO_Box = "UK Mainland PO Box";
+	public static String REGION_UK_PO_Box = "UK PO Box";
 	public static String REGION_BFPO = "BFPO";
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
@@ -20,8 +20,6 @@ public class UkShippingPriceCalculator extends BaseShippingPriceCalculator {
 	}
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
-		String regionSub = subContent(content, region);
-		String perItemSub = subContent(regionSub, "<tr bgcolor=");
-		return null;
+		return super.calculateSimple(region, content);
 	}
 }

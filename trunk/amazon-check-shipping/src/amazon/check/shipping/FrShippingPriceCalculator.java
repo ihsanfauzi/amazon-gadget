@@ -18,8 +18,27 @@ public class FrShippingPriceCalculator extends BaseShippingPriceCalculator {
 
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.calculateSimple(region, content);
 	}
 
+	protected Boolean extractPerItem(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("Par article") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerItemInternal(content, dto);
+	}
+
+	protected Boolean extractPerWeight(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("Par poids") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerWeightInternal(content, dto);
+	}
+
+	protected Boolean extractPerShipment(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("Par envoi") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerShipmentInternal(content, dto);
+	}
 }

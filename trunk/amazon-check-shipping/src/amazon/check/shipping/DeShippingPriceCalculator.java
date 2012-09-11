@@ -22,7 +22,30 @@ public class DeShippingPriceCalculator extends BaseShippingPriceCalculator {
 
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		if (REGION_Belgien_Danemark_Frankreich_Irland_Niederlande_Grobritannien.equals(region)) {
+			region = "Belgien, ";
+		}
+		return super.calculateSimple(region, content);
+	}
+	
+	protected Boolean extractPerItem(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("pro Artikel") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerItemInternal(content, dto);
+	}
+	
+	protected Boolean extractPerWeight(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("nach Gewicht") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerWeightInternal(content, dto);
+	}
+	
+	protected Boolean extractPerShipment(String content, ShippingPriceDTO dto) {
+		if (content == null || content.indexOf("pro Sendung") == -1) {
+			return Boolean.FALSE;
+		}
+		return super.extractPerShipmentInternal(content, dto);
 	}
 }
