@@ -15,6 +15,7 @@ public abstract class BaseShippingPriceCalculator {
 	public ShippingPriceDTO calculateComplex(String region, String content) {
 		region = "bgcolor=\"#FFFFFF\">" + region;
 		ShippingPriceDTO dto = new ShippingPriceDTO();
+		dto.isComplex = true;
 		String regionSub = subContent(content, region);
 		while (regionSub != null) {
 			String regionSub1 = subContent(regionSub, "<strong>", "</tbody>");
@@ -102,6 +103,7 @@ public abstract class BaseShippingPriceCalculator {
 
 	public ShippingPriceDTO calculateSimple(String region, String content) {
 		ShippingPriceDTO dto = new ShippingPriceDTO();
+		dto.isComplex = false;
 		String regionSub = subContent(content, region);
 		String perItemSub = subContent(regionSub, "<tr bgcolor=", "</tr>");
 		Boolean b = extractPerItem(perItemSub, dto);
