@@ -16,10 +16,29 @@ public class DeShippingPriceCalculator extends BaseShippingPriceCalculator {
 
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		if (REGION_Belgien_Danemark_Frankreich_Irland_Niederlande_Grobritannien.equals(region)) {
+			region = "Belgien, ";
+		} else
+		if (REGION_Deutschland.equals(region)) {
+			region = "Deutschland Stra";
+		}
+		return super.calculateComplex(region, content);
 	}
 
+	protected boolean isExpeditedRegionSub(String content) {
+		if (content != null && content.indexOf("Expressversand")!=-1) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean isStandardRegionSub(String content) {
+		if (content != null && content.indexOf("Standardversand")!=-1) {
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public ShippingPriceDTO calculateSimple(String region, String content) {
 		if (REGION_Belgien_Danemark_Frankreich_Irland_Niederlande_Grobritannien.equals(region)) {

@@ -12,8 +12,21 @@ public class FrShippingPriceCalculator extends BaseShippingPriceCalculator {
 
 	@Override
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.calculateComplex(region, content);
+	}
+
+	protected boolean isExpeditedRegionSub(String content) {
+		if (content != null && content.indexOf("Express")!=-1) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean isStandardRegionSub(String content) {
+		if (content != null && content.indexOf("Rapide")!=-1) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
