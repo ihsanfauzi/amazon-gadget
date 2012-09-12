@@ -70,13 +70,16 @@ package dto {
 					res=Number(b.price);
 				}
 			}
+			var r:Number;
 			for each(b in shippingPriceDTO.perShipmentBandsExpedited) {
 				if (Number(b.from) <= price) {
-					if (isNaN(res) || res > Number(b.price)) {
-						res=Number(b.price);
-					}
+					r=Number(b.price);
 				}
 			}
+			if (isNaN(res) || res > r) {
+				res=r;
+			}
+			
 			return res;
 		}
 		
@@ -130,3 +133,4 @@ package dto {
 		}
 	}
 }
+

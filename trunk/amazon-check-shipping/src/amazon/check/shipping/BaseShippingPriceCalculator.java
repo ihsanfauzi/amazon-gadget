@@ -233,6 +233,9 @@ public abstract class BaseShippingPriceCalculator {
 		if (sDouble == null) {
 			return null;
 		}
+		if(sDouble.trim().startsWith("$")) {
+			sDouble = sDouble.replace(",", "");
+		}
 		char ch = sDouble.charAt(0);
 		int i = 1;
 		while (!Character.isDigit(ch)) {
@@ -243,7 +246,7 @@ public abstract class BaseShippingPriceCalculator {
 			}
 		}
 		try {
-			return Double.valueOf(sDouble.substring(i-1).trim().replace(',', '.'));
+			return Double.valueOf(sDouble.substring(i-1).trim());
 		} catch (Exception e) {
 		}
 		return null;
