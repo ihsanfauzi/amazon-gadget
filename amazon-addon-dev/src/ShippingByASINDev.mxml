@@ -43,6 +43,8 @@
 			import dto.OfferInfoDTO;
 			import dto.SearchDTO;
 			import dto.SearchItemDTO;
+			import dto.ShippingDTO;
+			import dto.ShippingPriceDTO;
 			
 			import flash.utils.clearInterval;
 			import flash.utils.setInterval;
@@ -51,6 +53,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
 			import mx.formatters.SwitchSymbolFormatter;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.Responder;
 			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
 			
@@ -243,12 +247,24 @@
 				if (offer.Availability > 0) {
 					return;
 				}
-				var checker:ShippingCheckerAll=new ShippingCheckerAll(region, offer.MerchantId, Helper.getHostName(), function():void {
-					offer.Availability=checker.shippingCode;
-				});
 				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
 				if (offer.International) {
-					checker.check();
+					var a:AsyncToken = checker.checkShipping(offer.MerchantId, Helper.getHostName(), region);
+					a.addResponder(new mx.rpc.Responder (
+						function(event:ResultEvent):void {
+							ShippingPriceDTO;
+							var shippingDTO:ShippingDTO = event.result as ShippingDTO;
+							offer.Availability=shippingDTO.availability;
+							if (offer.Availability == 1) {
+								trace();
+							}
+						},
+						function(...o):void {
+							offer.Availability=BaseShippingChecker.SHIPPING_NA;
+							trace();
+						}
+						));
+
 				}
 				else {
 					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
@@ -257,4 +273,6 @@
 
 		]]>
 	</mx:Script>
+	<mx:RemoteObject id="checker" 
+					 destination="amazon.check.shipping.ShippingService"/>
 </mx:Application>
