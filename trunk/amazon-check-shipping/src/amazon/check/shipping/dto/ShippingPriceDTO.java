@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ShippingPriceDTO {
 
+	public boolean isComplex;
 	public ArrayList<ShipmentBandsDTO> perShipmentBandsStandard = new ArrayList<ShipmentBandsDTO>();
 	public ArrayList<ShipmentBandsDTO> perShipmentBandsExpedited = new ArrayList<ShipmentBandsDTO>();
 	

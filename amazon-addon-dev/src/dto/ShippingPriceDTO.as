@@ -8,16 +8,17 @@ package dto {
 		
 		public function ShippingPriceDTO() {
 		}
+		public var isComplex:Boolean;
 		
 		public var perShipmentBandsStandard:ArrayCollection;
 		public var perShipmentBandsExpedited:ArrayCollection;
 		
-		public var perItemStandard:Number;
-		public var perWeightStandard:Number;
-		public var perShipmentStandard:Number;
-		public var perItemExpedited:Number;
-		public var perWeightExpedited:Number;
-		public var perShipmentExpedited:Number;
+		public var perItemStandard:String;
+		public var perWeightStandard:String;
+		public var perShipmentStandard:String;
+		public var perItemExpedited:String;
+		public var perWeightExpedited:String;
+		public var perShipmentExpedited:String;
 	}
 }
 

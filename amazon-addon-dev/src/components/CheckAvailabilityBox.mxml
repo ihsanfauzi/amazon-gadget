@@ -59,7 +59,7 @@
 							   dataField = "Price"
 							   width = "110"/>
 			<mx:DataGridColumn headerText = "Min Shipping Price"
-							   dataField = "Min Shipping Price"
+							   dataField = "MinShippingPrice"
 							   width = "110"/>
 			<mx:DataGridColumn headerText = "Net Price"
 							   dataField = "NetPrice"

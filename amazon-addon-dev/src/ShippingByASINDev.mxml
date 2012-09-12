@@ -256,6 +256,7 @@
 							var shippingDTO:ShippingDTO = event.result as ShippingDTO;
 							offer.Availability=shippingDTO.availability;
 							if (offer.Availability == 1) {
+								offer.shippingPriceDTO = shippingDTO.shippingPrice;
 								trace();
 							}
 						},
