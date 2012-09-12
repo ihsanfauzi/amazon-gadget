@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import amazon.check.shipping.BaseShippingPriceCalculator;
 import amazon.check.shipping.CheckerFactory;
+import amazon.check.shipping.DeShippingPriceCalculator;
+import amazon.check.shipping.FrShippingPriceCalculator;
 import amazon.check.shipping.ShippingPriceCalculatorFactory;
 import amazon.check.shipping.UkShippingPriceCalculator;
 import amazon.check.shipping.UsShippingPriceCalculator;
@@ -113,4 +115,87 @@ public class ShippingPriceComplexTests extends ShippingPriceBaseTestCase {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testDeSimple() {
+		try {
+			String content = loadContent("shipping_price/de/complex3.html");
+			BaseShippingPriceCalculator c = ShippingPriceCalculatorFactory.getCalulator(CheckerFactory.WWW_AMAZON_DE);
+
+			String region = DeShippingPriceCalculator.REGION_Belgien_Danemark_Frankreich_Irland_Niederlande_Grobritannien;
+			ShippingPriceDTO res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Deutschland;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Finnland_Griechenland_Italien_Portugal_Spanien_Schweden;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Japan;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Osterreich;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Schweiz_Liechtenstein_Luxemburg;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Ubriges_Europa;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_USA_Kanada;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = DeShippingPriceCalculator.REGION_Weltweit;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testFrSimple() {
+		try {
+			String content = loadContent("shipping_price/fr/complex.html");
+			BaseShippingPriceCalculator c = ShippingPriceCalculatorFactory.getCalulator(CheckerFactory.WWW_AMAZON_FR);
+
+			String region = FrShippingPriceCalculator.REGION_Autres_pays_du_monde;
+			ShippingPriceDTO res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = FrShippingPriceCalculator.REGION_DOM_TOM;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = FrShippingPriceCalculator.REGION_Etats_Unis_et_Canada;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = FrShippingPriceCalculator.REGION_Europe_autres_pays;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = FrShippingPriceCalculator.REGION_Europe_pays_limitrophes_hors_Suisse;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+			region = FrShippingPriceCalculator.REGION_France_metropolitaine_et_Monaco;
+			res = c.calculate(region, content);
+			traceComplex(region, res);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
