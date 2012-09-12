@@ -24,24 +24,22 @@ package dto {
 		public function OfferInfoDTO() {
 		}
 		
-		public function get NetPrice():Number
-		{
+		public function get NetPrice():Number {
 			return _NetPrice;
 		}
-
-		public function set NetPrice(value:Number):void
-		{
-			_NetPrice = value;
+		
+		public function set NetPrice(value:Number):void {
+			_NetPrice=value;
 		}
-
+		
 		public function get shippingPriceDTO():ShippingPriceDTO {
 			return _shippingPriceDTO;
 		}
 		
 		public function set shippingPriceDTO(value:ShippingPriceDTO):void {
 			_shippingPriceDTO=value;
-			MinShippingPrice = 1;
-			NetPrice = MinShippingPrice + toNumber(Price);
+			MinShippingPrice=1;
+			NetPrice=MinShippingPrice + toNumber(Price);
 		}
 		
 		public function set MinShippingPrice(value:Number):void {
@@ -112,7 +110,7 @@ package dto {
 			if (sNumber == null) {
 				return NaN;
 			}
-			sNumber = sNumber.split(',').join('.');
+			sNumber=sNumber.split(',').join('.');
 			var res:Number=NaN;
 			while(sNumber) {
 				try {
@@ -132,8 +130,3 @@ package dto {
 		}
 	}
 }
-
-
-
-
-

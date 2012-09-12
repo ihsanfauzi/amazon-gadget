@@ -7,6 +7,8 @@
 		 xmlns:services = "services.*">
 	<mx:Script>
 		<![CDATA[
+			import dto.OfferInfoDTO;
+			
 			import mx.collections.ArrayCollection;
 			[Bindable]
 			public var offers:ArrayCollection=new ArrayCollection();
@@ -14,9 +16,15 @@
 			public var region:String;
 			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
+			private function priceLabelFunction(d:OfferInfoDTO, c:DataGridColumn):String {
+				return priceFormatter.format(d[c.dataField]);
+			}
 			
 		]]>
 	</mx:Script>
+	<mx:NumberFormatter id="priceFormatter"
+						precision="2"/>
+						
 	<mx:DataGrid width = "100%"
 				 dataProvider = "{offers}">
 		<mx:columns>
@@ -60,10 +68,12 @@
 							   width = "110"/>
 			<mx:DataGridColumn headerText = "Min Shipping Price"
 							   dataField = "MinShippingPrice"
-							   width = "110"/>
+							   width = "110"
+							   labelFunction="priceLabelFunction"/>
 			<mx:DataGridColumn headerText = "Net Price"
 							   dataField = "NetPrice"
-							   width = "110"/>
+							   width = "110"
+							   labelFunction="priceLabelFunction"/>
 			<mx:DataGridColumn headerText = "Shipping"
 							   dataField = "Availability"
 							   width = "55">
