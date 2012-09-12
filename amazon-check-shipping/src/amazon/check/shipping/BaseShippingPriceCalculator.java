@@ -13,12 +13,12 @@ public abstract class BaseShippingPriceCalculator {
 	}
 
 	public ShippingPriceDTO calculateComplex(String region, String content) {
-		region = "bgcolor=\"#FFFFFF\">" + region;
+		region = "\">" + region;
 		ShippingPriceDTO dto = new ShippingPriceDTO();
 		dto.isComplex = true;
 		String regionSub = subContent(content, region);
 		while (regionSub != null) {
-			String regionSub1 = subContent(regionSub, "<strong>", "</tbody>");
+			String regionSub1 = subContent(regionSub, "<strong>", "</table>");
 			if (isStandardRegionSub(regionSub1)) {
 				extractStandardBands(regionSub1, dto);
 			}
