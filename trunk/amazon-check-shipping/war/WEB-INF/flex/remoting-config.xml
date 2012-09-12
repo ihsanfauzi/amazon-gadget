@@ -16,4 +16,10 @@
                 <scope>application</scope>
         </properties>
     </destination>
+    	<destination id="amazon.check.shipping.ShippingService">
+        <properties>
+                <source>amazon.check.shipping.ShippingService</source>
+                <scope>application</scope>
+        </properties>
+    </destination>
 </service>
