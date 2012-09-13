@@ -113,6 +113,14 @@ package dto {
 			if (sNumber == null) {
 				return NaN;
 			}
+			sNumber = sNumber.split(" ").join();
+			if(sNumber.toUpperCase().indexOf("EUR") != -1) {
+				sNumber = sNumber.split(".").join();
+				sNumber = sNumber.split(",").join(".");
+			} else {
+				sNumber = sNumber.split(",").join();
+			}
+
 			sNumber=sNumber.split(',').join('.');
 			var res:Number=NaN;
 			while(sNumber) {

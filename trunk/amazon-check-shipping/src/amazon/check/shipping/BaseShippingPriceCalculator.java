@@ -233,7 +233,10 @@ public abstract class BaseShippingPriceCalculator {
 		if (sDouble == null) {
 			return null;
 		}
-		if(sDouble.trim().startsWith("$")) {
+		if(sDouble.trim().toUpperCase().startsWith("EUR")) {
+			sDouble = sDouble.replace(".", "");
+			sDouble = sDouble.replace(",", ".");
+		} else {
 			sDouble = sDouble.replace(",", "");
 		}
 		char ch = sDouble.charAt(0);
