@@ -233,24 +233,19 @@ public abstract class BaseShippingPriceCalculator {
 		if (sDouble == null) {
 			return null;
 		}
+		sDouble = sDouble.replace(" ", "");
 		if(sDouble.trim().toUpperCase().startsWith("EUR")) {
 			sDouble = sDouble.replace(".", "");
 			sDouble = sDouble.replace(",", ".");
 		} else {
 			sDouble = sDouble.replace(",", "");
 		}
-		char ch = sDouble.charAt(0);
-		int i = 1;
-		while (!Character.isDigit(ch)) {
-			ch = sDouble.charAt(i);
-			i++;
-			if (i >= sDouble.length() - 1) {
-				return null;
+		while (sDouble.length()>0) {
+			try {
+				return Double.valueOf(sDouble);
+			} catch (Exception e) {
+				sDouble = sDouble.substring(1);
 			}
-		}
-		try {
-			return Double.valueOf(sDouble.substring(i-1).trim());
-		} catch (Exception e) {
 		}
 		return null;
 	}
