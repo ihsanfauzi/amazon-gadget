@@ -10,6 +10,7 @@
 			import dto.OfferInfoDTO;
 			
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
 			[Bindable]
 			public var offers:ArrayCollection=new ArrayCollection();
 			[Bindable]
@@ -20,13 +21,21 @@
 				return priceFormatter.format(d[c.dataField]);
 			}
 			
+			protected function datagrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:NumberFormatter id="priceFormatter"
 						precision="2"/>
 						
-	<mx:DataGrid width = "100%"
-				 dataProvider = "{offers}">
+	<mx:DataGrid id="datagrid" 
+				 width = "100%"
+				 dataProvider = "{offers}"
+				 creationComplete="datagrid_creationCompleteHandler(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText = "Name"
 							   dataField = "Name">
