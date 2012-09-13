@@ -120,8 +120,6 @@ package dto {
 			} else {
 				sNumber = sNumber.split(",").join();
 			}
-
-			sNumber=sNumber.split(',').join('.');
 			var res:Number=NaN;
 			while(sNumber) {
 				try {
