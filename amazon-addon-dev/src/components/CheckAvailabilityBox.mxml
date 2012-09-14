@@ -20,23 +20,15 @@
 			private function priceLabelFunction(d:OfferInfoDTO, c:DataGridColumn):String {
 				return priceFormatter.format(d[c.dataField]);
 			}
-			
-			protected function datagrid_creationCompleteHandler(event:FlexEvent):void
-			{
-				// TODO Auto-generated method stub
-				
-			}
-			
 		]]>
 	</mx:Script>
 	<mx:NumberFormatter id="priceFormatter"
 						precision="2"/>
 						
-	<mx:DataGrid id="datagrid" 
-				 width = "100%"
-				 dataProvider = "{offers}"
-				 creationComplete="datagrid_creationCompleteHandler(event)">
-		<mx:columns>
+	<components:CheckShippingDataGrid id = "datagrid"
+									  width = "100%"
+									  dataProvider = "{offers}">
+		<components:columns>
 			<mx:DataGridColumn headerText = "Name"
 							   dataField = "Name">
 				<mx:itemRenderer>
@@ -149,6 +141,6 @@
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
-		</mx:columns>
-	</mx:DataGrid>
+		</components:columns>
+	</components:CheckShippingDataGrid>
 </mx:VBox>

@@ -1,0 +1,18 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<mx:DataGrid xmlns:mx = "http://www.adobe.com/2006/mxml"
+			 creationComplete = "creationCompleteHandler(event)">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.mx_internal;
+			import mx.events.DataGridEvent;
+			import mx.events.FlexEvent;
+			use namespace mx_internal;
+			
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				var e:DataGridEvent=new DataGridEvent(DataGridEvent.HEADER_RELEASE);
+				e.columnIndex=3;
+				dispatchEvent(e);
+			}
+		]]>
+	</mx:Script>
+</mx:DataGrid>
