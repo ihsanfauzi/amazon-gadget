@@ -5,8 +5,7 @@
 		 width = "100%"
 		 xmlns:components = "components.*"
 		 xmlns:services = "services.*"
-		 height="250"
-		 paddingBottom="10">
+		 height="250">
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferInfoDTO;

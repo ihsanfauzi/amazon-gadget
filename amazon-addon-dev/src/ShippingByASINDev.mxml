@@ -2,7 +2,7 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 				width="100%"
 				height="100%"
-				paddingBottom="2"
+				paddingBottom="10"
 				paddingLeft="2"
 				paddingRight="2"
 				paddingTop="2"
@@ -17,8 +17,8 @@
 				xmlns:resources="resources.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
-	<mx:HBox width="490"
-			 horizontalAlign="center">
+	<mx:HBox width = "490"
+			 horizontalAlign = "center">
 		<components:CountryComboBox id="countryCombo"
 									width="100%"
 									countries="{getCountries()}"
@@ -32,7 +32,8 @@
 		<mx:Button id="collapseButton"
 				   label="-"
 				   visible="{showBox}"
-				   click="collapseButton_clickHandler(event)"/>
+				   click="collapseButton_clickHandler(event)"
+				   toolTip="Minimize"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 offers="{offers}"
@@ -49,6 +50,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
+			import mx.managers.CursorManager;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
@@ -189,7 +191,9 @@
 					}
 					var asin:String=ExternalInterface.call("getCurrentASIN");
 					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
+					CursorManager.setBusyCursor();
 					IFrameContentService.getContent(url, function(content:String):void {
+						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItem(asin, content);
 						collectOffers(raw);
 						var pages:Number = raw.Offers.TotalOfferPages;
@@ -205,12 +209,12 @@
 					var asin:String=ExternalInterface.call("getCurrentASIN");
 					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i);
 					IFrameContentService.getContent(url, function(content:String):void {
+						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItem(asin, content);
 						collectOffers(raw);
 					});
 				}
 			}
-
 			
 			private function collectOffers(raw:Object):void {
 				for each (var offer:Object in raw.Offers.Offer) {
@@ -269,5 +273,6 @@
 		]]>
 	</mx:Script>
 	<mx:RemoteObject id="checker" 
-					 destination="amazon.check.shipping.ShippingService"/>
+					 destination="amazon.check.shipping.ShippingService"
+					 showBusyCursor="true"/>
 </mx:Application>
