@@ -17,7 +17,8 @@
 				xmlns:resources="resources.*">
 	<mx:Style source="styles.css"/>
 	<resources:Resources id="res"/>
-	<mx:HBox>
+	<mx:HBox width="490"
+			 horizontalAlign="center">
 		<components:CountryComboBox id="countryCombo"
 									width="100%"
 									countries="{getCountries()}"
@@ -35,7 +36,7 @@
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 offers="{offers}"
-									 includeInLayout="{checkAvailabilityBox.visible}"
+									 includeInLayout="{showBox}"
 									 visible="{showBox}"
 									 region="{region}"/>
 	<mx:Script>
@@ -46,22 +47,15 @@
 			import dto.ShippingDTO;
 			import dto.ShippingPriceDTO;
 			
-			import flash.utils.clearInterval;
-			import flash.utils.setInterval;
-			import flash.utils.setTimeout;
-			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
-			import mx.formatters.SwitchSymbolFormatter;
 			import mx.rpc.AsyncToken;
-			import mx.rpc.Responder;
 			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
 			
 			import services.BaseShippingChecker;
 			import services.Helper;
 			import services.JSInit;
-			import services.ShippingCheckerAll;
 			
 			import util.IFrameContentService;
 			import util.OfferService;

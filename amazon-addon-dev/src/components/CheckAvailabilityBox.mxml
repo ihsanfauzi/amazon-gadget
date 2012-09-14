@@ -4,7 +4,9 @@
 		 xmlns:local = "*"
 		 width = "100%"
 		 xmlns:components = "components.*"
-		 xmlns:services = "services.*">
+		 xmlns:services = "services.*"
+		 height="250"
+		 paddingBottom="10">
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferInfoDTO;
@@ -17,7 +19,7 @@
 			public var region:String;
 			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
-			private function priceLabelFunction(d:OfferInfoDTO, c:DataGridColumn):String {
+			public function priceLabelFunction(d:OfferInfoDTO, c:DataGridColumn):String {
 				return priceFormatter.format(d[c.dataField]);
 			}
 		]]>
@@ -27,6 +29,7 @@
 						
 	<components:CheckShippingDataGrid id = "datagrid"
 									  width = "100%"
+									  height="100%"
 									  dataProvider = "{offers}">
 		<components:columns>
 			<mx:DataGridColumn headerText = "Name"
@@ -71,10 +74,52 @@
 							   dataField = "MinShippingPrice"
 							   width = "110"
 							   labelFunction="priceLabelFunction"/>
-			<mx:DataGridColumn headerText = "Net Price"
+			<mx:DataGridColumn id="netPriceColumn" 
+				headerText = "Net Price"
 							   dataField = "NetPrice"
 							   width = "110"
-							   labelFunction="priceLabelFunction"/>
+							   labelFunction="priceLabelFunction">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:HBox width = "100%">
+							<mx:Label id = "netPriceLabel"
+									  truncateToFit = "true"
+									  useHandCursor = "true"
+									  textDecoration = "underline"
+									  buttonMode = "true"
+									  mouseChildren = "false"
+									  color = "blue"
+									  text = "{outerDocument.priceLabelFunction(data as OfferInfoDTO, outerDocument.netPriceColumn)}"
+									  click = "clickHandler(event)"
+									  toolTip = "Click to Buy"
+									  visible = "{!isNaN((data as OfferInfoDTO).NetPrice)}"
+									  includeInLayout = "{netPriceLabel.visible}"/>
+							<mx:Script>
+								<![CDATA[
+									import dto.OfferInfoDTO;
+
+									
+									import mx.controls.Image;
+									
+									import services.Helper;
+									
+									protected function clickHandler(event:MouseEvent):void {
+										var offer:OfferInfoDTO=data as OfferInfoDTO;
+										if (offer.NetPrice) {
+											var url:String=offer.BuyURL;
+											Helper.openAmazonItem(url);
+											var img:Image=new Image();
+											img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+											img.initialize();
+										}
+									}
+								]]>
+							</mx:Script>
+
+						</mx:HBox>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
 			<mx:DataGridColumn headerText = "Shipping"
 							   dataField = "Availability"
 							   width = "55">
