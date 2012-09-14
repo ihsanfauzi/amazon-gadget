@@ -153,19 +153,53 @@ package dto {
 		
 		private static function getWeight():Number {
 			var content:String=ExternalInterface.call("getDocumentHTML");
-			var sw:String = subContent2(content, "Produktgewicht inkl. Verpackung:", "Kg");
-			if (sw) {
-				sw = "EUR" + sw;
-				return toNumber(sw);				
+
+			var w:Number = extractKgOrG(content, ["Produktgewicht inkl. Verpackung:"], "EUR");
+			if (w) {
+				return w;
 			}
 			
 			var sw:String = subContent2(content, "Shipping Weight:", "pounds");
 			if (sw) {
 				return toNumber(sw);				
 			}  
+			
+			var w:Number = extractKgOrG(content, ["Boxed-product Weight:"]);
+			if (w) {
+				return w;
+			}
+
+			var w:Number = extractKgOrG(content, ["Poids de l'article:", "Poids:", "Dimensions du produit:"], "EUR");
+			if (w) {
+				return w;
+			}
+			return 0;
+		}
+
+
+		public static function extractKgOrG (content:String, names:Array, prefix:String = null):Number {
+			for each (var name:String in names) {
+				var sw:String = subContent2(content, name, ' Kg');
+				if (sw && prefix) {
+					sw = prefix + sw;
+				}
+				var wkg:Number=toNumber(sw);
+				if (!wkg) {
+					var sw:String=subContent2(content, name, ' g');
+					if (sw && prefix) {
+						sw = prefix + sw;
+					}
+					var wg:Number=toNumber(sw);
+					if (wg) {
+						return wg / 1000;
+					}
+				} else {
+					return wkg;
+				}
+			}
 			return NaN;
 		}
-		
+
 		public static function subContent1(content:String, start:String):String {
 			if (content == null) {
 				return null;
