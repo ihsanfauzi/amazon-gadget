@@ -171,7 +171,7 @@ package dto {
 				return w;
 			}
 
-			var w:Number = extractKgOrG(content, ["Poids de l'article:", "Poids:", "Dimensions du produit:"], "EUR");
+			var w:Number = extractKgOrG(content, ["Poids de l'article:", "Poids:", "Dimensions du produit:", "Produktgewicht inkl. Verpackung:"], "EUR");
 			if (w) {
 				return w;
 			}
