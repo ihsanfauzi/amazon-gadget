@@ -112,8 +112,10 @@ package dto {
 					weight=weight ? weight : 0;
 					r=r + (perWeight * weight);
 				}
-				
-				if (!isNaN(res) && res > r) {
+				if (isNaN(res)) {
+					return r;
+				}
+				if (!isNaN(r) && res > r) {
 					res=r;
 				}
 			}
