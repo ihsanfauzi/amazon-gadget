@@ -1,8 +1,11 @@
 package dto {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.external.ExternalInterface;
 	
 	import mx.events.PropertyChangeEvent;
+	
+	import services.Helper;
 	
 	[Bindable]
 	
@@ -15,7 +18,7 @@ package dto {
 		public var MerchantShippingURL:String;
 		public var Availability:int;
 		public var International:Boolean;
-		public var Weight:String="4";
+		//public var Weight:String="4";
 		private var _shippingPriceDTO:ShippingPriceDTO;
 		private var _MinShippingPrice:Number;
 		private var _NetPrice:Number;
@@ -85,14 +88,17 @@ package dto {
 		
 		private function calculateMinPriceSimple():Number {
 			var res:Number=NaN;
-			var weight:Number=toNumber(Weight);
-			weight=weight ? weight : 0;
 			if (!(shippingPriceDTO.perItemStandard == null && shippingPriceDTO.perShipmentStandard == null && shippingPriceDTO.perWeightStandard == null)) {
 				var perItem:Number=Number(shippingPriceDTO.perItemStandard ? shippingPriceDTO.perItemStandard : 0);
 				var perShipment:Number=Number(shippingPriceDTO.perShipmentStandard ? shippingPriceDTO.perShipmentStandard : 0);
 				var perWeight:Number=Number(shippingPriceDTO.perWeightStandard ? shippingPriceDTO.perWeightStandard : 0);
 				
-				res=perItem + perShipment + (perWeight * weight);
+				res=perItem + perShipment;
+				if (perWeight > 0) {
+					var weight:Number=getWeight();
+					weight=weight ? weight : 0;
+					res=res + (perWeight * weight);
+				}
 			}
 			
 			if (!(shippingPriceDTO.perItemExpedited == null && shippingPriceDTO.perShipmentExpedited == null && shippingPriceDTO.perWeightExpedited == null)) {
@@ -100,7 +106,13 @@ package dto {
 				perShipment=Number(shippingPriceDTO.perShipmentExpedited ? shippingPriceDTO.perShipmentExpedited : 0);
 				perWeight=Number(shippingPriceDTO.perWeightExpedited ? shippingPriceDTO.perWeightExpedited : 0);
 				
-				var r:Number=perItem + perShipment + (perWeight * weight);
+				var r:Number=perItem + perShipment
+				if (perWeight > 0) {
+					weight=getWeight();
+					weight=weight ? weight : 0;
+					r=r + (perWeight * weight);
+				}
+				
 				if (!isNaN(res) && res > r) {
 					res=r;
 				}
@@ -113,12 +125,13 @@ package dto {
 			if (sNumber == null) {
 				return NaN;
 			}
-			sNumber = sNumber.split(" ").join();
-			if(sNumber.toUpperCase().indexOf("EUR") != -1) {
-				sNumber = sNumber.split(".").join();
-				sNumber = sNumber.split(",").join(".");
-			} else {
-				sNumber = sNumber.split(",").join();
+			sNumber=sNumber.split(" ").join("");
+			if (sNumber.toUpperCase().indexOf("EUR") != -1) {
+				sNumber=sNumber.split(".").join("");
+				sNumber=sNumber.split(",").join(".");
+			}
+			else {
+				sNumber=sNumber.split(",").join("");
 			}
 			var res:Number=NaN;
 			while(sNumber) {
@@ -136,6 +149,44 @@ package dto {
 				return res;
 			}
 			return res;
+		}
+		
+		private static function getWeight():Number {
+			var content:String=ExternalInterface.call("getDocumentHTML");
+			var sw:String = subContent2(content, "Produktgewicht inkl. Verpackung:", "Kg");
+			if (sw) {
+				sw = "EUR" + sw;
+				return toNumber(sw);				
+			}
+			
+			var sw:String = subContent2(content, "Shipping Weight:", "pounds");
+			if (sw) {
+				return toNumber(sw);				
+			}  
+			return NaN;
+		}
+		
+		public static function subContent1(content:String, start:String):String {
+			if (content == null) {
+				return null;
+			}
+			var index:int=content.indexOf(start);
+			if (index == -1) {
+				return null;
+			}
+			return content.substring(index + start.length);
+		}
+		
+		public static function subContent2(content:String, start:String, end:String):String {
+			var sub:String=subContent1(content, start);
+			if (sub == null) {
+				return null;
+			}
+			var index:int=sub.indexOf(end);
+			if (index == -1) {
+				return null;
+			}
+			return sub.substring(0, index);
 		}
 	}
 }
