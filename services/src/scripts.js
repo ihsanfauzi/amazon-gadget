@@ -157,3 +157,7 @@ createIFrame = function(_name, _url, _onload) {
 	ifrm.onload = function(){eval(_onload)};
 	document.body.appendChild(ifrm);
 };
+
+getDocumentHTML = function() {
+	return document.body.innerHTML;
+}
