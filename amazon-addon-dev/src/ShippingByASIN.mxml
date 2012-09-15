@@ -1,45 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
-				width="100%"
-				height="100%"
-				paddingBottom="10"
-				paddingLeft="2"
-				paddingRight="2"
-				paddingTop="2"
-				backgroundColor="white"
-				horizontalAlign="left"
-				verticalScrollPolicy="off"
-				horizontalScrollPolicy="off"
-				creationComplete="{init()}"
-				initialize="{JSInit.init()}"
-				xmlns:components="components.*"
-				xmlns:services="services.*"
-				xmlns:resources="resources.*">
-	<mx:Style source="styles.css"/>
-	<resources:Resources id="res"/>
+<?xml version = "1.0" encoding = "utf-8"?>
+<mx:Application xmlns:mx = "http://www.adobe.com/2006/mxml"
+				width = "100%"
+				height = "100%"
+				paddingBottom = "10"
+				paddingLeft = "2"
+				paddingRight = "2"
+				paddingTop = "2"
+				backgroundColor = "white"
+				horizontalAlign = "left"
+				verticalScrollPolicy = "off"
+				horizontalScrollPolicy = "off"
+				creationComplete = "{init()}"
+				initialize = "{JSInit.init()}"
+				xmlns:components = "components.*"
+				xmlns:services = "services.*"
+				xmlns:resources = "resources.*">
+	<mx:Style source = "styles.css"/>
+	<resources:Resources id = "res"/>
 	<mx:HBox width = "490"
 			 horizontalAlign = "center">
-		<components:CountryComboBox id="countryCombo"
-									width="100%"
-									countries="{getCountries()}"
-									visible="{showBox}"
-									includeInLayout="{showBox}"
-									changeCountry="{changeCountryHandler()}"/>
-		<mx:Button id="checkShippingButton"
-				   label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-				   click="checkShippingButton_clickHandler(event)"
-				   enabled="{!showBox || countryCombo.selectedCountry}"/>
-		<mx:Button id="collapseButton"
-				   label="-"
-				   visible="{showBox}"
-				   click="collapseButton_clickHandler(event)"
-				   toolTip="Minimize"/>
+		<components:CountryComboBox id = "countryCombo"
+									width = "100%"
+									countries = "{getCountries()}"
+									visible = "{showBox}"
+									includeInLayout = "{showBox}"
+									changeCountry = "{changeCountryHandler()}"/>
+		<mx:Button id = "checkShippingButton"
+				   label = "{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click = "checkShippingButton_clickHandler(event)"
+				   enabled = "{!showBox || countryCombo.selectedCountry}"/>
+		<mx:Button id = "collapseButton"
+				   label = "-"
+				   visible = "{showBox}"
+				   click = "collapseButton_clickHandler(event)"
+				   toolTip = "Minimize"/>
 	</mx:HBox>
-	<components:CheckAvailabilityBox id="checkAvailabilityBox"
-									 offers="{offers}"
-									 includeInLayout="{showBox}"
-									 visible="{showBox}"
-									 region="{region}"/>
+	<components:CheckAvailabilityBox id = "checkAvailabilityBox"
+									 offers = "{offers}"
+									 includeInLayout = "{showBox}"
+									 visible = "{showBox}"
+									 region = "{region}"/>
+	<mx:HBox width = "100%"
+			 horizontalAlign = "right"
+			 paddingTop="-5">
+		<mx:Label id = "reportIssueLabel"
+				  text = "Report Issue"
+				  useHandCursor = "true"
+				  textDecoration = "underline"
+				  buttonMode = "true"
+				  mouseChildren = "false"
+				  color = "blue"
+				  includeInLayout = "{showBox}"
+				  visible = "{showBox}"
+				  click = "reportIssueLabel_clickHandler(event)"/>
+	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
 			import dto.OfferInfoDTO;
@@ -47,6 +61,8 @@
 			import dto.SearchItemDTO;
 			import dto.ShippingDTO;
 			import dto.ShippingPriceDTO;
+			
+			import flash.net.navigateToURL;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
@@ -76,7 +92,7 @@
 			[Bindable]
 			private var showBox:Boolean;
 			[Bindable]
-			private var offers:ArrayCollection = new ArrayCollection();
+			private var offers:ArrayCollection=new ArrayCollection();
 			
 			private function getCountries():Array {
 				switch(Helper.getAWSDomain()) {
@@ -120,7 +136,7 @@
 						var newAsin:String=ExternalInterface.call("getCurrentASIN");
 						if (asin != newAsin) {
 							checkShippingButton_clickHandler(null);
-							asin = newAsin;
+							asin=newAsin;
 						}
 					}
 				}
@@ -196,11 +212,12 @@
 						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItem(asin, content);
 						collectOffers(raw);
-						var pages:Number = raw.Offers.TotalOfferPages;
+						var pages:Number=raw.Offers.TotalOfferPages;
 						retrieveAllPages(pages);
 					});
 				}
 			}
+			
 			private function retrieveAllPages(pages:Number):void {
 				if (pages <= 1) {
 					return ;
@@ -217,14 +234,14 @@
 			}
 			
 			private function collectOffers(raw:Object):void {
-				for each (var offer:Object in raw.Offers.Offer) {
-					if(!findOffer(offer.Merchant.Name)){
-						var off:OfferInfoDTO = new OfferInfoDTO();
-						off.Name = offer.Merchant.Name;
-						off.Price = offer.OfferListing.Price.FormattedPrice;
-						off.MerchantId = offer.Merchant.MerchantId;
-						off.BuyURL = raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
-						off.International = offer.International;
+				for each(var offer:Object in raw.Offers.Offer) {
+					if (!findOffer(offer.Merchant.Name)) {
+						var off:OfferInfoDTO=new OfferInfoDTO();
+						off.Name=offer.Merchant.Name;
+						off.Price=offer.OfferListing.Price.FormattedPrice;
+						off.MerchantId=offer.Merchant.MerchantId;
+						off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
+						off.International=offer.International;
 						off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
 						sendRequest(off);
 						offers.addItem(off);
@@ -233,7 +250,7 @@
 			}
 			
 			private function findOffer(name:String):OfferInfoDTO {
-				for each (var o:OfferInfoDTO in offers) {
+				for each(var o:OfferInfoDTO in offers) {
 					if (o.Name == name) {
 						return o;
 					}
@@ -243,36 +260,37 @@
 			
 			public function sendRequest(offer:OfferInfoDTO):void {
 				if (offer.Availability > 0) {
-					return;
+					return ;
 				}
 				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
 				if (offer.International) {
-					var a:AsyncToken = checker.checkShipping(offer.MerchantId, Helper.getHostName(), region);
-					a.addResponder(new mx.rpc.Responder (
-						function(event:ResultEvent):void {
-							ShippingPriceDTO;
-							var shippingDTO:ShippingDTO = event.result as ShippingDTO;
-							offer.Availability=shippingDTO.availability;
-							if (offer.Availability == 1) {
-								offer.shippingPriceDTO = shippingDTO.shippingPrice;
-								trace();
-							}
-						},
-						function(...o):void {
-							offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					var a:AsyncToken=checker.checkShipping(offer.MerchantId, Helper.getHostName(), region);
+					a.addResponder(new mx.rpc.Responder(function(event:ResultEvent):void {
+						ShippingPriceDTO;
+						var shippingDTO:ShippingDTO=event.result as ShippingDTO;
+						offer.Availability=shippingDTO.availability;
+						if (offer.Availability == 1) {
+							offer.shippingPriceDTO=shippingDTO.shippingPrice;
 							trace();
 						}
-						));
-
+					}, function(... o):void {
+						offer.Availability=BaseShippingChecker.SHIPPING_NA;
+						trace();
+					}));
+					
 				}
 				else {
 					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
 				}
 			}
-
+			
+			protected function reportIssueLabel_clickHandler(event:MouseEvent):void {
+				var urlRequest:URLRequest=new URLRequest("http://code.google.com/p/amazon-gadget/issues/entry");
+				navigateToURL(urlRequest, '_blank');
+			}
 		]]>
 	</mx:Script>
-	<mx:RemoteObject id="checker" 
-					 destination="amazon.check.shipping.ShippingService"
-					 showBusyCursor="true"/>
+	<mx:RemoteObject id = "checker"
+					 destination = "amazon.check.shipping.ShippingService"
+					 showBusyCursor = "true"/>
 </mx:Application>
