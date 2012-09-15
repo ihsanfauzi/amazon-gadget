@@ -131,6 +131,12 @@ package dto {
 			if (sNumber.toUpperCase().indexOf("EUR") != -1) {
 				sNumber=sNumber.split(".").join("");
 				sNumber=sNumber.split(",").join(".");
+				var start:int = sNumber.lastIndexOf(",");
+				if (start != -1 && sNumber.substring(start + 1).length<=2) {
+					sNumber = sNumber.split(",").join(".");
+				} else {
+					sNumber = sNumber.replace(",", "");
+				}
 			}
 			else {
 				sNumber=sNumber.split(",").join("");
