@@ -236,7 +236,12 @@ public abstract class BaseShippingPriceCalculator {
 		sDouble = sDouble.replace(" ", "");
 		if(sDouble.trim().toUpperCase().startsWith("EUR")) {
 			sDouble = sDouble.replace(".", "");
-			sDouble = sDouble.replace(",", ".");
+			int start = sDouble.lastIndexOf(",");
+			if (start != -1 && sDouble.substring(start + 1).length()<=2) {
+				sDouble = sDouble.replace(",", ".");
+			} else {
+				sDouble = sDouble.replace(",", "");
+			}
 		} else {
 			sDouble = sDouble.replace(",", "");
 		}
