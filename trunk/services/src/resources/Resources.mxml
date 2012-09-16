@@ -47,7 +47,7 @@
 <resources:Resource value="CR" label="CR Costa Rica" region="Weltweit"/>
 <resources:Resource value="CI" label="CI Côte d'Ivoire" region="Weltweit"/>
 <resources:Resource value="DK" label="DK Denmark" region="Belgien, Dänemark , Frankreich, Irland, Niederlande, Großbritannien"/>
-<resources:Resource value="DE" label="DE Germany" region="Deutschland"/>
+<resources:Resource value="DE" label="DE Germany" region="Deutschland" domain="de" main="true"/>
 <resources:Resource value="DM" label="DM Dominica" region="Weltweit"/>
 <resources:Resource value="DO" label="DO Dominican Republic" region="Weltweit"/>
 <resources:Resource value="DJ" label="DJ Djibouti" region="Weltweit"/>
@@ -301,7 +301,7 @@
 <resources:Resource value="RU" label="RU Russian" region="Autres pays du monde"/>
 <resources:Resource value="FJ" label="FJ Fiji" region="Autres pays du monde"/>
 <resources:Resource value="FI" label="FI Finland" region="Europe: autres pays"/>
-<resources:Resource value="FR" label="FR France" region="France métropolitaine et Monaco"/>
+<resources:Resource value="FR" label="FR France" region="France métropolitaine et Monaco" domain="fr" main="true"/>
 <resources:Resource value="GA" label="GA Gabon" region="Autres pays du monde"/>
 <resources:Resource value="GM" label="GM Gambia" region="Autres pays du monde"/>
 <resources:Resource value="GE" label="GE Georgia" region="Autres pays du monde"/>
@@ -687,9 +687,9 @@
 <resources:Resource value="UG" label="UG Uganda" region="Rest of World"/>
 <resources:Resource value="UA" label="UA Ukraine" region="Europe Zone 3"/>
 <resources:Resource value="AE" label="AE United Arab Emirates" region="Rest of World"/>
-<resources:Resource value="GB" label="GB United Kingdom" region="UK Street"/>
-<resources:Resource value="GB_POB" label="GB United Kingdom Mainland PO Box" region="UK Mainland PO Box"/>
-<resources:Resource value="GB_BFPO" label="British Forces Post Office" region="BFPO"/>
+<resources:Resource value="GB" label="GB United Kingdom" region="UK Street" domain="co.uk" main="true"/>
+<resources:Resource value="GB_POB" label="GB United Kingdom Mainland PO Box" region="UK Mainland PO Box" domain="co.uk"/>
+<resources:Resource value="GB_BFPO" label="British Forces Post Office" region="BFPO" domain="co.uk"/>
 <resources:Resource value="US" label="US United States" region="North America"/>
 <resources:Resource value="UM" label="UM United States Minor Outlying Islands" region="Rest of World"/>
 <resources:Resource value="UY" label="UY Uruguay" region="Rest of World"/>
@@ -933,12 +933,14 @@
 <resources:Resource value="UA" label="UA Ukraine" region="Europe"/>
 <resources:Resource value="AE" label="AE United Arab Emirates" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="GB" label="GB United Kingdom" region="Europe"/>
-<resources:Resource value="US" label="US United States" region="Continental US"/>
-<resources:Resource value="US_PO" label="US United States PO Box" region="Continental US PO Box"/>
-<resources:Resource value="US_AL_HA" label="US Aliaska, Hawaii" region="Alaska and Hawaii"/>
-<resources:Resource value="US_AL_HA_PO" label="US Aliaska, Hawaii PO Box" region="Alaska and Hawaii PO Box"/>
-<resources:Resource value="US_AM_PO" label="US Army/Fleet PO" region="APO/FPO"/>
-<resources:Resource value="US_AM_PO_PO" label="US Army/Fleet PO Box" region="APO/FPO PO Box"/>
+<resources:Resource value="US" label="US United States" region="Continental US Street" domain="com" main="true"/>
+<resources:Resource value="US_PO" label="US United States PO Box" region="Continental US PO Box" domain="com"/>
+<resources:Resource value="US_AL_HA" label="US Aliaska, Hawaii" region="Alaska and Hawaii Street" domain="com"/>
+<resources:Resource value="US_AL_HA_PO" label="US Aliaska, Hawaii PO Box" region="Alaska and Hawaii PO Box" domain="com"/>
+<resources:Resource value="US_PR" label="US Protectorates Street" region="US Protectorates Street" domain="com"/>
+<resources:Resource value="US_PR_PO" label="US Protectorates PO Box" region="US Protectorates PO Box" domain="com"/>
+<resources:Resource value="US_APO_FPO" label="APO/FPO Street" region="APO/FPO Street" domain="com"/>
+<resources:Resource value="US_APO_FPO_PO" label="APO/FPO PO Box" region="APO/FPO PO Box" domain="com"/>
 <resources:Resource value="UM" label="UM United States Minor Outlying Islands" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="UY" label="UY Uruguay" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="UZ" label="UZ Uzbekistan" region="Outside US, Eur., CA, Asia"/>
