@@ -42,7 +42,7 @@
 									 region = "{region}"/>
 	<mx:HBox width = "100%"
 			 horizontalAlign = "right"
-			 paddingTop="-5">
+			 paddingTop = "-5">
 		<mx:Label id = "reportIssueLabel"
 				  text = "Report Issue"
 				  useHandCursor = "true"
@@ -263,25 +263,73 @@
 					return ;
 				}
 				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
-				if (offer.International) {
+				var local:Boolean=isLocal();
+				var main:Boolean=isMain();
+				var amazon:Boolean=isAmazon(offer);
+				if (offer.International || local) {
 					var a:AsyncToken=checker.checkShipping(offer.MerchantId, Helper.getHostName(), region);
 					a.addResponder(new mx.rpc.Responder(function(event:ResultEvent):void {
 						ShippingPriceDTO;
 						var shippingDTO:ShippingDTO=event.result as ShippingDTO;
+						if (!shippingDTO) {
+							offer.Availability=BaseShippingChecker.SHIPPING_NA;
+							if (main || amazon) {
+								offer.Availability=BaseShippingChecker.SHIPPING_OK;
+							}
+							return ;
+						}
 						offer.Availability=shippingDTO.availability;
-						if (offer.Availability == 1) {
+						if (offer.Availability == BaseShippingChecker.SHIPPING_OK) {
 							offer.shippingPriceDTO=shippingDTO.shippingPrice;
-							trace();
+						}
+						if (main || amazon) {
+							offer.Availability=BaseShippingChecker.SHIPPING_OK;
 						}
 					}, function(... o):void {
 						offer.Availability=BaseShippingChecker.SHIPPING_NA;
-						trace();
+						if (main || amazon) {
+							offer.Availability=BaseShippingChecker.SHIPPING_OK;
+						}
 					}));
-					
 				}
 				else {
 					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
+					if (amazon) {
+						offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					}
 				}
+			}
+			
+			private function isLocal():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain")) {
+					var host:String=Helper.getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			
+			private function isMain():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain") && item.hasOwnProperty("main")) {
+					var host:String=Helper.getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			
+			private function isAmazon(d:OfferInfoDTO):Boolean {
+				if (d && d.Name) {
+					var host:String=Helper.getHostName();
+					if (host.indexOf(d.Name.toLowerCase()) != -1) {
+						return true;
+					}
+				}
+				return false;
 			}
 			
 			protected function reportIssueLabel_clickHandler(event:MouseEvent):void {
