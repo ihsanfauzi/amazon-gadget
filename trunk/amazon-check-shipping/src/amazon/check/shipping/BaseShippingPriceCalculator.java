@@ -104,7 +104,7 @@ public abstract class BaseShippingPriceCalculator {
 	public ShippingPriceDTO calculateSimple(String region, String content) {
 		ShippingPriceDTO dto = new ShippingPriceDTO();
 		dto.isComplex = false;
-		String regionSub = subContent(content, region);
+		String regionSub = subContent(content, ">" + region);
 		String perItemSub = subContent(regionSub, "<tr bgcolor=", "</tr>");
 		Boolean b = extractPerItem(perItemSub, dto);
 		
