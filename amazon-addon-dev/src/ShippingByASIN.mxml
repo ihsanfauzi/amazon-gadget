@@ -209,7 +209,7 @@
 			
 			private function getDeleted():Boolean {
 				try {
-					var obj:SharedObject=SharedObject.getLocal("Deleted");
+					var obj:SharedObject=SharedObject.getLocal("Deleted", "/");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
 						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
 						var now:Date=new Date();
