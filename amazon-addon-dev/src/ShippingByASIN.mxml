@@ -177,14 +177,18 @@
 				obj.flush();
 			}
 			
-			private function getDeletedDate():Date {
+			private function getDeletedDate():String {
 				try {
 					var obj:SharedObject=SharedObject.getLocal("Deleted");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
 						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
-						return date;
+						return date?date.toString():"nodate";
+					} else {
+						return "noprop";
 					}
-				} catch (e:Error) {}
+				} catch (e:Error) {
+					return "error";
+				}
 				return null;
 			}
 			
