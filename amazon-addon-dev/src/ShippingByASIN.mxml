@@ -129,9 +129,11 @@
 //					img1.source=getAmazonSiteWithTag();
 //					img1.initialize();
 					setDeleted();
-					var img:Image=new Image();
-					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
-					img.initialize();
+//					var img:Image=new Image();
+//					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+//					img.initialize();
+					
+					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin);
 				}
 			}
 			
