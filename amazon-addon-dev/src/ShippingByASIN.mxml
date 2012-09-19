@@ -78,7 +78,7 @@
 			import util.IFrameContentService;
 			import util.OfferService;
 			
-			public static const VERSION:String = "2012.09.19";
+			public static const VERSION:String = "2012.09.19.1";
 			
 			[Bindable]
 			private var asin:String;
