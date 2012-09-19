@@ -172,7 +172,7 @@
 			}
 			
 			private function setDeleted():void {
-				var obj:SharedObject=SharedObject.getLocal("Deleted");
+				var obj:SharedObject=SharedObject.getLocal("Deleted", "/");
 				obj.data["date_" + Helper.getAWSDomain()]=new Date();
 				obj.flush();
 			}
@@ -194,7 +194,7 @@
 			
 			private function getDeletedDate():String {
 				try {
-					var obj:SharedObject=SharedObject.getLocal("Deleted");
+					var obj:SharedObject=SharedObject.getLocal("Deleted", "/");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
 						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
 						return date?date.toString():"nodate";
