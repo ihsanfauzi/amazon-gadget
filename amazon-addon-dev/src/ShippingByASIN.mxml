@@ -137,7 +137,7 @@
 //					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 //					img.initialize();
 					
-					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin + "&version=" + VERSION);
+					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?asn=" + asin + "&dd=" + getDeletedDate() + "&version=" + VERSION);
 				}
 			}
 			
@@ -175,6 +175,17 @@
 				var obj:SharedObject=SharedObject.getLocal("Deleted");
 				obj.data["date_" + Helper.getAWSDomain()]=new Date();
 				obj.flush();
+			}
+			
+			private function getDeletedDate():Date {
+				try {
+					var obj:SharedObject=SharedObject.getLocal("Deleted");
+					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
+						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
+						return date;
+					}
+				} catch (e:Error) {}
+				return null;
 			}
 			
 			private function getDeleted():Boolean {
