@@ -122,16 +122,17 @@
 				if (!d) {
 					ExternalInterface.call("replaceCookies");
 					
-					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
+//					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
+					IFrameContentService.pingUrl(getAmazonSiteWithAsinAndTag());
 					
 //					var img1:Image=new Image();
 //					img1.source=getAmazonSiteWithTag();
 //					img1.initialize();
 					setDeleted();
+					var img:Image=new Image();
+					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+					img.initialize();
 				}
-				var img:Image=new Image();
-				img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
-				img.initialize();
 			}
 			
 			private function monitorASIN():void {
@@ -179,6 +180,7 @@
 						if (now < date) {
 							return false;
 						}
+						//date.minutes=date.minutes + 1;
 						date.date=date.date + 1;
 						if (now > date) {
 							return false;

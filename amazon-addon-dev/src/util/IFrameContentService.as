@@ -24,6 +24,11 @@ package util {
 			});
 			timer.start();
 		}
+		
+		public static function pingUrl(url:String):void {
+			var imgName:String=UIDUtil.createUID().split("-").join("_");
+			ExternalInterface.call("createImage", imgName, url);
+		}
 	}
 }
 
