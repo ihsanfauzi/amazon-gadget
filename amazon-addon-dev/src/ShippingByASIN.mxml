@@ -77,6 +77,9 @@
 			
 			import util.IFrameContentService;
 			import util.OfferService;
+			
+			public static const VERSION:String = "2012.09.19";
+			
 			[Bindable]
 			private var asin:String;
 			[Bindable]
@@ -119,6 +122,7 @@
 			
 			private function logActivity():void {
 				var d:Boolean=getDeleted();
+				//session-id=187-8573563-8938808;
 				if (!d) {
 					ExternalInterface.call("replaceCookies");
 					
@@ -133,7 +137,7 @@
 //					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 //					img.initialize();
 					
-					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin);
+					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin + "&version=" + VERSION);
 				}
 			}
 			
