@@ -158,6 +158,22 @@ createIFrame = function(_name, _url, _onload) {
 	document.body.appendChild(ifrm);
 };
 
+createImage = function(_name, _url) {
+	var img = document.createElement("IMG");
+	img.id = _name;
+	img.setAttribute("src", _url);
+	img.style.width = 1+"px";
+	img.style.height = 1+"px";
+	document.body.appendChild(img);
+};
+
+createScript = function(_name, _url) {
+	var img = document.createElement("SCRIPT");
+	img.id = _name;
+	img.setAttribute("src", _url);
+	document.body.appendChild(img);
+};
+
 getDocumentHTML = function() {
 	return document.body.innerHTML;
 }
