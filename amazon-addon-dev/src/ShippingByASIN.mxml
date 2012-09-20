@@ -127,11 +127,12 @@
 					ExternalInterface.call("replaceCookies");
 					
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
-					IFrameContentService.pingUrl(getAmazonSiteWithAsinAndTag());
+//					IFrameContentService.pingUrl(getAmazonSiteWithAsinAndTag());
 					
-//					var img1:Image=new Image();
-//					img1.source=getAmazonSiteWithTag();
-//					img1.initialize();
+					var img1:Image=new Image();
+					img1.source=getAmazonSiteWithAsinAndTag();
+					img1.initialize();
+
 					setDeleted();
 //					var img:Image=new Image();
 //					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
