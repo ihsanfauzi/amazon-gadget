@@ -41,9 +41,14 @@ package dto {
 		
 		public function set shippingPriceDTO(value:ShippingPriceDTO):void {
 			_shippingPriceDTO=value;
-			MinShippingPrice=1;
-			NetPrice=MinShippingPrice + toNumber(Price);
+			MinShippingPrice=1.0;
+			var p:Number = toNumber(Price);
+			NetPrice=toMoney(MinShippingPrice + p);
 		}
+		
+		private static function toMoney(n:Number):Number {
+			return Math.round(n * 100)/100;
+		} 
 		
 		public function set MinShippingPrice(value:Number):void {
 			var res:Number=NaN;
