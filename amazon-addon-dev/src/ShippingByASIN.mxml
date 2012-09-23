@@ -249,10 +249,8 @@
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
 				showBox=true;
 				offers.removeAll();
-				if (showBox) {
-					if (countryCombo.selectedCountry) {
-						region=countryCombo.selectedCountry.region;
-					}
+				if (countryCombo.selectedCountry) {
+					region=countryCombo.selectedCountry.region;
 					var asin:String=ExternalInterface.call("getCurrentASIN");
 					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
 					CursorManager.setBusyCursor();
