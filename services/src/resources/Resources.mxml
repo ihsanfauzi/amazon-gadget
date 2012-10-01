@@ -183,7 +183,7 @@
 <resources:Resource value="SE" label="SE Sweden" region="Finnland, Griechenland, Italien, Portugal, Spanien, Schweden"/>
 <resources:Resource value="CH" label="CH Switzerland" region="Schweiz, Liechtenstein, Luxemburg"/>
 <resources:Resource value="SN" label="SN Senegal" region="Weltweit"/>
-<resources:Resource value="RS" label="RS Serbia" region="Übriges Europa"/>
+<resources:Resource value="SRB" label="SRB Serbia" region="Übriges Europa"/>
 <resources:Resource value="SC" label="SC Seychelles" region="Weltweit"/>
 <resources:Resource value="SL" label="SL Sierra Leone" region="Weltweit"/>
 <resources:Resource value="ZW" label="ZW Zimbabwe" region="Weltweit"/>
@@ -426,7 +426,7 @@
 <resources:Resource value="WS" label="WS Samoa (Independent)" region="Autres pays du monde"/>
 <resources:Resource value="ST" label="ST Sao Tome and Principe" region="Autres pays du monde"/>
 <resources:Resource value="SN" label="SN Senegal" region="Autres pays du monde"/>
-<resources:Resource value="RS" label="RS Serbia" region="Autres pays du monde"/>
+<resources:Resource value="SRB" label="SRB Serbia" region="Autres pays du monde"/>
 <resources:Resource value="SC" label="SC Seychelles" region="Autres pays du monde"/>
 <resources:Resource value="SL" label="SL Sierra Leone" region="Autres pays du monde"/>
 <resources:Resource value="SG" label="SG Singapore" region="Autres pays du monde"/>
@@ -652,7 +652,7 @@
 <resources:Resource value="ST" label="ST Sao Tome and Principe" region="Rest of World"/>
 <resources:Resource value="SA" label="SA Saudi Arabia" region="Rest of World"/>
 <resources:Resource value="SN" label="SN Senegal" region="Rest of World"/>
-<resources:Resource value="RS" label="RS Serbia" region="Rest of World"/>
+<resources:Resource value="SRB" label="SRB Serbia" region="Rest of World"/>
 <resources:Resource value="SC" label="SC Seychelles" region="Rest of World"/>
 <resources:Resource value="SL" label="SL Sierra Leone" region="Rest of World"/>
 <resources:Resource value="SG" label="SG Singapore" region="Australia and Far East Asia"/>
@@ -897,7 +897,7 @@
 <resources:Resource value="ST" label="ST Sao Tome and Principe" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="SA" label="SA Saudi Arabia" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="SN" label="SN Senegal" region="Outside US, Eur., CA, Asia"/>
-<resources:Resource value="RS" label="RS Serbia" region="Europe"/>
+<resources:Resource value="SRB" label="SRB Serbia" region="Europe"/>
 <resources:Resource value="SC" label="SC Seychelles" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="SL" label="SL Sierra Leone" region="Outside US, Eur., CA, Asia"/>
 <resources:Resource value="SG" label="SG Singapore" region="Asia"/>
