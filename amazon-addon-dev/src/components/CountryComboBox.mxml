@@ -22,7 +22,7 @@
 				if (selectedCountry && warningEffect.isPlaying) {
 					warningEffect.stop();
 				}
-				var obj:SharedObject=SharedObject.getLocal("Preferencies");
+				var obj:SharedObject=SharedObject.getLocal("Preferencies", "/");
 				obj.data.selectedCountry=selectedItem.value;
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
@@ -43,7 +43,7 @@
 			}
 			
 			private function getSelectedCountry():String {
-				var obj:SharedObject=SharedObject.getLocal("Preferencies");
+				var obj:SharedObject=SharedObject.getLocal("Preferencies", "/");
 				if (obj.data.hasOwnProperty("selectedCountry")) {
 					return String(obj.data.selectedCountry);
 				}
