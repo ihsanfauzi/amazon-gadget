@@ -281,7 +281,7 @@
 			
 			private function collectOffers(raw:Object):void {
 				for each(var offer:Object in raw.Offers.Offer) {
-					if (!findOffer(offer.Merchant.Name)) {
+					//if (!findOffer(offer.Merchant.Name)) {
 						var off:OfferInfoDTO=new OfferInfoDTO();
 						off.Name=offer.Merchant.Name;
 						off.Price=offer.OfferListing.Price.FormattedPrice;
@@ -292,7 +292,7 @@
 						off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
 						sendRequest(off);
 						offers.addItem(off);
-					}
+					//}
 				}
 			}
 			
