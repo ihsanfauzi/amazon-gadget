@@ -88,6 +88,7 @@ package util
 			extractMerchantID(res, sRes);
 			extractMerhantName(res, sRes);
 			extractMerhantInternational(res, sRes);
+			extractMerhantFulfilledByAmazon(res, sRes);
 		}
 		
 		private static function extractMerhantInternational(res:Object, sRes:String):void
@@ -96,6 +97,15 @@ package util
 			if (sRes && (sRes.indexOf("Domestic shipping rates") > 0 || sRes.indexOf("Domestic delivery rates") > 0 || sRes.indexOf("cknahmerichtlinien") > 0 || sRes.indexOf("dition nationale") > 0))
 			{
 				res.International=false;
+			}
+		}
+		
+		private static function extractMerhantFulfilledByAmazon(res:Object, sRes:String):void
+		{
+			res.FulfilledByAmazon=false;
+			if (sRes && sRes.indexOf("isAmazonFulfilled=1") > 0)
+			{
+				res.FulfilledByAmazon=true;
 			}
 		}
 		

@@ -288,6 +288,7 @@
 						off.MerchantId=offer.Merchant.MerchantId;
 						off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
 						off.International=offer.International;
+						off.FulfilledByAmazon=offer.FulfilledByAmazon;
 						off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
 						sendRequest(off);
 						offers.addItem(off);
@@ -369,6 +370,9 @@
 			}
 			
 			private function isAmazon(d:OfferInfoDTO):Boolean {
+				if (d.FulfilledByAmazon) {
+					return true;
+				}
 				if (d && d.Name) {
 					var host:String=Helper.getHostName();
 					if (host.indexOf(d.Name.toLowerCase()) != -1) {

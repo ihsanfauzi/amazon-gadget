@@ -18,6 +18,7 @@ package dto {
 		public var MerchantShippingURL:String;
 		public var Availability:int;
 		public var International:Boolean;
+		public var FulfilledByAmazon:Boolean;
 		//public var Weight:String="4";
 		private var _shippingPriceDTO:ShippingPriceDTO;
 		private var _MinShippingPrice:Number;
