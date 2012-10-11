@@ -73,49 +73,14 @@
 							   dataField = "MinShippingPrice"
 							   width = "110"
 							   labelFunction="priceLabelFunction"/>
-			<mx:DataGridColumn id="netPriceColumn" 
-				headerText = "Net Price"
+			<mx:DataGridColumn id = "netPriceColumn"
+							   headerText = "Net Price"
 							   dataField = "NetPrice"
 							   width = "110"
-							   labelFunction="priceLabelFunction">
+							   labelFunction = "priceLabelFunction">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:HBox width = "100%">
-							<mx:Label id = "netPriceLabel"
-									  truncateToFit = "true"
-									  useHandCursor = "true"
-									  textDecoration = "underline"
-									  buttonMode = "true"
-									  mouseChildren = "false"
-									  color = "blue"
-									  text = "{outerDocument.priceLabelFunction(data as OfferInfoDTO, outerDocument.netPriceColumn)}"
-									  click = "clickHandler(event)"
-									  toolTip = "Click to Buy"
-									  visible = "{!isNaN((data as OfferInfoDTO).NetPrice)}"
-									  includeInLayout = "{netPriceLabel.visible}"/>
-							<mx:Script>
-								<![CDATA[
-									import dto.OfferInfoDTO;
-
-									
-									import mx.controls.Image;
-									
-									import services.Helper;
-									
-									protected function clickHandler(event:MouseEvent):void {
-										var offer:OfferInfoDTO=data as OfferInfoDTO;
-										if (offer.NetPrice) {
-											var url:String=offer.BuyURL;
-											Helper.openAmazonItem(url);
-											var img:Image=new Image();
-											img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
-											img.initialize();
-										}
-									}
-								]]>
-							</mx:Script>
-
-						</mx:HBox>
+						<components:NetPriceRenderer/>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

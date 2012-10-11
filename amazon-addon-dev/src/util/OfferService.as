@@ -18,6 +18,9 @@ package util
 			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag() + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
 			res.Offers=new Object();
 			getOffers(res, content);
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceChrome.getItem(asin, content);
+			}
 			return res;
 		}
 		

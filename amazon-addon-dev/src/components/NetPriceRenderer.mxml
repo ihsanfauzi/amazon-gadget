@@ -1,0 +1,64 @@
+<mx:HBox width = "100%"
+		 xmlns:mx = "http://www.adobe.com/2006/mxml">
+	<mx:Label id = "netPriceLabel"
+			  truncateToFit = "true"
+			  useHandCursor = "true"
+			  textDecoration = "underline"
+			  buttonMode = "true"
+			  mouseChildren = "false"
+			  color = "blue"
+			  text = "{priceLabelFunction(data as OfferInfoDTO, 'NetPrice')}"
+			  click = "netPriceLabel_clickHandler(event)"
+			  toolTip = "Click to Buy"
+			  visible = "{!isNaN((data as OfferInfoDTO).NetPrice)}"
+			  includeInLayout = "{netPriceLabel.visible}"/>
+	<mx:Spacer width = "100%"/>
+	<!--mx:Label id = "addToCartLabel"
+			  truncateToFit = "true"
+			  useHandCursor = "true"
+			  textDecoration = "underline"
+			  buttonMode = "true"
+			  mouseChildren = "false"
+			  color = "blue"
+			  text = "Add"
+			  click = "addToCartLabel_clickHandler(event)"
+			  toolTip = "Add to Cart"/-->
+	<mx:Script>
+		<![CDATA[
+			import dto.OfferInfoDTO;
+			
+			import mx.controls.Image;
+			
+			import services.Helper;
+			
+			import util.UrlsService;
+			
+			public function priceLabelFunction(d:OfferInfoDTO, fieldName:String):String {
+				return priceFormatter.format(d[fieldName]);
+			}
+			
+			protected function netPriceLabel_clickHandler(event:MouseEvent):void {
+				var offer:OfferInfoDTO=data as OfferInfoDTO;
+				if (offer.NetPrice) {
+					var url:String=offer.BuyURL;
+					Helper.openAmazonItem(url);
+					var img:Image=new Image();
+					img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+					img.initialize();
+				}
+			}
+			
+			protected function addToCartLabel_clickHandler(event:MouseEvent):void {
+				var offer:OfferInfoDTO=data as OfferInfoDTO;
+				var url:String=UrlsService.createAddToCartUrl(offer.OfferListingId);
+				Helper.openAmazonItem(url);
+				
+				var img:Image=new Image();
+				img.source="http://gadget.usefulhelper.com/1x1.gif?b=addToCart&p=" + url;
+				img.initialize();
+			}
+		]]>
+	</mx:Script>
+	<mx:NumberFormatter id = "priceFormatter"
+						precision = "2"/>
+</mx:HBox>

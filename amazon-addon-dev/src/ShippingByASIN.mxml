@@ -77,6 +77,7 @@
 			
 			import util.IFrameContentService;
 			import util.OfferService;
+			import util.OfferServiceChrome;
 			
 			public static const VERSION:String = "2012.09.19.2";
 			
@@ -256,6 +257,7 @@
 					CursorManager.setBusyCursor();
 					IFrameContentService.getContent(url, function(content:String):void {
 						CursorManager.removeBusyCursor();
+						trace(content);
 						var raw:Object=OfferService.getItem(asin, content);
 						collectOffers(raw);
 						var pages:Number=raw.Offers.TotalOfferPages;
