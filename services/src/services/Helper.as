@@ -23,6 +23,10 @@ package services
 	public class Helper
 	{
 
+		public static const CONDITION_NEW = "new";
+		public static const CONDITION_USED = "used";
+		public static const CONDITION_REFURBISHED = "refurbished";
+		
 		private static const googleText:String="http://ajax.googleapis.com/ajax/services/language/";
 		private static const tsrc:String="translate?v=1.0&q=";
 		private static const lanpair:String="&langpair=";
@@ -406,9 +410,9 @@ package services
 		//ExternalInterface.call("eval", scripts);
 		}
 		
-		public static function constructPageUrl(asin:String, country:String, page:Number):String {
+		public static function constructPageUrl(asin:String, country:String, page:Number, condition:String):String {
 			var startIndex:Number=(page - 1) * 15;
-			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
+			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=" + condition;
 			return res;
 		}
 	}
