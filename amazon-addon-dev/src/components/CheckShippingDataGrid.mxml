@@ -3,15 +3,68 @@
 			 creationComplete = "creationCompleteHandler(event)">
 	<mx:Script>
 		<![CDATA[
+			import dto.OfferInfoDTO;
+			
+			import mx.controls.listClasses.ListBaseContentHolder;
+			import mx.core.FlexShape;
 			import mx.core.mx_internal;
 			import mx.events.DataGridEvent;
 			import mx.events.FlexEvent;
+			
+			import services.Helper;
 			use namespace mx_internal;
 			
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				var e:DataGridEvent=new DataGridEvent(DataGridEvent.HEADER_RELEASE);
 				e.columnIndex=3;
 				dispatchEvent(e);
+			}
+			
+			override protected function drawRowBackground(s:Sprite, rowIndex:int, y:Number, height:Number, color:uint, dataIndex:int):void {
+				var item:OfferInfoDTO;
+				if (dataIndex < dataProvider.length) {
+					item=dataProvider[dataIndex]as OfferInfoDTO;
+				}
+				
+				if (item) {
+					drawRowBackgroundInternal(s, rowIndex, y, height, color, dataIndex, item.Condition);
+				}
+				else {
+					super.drawRowBackground(s, rowIndex, y, height, color, dataIndex);
+				}
+			}
+			
+			protected function drawRowBackgroundInternal(s:Sprite, rowIndex:int, y:Number, height:Number, color:uint, dataIndex:int, condition:String):void {
+				var contentHolder:ListBaseContentHolder=ListBaseContentHolder(s.parent);
+				
+				var background:Shape;
+				if (rowIndex < s.numChildren) {
+					background=Shape(s.getChildAt(rowIndex));
+				}
+				else {
+					background=new FlexShape();
+					background.name="background";
+					s.addChild(background);
+				}
+				
+				background.y=y;
+				
+				// Height is usually as tall is the items in the row, but not if
+				// it would extend below the bottom of listContent
+				var height:Number=Math.min(height, contentHolder.height - y);
+				var newColor:uint = color;
+				var newAlpha:Number = getStyle("backgroundAlpha");
+				if (condition == Helper.CONDITION_REFURBISHED) {
+					newColor = 0xd9ecd9 & color;
+				}
+				if (condition == Helper.CONDITION_USED) {
+					newColor = 0xfbd9d9 & color;
+				}
+				var g:Graphics=background.graphics;
+				g.clear();
+				g.beginFill(newColor, newAlpha);
+				g.drawRect(0, 0, contentHolder.width, height);
+				g.endFill();
 			}
 		]]>
 	</mx:Script>

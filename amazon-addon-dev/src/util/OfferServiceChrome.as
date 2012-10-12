@@ -50,7 +50,7 @@ package util {
 		
 		private static function extractPrice(res:Object, info:String):void {
 			// <span class="price">
-			var sStart:String="<span class=\"olpPrice\">";
+			var sStart:String="<span class=\"price\">";
 			var sEnd:String="</span>";
 			var sPrice:String=subContent2(info, sStart, sEnd);
 			if (!sPrice) {

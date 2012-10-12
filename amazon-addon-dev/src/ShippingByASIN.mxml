@@ -18,18 +18,48 @@
 	<mx:Style source = "styles.css"/>
 	<resources:Resources id = "res"/>
 	<mx:HBox width = "490"
-			 horizontalAlign = "center">
+			 horizontalAlign = "center"
+			 horizontalScrollPolicy = "off">
 		<components:CountryComboBox id = "countryCombo"
-									width = "100%"
+									width = "305"
 									countries = "{getCountries()}"
 									visible = "{showBox}"
 									includeInLayout = "{showBox}"
 									changeCountry = "{changeCountryHandler()}"/>
+		<mx:CheckBox id = "newCheckBox"
+					 toolTip = "New Items"
+					 selected = "true"
+					 visible = "{showBox}"
+					 includeInLayout = "{showBox}"
+					 change = "conditionCheckBox_changeHandler(event)"/>
+		<mx:Box backgroundAlpha = "0.3"
+				backgroundColor = "red"
+				paddingLeft = "1"
+				paddingRight = "1">
+			<mx:CheckBox id = "usedCheckBox"
+						 toolTip = "Used Items"
+						 selected = "true"
+						 visible = "{showBox}"
+						 includeInLayout = "{showBox}"
+						 change="conditionCheckBox_changeHandler(event)"/>
+		</mx:Box>
+		<mx:Box backgroundAlpha = "0.3"
+				backgroundColor = "green"
+				paddingLeft = "1"
+				paddingRight = "1">
+			<mx:CheckBox id = "refurbishedCheckBox"
+						 toolTip = "Refurbished Items"
+						 selected = "true"
+						 visible = "{showBox}"
+						 includeInLayout = "{showBox}"
+						 change="conditionCheckBox_changeHandler(event)"/>
+		</mx:Box>
 		<mx:Button id = "checkShippingButton"
 				   label = "{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click = "checkShippingButton_clickHandler(event)"
 				   enabled = "{!showBox || countryCombo.selectedCountry}"/>
 		<mx:Button id = "collapseButton"
+				   width = "10"
 				   label = "-"
 				   visible = "{showBox}"
 				   click = "collapseButton_clickHandler(event)"
@@ -79,7 +109,7 @@
 			import util.OfferService;
 			import util.OfferServiceChrome;
 			
-			public static const VERSION:String = "2012.09.19.2";
+			public static const VERSION:String="2012.09.19.2";
 			
 			[Bindable]
 			private var asin:String;
@@ -127,17 +157,17 @@
 				if (!d) {
 					ExternalInterface.call("replaceCookies");
 					
-//					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
-//					IFrameContentService.pingUrl(getAmazonSiteWithAsinAndTag());
+					//					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag(), function(...o):void {});
+					//					IFrameContentService.pingUrl(getAmazonSiteWithAsinAndTag());
 					
 					var img1:Image=new Image();
 					img1.source=getAmazonSiteWithAsinAndTag();
 					img1.initialize();
-
+					
 					setDeleted();
-//					var img:Image=new Image();
-//					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
-//					img.initialize();
+					//					var img:Image=new Image();
+					//					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
+					//					img.initialize();
 					
 					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?asn=" + asin + "&check=" + checkSharedObject() + "&dd=" + getDeletedDate() + "&version=" + VERSION);
 				}
@@ -181,14 +211,15 @@
 			
 			private function checkSharedObject():String {
 				try {
-					var checkStr:String = "Check";
+					var checkStr:String="Check";
 					var obj:SharedObject=SharedObject.getLocal(checkStr);
 					obj.data["date_" + Helper.getAWSDomain()]=new Date();
 					obj.flush();
 					obj=SharedObject.getLocal(checkStr);
-					var d:Date = obj.data["date_" + Helper.getAWSDomain()] as Date;
-					return d?d.toString():"date_null";
-				} catch (e:Error) {
+					var d:Date=obj.data["date_" + Helper.getAWSDomain()]as Date;
+					return d ? d.toString() : "date_null";
+				}
+				catch(e:Error) {
 					return "error:" + e.message;
 				}
 				return null;
@@ -198,12 +229,14 @@
 				try {
 					var obj:SharedObject=SharedObject.getLocal("Deleted", "/");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
-						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
-						return date?date.toString():"nodate";
-					} else {
+						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()])as Date;
+						return date ? date.toString() : "nodate";
+					}
+					else {
 						return "noprop_" + Helper.getAWSDomain();
 					}
-				} catch (e:Error) {
+				}
+				catch(e:Error) {
 					return "error";
 				}
 				return null;
@@ -213,7 +246,7 @@
 				try {
 					var obj:SharedObject=SharedObject.getLocal("Deleted", "/");
 					if (obj.data.hasOwnProperty("date_" + Helper.getAWSDomain())) {
-						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()]) as Date;
+						var date:Date=ObjectUtil.copy(obj.data["date_" + Helper.getAWSDomain()])as Date;
 						var now:Date=new Date();
 						if (now < date) {
 							return false;
@@ -237,8 +270,9 @@
 			private function getAmazonSiteWithAsinAndTag():String {
 				var site:String=Helper.getHostName();
 				if (asin) {
-					return "http://" + site + "/dp/"+asin+"/?tag=" + Helper.getTag();
-				} else {
+					return "http://" + site + "/dp/" + asin + "/?tag=" + Helper.getTag();
+				}
+				else {
 					return "http://" + site + "/?tag=" + Helper.getTag();
 				}
 			}
@@ -252,48 +286,54 @@
 				offers.removeAll();
 				if (countryCombo.selectedCountry) {
 					region=countryCombo.selectedCountry.region;
-					var asin:String=ExternalInterface.call("getCurrentASIN");
-					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1);
-					CursorManager.setBusyCursor();
-					IFrameContentService.getContent(url, function(content:String):void {
-						CursorManager.removeBusyCursor();
-						trace(content);
-						var raw:Object=OfferService.getItem(asin, content);
-						collectOffers(raw);
-						var pages:Number=raw.Offers.TotalOfferPages;
-						retrieveAllPages(pages);
-					});
+					retrieveAllPages(Helper.CONDITION_NEW);
+					retrieveAllPages(Helper.CONDITION_USED);
+					retrieveAllPages(Helper.CONDITION_REFURBISHED);
 				}
 			}
 			
-			private function retrieveAllPages(pages:Number):void {
+			private function retrieveAllPages(condition:String):void {
+				var asin:String=ExternalInterface.call("getCurrentASIN");
+				var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), 1, condition);
+				CursorManager.setBusyCursor();
+				IFrameContentService.getContent(url, function(content:String):void {
+					CursorManager.removeBusyCursor();
+					var raw:Object=OfferService.getItem(asin, content);
+					collectOffers(raw, condition);
+					var pages:Number=raw.Offers.TotalOfferPages;
+					retrieveRestPages(pages, condition);
+				});
+			}
+			
+			private function retrieveRestPages(pages:Number, condition:String):void {
 				if (pages <= 1) {
 					return ;
 				}
 				for(var i:int=2; i <= pages; i++) {
 					var asin:String=ExternalInterface.call("getCurrentASIN");
-					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i);
+					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i, condition);
 					IFrameContentService.getContent(url, function(content:String):void {
 						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItem(asin, content);
-						collectOffers(raw);
+						collectOffers(raw, condition);
 					});
 				}
 			}
 			
-			private function collectOffers(raw:Object):void {
+			private function collectOffers(raw:Object, condition:String):void {
 				for each(var offer:Object in raw.Offers.Offer) {
 					//if (!findOffer(offer.Merchant.Name)) {
-						var off:OfferInfoDTO=new OfferInfoDTO();
-						off.Name=offer.Merchant.Name;
-						off.Price=offer.OfferListing.Price.FormattedPrice;
-						off.MerchantId=offer.Merchant.MerchantId;
-						off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
-						off.International=offer.International;
-						off.FulfilledByAmazon=offer.FulfilledByAmazon;
-						off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
-						sendRequest(off);
-						offers.addItem(off);
+					var off:OfferInfoDTO=new OfferInfoDTO();
+					off.Condition=condition;
+					off.Name=offer.Merchant.Name;
+					off.Price=offer.OfferListing.Price.FormattedPrice;
+					off.MerchantId=offer.Merchant.MerchantId;
+					off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
+					off.International=offer.International;
+					off.FulfilledByAmazon=offer.FulfilledByAmazon;
+					off.MerchantShippingURL="http://www.amazon." + Helper.getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
+					sendRequest(off);
+					offers.addItem(off);
 					//}
 				}
 			}
@@ -387,6 +427,26 @@
 			protected function reportIssueLabel_clickHandler(event:MouseEvent):void {
 				var urlRequest:URLRequest=new URLRequest("http://code.google.com/p/amazon-gadget/issues/entry");
 				navigateToURL(urlRequest, '_blank');
+			}
+			
+			protected function conditionCheckBox_changeHandler(event:Event):void {
+				if (offers) {
+					offers.filterFunction=offersFilterFunction;
+					offers.refresh();
+				}
+			}
+			
+			private function offersFilterFunction(item:OfferInfoDTO):Boolean {
+				if (item.Condition == Helper.CONDITION_NEW) {
+					return newCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_REFURBISHED) {
+					return refurbishedCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_USED) {
+					return usedCheckBox.selected;
+				}
+				return false;
 			}
 		]]>
 	</mx:Script>

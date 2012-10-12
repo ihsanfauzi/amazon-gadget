@@ -20,6 +20,7 @@ package dto {
 		public var International:Boolean;
 		public var FulfilledByAmazon:Boolean;
 		public var OfferListingId:String
+		public var Condition:String=Helper.CONDITION_NEW;
 		//public var Weight:String="4";
 		private var _shippingPriceDTO:ShippingPriceDTO;
 		private var _MinShippingPrice:Number;
