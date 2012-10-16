@@ -30,6 +30,11 @@ package dto {
 		public function OfferInfoDTO() {
 		}
 		
+		public function get PriceNumber():Number {
+			var n:Number = toNumber(Price);
+			return n?toMoney(n):n;
+		}
+
 		public function get NetPrice():Number {
 			return _NetPrice;
 		}

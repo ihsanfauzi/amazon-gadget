@@ -67,8 +67,9 @@
 				</mx:itemRenderer>
 			</mx:DataGridColumn>
 			<mx:DataGridColumn headerText = "Price"
-							   dataField = "Price"
-							   width = "110"/>
+							   dataField = "PriceNumber"
+							   width = "110"
+							   labelFunction="priceLabelFunction"/>
 			<mx:DataGridColumn headerText = "Min Shipping Price"
 							   dataField = "MinShippingPrice"
 							   width = "110"
