@@ -198,8 +198,8 @@
 				if (showBox) {
 					h=h > 130 ? h : 130;
 				}
-				ExternalInterface.call("setApplicationHeight", h);
-				ExternalInterface.call("setApplicationWidth", w);
+				ExternalInterface.call("setApplicationHeight", h + "px");
+				ExternalInterface.call("setApplicationWidth", w + "px");
 				
 			}
 			
