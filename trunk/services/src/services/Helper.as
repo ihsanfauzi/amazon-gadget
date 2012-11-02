@@ -67,7 +67,7 @@ package services
 
 		public static function createMerchantItemURL(searchItemDTO:SearchItemDTO, offer:OfferDTO):String
 		{
-			return searchItemDTO.url + encodeURIComponent("&m=" + offer.merchantID);
+			return searchItemDTO.url + encodeURIComponent("/ref=?m=" + offer.merchantID);
 		}
 
 		public static function parseAmazonSearchResults(searchDTO:SearchDTO, items:ArrayCollection):SearchDTO
