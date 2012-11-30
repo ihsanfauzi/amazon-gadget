@@ -14,7 +14,12 @@ setApplicationWidth = function(width) {
 };
 
 getCurrentASIN = function() {
-	return document.getElementById("ASIN").value;
+	var e = document.getElementById("ASIN");
+	if (!e) {
+		var es = document.getElementsByName("ASIN");
+		e = es[0];
+	}
+	return e.value;
 };
 // this fixes an issue with the old method, ambiguous values
 // with this test current_document.cookie.indexOf( name + "=" );
