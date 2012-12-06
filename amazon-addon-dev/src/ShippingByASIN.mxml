@@ -252,7 +252,8 @@
 							return false;
 						}
 						//date.minutes=date.minutes + 1;
-						date.date=date.date + 1;
+						//date.date=date.date + 1;
+						date.hours=date.hours + 12;
 						if (now > date) {
 							return false;
 						}
