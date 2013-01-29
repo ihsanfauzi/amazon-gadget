@@ -183,7 +183,13 @@ package dto {
 			var sw:String = subContent2(content, "Shipping Weight:", "pounds");
 			if (sw) {
 				return toNumber(sw);				
-			}  
+			}
+			
+			var sw:String = subContent2(content, "Product Dimensions:", "pounds");
+			if (sw) {
+				var res:Number = toNumber(sw);
+				return res;				
+			}
 			
 			var w:Number = extractKgOrG(content, ["Boxed-product Weight:"]);
 			if (w) {
