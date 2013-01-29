@@ -191,6 +191,20 @@ package dto {
 				return res;				
 			}
 			
+			var sw:String = subContent2(content, "Item Weight:", "pounds");
+			if (sw) {
+				var res:Number = toNumber(sw);
+				return res;				
+			}
+			var sw:String = subContent2(content, "Item Weight:", "ounces");
+			if (sw) {
+				var res:Number = toNumber(sw);
+				if (res) {
+					res = 0.0625 * res;
+				}
+				return res;				
+			}
+			
 			var w:Number = extractKgOrG(content, ["Boxed-product Weight:"]);
 			if (w) {
 				return w;
