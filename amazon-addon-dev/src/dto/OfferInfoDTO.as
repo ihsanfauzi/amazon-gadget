@@ -173,48 +173,59 @@ package dto {
 		}
 		
 		private static function getWeight():Number {
+			var ret:Number = 0;
 			var content:String=ExternalInterface.call("getDocumentHTML");
 
 			var w:Number = extractKgOrG(content, ["Produktgewicht inkl. Verpackung:"], "EUR");
 			if (w) {
-				return w;
+				ret = w;
 			}
 			
 			var sw:String = subContent2(content, "Shipping Weight:", "pounds");
 			if (sw) {
-				return toNumber(sw);				
+				ret = toNumber(sw);				
 			}
 			
 			var sw:String = subContent2(content, "Product Dimensions:", "pounds");
 			if (sw) {
 				var res:Number = toNumber(sw);
-				return res;				
+				ret = res;				
 			}
 			
 			var sw:String = subContent2(content, "Item Weight:", "pounds");
 			if (sw) {
 				var res:Number = toNumber(sw);
-				return res;				
+				ret = res;				
 			}
+
+			var sw:String = subContent2(content, "Product Dimensions:", "ounces");
+			if (sw) {
+				var res:Number = toNumber(sw);
+				if (res) {
+					res = 0.0625 * res;
+				}
+				ret = res;				
+			}
+
 			var sw:String = subContent2(content, "Item Weight:", "ounces");
 			if (sw) {
 				var res:Number = toNumber(sw);
 				if (res) {
 					res = 0.0625 * res;
 				}
-				return res;				
+				ret = res;				
 			}
 			
 			var w:Number = extractKgOrG(content, ["Boxed-product Weight:"]);
 			if (w) {
-				return w;
+				ret = w;
 			}
 
 			var w:Number = extractKgOrG(content, ["Poids de l'article:", "Poids:", "Dimensions du produit:", "Produktgewicht inkl. Verpackung:"], "EUR");
 			if (w) {
-				return w;
+				ret = w;
 			}
-			return 0;
+			return ret > 1 ? ret : 1;
 		}
 
 
