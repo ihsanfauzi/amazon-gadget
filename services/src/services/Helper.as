@@ -246,7 +246,9 @@ package services
 			requestBytes.writeUTFBytes(parameterString);
 			keyBytes.writeUTFBytes(amazonSecretAccessKey);
 			hmacBytes=hmac.compute(keyBytes, requestBytes);
-			encoder.encodeBytes(hmacBytes);
+			
+			//TODO Uncomment this !!!!!!!!!
+			//encoder.encodeBytes(hmacBytes);
 			request.Signature=encoder.toString();
 		}
 
@@ -287,9 +289,9 @@ package services
 		public static function parseTranslateResults(event:ResultEvent):String
 		{
 			var rawData:String=String(event.result);
-			if (JSON.decode(rawData).responseData.translatedText != null)
+			if (com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText != null)
 			{
-				var decoded:String=JSON.decode(rawData).responseData.translatedText;
+				var decoded:String=com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText;
 			}
 			else
 			{
