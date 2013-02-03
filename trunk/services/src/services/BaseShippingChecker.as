@@ -50,7 +50,7 @@ package services
 		{
 			var query:String=event.token.query;
 			trace(query);
-			var dec:Object=JSON.decode(event.result as String);
+			var dec:Object=com.adobe.serialization.json.JSON.decode(event.result as String);
 			var results:Array=dec.responseData.results as Array;
 			if (results.length == 0)
 			{
@@ -78,7 +78,7 @@ package services
 		{
 			var query:String=event.token.query;
 			trace(query);
-			var dec:Object=JSON.decode(event.result as String);
+			var dec:Object=com.adobe.serialization.json.JSON.decode(event.result as String);
 			var results:Array=dec.responseData.results as Array;
 			this.shippingCode=analyzeContentPhase2(results);
 			resultHandler();
