@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" 
+    class="flex.messaging.services.RemotingService">
+
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+
+	<destination id="amazon.check.shipping.OfferService">
+        <properties>
+                <source>amazon.check.shipping.OfferService</source>
+                <scope>application</scope>
+        </properties>
+    </destination>
+    	<destination id="amazon.check.shipping.ShippingService">
+        <properties>
+                <source>amazon.check.shipping.ShippingService</source>
+                <scope>application</scope>
+        </properties>
+    </destination>
+</service>
