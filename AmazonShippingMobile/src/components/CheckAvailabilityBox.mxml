@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:components="components.*"
+		  xmlns:renderers="components.renderers.*">
+	<fx:Declarations>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			private var _offers:ArrayCollection=new ArrayCollection();
+			[Bindable]
+			public var region:String;
+			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
+			public static var LOADING : Class;
+			[Bindable]
+			public function get offers():ArrayCollection
+			{
+				return _offers;
+			}
+			public function set offers(value:ArrayCollection):void
+			{
+				_offers = value;
+			}
+		]]>
+	</fx:Script>
+	<components:CheckShippingList id="datagrid"
+								  width="100%"
+								  height="100%"
+								  dataProvider="{offers}">
+		<components:itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer alternatingItemColors="{[0xFFFFFF, 0xdcdcdc]}">
+					<renderers:CheckShippingListRenderer offer="{data as OfferInfoDTO}">
+						<fx:Script>
+							<![CDATA[
+								import dto.OfferInfoDTO;
+							]]>
+						</fx:Script>
+					</renderers:CheckShippingListRenderer>
+				</s:ItemRenderer>
+			</fx:Component>
+		</components:itemRenderer>
+	</components:CheckShippingList>
+</s:VGroup>

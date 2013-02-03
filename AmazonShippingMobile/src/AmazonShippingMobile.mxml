@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   applicationDPI="160"
+			   width="100%"
+			   height="100%"
+			   xmlns:components="components.*"
+			   xmlns:resources="resources.*"
+			   creationComplete="creationCompleteHandler(event)">
+	<fx:Style source="styles.css"/>
+	<fx:Declarations>
+		<resources:Resources id="res"/>
+		<s:RemoteObject id="checker"
+						destination="amazon.check.shipping.ShippingService"
+						showBusyCursor="true"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.managers.CursorManager;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.mxml.HTTPService;
+			import dto.OfferInfoDTO;
+			import dto.ShippingDTO;
+			import dto.ShippingPriceDTO;
+			import services.BaseShippingChecker;
+			import services.Helper;
+			import util.OfferService;
+			[Bindable]
+			private var offers:ArrayCollection=new ArrayCollection();
+			[Bindable]
+			private var asin:String;
+			[Bindable]
+			private var showBox:Boolean=true;
+			[Bindable]
+			private var region:String;
+			private function getCountries():Array {
+				var ad:String = getAWSDomain();
+				switch(ad) {
+					case "com":
+						return res.countries_us;
+					case "de":
+						return res.countries_de;
+					case "co.uk":
+						return res.countries_uk;
+					case "fr":
+						return res.countries_fr;
+				}
+				return null;
+			}
+			private function changeCountryHandler():void {
+				region=countryCombo.selectedCountry.region;
+			}
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				asin=getCurrentASIN();
+			}
+			protected function checkShippingButton_clickHandler(event:MouseEvent):void
+			{
+				showBox=true;
+				offers.removeAll();
+				if (countryCombo.selectedCountry) {
+					region=countryCombo.selectedCountry.region;
+					retrieveAllPages(Helper.CONDITION_NEW);
+					retrieveAllPages(Helper.CONDITION_USED);
+					retrieveAllPages(Helper.CONDITION_REFURBISHED);
+				}
+			}
+			private function retrieveAllPages(condition:String):void {
+				var asin:String=getCurrentASIN();
+				var url:String=Helper.constructPageUrl(asin, getAWSDomain(), 1, condition);
+				CursorManager.setBusyCursor();
+				getContent(url, function(content:String):void {
+					CursorManager.removeBusyCursor();
+					var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);
+					collectOffers(raw, condition);
+					var pages:Number=raw.Offers.TotalOfferPages;
+					retrieveRestPages(pages, condition);
+				});
+			}
+			private function retrieveRestPages(pages:Number, condition:String):void {
+				if (pages <= 1) {
+					return ;
+				}
+				for(var i:int=2; i <= pages; i++) {
+					var asin:String=ExternalInterface.call("getCurrentASIN");
+					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i, condition);
+					getContent(url, function(content:String):void {
+						CursorManager.removeBusyCursor();
+						var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);
+						collectOffers(raw, condition);
+					});
+				}
+			}
+			private function collectOffers(raw:Object, condition:String):void {
+				for each(var offer:Object in raw.Offers.Offer) {
+					//if (!findOffer(offer.Merchant.Name)) {
+					var off:OfferInfoDTO=new OfferInfoDTO();
+					off.Condition=condition;
+					off.Name=offer.Merchant.Name;
+					off.Price=offer.OfferListing.Price.FormattedPrice;
+					off.MerchantId=offer.Merchant.MerchantId;
+					off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
+					off.International=offer.International;
+					off.FulfilledByAmazon=offer.FulfilledByAmazon;
+					off.MerchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
+					sendRequest(off);
+					offers.addItem(off);
+					//}
+				}
+			}
+			public function sendRequest(offer:OfferInfoDTO):void {
+				if (offer.Availability > 0) {
+					return ;
+				}
+				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
+				var local:Boolean=isLocal();
+				var main:Boolean=isMain();
+				var amazon:Boolean=isAmazon(offer);
+				if (offer.International || local) {
+					var a:AsyncToken=checker.checkShipping(offer.MerchantId, getHostName(), region);
+					a.addResponder(new mx.rpc.Responder(function(event:ResultEvent):void {
+						ShippingPriceDTO;
+						var shippingDTO:ShippingDTO=event.result as ShippingDTO;
+						if (!shippingDTO) {
+							offer.Availability=BaseShippingChecker.SHIPPING_NA;
+							if (main || amazon) {
+								offer.Availability=BaseShippingChecker.SHIPPING_OK;
+							}
+							return ;
+						}
+						offer.Availability=shippingDTO.availability;
+						if (offer.Availability == BaseShippingChecker.SHIPPING_OK) {
+							offer.shippingPriceDTO=shippingDTO.shippingPrice;
+						}
+						if (main || amazon) {
+							offer.Availability=BaseShippingChecker.SHIPPING_OK;
+						}
+					}, function(... o):void {
+						offer.Availability=BaseShippingChecker.SHIPPING_NA;
+						if (main || amazon) {
+							offer.Availability=BaseShippingChecker.SHIPPING_OK;
+						}
+					}));
+				}
+				else {
+					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
+					if (amazon) {
+						offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					}
+				}
+			}
+			private function isLocal():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain")) {
+					var host:String=getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function isMain():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain") && item.hasOwnProperty("main")) {
+					var host:String=getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function isAmazon(d:OfferInfoDTO):Boolean {
+				if (d.FulfilledByAmazon) {
+					return true;
+				}
+				if (d && d.Name) {
+					var host:String=getHostName();
+					if (host.indexOf(d.Name.toLowerCase()) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function getContent(url:String, callback:Function):void	{
+				var service:HTTPService = new HTTPService();
+				service.url = url;
+				service.method = "GET";
+				service.resultFormat = "text";
+				service.showBusyCursor=true;
+				service.addEventListener(ResultEvent.RESULT,
+					function(event:ResultEvent):void {
+						callback(event.result as String);
+					});
+				var t:AsyncToken = service.send();
+			}
+			private function getCurrentASIN():String {
+				return "B0072LGIYM";
+			}
+			private function getAWSDomain():String {
+				return "com";
+			}
+			private function getHostName():String {
+				return "amazon.com";
+			}
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%"
+			  height="100%"
+			  horizontalAlign="center"
+			  paddingBottom="5"
+			  paddingLeft="5"
+			  paddingRight="5"
+			  paddingTop="5">
+		<s:HGroup width="100%">
+			<components:CountryComboBox id="countryCombo"
+										width="250"
+										countries="{getCountries()}"
+										visible="{showBox}"
+										includeInLayout="{showBox}"
+										changeCountry="{changeCountryHandler()}"/>
+			<s:CheckBox id="newCheckBox"
+						toolTip="New Items"
+						selected="true"
+						visible="{showBox}"
+						includeInLayout="{showBox}"/>
+			<s:Group>
+				<s:Rect width="100%"
+						height="100%">
+					<s:fill>
+						<s:SolidColor color="0xFF0000"
+									  alpha="0.3"/>
+					</s:fill>
+				</s:Rect>
+				<s:CheckBox id="usedCheckBox"
+							toolTip="Used Items"
+							selected="true"
+							visible="{showBox}"
+							includeInLayout="{showBox}"/>
+			</s:Group>
+			<s:Group>
+				<s:Rect width="100%"
+						height="100%">
+					<s:fill>
+						<s:SolidColor color="0x00FF00"
+									  alpha="0.3"/>
+					</s:fill>
+				</s:Rect>
+				<s:CheckBox id="refurbishedCheckBox"
+							toolTip="Refurbished Items"
+							selected="true"
+							visible="{showBox}"
+							includeInLayout="{showBox}"/>
+			</s:Group>
+			<s:Button id="checkShippingButton"
+					  label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+					  enabled="{!showBox || countryCombo.selectedCountry}"
+					  click="checkShippingButton_clickHandler(event)"/>
+		</s:HGroup>
+		<components:CheckAvailabilityBox offers="{offers}"
+										 width="100%"
+										 height="100%"/>
+	</s:VGroup>
+</s:Application>

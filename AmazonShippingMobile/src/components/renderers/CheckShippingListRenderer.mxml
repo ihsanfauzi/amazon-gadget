@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx">
+	<s:Rect width="100%"
+			height="100%"
+			visible="{false}"
+			includeInLayout="{false}">
+		<s:fill>
+			<s:SolidColor color="0xFF0000"
+						  alpha="0.3"/>
+		</s:fill>
+	</s:Rect>
+	<fx:Declarations>
+		<mx:NumberFormatter id="priceFormatter"
+							precision="2"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import dto.OfferInfoDTO;
+			import services.Helper;
+			private var _offer:OfferInfoDTO;
+			[Bindable]
+			public function get offer():OfferInfoDTO
+			{
+				return _offer;
+			}
+			public function set offer(value:OfferInfoDTO):void
+			{
+				_offer = value;
+			}
+			protected function clickHandler(event:MouseEvent):void {
+				var url:String=offer.BuyURL;
+				Helper.openAmazonItem(url);
+			}
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%"
+			  paddingTop="5"
+			  paddingBottom="5">
+		<s:Label useHandCursor="true"
+				 width="200"
+				 textDecoration="underline"
+				 buttonMode="true"
+				 mouseChildren="false"
+				 color="blue"
+				 text="{offer.Name}"
+				 click="clickHandler(event)"
+				 toolTip="{offer.Name}"/>
+		<s:Label textAlign="right"
+				 width="80"
+				 text="{priceFormatter.format(offer.PriceNumber)}"/>
+		<s:Label textAlign="right"
+				 width="80"
+				 text="{priceFormatter.format(offer.MinShippingPrice)}"/>
+	</s:HGroup>
+</s:Group>
