@@ -19,6 +19,15 @@ package util {
 			return res;
 		}
 		
+		public static function getItemBySite(site:String, asin:String, content:String):Object {
+			var res:Object=new Object();
+			res.ASIN=asin;
+			res.DetailPageURL="http://" + site + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTagBySite(site) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
+			res.Offers=new Object();
+			getOffers(res, content);
+			return res;
+		}
+		
 		private static function getOffers(item:Object, content:String):Array {
 			var res:Array=[];
 			item.Offers.Offer=extractOffers(content);

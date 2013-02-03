@@ -159,6 +159,11 @@ package services
 		public static function getTag():String
 		{
 			var site:String=getHostName();
+			return getTagBySite(site);
+		}
+		
+		public static function getTagBySite(site:String):String
+		{
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
 			}
