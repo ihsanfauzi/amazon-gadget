@@ -220,7 +220,7 @@
 				var t:AsyncToken = service.send();
 			}
 			private function getHostName():String {
-				return "www.amazon" + getAWSDomain();
+				return "www.amazon." + getAWSDomain();
 			}
 			protected function checker_resultHandler(event:ResultEvent):void {
 				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
@@ -272,11 +272,13 @@
 		<s:HGroup width="100%">
 			<components:CountryComboBox id="countryCombo"
 										width="250"
+										height="33"
 										countries="{getCountries()}"
 										visible="{showBox}"
 										includeInLayout="{showBox}"
 										changeCountry="{changeCountryHandler()}"/>
 			<s:CheckBox id="newCheckBox"
+						height="33"
 						toolTip="New Items"
 						selected="true"
 						visible="{showBox}"
@@ -290,6 +292,7 @@
 					</s:fill>
 				</s:Rect>
 				<s:CheckBox id="usedCheckBox"
+							height="33"
 							toolTip="Used Items"
 							selected="true"
 							visible="{showBox}"
@@ -304,12 +307,14 @@
 					</s:fill>
 				</s:Rect>
 				<s:CheckBox id="refurbishedCheckBox"
+							height="33"
 							toolTip="Refurbished Items"
 							selected="true"
 							visible="{showBox}"
 							includeInLayout="{showBox}"/>
 			</s:Group>
 			<s:Button id="checkShippingButton"
+					  height="33"
 					  label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 					  enabled="{!showBox || countryCombo.selectedCountry}"
 					  click="checkShippingButton_clickHandler(event)"/>
