@@ -6,7 +6,8 @@
 						   dataProvider="{new ArrayList(countries)}"
 						   prompt="Select Your Country"
 						   change="changeHandler(event)"
-						   creationComplete="creationCompleteHandler(event)" xmlns:resources="resources.*">
+						   creationComplete="creationCompleteHandler(event)"
+						   xmlns:resources="resources.*">
 	<fx:Metadata>
 		[Event (name="changeCountry", type="flash.events.Event")]
 	</fx:Metadata>
@@ -14,14 +15,12 @@
 		<![CDATA[
 			import mx.collections.ArrayList;
 			import mx.events.FlexEvent;
-			
 			import spark.events.IndexChangeEvent;
 			[Bindable]
 			public var selectedCountry:Object;
 			[Bindable]
 			public var countries:Array;
-			protected function changeHandler(event:IndexChangeEvent):void
-			{
+			protected function changeHandler(event:IndexChangeEvent):void {
 				selectedCountry=selectedItem;
 				if (selectedCountry && warningEffect.isPlaying) {
 					warningEffect.stop();
@@ -32,8 +31,7 @@
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
 			}
-			protected function creationCompleteHandler(event:FlexEvent):void
-			{
+			protected function creationCompleteHandler(event:FlexEvent):void {
 				if (countries) {
 					countries.sortOn("label");
 				}
@@ -82,6 +80,7 @@
 		<s:GlowFilter id="glow"
 					  blurX="20"
 					  blurY="20"
-					  color="0xFF0000"/>
+					  color="0xFF0000"
+					  alpha="0"/>
 	</dropDownList:filters>
 </dropDownList:DropDownList>

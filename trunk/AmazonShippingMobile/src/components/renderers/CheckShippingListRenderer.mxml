@@ -27,12 +27,10 @@
 			
 			private var _offer:OfferInfoDTO;
 			[Bindable]
-			public function get offer():OfferInfoDTO
-			{
+			public function get offer():OfferInfoDTO {
 				return _offer;
 			}
-			public function set offer(value:OfferInfoDTO):void
-			{
+			public function set offer(value:OfferInfoDTO):void {
 				_offer = value;
 			}
 			protected function clickHandler(event:MouseEvent):void {
