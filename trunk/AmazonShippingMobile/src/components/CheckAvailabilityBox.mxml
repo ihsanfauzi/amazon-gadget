@@ -22,6 +22,12 @@
 			}
 		]]>
 	</fx:Script>
+	<s:HGroup>
+		<s:Label text="Name"/>
+		<s:Label text="Price"/>
+		<s:Label text="Shipping"/>
+		<s:Label text="Net"/>
+	</s:HGroup>
 	<components:CheckShippingList id="datagrid"
 								  width="100%"
 								  height="100%"
