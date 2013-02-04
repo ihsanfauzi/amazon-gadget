@@ -12,14 +12,18 @@
 		<resources:Resources id="res"/>
 		<s:RemoteObject id="checker"
 						destination="amazon.check.shipping.ShippingService"
-						showBusyCursor="true"/>
+						showBusyCursor="true"
+						result="checker_resultHandler(event)"
+						fault="checker_faultHandler(event)"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.collections.Sort;
 			import mx.events.FlexEvent;
 			import mx.managers.CursorManager;
 			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.mxml.HTTPService;
 			import dto.OfferInfoDTO;
@@ -56,16 +60,56 @@
 			protected function creationCompleteHandler(event:FlexEvent):void
 			{
 				asin=getCurrentASIN();
+				offers.sort = new Sort();
+				offers.sort.compareFunction = offersCompareFunction;
+			}
+			private function offersCompareFunction(o1:OfferInfoDTO, o2:OfferInfoDTO, ...o):Number {
+				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
+					if (o1.NetPrice && o2.NetPrice) {
+						if (o1.NetPrice > o2.NetPrice) {
+							return 1;
+						} else if (o1.NetPrice < o2.NetPrice) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}
+					if (o1.NetPrice && !o2.NetPrice) {
+						return -1;
+					}
+					if (!o1.NetPrice && o2.NetPrice) {
+						return 1;
+					}
+				}
+				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability != BaseShippingChecker.SHIPPING_OK) {
+					return -1;
+				}
+				if (o1.Availability != BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
+					return 1;
+				}
+				if (o1.PriceNumber  && o2.PriceNumber) {
+					if (o1.PriceNumber > o2.PriceNumber) {
+						return 1;
+					}
+					if (o1.PriceNumber < o2.PriceNumber) {
+						return -1;
+					}
+				}
+				return 0;
 			}
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void
 			{
 				showBox=true;
 				offers.removeAll();
 				if (countryCombo.selectedCountry) {
-					region=countryCombo.selectedCountry.region;
-					retrieveAllPages(Helper.CONDITION_NEW);
-					retrieveAllPages(Helper.CONDITION_USED);
-					retrieveAllPages(Helper.CONDITION_REFURBISHED);
+					var asin:String=getCurrentASIN();
+					getContent(Helper.constructProductUrl(asin, getAWSDomain()), function(content:String):void {
+						OfferInfoDTO.htmlContent=content;
+						region=countryCombo.selectedCountry.region;
+						retrieveAllPages(Helper.CONDITION_NEW);
+						retrieveAllPages(Helper.CONDITION_USED);
+						retrieveAllPages(Helper.CONDITION_REFURBISHED);
+					});
 				}
 			}
 			private function retrieveAllPages(condition:String):void {
@@ -85,7 +129,7 @@
 					return ;
 				}
 				for(var i:int=2; i <= pages; i++) {
-					var asin:String=ExternalInterface.call("getCurrentASIN");
+					var asin:String=getCurrentASIN();
 					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i, condition);
 					getContent(url, function(content:String):void {
 						CursorManager.removeBusyCursor();
@@ -121,29 +165,9 @@
 				var amazon:Boolean=isAmazon(offer);
 				if (offer.International || local) {
 					var a:AsyncToken=checker.checkShipping(offer.MerchantId, getHostName(), region);
-					a.addResponder(new mx.rpc.Responder(function(event:ResultEvent):void {
-						ShippingPriceDTO;
-						var shippingDTO:ShippingDTO=event.result as ShippingDTO;
-						if (!shippingDTO) {
-							offer.Availability=BaseShippingChecker.SHIPPING_NA;
-							if (main || amazon) {
-								offer.Availability=BaseShippingChecker.SHIPPING_OK;
-							}
-							return ;
-						}
-						offer.Availability=shippingDTO.availability;
-						if (offer.Availability == BaseShippingChecker.SHIPPING_OK) {
-							offer.shippingPriceDTO=shippingDTO.shippingPrice;
-						}
-						if (main || amazon) {
-							offer.Availability=BaseShippingChecker.SHIPPING_OK;
-						}
-					}, function(... o):void {
-						offer.Availability=BaseShippingChecker.SHIPPING_NA;
-						if (main || amazon) {
-							offer.Availability=BaseShippingChecker.SHIPPING_OK;
-						}
-					}));
+					a.offer = offer;
+					a.amazon = amazon;
+					a.main = main;
 				}
 				else {
 					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
@@ -203,7 +227,38 @@
 				return "com";
 			}
 			private function getHostName():String {
-				return "amazon.com";
+				return "www.amazon.com";
+			}
+			protected function checker_resultHandler(event:ResultEvent):void {
+				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
+				var main:Boolean = event.token.main as Boolean;
+				var amazon:Boolean = event.token.amazon as Boolean;
+				var shippingDTO:ShippingDTO=event.result as ShippingDTO;
+				if (!shippingDTO) {
+					offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					if (main || amazon) {
+						offer.Availability=BaseShippingChecker.SHIPPING_OK;
+					}
+					offers.refresh();
+					return ;
+				}
+				offer.Availability=shippingDTO.availability;
+				if (offer.Availability == BaseShippingChecker.SHIPPING_OK) {
+					offer.shippingPriceDTO=shippingDTO.shippingPrice;
+				}
+				if (main || amazon) {
+					offer.Availability=BaseShippingChecker.SHIPPING_OK;
+				}
+				offers.refresh();
+			}
+			protected function checker_faultHandler(event:FaultEvent):void {
+				var main:Boolean = event.token.main as Boolean;
+				var amazon:Boolean = event.token.amazon as Boolean;
+				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
+				offer.Availability=BaseShippingChecker.SHIPPING_NA;
+				if (main || amazon) {
+					offer.Availability=BaseShippingChecker.SHIPPING_OK;
+				}
 			}
 		]]>
 	</fx:Script>
