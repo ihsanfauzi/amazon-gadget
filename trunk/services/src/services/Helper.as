@@ -422,6 +422,11 @@ package services
 			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=" + condition;
 			return res;
 		}
+		
+		public static function constructProductUrl(asin:String, country:String):String {
+			var res:String="http://www.amazon." + country + "/gp/product/" + asin;
+			return res;
+		}
 	}
 }
 
