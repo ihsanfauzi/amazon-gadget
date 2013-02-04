@@ -36,6 +36,9 @@ package dto {
 			var n:Number = toNumber(Price);
 			return n?toMoney(n):n;
 		}
+		
+		public function set PriceNumber(value:Number):void {
+		}
 
 		public function get NetPrice():Number {
 			return _NetPrice;
