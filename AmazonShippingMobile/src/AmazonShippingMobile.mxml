@@ -253,8 +253,27 @@
 					offer.Availability=BaseShippingChecker.SHIPPING_OK;
 				}
 			}
+			protected function conditionCheckBox_changeHandler(event:Event):void {
+				if (offers) {
+					offers.filterFunction=offersFilterFunction;
+					offers.refresh();
+				}
+			}
+			
+			private function offersFilterFunction(item:OfferInfoDTO):Boolean {
+				if (item.Condition == Helper.CONDITION_NEW) {
+					return newCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_REFURBISHED) {
+					return refurbishedCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_USED) {
+					return usedCheckBox.selected;
+				}
+				return false;
+			}
 			private function getCurrentASIN():String {
-				return "B0072LGIYM";
+				return "B009FX7CFE";
 			}
 			private function getAWSDomain():String {
 				return "com";
@@ -282,7 +301,8 @@
 						toolTip="New Items"
 						selected="true"
 						visible="{showBox}"
-						includeInLayout="{showBox}"/>
+						includeInLayout="{showBox}"
+						change="conditionCheckBox_changeHandler(event)"/>
 			<s:Group>
 				<s:Rect width="100%"
 						height="100%">
@@ -296,7 +316,8 @@
 							toolTip="Used Items"
 							selected="true"
 							visible="{showBox}"
-							includeInLayout="{showBox}"/>
+							includeInLayout="{showBox}"
+							change="conditionCheckBox_changeHandler(event)"/>
 			</s:Group>
 			<s:Group>
 				<s:Rect width="100%"
@@ -311,7 +332,8 @@
 							toolTip="Refurbished Items"
 							selected="true"
 							visible="{showBox}"
-							includeInLayout="{showBox}"/>
+							includeInLayout="{showBox}"
+							change="conditionCheckBox_changeHandler(event)"/>
 			</s:Group>
 			<s:Button id="checkShippingButton"
 					  height="33"

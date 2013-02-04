@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="components.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="components.*"
+		 width="100%">
 	<s:Rect width="100%"
-			height="100%"
-			visible="{false}"
-			includeInLayout="{false}">
+			height="100%">
 		<s:fill>
-			<s:SolidColor color="0xFF0000"
-						  alpha="0.3"/>
+			<s:SolidColor color="{getBackgroundColor(offer.Condition)}"
+						  alpha="0.1"/>
 		</s:fill>
 	</s:Rect>
 	<fx:Declarations>
@@ -49,6 +48,22 @@
 			private function isSHIPPING_LOADING(a:Number):Boolean {
 				return a == BaseShippingChecker.SHIPPING_LOADING;
 			}
+			
+			private static function getBackgroundColor(condition:String):uint {
+				if (condition == Helper.CONDITION_NEW) {
+					return 0xFFFFFF;
+				}
+				if (condition == Helper.CONDITION_USED) {
+					return 0xFF0000;
+				}
+
+				if (condition == Helper.CONDITION_REFURBISHED) {
+					return 0x00FF00;
+				}
+
+				return null;
+			}
+			
 		]]>
 	</fx:Script>
 	<s:HGroup width="100%"
