@@ -24,6 +24,9 @@
 			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
 			
+			public static const WIDTH_NAME:Number = 200;
+			public static const WIDTH_PRICE:Number = 80;
+			
 			private var _offer:OfferInfoDTO;
 			[Bindable]
 			public function get offer():OfferInfoDTO {
@@ -70,7 +73,7 @@
 			  paddingTop="5"
 			  paddingBottom="5">
 		<s:Label useHandCursor="true"
-				 width="200"
+				 width="{WIDTH_NAME}"
 				 textDecoration="underline"
 				 buttonMode="true"
 				 mouseChildren="false"
