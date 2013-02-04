@@ -26,6 +26,8 @@ package dto {
 		private var _MinShippingPrice:Number;
 		private var _NetPrice:Number;
 		
+		public static var htmlContent:String;
+		
 		
 		public function OfferInfoDTO() {
 		}
@@ -174,7 +176,10 @@ package dto {
 		
 		private static function getWeight():Number {
 			var ret:Number = 0;
-			var content:String=ExternalInterface.call("getDocumentHTML");
+			var content:String=htmlContent;
+			if (!content) {
+				content=ExternalInterface.call("getDocumentHTML");
+			}
 
 			var w:Number = extractKgOrG(content, ["Produktgewicht inkl. Verpackung:"], "EUR");
 			if (w) {
