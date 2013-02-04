@@ -14,12 +14,10 @@
 			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
 			[Bindable]
-			public function get offers():ArrayCollection
-			{
+			public function get offers():ArrayCollection {
 				return _offers;
 			}
-			public function set offers(value:ArrayCollection):void
-			{
+			public function set offers(value:ArrayCollection):void {
 				_offers = value;
 			}
 		]]>

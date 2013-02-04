@@ -26,11 +26,13 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.mxml.HTTPService;
+			
 			import dto.OfferInfoDTO;
 			import dto.ShippingDTO;
-			import dto.ShippingPriceDTO;
+			
 			import services.BaseShippingChecker;
 			import services.Helper;
+			
 			import util.OfferService;
 			[Bindable]
 			private var offers:ArrayCollection=new ArrayCollection();
@@ -57,8 +59,7 @@
 			private function changeCountryHandler():void {
 				region=countryCombo.selectedCountry.region;
 			}
-			protected function creationCompleteHandler(event:FlexEvent):void
-			{
+			protected function creationCompleteHandler(event:FlexEvent):void {
 				asin=getCurrentASIN();
 				offers.sort = new Sort();
 				offers.sort.compareFunction = offersCompareFunction;
@@ -140,7 +141,6 @@
 			}
 			private function collectOffers(raw:Object, condition:String):void {
 				for each(var offer:Object in raw.Offers.Offer) {
-					//if (!findOffer(offer.Merchant.Name)) {
 					var off:OfferInfoDTO=new OfferInfoDTO();
 					off.Condition=condition;
 					off.Name=offer.Merchant.Name;
@@ -152,7 +152,6 @@
 					off.MerchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
 					sendRequest(off);
 					offers.addItem(off);
-					//}
 				}
 			}
 			public function sendRequest(offer:OfferInfoDTO):void {
@@ -220,14 +219,8 @@
 					});
 				var t:AsyncToken = service.send();
 			}
-			private function getCurrentASIN():String {
-				return "B0072LGIYM";
-			}
-			private function getAWSDomain():String {
-				return "com";
-			}
 			private function getHostName():String {
-				return "www.amazon.com";
+				return "www.amazon" + getAWSDomain();
 			}
 			protected function checker_resultHandler(event:ResultEvent):void {
 				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
@@ -259,6 +252,12 @@
 				if (main || amazon) {
 					offer.Availability=BaseShippingChecker.SHIPPING_OK;
 				}
+			}
+			private function getCurrentASIN():String {
+				return "B0072LGIYM";
+			}
+			private function getAWSDomain():String {
+				return "com";
 			}
 		]]>
 	</fx:Script>
