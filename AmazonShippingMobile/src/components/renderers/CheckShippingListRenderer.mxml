@@ -37,6 +37,18 @@
 				var url:String=offer.BuyURL;
 				Helper.openAmazonItem(url);
 			}
+			private function isSHIPPING_FAIL(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_FAIL;
+			}
+			private function isSHIPPING_NA(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_NA;
+			}
+			private function isSHIPPING_OK(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_OK;
+			}
+			private function isSHIPPING_LOADING(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_LOADING;
+			}
 		]]>
 	</fx:Script>
 	<s:HGroup width="100%"
@@ -72,16 +84,16 @@
 				  paddingLeft="10">
 			<s:Image id="errorIcon"
 					  source="@Embed('assets/error.icon.png')"
-					  visible="{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
-					  includeInLayout="{offer.Availability == BaseShippingChecker.SHIPPING_FAIL}"
+					  visible="{isSHIPPING_FAIL(offer.Availability)}"
+					  includeInLayout="{isSHIPPING_FAIL(offer.Availability)}"
 					  useHandCursor="true"
 					  buttonMode="true"
 					  toolTip="Click to see shipping rates"
 					  mouseChildren="false"
 					  click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 			<s:Label text="n/a"
-					  visible="{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
-					  includeInLayout="{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
+					  visible="{isSHIPPING_NA(offer.Availability)}"
+					  includeInLayout="{isSHIPPING_NA(offer.Availability)}"
 					  toolTip="Click to see shipping rates"
 					  textDecoration="underline"
 					  useHandCursor="true"
@@ -90,8 +102,8 @@
 					  click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 			<s:Image id="goodIcon"
 					  source="@Embed('assets/good.icon.png')"
-					  visible="{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
-					  includeInLayout="{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
+					  visible="{isSHIPPING_OK(offer.Availability)}"
+					  includeInLayout="{isSHIPPING_OK(offer.Availability)}"
 					  toolTip="Click to see shipping rates"
 					  useHandCursor="true"
 					  mouseChildren="false"
@@ -99,8 +111,8 @@
 					  click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 			<components:GIFPlayerComponent id="loadingIcon"
 										   byteArray="{new LOADING()}"
-										   visible="{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
-										   includeInLayout="{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
+										   visible="{isSHIPPING_LOADING(offer.Availability)}"
+										   includeInLayout="{isSHIPPING_LOADING(offer.Availability)}"
 										   toolTip="Click to see shipping rates"
 										   useHandCursor="true"
 										   mouseChildren="false"
