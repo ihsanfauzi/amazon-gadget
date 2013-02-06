@@ -22,13 +22,26 @@
 			}
 		]]>
 	</fx:Script>
-	<s:HGroup>
-		<s:Label text="Name"/>
-		<s:Label text="Price"/>
-		<s:Label text="Shipping"/>
-		<s:Label text="Net"/>
+	<s:HGroup width="{checkShippingList.width}">
+		<s:Label text="Name"
+				 width="100%"
+				 paddingLeft="5"/>
+		<s:Label text="Price"
+				 width="80"
+				 textAlign="right"/>
+		<s:Label text="Shipping"
+				 width="80"
+				 textAlign="right"/>
+		<s:Label text="Net"
+				 width="80"
+				 textAlign="right"/>
+		<s:Label text=""
+				 paddingLeft="5"
+				 paddingRight="5"
+				 width="35"/>
+
 	</s:HGroup>
-	<components:CheckShippingList id="datagrid"
+	<components:CheckShippingList id="checkShippingList"
 								  width="100%"
 								  height="100%"
 								  dataProvider="{offers}">

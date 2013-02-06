@@ -73,7 +73,8 @@
 			  paddingTop="5"
 			  paddingBottom="5">
 		<s:Label useHandCursor="true"
-				 width="{WIDTH_NAME}"
+				 paddingLeft="5"
+				 width="100%"
 				 textDecoration="underline"
 				 buttonMode="true"
 				 mouseChildren="false"
@@ -98,8 +99,9 @@
 				 visible="{!isNaN(offer.NetPrice)}"/>
 		<s:HGroup horizontalAlign="center"
 				  verticalAlign="middle"
-				  width="100%"
-				  paddingLeft="10">
+				  width="35"
+				  paddingLeft="5"
+				  paddingRight="5">
 			<s:Image id="errorIcon"
 					  source="@Embed('assets/error.icon.png')"
 					  visible="{isSHIPPING_FAIL(offer.Availability)}"
