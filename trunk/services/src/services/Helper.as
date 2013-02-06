@@ -23,9 +23,9 @@ package services
 	public class Helper
 	{
 
-		public static const CONDITION_NEW = "new";
-		public static const CONDITION_USED = "used";
-		public static const CONDITION_REFURBISHED = "refurbished";
+		public static const CONDITION_NEW:String = "new";
+		public static const CONDITION_USED:String = "used";
+		public static const CONDITION_REFURBISHED:String = "refurbished";
 		
 		private static const googleText:String="http://ajax.googleapis.com/ajax/services/language/";
 		private static const tsrc:String="translate?v=1.0&q=";
