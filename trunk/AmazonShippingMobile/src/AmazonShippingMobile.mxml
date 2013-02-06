@@ -272,12 +272,16 @@
 				}
 				return false;
 			}
-			private function getCurrentASIN():String {
+			private static function getCurrentASIN():String {
 				return "B009FX7CFE";
 			}
-			private function getAWSDomain():String {
+			private static function getAWSDomain():String {
 				return "com";
 			}
+			private static function getCurrentTitle():String {
+				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + " Dell Inspiron i14z-1000sLV 14-Inch Ultrabook (Moon Silver): Computers & Accessories";
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -288,6 +292,10 @@
 			  paddingLeft="5"
 			  paddingRight="5"
 			  paddingTop="5">
+		<s:Label textAlign="center"
+				 width="100%"
+				 text="{getCurrentTitle()}"
+				 fontSize="10"/>
 		<s:HGroup width="100%">
 			<components:CountryComboBox id="countryCombo"
 										width="100%"
