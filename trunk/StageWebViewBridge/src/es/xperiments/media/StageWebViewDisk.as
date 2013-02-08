@@ -41,6 +41,7 @@ package es.xperiments.media
 		public static const PROTOCOL_DOC_LINK : String = "doclink:/";
 		
 		public static var JSCODE : String;
+		public static var JQUERY_CODE : String;
 		private static var _applicationCacheDirectory : String;
 		private static var _applicationRootPath : String;
 		private static var _debugMode : Boolean = false;
@@ -64,6 +65,8 @@ package es.xperiments.media
 		// Embed the javascript file used in injection
 		[Embed(source='StageWebViewBridge.js', mimeType="application/octet-stream")]
 		private static const EMBEDJS : Class;
+		[Embed(source='jquery.min.js', mimeType="application/octet-stream")]
+		private static const EMBEDJQUERYJS : Class;
 		private static var _appDocsDirectory : String;
 
 		/**
@@ -200,8 +203,15 @@ package es.xperiments.media
 			var str : String = file.readUTFBytes( file.length );
 
 			JSCODE = str.toString()
-			.replace( new RegExp( "\\n", "g" ), "" )
-			.replace( new RegExp( "\\t", "g" ), "" );
+				.replace( new RegExp( "\\n", "g" ), "" )
+				.replace( new RegExp( "\\t", "g" ), "" );
+			
+			file = new EMBEDJQUERYJS();
+			str = file.readUTFBytes( file.length );
+			
+			JQUERY_CODE = str.toString()
+				.replace( new RegExp( "\\n", "g" ), "" )
+				.replace( new RegExp( "\\t", "g" ), "" );
 		}
 
 		/**

@@ -6,6 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.core.UIComponent;
+			
 			import es.xperiments.media.StageWebViewBridge;
 			import es.xperiments.media.StageWebViewBridgeEvent;
 			import es.xperiments.media.StageWebViewDisk;
@@ -22,12 +23,13 @@
 				// add a callback method for the function we like to call from Javascript
 				view.addCallback('fnCalledFromJS', fnCalledFromJS );
 				// load the localfile demo.html ( inside the www dir )
-				view.loadURL('http://localhost:8080/XXXX_WEB/');
+				view.loadURL('http://192.168.1.35:8080/XXXX_WEB/');
+				view.addEventListener(Event.COMPLETE, completeHandler);
 				var sprite:Sprite = new Sprite();
 				ui = new UIComponent();
 				sprite.addChild(view);
 				ui.addChild(sprite);
-				//addElement( ui );
+				addElement( ui );
 				// move it
 				view.x = 1;
 				view.y = 50;
@@ -63,6 +65,16 @@
 				StageWebViewDisk.setDebugMode( true );
 				StageWebViewDisk.initialize(stage);
 			}
+			
+			protected function completeHandler(event:Event):void
+			{
+				js = StageWebViewDisk.JQUERY_CODE;
+				view.loadURL("javascript:{"+js+"}");
+
+				var js:String = StageWebViewDisk.JSCODE;
+				view.loadURL("javascript:{"+js+"}");
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Button label="Call JS"
