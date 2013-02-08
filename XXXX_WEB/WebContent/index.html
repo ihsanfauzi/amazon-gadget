@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>example</title>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="StageWebViewBridge.js"></script>
+	<script>
+		function fnCalledFromAs3( data )
+		{
+			alert( 'fnCalledFromAs3 with data: \n'+data );
+			return "data from Javascript";
+			
+		}
+		function callAs3Funciton()
+		{
+			StageWebViewBridge.call
+			(
+				'fnCalledFromJS',
+				function( data )
+				{
+					alert( 'AS3 returned =>'+data );
+				},
+				"TEXT FROM JAVASCRIPT");
+		}
+	</script>
+</head>
+<body bgcolor="#CCCCCC">                              
+Example - CallBack Functions<br/><br>	
+<button onclick="callAs3Funciton()">callAs3Funciton</button>
+</body>
+</html>
