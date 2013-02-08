@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" title="HomeView" addedToStage="addedToStageHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import es.xperiments.media.StageWebViewBridge;
+			import es.xperiments.media.StageWebViewBridgeEvent;
+			import es.xperiments.media.StageWebViewDisk;
+			import es.xperiments.media.StageWebviewDiskEvent;
+			var view:StageWebViewBridge;
+			/* Fired when StageWebviewDiskEvent cache process finish */
+			private var ui:UIComponent;
+			function onInit( e:StageWebviewDiskEvent ):void
+			{
+				// create the view
+				view = new StageWebViewBridge( 0,0, 320,240 );
+				// listen StageWebViewBridgeEvent.DEVICE_READY event to be sure the communication is ok
+				view.addEventListener(StageWebViewBridgeEvent.DEVICE_READY, onDeviceReady );
+				// add a callback method for the function we like to call from Javascript
+				view.addCallback('fnCalledFromJS', fnCalledFromJS );
+				// load the localfile demo.html ( inside the www dir )
+				view.loadURL('http://localhost:8080/XXXX_WEB/');
+				var sprite:Sprite = new Sprite();
+				ui = new UIComponent();
+				sprite.addChild(view);
+				ui.addChild(sprite);
+				//addElement( ui );
+				// move it
+				view.x = 1;
+				view.y = 50;
+				// listen for onclick to call a javascript function from As3
+				//button.addEventListener(MouseEvent.CLICK, callJavascriptFunction );
+			}
+			function onDeviceReady( e:Event ):void
+			{
+				// all is loaded and ok, show the view
+				addElement( ui );
+			}
+			function fnCalledFromJS( data:String ):String
+			{
+				// append the text coming from JS to the textarea component
+				return "data from AS3";
+			}
+			function callJavascriptFunction( e:Event ):void
+			{
+				// call javascript fnCalledFromAs3 function from As3
+				view.call
+					(
+						'fnCalledFromAs3',
+						function ( data )
+						{
+							trace('JS Returned =>'+data+'\n');
+						},
+						"TEXT FROM AS3");
+			}
+			protected function addedToStageHandler(event:Event):void
+			{
+				/* init the disk filesystem */
+				StageWebViewDisk.addEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit );
+				StageWebViewDisk.setDebugMode( true );
+				StageWebViewDisk.initialize(stage);
+			}
+		]]>
+	</fx:Script>
+	<s:Button label="Call JS"
+			  click="callJavascriptFunction(event)"/>
+</s:View>
