@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Home">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function amazon_clickHandler(event:MouseEvent):void {
+				navigator.pushView(BrowserView, event.target.text);
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:HGroup width="100%">
+		<s:VGroup width="50%">
+			<s:Label text="Amazon.com" click="amazon_clickHandler(event)"/>
+			<s:Label text="Amazon.co.uk"/>
+		</s:VGroup>
+		<s:VGroup width="50%">
+			<s:Label text="Amazon.de"/>
+			<s:Label text="Amazon.fr"/>
+		</s:VGroup>		
+	</s:HGroup>
+</s:View>

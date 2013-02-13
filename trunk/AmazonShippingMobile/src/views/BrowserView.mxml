@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Browser"
+		creationComplete="addedToStageHandler(event)"
+		tabBarVisible="false"
+		actionBarVisible="false">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import es.xperiments.media.StageWebViewBridge;
+			import es.xperiments.media.StageWebViewDisk;
+			import es.xperiments.media.StageWebviewDiskEvent;
+			private var stageWebView:StageWebViewBridge;
+			protected function backButton_clickHandler(event:MouseEvent): void {
+				stageWebView.historyBack();
+			}
+			protected  function forwardButton_clickHandler(event:MouseEvent): void {
+				stageWebView.historyForward();
+			}
+			protected function goButton_clickHandler(event:MouseEvent): void {
+				stageWebView.loadURL(urlAddress.text);
+			}
+			protected function locationChangedHandler(event:LocationChangeEvent): void {
+				urlAddress.text = event.location;
+			}
+			protected function onInit(event:Event):void {
+				if(StageWebView.isSupported== true){
+					stageWebView = new StageWebViewBridge(0, 0, spriteVisualElement.width, spriteVisualElement.height);
+					stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGE, locationChangedHandler);
+					var sprite:Sprite = new Sprite();
+					sprite.addChild(stageWebView);
+					spriteVisualElement.addChild(sprite);
+					stageWebView.loadURL(urlAddress.text);
+				} else {
+					urlAddress.text = "StageWebView not supported" ;
+				}
+			}
+			
+			protected function addedToStageHandler(event:Event):void
+			{
+				StageWebViewDisk.addEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit );
+				StageWebViewDisk.setDebugMode( true );
+				StageWebViewDisk.initialize(stage);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%">
+			<s:Button id="backButton"
+					  left="5"
+					  width="45"
+					  height="50"
+					  label="&lt;"
+					  click="backButton_clickHandler(event)"/>
+			<s:Button id="forwardButton"
+					  left="55"
+					  width="45"
+					  height="50"
+					  label=" &gt;"
+					  click="forwardButton_clickHandler(event)"/>
+			<s:TextInput id="urlAddress"
+						 left="105"
+						 right="80"
+						 height="50"
+						 text="http://{data}"/>
+			<s:Button id="goButton"
+					  right="5"
+					  width="70"
+					  height="50"
+					  label=" GO"
+					  click="goButton_clickHandler(event)"/>
+			
+		</s:HGroup>
+		<s:SpriteVisualElement id="spriteVisualElement"
+							   top="5"
+							   width="100%"
+							   height="100%"/>
+	</s:View>
