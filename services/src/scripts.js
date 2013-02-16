@@ -19,6 +19,10 @@ getCurrentASIN = function() {
 		var es = document.getElementsByName("ASIN");
 		e = es[0];
 	}
+	if (!e) {
+		var es = document.getElementsByName("a");
+		e = es[0];
+	}
 	return e.value;
 };
 // this fixes an issue with the old method, ambiguous values
