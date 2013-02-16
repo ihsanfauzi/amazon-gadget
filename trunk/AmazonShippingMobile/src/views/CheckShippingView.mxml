@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
-			   xmlns:s="library://ns.adobe.com/flex/spark"
-			   xmlns:components="components.*"
-			   xmlns:resources="resources.*"
-			   width="100%"
-			   height="100%"
-			   title="Check Shipping"
-			   tabBarVisible="false"
-			   actionBarVisible="false"
-			   creationComplete="creationCompleteHandler(event)">
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:components="components.*"
+		xmlns:resources="resources.*"
+		width="100%"
+		height="100%"
+		title="Check Shipping"
+		tabBarVisible="false"
+		actionBarVisible="false"
+		creationComplete="creationCompleteHandler(event)"
+		viewActivate="viewActivateHandler(event)">
 	<fx:Declarations>
 		<resources:Resources id="res"/>
 		<s:RemoteObject id="checker"
@@ -27,13 +28,11 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.mxml.HTTPService;
-			
+			import spark.events.ViewNavigatorEvent;
 			import dto.OfferInfoDTO;
 			import dto.ShippingDTO;
-			
 			import services.BaseShippingChecker;
 			import services.Helper;
-			
 			import util.OfferService;
 			[Bindable]
 			private var offers:ArrayCollection=new ArrayCollection();
@@ -43,7 +42,7 @@
 			private var showBox:Boolean=true;
 			[Bindable]
 			private var region:String;
-			private function getCountries():Array {
+			private function getCountries(...o):Array {
 				var ad:String = getAWSDomain();
 				switch(ad) {
 					case "com":
@@ -59,6 +58,7 @@
 			}
 			private function changeCountryHandler():void {
 				region=countryCombo.selectedCountry.region;
+				checkShippingButton_clickHandler(null);
 			}
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				asin=getCurrentASIN();
@@ -260,7 +260,6 @@
 					offers.refresh();
 				}
 			}
-			
 			private function offersFilterFunction(item:OfferInfoDTO):Boolean {
 				if (item.Condition == Helper.CONDITION_NEW) {
 					return newCheckBox.selected;
@@ -273,16 +272,21 @@
 				}
 				return false;
 			}
-			private static function getCurrentASIN():String {
-				return "B009FX7CFE";
+			override public function set data(value:Object):void {
+				super.data = value;
 			}
-			private static function getAWSDomain():String {
-				return "com";
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void {
+				checkShippingButton_clickHandler(null);
 			}
-			private static function getCurrentTitle():String {
-				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + " Dell Inspiron i14z-1000sLV 14-Inch Ultrabook (Moon Silver): Computers & Accessories";
+			private function getCurrentASIN():String {
+				return data.asin as String;
 			}
-			
+			private function getAWSDomain():String {
+				return data.domain as String;
+			}
+			private function getCurrentTitle():String {
+				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + data.title;
+			}
 		]]>
 	</fx:Script>
 	
@@ -301,7 +305,7 @@
 			<components:CountryComboBox id="countryCombo"
 										width="100%"
 										height="33"
-										countries="{getCountries()}"
+										countries="{getCountries(data)}"
 										visible="{showBox}"
 										includeInLayout="{showBox}"
 										changeCountry="{changeCountryHandler()}"/>
@@ -344,11 +348,11 @@
 							includeInLayout="{showBox}"
 							change="conditionCheckBox_changeHandler(event)"/>
 			</s:Group>
-			<s:Button id="checkShippingButton"
-					  height="33"
-					  label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-					  enabled="{!showBox || countryCombo.selectedCountry}"
-					  click="checkShippingButton_clickHandler(event)"/>
+			<!--s:Button id="checkShippingButton"
+			height="33"
+			label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+			enabled="{!showBox || countryCombo.selectedCountry}"
+			click="checkShippingButton_clickHandler(event)"/-->
 		</s:HGroup>
 		<components:CheckAvailabilityBox offers="{offers}"
 										 width="100%"

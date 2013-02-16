@@ -116,6 +116,10 @@ getHostName = function() {
 	return document.location.hostname;
 };
 
+getTitle = function() {
+	return document.title;
+};
+
 getPersonObject = function() {
 	var personObj=new Object();
 	personObj.firstname="John";
