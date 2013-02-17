@@ -69,6 +69,7 @@ package components {
 		
 		private function onInit(event:Event):void
 		{
+			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
 			var ch:DisplayObject = getChildByName("sprite");
 			if (ch) {
 				removeChild(ch);
