@@ -3,22 +3,16 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		title="Browser"
 		creationComplete="addedToStageHandler(event)"
-		viewActivate="view1_viewActivateHandler(event)"
-		tabBarVisible="false"
-		actionBarVisible="false"
-		xmlns:components="components.*">
+		xmlns:components="components.*"
+		actionBarVisible="false">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
-			import spark.events.ViewNavigatorEvent;
-			import es.xperiments.media.StageWebViewBridge;
 			import es.xperiments.media.StageWebViewDisk;
-			import es.xperiments.media.StageWebviewDiskEvent;
+			
 			import services.JSInit;
-			//private var stageWebView:StageWebViewBridge;
 			[Bindable]
 			private var domain:String;
 			[Bindable]
@@ -35,22 +29,8 @@
 			protected function locationChangedHandler(event:LocationChangeEvent): void {
 				urlAddress.text = event.location;
 			}
-			//			protected function onInit(event:Event):void {
-			//				if(StageWebView.isSupported== true){
-			//					stageWebView = new StageWebViewBridge(0, 0, spriteVisualElement.width, spriteVisualElement.height);
-			//					stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGE, locationChangedHandler);
-			//					stageWebView.addEventListener(Event.COMPLETE, completeHandler);
-			//					var sprite:Sprite = new Sprite();
-			//					sprite.addChild(stageWebView);
-			//					spriteVisualElement.addChild(sprite);
-			//					stageWebView.loadURL(urlAddress.text);
-			//				} else {
-			//					urlAddress.text = "StageWebView not supported" ;
-			//				}
-			//			}
 			protected function addedToStageHandler(event:Event):void {
 				JSInit.initJ_SCRIPT();
-				//				StageWebViewDisk.addEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit );
 				StageWebViewDisk.setDebugMode( true );
 				StageWebViewDisk.initialize(stage);
 			}
@@ -86,50 +66,38 @@
 				obj.title = title;
 				navigator.pushView(CheckShippingView, obj);
 			}
-			protected function view1_viewActivateHandler(event:ViewNavigatorEvent):void {
-				//				stageWebView.width = spriteVisualElement.width;
-				//				stageWebView.height = spriteVisualElement.height;
-			}
-			protected function view_completeHandler(event:Event):void
-			{
+			protected function view_completeHandler(event:Event):void {
 				completeHandler(null);
 			}
 		]]>
 	</fx:Script>
-	<s:VGroup width="100%"
-			  height="100%">
-		<s:HGroup id="barGroup"
-				  width="100%">
-			<s:Button id="backButton"
-					  width="45"
-					  label="&lt;"
-					  click="backButton_clickHandler(event)"/>
-			<s:Button id="forwardButton"
-					  width="45"
-					  label=" &gt;"
-					  click="forwardButton_clickHandler(event)"/>
-			<s:TextInput id="urlAddress"
-						 left="105"
-						 width="100%"
-						 text="http://{data}"/>
-			<s:Button id="goButton"
-					  label="GO"
-					  click="goButton_clickHandler(event)"/>
-			<s:Button id="checkShippingButton"
-					  label="Check Shipping"
-					  click="checkShippingButton_clickHandler(event)"
-					  enabled="{asin != null}"/>
-			
-		</s:HGroup>
-		<s:HGroup width="100%"
-				  height="100%"
-				  horizontalAlign="center">
-			<!--s:SpriteVisualElement id="spriteVisualElement"
-			width="100%"
-			height="100%"/-->
-			<components:StageWebViewUIComponent id="view"
-												url="{urlAddress.text}"
-												complete="view_completeHandler(event)"/>
-		</s:HGroup>
-	</s:VGroup>
+	<s:HGroup id="barGroup"
+			  width="100%">
+		<s:Button id="backButton"
+				  width="45"
+				  label="&lt;"
+				  click="backButton_clickHandler(event)"/>
+		<s:Button id="forwardButton"
+				  width="45"
+				  label=" &gt;"
+				  click="forwardButton_clickHandler(event)"/>
+		<s:TextInput id="urlAddress"
+					 left="105"
+					 width="100%"
+					 text="http://{data}"/>
+		<s:Button id="goButton"
+				  label="GO"
+				  click="goButton_clickHandler(event)"/>
+		<s:Button id="checkShippingButton"
+				  label="Check Shipping"
+				  click="checkShippingButton_clickHandler(event)"
+				  enabled="{asin != null}"/>
+	</s:HGroup>
+	<components:StageWebViewUIComponent id="view"
+										x="{barGroup.height}"
+										width="100%"
+										height="100%"
+										url="{urlAddress.text}"
+										yOffset="0"
+										complete="view_completeHandler(event)"/>
 </s:View>

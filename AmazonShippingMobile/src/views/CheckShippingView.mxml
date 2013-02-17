@@ -132,7 +132,7 @@
 				}
 				for(var i:int=2; i <= pages; i++) {
 					var asin:String=getCurrentASIN();
-					var url:String=Helper.constructPageUrl(asin, Helper.getAWSDomain(), i, condition);
+					var url:String=Helper.constructPageUrl(asin, getAWSDomain(), i, condition);
 					getContent(url, function(content:String):void {
 						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);

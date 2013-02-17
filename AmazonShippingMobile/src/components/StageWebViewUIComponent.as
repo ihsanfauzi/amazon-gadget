@@ -73,8 +73,7 @@ package components {
 			if (ch) {
 				removeChild(ch);
 			}
-			_stageWebView = new StageWebViewBridge();
-			_stageWebView.viewPort = new Rectangle(0, yOffset, myStage.width, myStage.fullScreenHeight - yOffset);
+			_stageWebView = new StageWebViewBridge(0, yOffset, myStage.width, myStage.fullScreenHeight - yOffset);
 			_stageWebView.addEventListener(Event.COMPLETE, completeHandler);
 			_stageWebView.addEventListener(ErrorEvent.ERROR, errorHandler);
 			_stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);
@@ -104,6 +103,14 @@ package components {
 		
 		protected function errorHandler(event:Event):void {
 			dispatchEvent(event.clone());
+		}
+		
+		override public function set width(value:Number):void {
+			stageWebView.setSize(value, stageWebView.height);
+		}
+
+		override public function set height(value:Number):void {
+			stageWebView.setSize(stageWebView.width, value);
 		}
 	}
 }
