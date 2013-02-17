@@ -94,7 +94,7 @@
 				  enabled="{asin != null}"/>
 	</s:HGroup>
 	<components:StageWebViewUIComponent id="view"
-										x="{barGroup.height}"
+										x="{barGroup.height - barGroup.height}"
 										width="100%"
 										height="100%"
 										url="{urlAddress.text}"
