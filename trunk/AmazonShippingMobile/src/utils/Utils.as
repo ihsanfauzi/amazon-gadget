@@ -1,5 +1,8 @@
 package utils
 {
+	import flash.display.Stage;
+	import flash.events.Event;
+	
 	import mx.core.UIComponent;
 	
 	import spark.components.SkinnableContainer;
@@ -8,16 +11,27 @@ package utils
 
 	public class Utils
 	{
+//		private static var ui:UIComponent;
+		private static var st:Stats;
 		public function Utils()
 		{
 		}
 		
-		public static function addStats(container:SkinnableContainer):Stats {
-			var st:Stats = new Stats();
-			var ui:UIComponent = new UIComponent();
-			ui.addChild(st);
-			container.addElement(ui);
+		public static function addStats(container:Stage):Stats {
+			st = new Stats();
+			st.alpha = 0.8;
+			st.mouseChildren = false;
+			st.mouseEnabled = false;
+			container.addChild(st);
+			container.addEventListener(Event.ENTER_FRAME, exitFrameHandler);
 			return st;
+		}
+		
+		protected static function exitFrameHandler(event:Event):void
+		{
+			var container:Stage = event.target as Stage;
+			var index:Number = container.numChildren;
+			container.setChildIndex(st, index-1);
 		}
 	}
 }

@@ -14,15 +14,18 @@
 package net.hires.debug {
 	
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.Matrix;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.system.System;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
-	import flash.utils.getTimer;	
+	import flash.utils.getTimer;
 	
 	public class Stats extends Sprite {	
 		
@@ -83,7 +86,7 @@ package net.hires.debug {
 		
 		private function init(e : Event) : void {
 			
-			graphics.beginFill(colors.bg);
+			graphics.beginFill(colors.bg, alpha);
 			graphics.drawRect(0, 0, WIDTH, HEIGHT);
 			graphics.endFill();
 			
@@ -156,6 +159,16 @@ package net.hires.debug {
 			xml.fps = "FPS: " + fps + " / " + stage.frameRate;  
 			text.htmlText = xml;
 			
+			
+//			var glob:Point = localToGlobal(new Point(e.localX, e.localY));
+//			var objs:Array = stage.getObjectsUnderPoint(glob);
+//			for each (var o:Object in objs) {
+//				var d:DisplayObject = o as DisplayObject;
+//				if (d) {
+//					var newLocal:Point = d.globalToLocal(glob);
+//					d.dispatchEvent(new MouseEvent('click', true, true, newLocal.x, newLocal.y));
+//				}
+//			}
 		}
 		
 		// .. Utils

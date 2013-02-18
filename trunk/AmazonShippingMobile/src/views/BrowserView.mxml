@@ -12,13 +12,7 @@
 		<![CDATA[
 			import es.xperiments.media.StageWebViewDisk;
 			
-			import net.hires.debug.Stats;
-			
 			import services.JSInit;
-			
-			import utils.Utils;
-			[Bindable]
-			private var statsHeight:Number;
 			[Bindable]
 			private var domain:String;
 			[Bindable]
@@ -36,8 +30,6 @@
 				urlAddress.text = event.location;
 			}
 			protected function addedToStageHandler(event:Event):void {
-				var stats:Stats = Utils.addStats(this);
-				statsHeight = stats.height;
 				JSInit.initJ_SCRIPT();
 				StageWebViewDisk.setDebugMode( true );
 				StageWebViewDisk.initialize(stage);
@@ -105,6 +97,6 @@
 										width="100%"
 										height="100%"
 										url="{urlAddress.text}"
-										yOffset="{statsHeight}"
+										yOffset="{barGroup.height}"
 										complete="view_completeHandler(event)"/>
 </s:View>
