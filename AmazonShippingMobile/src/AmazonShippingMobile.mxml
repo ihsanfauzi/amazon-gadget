@@ -4,6 +4,19 @@
 			   applicationDPI="160"
 			   xmlns:components="components.*"
 			   xmlns:resources="resources.*"
-			   firstView="views.HomeView">
+			   firstView="views.HomeView"
+			   addedToStage="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import utils.Utils;
+			
+			protected function creationCompleteHandler(event:Event):void
+			{
+				Utils.addStats(this.stage);
+				
+			}
+			
+		]]>
+	</fx:Script>
 	
 </s:ViewNavigatorApplication>
