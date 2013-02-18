@@ -287,6 +287,9 @@
 			private function getCurrentTitle():String {
 				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + data.title;
 			}
+			protected function backButton_clickHandler(event:MouseEvent):void {
+				navigator.popView();
+			}
 		]]>
 	</fx:Script>
 	
@@ -302,6 +305,9 @@
 				 text="{getCurrentTitle()}"
 				 fontSize="10"/>
 		<s:HGroup width="100%">
+			<s:Button id="backButton"
+					  label="&lt;"
+					  click="backButton_clickHandler(event)"/>
 			<components:CountryComboBox id="countryCombo"
 										width="100%"
 										height="33"
