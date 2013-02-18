@@ -1,4 +1,5 @@
 package components {
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.ErrorEvent;
@@ -13,7 +14,6 @@ package components {
 	import es.xperiments.media.StageWebviewDiskEvent;
 	
 	import services.JSInit;
-	import flash.display.DisplayObject;
 	
 	[Event(name="complete", type = "flash.events.Event")]
 	[Event(name="locationChanging", type = "flash.events.LocationChangeEvent")]
@@ -21,13 +21,22 @@ package components {
 	
 	public class StageWebViewUIComponent extends UIComponent {
 		
-		public var yOffset:int = 80;
+		private var _yOffset:int = 0;
 		
 		protected var myStage:Stage;
 		private var _url:String;
 		private var _text:String;
 		
 		private var _stageWebView:StageWebViewBridge;
+		
+		public function get yOffset():int {
+			return _yOffset;
+		}
+		
+		public function set yOffset(value:int):void {
+			_yOffset = value;
+			stageWebView.y = _yOffset;
+		}
 		
 		public function get stageWebView():StageWebViewBridge {
 			return _stageWebView;
@@ -63,12 +72,11 @@ package components {
 			myStage = event.currentTarget.document.stage;
 			JSInit.initJ_SCRIPT();
 			StageWebViewDisk.addEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
-			StageWebViewDisk.setDebugMode( true );
+			StageWebViewDisk.setDebugMode(true);
 			StageWebViewDisk.initialize(myStage);
 		}
 		
-		private function onInit(event:Event):void
-		{
+		private function onInit(event:Event):void {
 			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
 			var ch:DisplayObject = getChildByName("sprite");
 			if (ch) {
@@ -109,9 +117,10 @@ package components {
 		override public function set width(value:Number):void {
 			stageWebView.setSize(value, stageWebView.height);
 		}
-
+		
 		override public function set height(value:Number):void {
 			stageWebView.setSize(stageWebView.width, value);
 		}
 	}
 }
+
