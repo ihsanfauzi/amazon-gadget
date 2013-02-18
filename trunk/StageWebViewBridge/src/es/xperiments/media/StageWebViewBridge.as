@@ -239,7 +239,7 @@ package es.xperiments.media
 				_view.stage = null;
 			}
 	
-			//updatePosition();	
+			updatePosition();	
 		}
 
 		/**
@@ -320,6 +320,7 @@ package es.xperiments.media
 		 */
 		public function set viewPort( rectangle : Rectangle ) : void
 		{
+			//var r:Rectangle = new Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 			_view.viewPort = rectangle;
 		}
 
