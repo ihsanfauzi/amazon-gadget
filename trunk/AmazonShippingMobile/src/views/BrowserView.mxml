@@ -17,6 +17,8 @@
 			private var domain:String;
 			[Bindable]
 			private var asin:String;
+			[Bindable]
+			private var inited:Boolean = false;
 			protected function backButton_clickHandler(event:MouseEvent): void {
 				view.stageWebView.historyBack();
 			}
@@ -30,9 +32,12 @@
 				urlAddress.text = event.location;
 			}
 			protected function addedToStageHandler(event:Event):void {
-				JSInit.initJ_SCRIPT();
-				StageWebViewDisk.setDebugMode( true );
-				StageWebViewDisk.initialize(stage);
+				if (!inited) {
+					JSInit.initJ_SCRIPT();
+					StageWebViewDisk.setDebugMode( true );
+					StageWebViewDisk.initialize(stage);
+					inited = true;
+				}
 			}
 			protected function completeHandler(event:Event):void {
 				asin = null;

@@ -6,7 +6,7 @@
 	<fx:Script>
 		<![CDATA[
 			protected function amazon_clickHandler(event:MouseEvent):void {
-				navigator.pushView(BrowserView, event.target.text);
+				navigator.pushView(BrowserView, event.target.label);
 			}
 		]]>
 	</fx:Script>
@@ -14,14 +14,25 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:HGroup width="100%">
+	<s:HGroup width="100%"
+			  paddingTop="5"
+			  paddingLeft="5"
+			  paddingRight="5">
 		<s:VGroup width="50%">
-			<s:Label text="Amazon.com" click="amazon_clickHandler(event)"/>
-			<s:Label text="Amazon.co.uk"/>
+			<s:Button label="Amazon.com"
+					  width="100%"
+					  click="amazon_clickHandler(event)"/>
+			<s:Button label="Amazon.co.uk"
+					  width="100%"
+					  click="amazon_clickHandler(event)"/>
 		</s:VGroup>
 		<s:VGroup width="50%">
-			<s:Label text="Amazon.de"/>
-			<s:Label text="Amazon.fr"/>
-		</s:VGroup>		
+			<s:Button label="Amazon.de"
+					  width="100%"
+					  click="amazon_clickHandler(event)"/>
+			<s:Button label="Amazon.fr"
+					  width="100%"
+					  click="amazon_clickHandler(event)"/>
+		</s:VGroup>
 	</s:HGroup>
 </s:View>
