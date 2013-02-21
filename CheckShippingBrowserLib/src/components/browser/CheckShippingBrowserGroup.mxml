@@ -6,10 +6,41 @@
 		 xmlns:browser="components.browser.*">
 	<fx:Script>
 		<![CDATA[
-			
+			import es.xperiments.media.StageWebViewDisk;
+			import services.JSInit;
+			[Bindable]
+			public var domain:String;
+			[Bindable]
+			public var asin:String;
+			[Bindable]
+			public var title:String;
 			[Bindable]
 			public var urlAddress:String = "http://utro.ru";
+			JSInit.initJ_SCRIPT();
 			protected function stageWebViewUIComponent_completeHandler(event:Event):void {
+				asin = null;
+				domain = null;
+				title = null;
+				var js:String = StageWebViewDisk.JSCODE;
+				stageWebViewUIComponent.stageWebView.loadURL("javascript:{"+js+"}");
+				js = JSInit.J_SCRIPT_STRING;
+				stageWebViewUIComponent.stageWebView.loadURL("javascript:{"+js+"}");
+				stageWebViewUIComponent.stageWebView.call ('getCurrentASIN',
+					function (data:String):void {
+						asin = data;
+					});
+				stageWebViewUIComponent.stageWebView.call ('getHostName',
+					function (data:String):void {
+						if (data) {
+							domain = data.substr(data.lastIndexOf(".")+1);
+						}
+					});
+				stageWebViewUIComponent.stageWebView.call ('getTitle',
+					function (data:String):void {
+						if (data) {
+							title = data;
+						}
+					});
 			}
 		]]>
 	</fx:Script>
