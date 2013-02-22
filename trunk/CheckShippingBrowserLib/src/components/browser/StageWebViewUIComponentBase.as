@@ -18,7 +18,7 @@ package components.browser {
 	[Event(name="locationChanging", type = "flash.events.LocationChangeEvent")]
 	[Event(name="locationChange", type = "flash.events.LocationChangeEvent")]
 	
-	public class StageWebViewUIComponent extends UIComponent {
+	public class StageWebViewUIComponentBase extends UIComponent {
 		
 		private var _yOffset:int = 0;
 		
@@ -34,7 +34,7 @@ package components.browser {
 			return _stageWebView;
 		}
 		
-		public function StageWebViewUIComponent() {
+		public function StageWebViewUIComponentBase() {
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
@@ -70,7 +70,7 @@ package components.browser {
 		
 		private function onInit(event:Event):void {
 			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
-			_stageWebView = new StageWebViewBridge(x * scale, y * scale, width * scale, height * scale);
+			_stageWebView = new StageWebViewBridge(0, 0, width * scale, height * scale);
 			_stageWebView.addEventListener(Event.COMPLETE, completeHandler);
 			_stageWebView.addEventListener(ErrorEvent.ERROR, errorHandler);
 			_stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);
