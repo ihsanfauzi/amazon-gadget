@@ -2,6 +2,7 @@
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="true" version="3">
   <includeClasses>
     <classEntry path="components.browser.CheckShippingBrowserGroup"/>
+    <classEntry path="components.browser.StageWebViewUIComponent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

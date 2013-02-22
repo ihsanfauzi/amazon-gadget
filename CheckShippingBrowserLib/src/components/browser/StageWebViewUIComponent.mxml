@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browser:StageWebViewUIComponentBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+									 xmlns:s="library://ns.adobe.com/flex/spark"
+									 xmlns:browser="components.browser.*"
+									 complete="this_completeHandler(event)"
+									 url="{urlAddress}">
+	
+	<fx:Script>
+		<![CDATA[
+			import es.xperiments.media.StageWebViewDisk;
+			import services.JSInit;
+			[Bindable]
+			public var domain:String;
+			[Bindable]
+			public var asin:String;
+			[Bindable]
+			public var title:String;
+			[Bindable]
+			public var urlAddress:String = "http://utro.ru";
+			JSInit.initJ_SCRIPT();
+			protected function this_completeHandler(event:Event):void {
+				asin = null;
+				domain = null;
+				title = null;
+				var js:String = StageWebViewDisk.JSCODE;
+				stageWebView.loadURL("javascript:{"+js+"}");
+				js = JSInit.J_SCRIPT_STRING;
+				stageWebView.loadURL("javascript:{"+js+"}");
+				stageWebView.call ('getCurrentASIN',
+					function (data:String):void {
+						asin = data;
+					});
+				stageWebView.call ('getHostName',
+					function (data:String):void {
+						if (data) {
+							domain = data.substr(data.lastIndexOf(".")+1);
+						}
+					});
+				stageWebView.call ('getTitle',
+					function (data:String):void {
+						if (data) {
+							title = data;
+						}
+					});
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</browser:StageWebViewUIComponentBase>
