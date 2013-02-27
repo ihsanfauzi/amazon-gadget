@@ -20,6 +20,7 @@ package es.xperiments.media
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Stage;
+	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.LocationChangeEvent;
@@ -28,6 +29,9 @@ package es.xperiments.media
 	import flash.geom.Rectangle;
 	import flash.media.StageWebView;
 	import flash.system.System;
+	
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
 
 	/** 
 	 * @eventType es.xperiments.media.StageWebviewDiskEvent.START_DISK_PARSING 
@@ -285,6 +289,7 @@ package es.xperiments.media
 				case LocationChangeEvent.LOCATION_CHANGE:
 				case FocusEvent.FOCUS_IN:
 				case FocusEvent.FOCUS_OUT:
+				case ErrorEvent.ERROR:
 					_view.addEventListener( type, listener, useCapture, priority, useWeakReference );
 					break;
 				default:

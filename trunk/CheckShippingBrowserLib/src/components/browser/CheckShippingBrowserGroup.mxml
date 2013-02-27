@@ -1,19 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 width="100%"
-		 height="100%"
-		 xmlns:browser="components.browser.*"
-		 gap="0">
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  width="100%"
+		  height="100%"
+		  xmlns:browser="components.browser.*"
+		  gap="0"
+		  xmlns:data="data.*">
+	<fx:Script>
+		<![CDATA[
+			protected function goButton_clickHandler(event:MouseEvent):void {
+				var url:String = urlTextInput.text;
+				if (validateUrl(url)) {
+					url = adjustUrl(url);
+					var d:UrlData = new UrlData();
+					d.label = url;
+					dataProviderCollection.addItemAt(d, dataProviderCollection.length - 1);
+					tabs.selectedItem = d;
+				}
+			}
+			private function validateUrl(url:String):Boolean {
+				return true;
+			}
+			private function adjustUrl(url:String):String {
+				return url;
+			}
+			private function urlGroupVisible(...o):Object {
+				var s:UrlData = tabs.selectedItem as UrlData;
+				return s.label == "Add";
+			}
+			public function webViewVisible(urlData:UrlData, ...o):Boolean	{
+				return tabs.selectedItem == urlData;
+			}
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
 	</fx:Declarations>
 	<s:ButtonBar id="tabs"
 				 requireSelection="true">
-		<s:ArrayCollection>
-			<fx:String>New</fx:String>
-		</s:ArrayCollection>
+		<s:dataProvider>
+			<s:ArrayCollection id="dataProviderCollection">
+				<data:UrlData label="Add"/>
+			</s:ArrayCollection>
+		</s:dataProvider>
 	</s:ButtonBar>
-	<browser:StageWebViewUIComponent id="stageWebViewUIComponent"
-									 width="100%"
-									 height="100%"/>
+	<s:HGroup id="urlGroup"
+			  width="100%"
+			  visible="{urlGroupVisible(tabs.selectedIndex)}"
+			  includeInLayout="{urlGroupVisible(tabs.selectedIndex)}">
+		<s:TextInput id="urlTextInput"
+					 width="100%"/>
+		<s:Button id="goButton"
+				  label="Go"
+				  click="goButton_clickHandler(event)"/>
+	</s:HGroup>
+	<s:DataGroup dataProvider="{dataProviderCollection}"
+				 width="100%"
+				 height="100%">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:ItemRenderer width="100%"
+								height="100%">
+					<browser:StageWebViewUIComponent width="100%"
+													 height="100%"
+													 urlAddress="{(data as UrlData).label}"
+													 visible="{outerDocument.webViewVisible(data as UrlData, outerDocument.tabs.selectedIndex)}"
+													 includeInLayout="{outerDocument.webViewVisible(data as UrlData, outerDocument.tabs.selectedIndex)}">
+						<fx:Script>
+							<![CDATA[
+								import data.UrlData;
+							]]>
+						</fx:Script>
+					</browser:StageWebViewUIComponent>
+				</s:ItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:DataGroup>
 </s:VGroup>

@@ -98,7 +98,7 @@ package components.browser {
 		}
 		
 		protected function errorHandler(event:Event):void {
-			dispatchEvent(event.clone());
+			//dispatchEvent(event.clone());
 		}
 		
 		override public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean = true):void {
