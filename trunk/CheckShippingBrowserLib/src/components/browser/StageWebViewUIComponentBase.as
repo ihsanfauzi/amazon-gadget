@@ -41,9 +41,6 @@ package components.browser {
 			_snapShotVisible = value;
 			if(_stageWebView) {
 				_stageWebView.snapShotVisible = value;
-				if (value) {
-					_stageWebView.getSnapShot();
-				}
 			}
 		}
 
