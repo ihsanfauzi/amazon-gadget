@@ -30,6 +30,23 @@ package components.browser {
 		
 		private var scale:Number = FlexGlobals.topLevelApplication.runtimeDPI / FlexGlobals.topLevelApplication.applicationDPI;
 		
+		private var _snapShotVisible:Boolean = false;
+		
+		[Bindable]
+		public function get snapShotVisible():Boolean {
+			return _stageWebView?_stageWebView.snapShotVisible:_snapShotVisible;
+		}
+
+		public function set snapShotVisible(value:Boolean):void	{
+			_snapShotVisible = value;
+			if(_stageWebView) {
+				_stageWebView.snapShotVisible = value;
+				if (value) {
+					_stageWebView.getSnapShot();
+				}
+			}
+		}
+
 		public function get stageWebView():StageWebViewBridge {
 			return _stageWebView;
 		}
@@ -71,6 +88,7 @@ package components.browser {
 		private function onInit(event:Event):void {
 			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
 			_stageWebView = new StageWebViewBridge(0, 0, width * scale, height * scale);
+			_stageWebView.snapShotVisible = _snapShotVisible;
 			_stageWebView.addEventListener(Event.COMPLETE, completeHandler);
 			_stageWebView.addEventListener(ErrorEvent.ERROR, errorHandler);
 			_stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);

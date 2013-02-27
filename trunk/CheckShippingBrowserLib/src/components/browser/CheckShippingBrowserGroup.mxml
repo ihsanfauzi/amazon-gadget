@@ -5,9 +5,11 @@
 		  height="100%"
 		  xmlns:browser="components.browser.*"
 		  gap="0"
-		  xmlns:data="data.*">
+		  xmlns:data="data.*"
+		  addedToStage="addedToStageHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import utils.Utils;
 			protected function goButton_clickHandler(event:MouseEvent):void {
 				var url:String = urlTextInput.text;
 				if (validateUrl(url)) {
@@ -31,6 +33,11 @@
 			public function webViewVisible(urlData:UrlData, ...o):Boolean	{
 				return tabs.selectedItem == urlData;
 			}
+			
+			protected function addedToStageHandler(event:Event):void {
+				Utils.addStats(this.stage);
+			}
+			
 		]]>
 	</fx:Script>
 	

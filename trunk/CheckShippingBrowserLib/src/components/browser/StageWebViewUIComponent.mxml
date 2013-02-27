@@ -20,6 +20,7 @@
 			public var title:String;
 			[Bindable]
 			public var urlAddress:String = "http://utro.ru";
+
 			JSInit.initJ_SCRIPT();
 			protected function this_completeHandler(event:Event):void {
 				asin = null;
@@ -49,6 +50,7 @@
 							title = data;
 						}
 					});
+//snapShotVisible = true;
 			}
 		]]>
 	</fx:Script>
