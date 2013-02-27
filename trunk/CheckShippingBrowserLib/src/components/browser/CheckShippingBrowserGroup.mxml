@@ -33,11 +33,9 @@
 			public function webViewVisible(urlData:UrlData, ...o):Boolean	{
 				return tabs.selectedItem == urlData;
 			}
-			
 			protected function addedToStageHandler(event:Event):void {
 				Utils.addStats(this.stage);
 			}
-			
 		]]>
 	</fx:Script>
 	
