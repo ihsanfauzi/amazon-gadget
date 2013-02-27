@@ -9,6 +9,7 @@
 		<![CDATA[
 			import flash.utils.setTimeout;
 			
+			import es.xperiments.media.StageWebViewBridgeEvent;
 			import es.xperiments.media.StageWebViewDisk;
 			
 			import services.JSInit;
@@ -50,8 +51,21 @@
 							title = data;
 						}
 					});
-//snapShotVisible = true;
+				
+//				stageWebView.addEventListener( StageWebViewBridgeEvent.ON_GET_SNAPSHOT, onGetSnapShot );
+//				stageWebView.getSnapShot();
+				
 			}
+			
+			private function onGetSnapShot( e:StageWebViewBridgeEvent ):void {
+				// remove listener
+				stageWebView.removeEventListener( StageWebViewBridgeEvent.ON_GET_SNAPSHOT, onGetSnapShot );
+				// set the bitmapdata visible, hides de stagewebview
+				stageWebView.snapShotVisible = true;
+			}
+			
+			
+
 		]]>
 	</fx:Script>
 	
