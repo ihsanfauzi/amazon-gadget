@@ -51,6 +51,7 @@
 					function (data:String):void {
 						if (data) {
 							urlData.label = data;
+							urlData.loading = false;
 						}
 					});
 				
@@ -69,6 +70,7 @@
 			override protected function locationChangeHandler(event:Event):void {
 				var e:LocationChangeEvent = event as LocationChangeEvent;
 				urlData.url = e.location;
+				urlData.loading = true;
 			}
 			
 		]]>

@@ -32,9 +32,8 @@ package components.browser {
 		
 		private var _snapShotVisible:Boolean = false;
 		
-		public function get url():String
-		{
-			return _url;
+		public function get url():String {
+			return _stageWebView?_stageWebView.location:_url;
 		}
 
 		[Bindable]
