@@ -3,11 +3,13 @@
 									 xmlns:s="library://ns.adobe.com/flex/spark"
 									 xmlns:browser="components.browser.*"
 									 complete="this_completeHandler(event)"
-									 url="{urlAddress}">
+									 url="{urlData.url}">
 	
 	<fx:Script>
 		<![CDATA[
 			import flash.utils.setTimeout;
+			
+			import datas.UrlData;
 			
 			import es.xperiments.media.StageWebViewBridgeEvent;
 			import es.xperiments.media.StageWebViewDisk;
@@ -20,13 +22,13 @@
 			[Bindable]
 			public var title:String;
 			[Bindable]
-			public var urlAddress:String = "http://utro.ru";
+			public var urlData:UrlData;
 
 			JSInit.initJ_SCRIPT();
 			protected function this_completeHandler(event:Event):void {
-				asin = null;
-				domain = null;
-				title = null;
+				urlData.asin = null;
+				urlData.domain = null;
+				urlData.label = null;
 				var js:String = StageWebViewDisk.JSCODE;
 				stageWebView.loadURL("javascript:{"+js+"}");
 				js = JSInit.J_SCRIPT_STRING;
@@ -37,18 +39,18 @@
 			private function getPageInfo():void {
 				stageWebView.call ('getCurrentASIN',
 					function (data:String):void {
-						asin = data;
+						urlData.asin = data;
 					});
 				stageWebView.call ('getHostName',
 					function (data:String):void {
 						if (data) {
-							domain = data.substr(data.lastIndexOf(".")+1);
+							urlData.domain = data.substr(data.lastIndexOf(".")+1);
 						}
 					});
 				stageWebView.call ('getTitle',
 					function (data:String):void {
 						if (data) {
-							title = data;
+							urlData.label = data;
 						}
 					});
 				
@@ -64,8 +66,11 @@
 				stageWebView.snapShotVisible = true;
 			}
 			
+			override protected function locationChangeHandler(event:Event):void {
+				var e:LocationChangeEvent = event as LocationChangeEvent;
+				urlData.url = e.location;
+			}
 			
-
 		]]>
 	</fx:Script>
 	
