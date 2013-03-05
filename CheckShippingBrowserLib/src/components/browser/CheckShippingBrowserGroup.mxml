@@ -5,19 +5,26 @@
 		  height="100%"
 		  xmlns:browser="components.browser.*"
 		  gap="0"
-		  xmlns:data="data.*"
-		  addedToStage="addedToStageHandler(event)">
+		  xmlns:datas="datas.*"
+		  addedToStage="addedToStageHandler(event)"
+		  creationComplete="creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import datas.UrlData;
+			
 			import utils.Utils;
+			[Bindable]
+			public var currentUrlData:UrlData;
 			protected function goButton_clickHandler(event:MouseEvent):void {
 				var url:String = urlTextInput.text;
 				if (validateUrl(url)) {
 					url = adjustUrl(url);
 					var d:UrlData = new UrlData();
-					d.label = url;
+					d.url = url;
 					dataProviderCollection.addItemAt(d, dataProviderCollection.length - 1);
-					tabs.selectedItem = d;
+					currentUrlData = d;
 				}
 			}
 			private function validateUrl(url:String):Boolean {
@@ -27,39 +34,62 @@
 				return url;
 			}
 			private function urlGroupVisible(...o):Object {
-				var s:UrlData = tabs.selectedItem as UrlData;
-				return s.label == "Add";
+				return true;//currentUrlData.label == "Add";
 			}
 			public function webViewVisible(urlData:UrlData, ...o):Boolean	{
-				return tabs.selectedItem == urlData;
+				return currentUrlData == urlData;
 			}
 			protected function addedToStageHandler(event:Event):void {
 				Utils.addStats(this.stage);
 			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				currentUrlData = dataProviderCollection.getItemAt(0) as UrlData;
+			}
+			
+			protected function urlButton_clickHandler(event:MouseEvent):void {
+				dataGroup.visible = !dataGroup.visible;
+			}
+			
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
+		<s:ArrayCollection id="dataProviderCollection">
+			<datas:UrlData label="Add"/>
+		</s:ArrayCollection>
 	</fx:Declarations>
-	<s:ButtonBar id="tabs"
+	<!--s:CalloutButton id="urlButton"
+					 label="{currentUrlData.label}"
+					 horizontalPosition="end"
+					 verticalPosition="after"
+					 click="urlButton_clickHandler(event)">
+		<s:calloutLayout>
+			<s:VerticalLayout/>
+		</s:calloutLayout>
+		<s:List dataProvider="{dataProviderCollection}"/>
+		<s:Button id="closeButton"
+				  label="Close"/>
+	</s:CalloutButton-->
+	<!--s:ButtonBar id="tabs"
 				 requireSelection="true">
 		<s:dataProvider>
-			<s:ArrayCollection id="dataProviderCollection">
-				<data:UrlData label="Add"/>
-			</s:ArrayCollection>
+
 		</s:dataProvider>
-	</s:ButtonBar>
+	</s:ButtonBar-->
 	<s:HGroup id="urlGroup"
 			  width="100%"
-			  visible="{urlGroupVisible(tabs.selectedIndex)}"
-			  includeInLayout="{urlGroupVisible(tabs.selectedIndex)}">
+			  visible="{urlGroupVisible(currentUrlData.label)}"
+			  includeInLayout="{urlGroupVisible(currentUrlData.label)}">
 		<s:TextInput id="urlTextInput"
-					 width="100%"/>
+					 width="100%"
+					 text="{currentUrlData.url}"/>
 		<s:Button id="goButton"
 				  label="Go"
 				  click="goButton_clickHandler(event)"/>
 	</s:HGroup>
-	<s:DataGroup dataProvider="{dataProviderCollection}"
+	<s:DataGroup id="dataGroup"
+				 dataProvider="{dataProviderCollection}"
 				 width="100%"
 				 height="100%">
 		<s:itemRenderer>
@@ -68,12 +98,12 @@
 								height="100%">
 					<browser:StageWebViewUIComponent width="100%"
 													 height="100%"
-													 urlAddress="{(data as UrlData).label}"
-													 visible="{outerDocument.webViewVisible(data as UrlData, outerDocument.tabs.selectedIndex)}"
-													 includeInLayout="{outerDocument.webViewVisible(data as UrlData, outerDocument.tabs.selectedIndex)}">
+													 urlData="{data as UrlData}"
+													 visible="{outerDocument.webViewVisible(data as UrlData, outerDocument.currentUrlData.label)}"
+													 includeInLayout="{outerDocument.webViewVisible(data as UrlData, outerDocument.currentUrlData.label)}">
 						<fx:Script>
 							<![CDATA[
-								import data.UrlData;
+								import datas.UrlData;
 							]]>
 						</fx:Script>
 					</browser:StageWebViewUIComponent>
