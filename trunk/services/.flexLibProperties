@@ -135,6 +135,8 @@
     <classEntry path="util.OfferServiceChrome"/>
     <classEntry path="util.UrlsService"/>
   </includeClasses>
-  <includeResources/>
+  <includeResources>
+    <resourceEntry destPath="scripts.js" sourcePath="scripts.js"/>
+  </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

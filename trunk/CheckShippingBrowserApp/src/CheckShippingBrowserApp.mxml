@@ -2,9 +2,24 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   applicationDPI="160"
-			   xmlns:browser="components.browser.*">
+			   xmlns:browser="components.browser.*"
+			   currentState="browser">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
+				trace("check shipping");
+			}
+		]]>
+	</fx:Script>
+	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<browser:CheckShippingBrowserGroup/>
+	<s:states>
+		<s:State name="browser"/>
+		<s:State name="shipping"/>
+	</s:states>
+	<browser:CheckShippingBrowserGroup id="checkShippingBrowserGroup"
+									   includeIn="browser"
+									   checkShipping="checkShippingBrowserGroup_checkShippingHandler(event)"/>
 </s:Application>
