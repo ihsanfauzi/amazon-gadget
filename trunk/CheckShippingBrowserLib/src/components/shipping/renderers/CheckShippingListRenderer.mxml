@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="components.*"
+		 width="100%">
+	
+	<s:Rect width="100%"
+			height="100%">
+		<s:fill>
+			<s:SolidColor color="{getBackgroundColor(offer.Condition)}"
+						  alpha="0.1"/>
+		</s:fill>
+	</s:Rect>
+	<s:HGroup width="100%"
+			  height="100%"
+			  horizontalAlign="right">
+	<s:Label width="70%"
+			 height="100%"
+			 color="0xFFFFFF"
+			 verticalAlign="middle"
+			 textAlign="left"
+			 text="{getBackgroundText(offer.Condition)}"/>
+	</s:HGroup>
+
+	<fx:Declarations>
+		<mx:NumberFormatter id="priceFormatter"
+							precision="2"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import dto.OfferInfoDTO;
+			import services.BaseShippingChecker;
+			import services.Helper;
+			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
+			public static var LOADING : Class;
+			public static const WIDTH_NAME:Number = 200;
+			public static const WIDTH_PRICE:Number = 80;
+			private var _offer:OfferInfoDTO;
+			[Bindable]
+			public function get offer():OfferInfoDTO {
+				return _offer;
+			}
+			public function set offer(value:OfferInfoDTO):void {
+				_offer = value;
+			}
+			protected function clickHandler(event:MouseEvent):void {
+				var url:String=offer.BuyURL;
+				Helper.openAmazonItem(url);
+			}
+			private function isSHIPPING_FAIL(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_FAIL;
+			}
+			private function isSHIPPING_NA(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_NA;
+			}
+			private function isSHIPPING_OK(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_OK;
+			}
+			private function isSHIPPING_LOADING(a:Number):Boolean {
+				return a == BaseShippingChecker.SHIPPING_LOADING;
+			}
+			private static function getBackgroundColor(condition:String):uint {
+				if (condition == Helper.CONDITION_NEW) {
+					return 0xFFFFFF;
+				}
+				if (condition == Helper.CONDITION_USED) {
+					return 0xFF0000;
+				}
+				if (condition == Helper.CONDITION_REFURBISHED) {
+					return 0x00FF00;
+				}
+				return null;
+			}
+			private static function getBackgroundText(condition:String):String			{
+				if (condition == Helper.CONDITION_USED) {
+					return "USED";
+				}
+				if (condition == Helper.CONDITION_REFURBISHED) {
+					return "REFURBISHED";
+				}
+				return null;
+			}
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%"
+			  paddingTop="5"
+			  paddingBottom="5">
+		<s:Label useHandCursor="true"
+				 paddingLeft="5"
+				 width="100%"
+				 textDecoration="underline"
+				 buttonMode="true"
+				 mouseChildren="false"
+				 color="blue"
+				 text="{offer.Name}"
+				 click="clickHandler(event)"
+				 toolTip="{offer.Name}"/>
+		<s:Label textAlign="right"
+				 width="80"
+				 text="{priceFormatter.format(offer.PriceNumber)}"/>
+		<s:Label textAlign="right"
+				 width="80"
+				 text="{priceFormatter.format(offer.MinShippingPrice)}"/>
+		<s:Label textAlign="right"
+				 width="80"
+				 text="{priceFormatter.format(offer.NetPrice)}"
+				 textDecoration="underline"
+				 buttonMode="true"
+				 mouseChildren="false"
+				 color="blue"
+				 click="clickHandler(event)"
+				 visible="{!isNaN(offer.NetPrice)}"/>
+		<s:HGroup horizontalAlign="center"
+				  verticalAlign="middle"
+				  width="35"
+				  paddingLeft="5"
+				  paddingRight="5">
+			<s:Image id="errorIcon"
+					 source="@Embed('assets/error.icon.png')"
+					 visible="{isSHIPPING_FAIL(offer.Availability)}"
+					 includeInLayout="{isSHIPPING_FAIL(offer.Availability)}"
+					 useHandCursor="true"
+					 buttonMode="true"
+					 toolTip="Click to see shipping rates"
+					 mouseChildren="false"
+					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+			<s:Label text="n/a"
+					 visible="{isSHIPPING_NA(offer.Availability)}"
+					 includeInLayout="{isSHIPPING_NA(offer.Availability)}"
+					 toolTip="Click to see shipping rates"
+					 textDecoration="underline"
+					 useHandCursor="true"
+					 mouseChildren="false"
+					 buttonMode="true"
+					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+			<s:Image id="goodIcon"
+					 source="@Embed('assets/good.icon.png')"
+					 visible="{isSHIPPING_OK(offer.Availability)}"
+					 includeInLayout="{isSHIPPING_OK(offer.Availability)}"
+					 toolTip="Click to see shipping rates"
+					 useHandCursor="true"
+					 mouseChildren="false"
+					 buttonMode="true"
+					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+			<components:GIFPlayerComponent id="loadingIcon"
+										   byteArray="{new LOADING()}"
+										   visible="{isSHIPPING_LOADING(offer.Availability)}"
+										   includeInLayout="{isSHIPPING_LOADING(offer.Availability)}"
+										   toolTip="Click to see shipping rates"
+										   useHandCursor="true"
+										   mouseChildren="false"
+										   buttonMode="true"
+										   click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
+										   width="13"
+										   height="13"/>
+		</s:HGroup>
+	</s:HGroup>
+</s:Group>

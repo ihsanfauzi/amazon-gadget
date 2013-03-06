@@ -28,6 +28,7 @@
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/StageWebViewBridge/bin/StageWebViewBridge.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/services/bin/services.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="1" linkType="1" path="libs"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
