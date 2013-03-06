@@ -3,13 +3,25 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   applicationDPI="160"
 			   xmlns:browser="components.browser.*"
-			   currentState="browser">
+			   currentState="browser"
+			   xmlns:shipping="components.shipping.*">
 	
 	<fx:Script>
 		<![CDATA[
 			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
-				trace("check shipping");
+				stage.autoOrients = false;
+				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
+				
+				currentState = "shipping";
 			}
+			
+			protected function checkShippingGroup_backToBrowserHandler(event:Event):void {
+				stage.autoOrients = true;
+				stage.setOrientation(StageOrientation.DEFAULT);
+				
+				currentState = "browser";
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -22,4 +34,8 @@
 	<browser:CheckShippingBrowserGroup id="checkShippingBrowserGroup"
 									   includeIn="browser"
 									   checkShipping="checkShippingBrowserGroup_checkShippingHandler(event)"/>
+	<shipping:CheckShippingGroup id="checkShippingGroup"
+								 includeIn="shipping"
+								 urlData="{checkShippingBrowserGroup.currentUrlData}"
+								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"/>
 </s:Application>

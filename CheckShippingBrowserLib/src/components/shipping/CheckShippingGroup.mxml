@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:components="components.*"
+		  xmlns:resources="resources.*"
+		  width="100%"
+		  height="100%"
+		  horizontalAlign="center"
+		  paddingBottom="5"
+		  paddingLeft="5"
+		  paddingRight="5"
+		  paddingTop="5"
+		  creationComplete="creationCompleteHandler(event)"
+		  xmlns:shipping="components.shipping.*">
+	<fx:Metadata>
+		[Event (name="backToBrowser", type="flash.events.Event")]
+	</fx:Metadata>
+	<fx:Declarations>
+		<resources:Resources id="res"/>
+		<s:RemoteObject id="checker"
+						destination="amazon.check.shipping.ShippingService"
+						showBusyCursor="true"
+						result="checker_resultHandler(event)"
+						fault="checker_faultHandler(event)"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.Sort;
+			import mx.events.FlexEvent;
+			import mx.managers.CursorManager;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.mxml.HTTPService;
+			
+			import spark.events.ViewNavigatorEvent;
+			
+			import datas.UrlData;
+			
+			import dto.OfferInfoDTO;
+			import dto.ShippingDTO;
+			
+			import services.BaseShippingChecker;
+			import services.Helper;
+			
+			import util.OfferService;
+			[Bindable]
+			public var urlData:UrlData;
+			[Bindable]
+			private var offers:ArrayCollection=new ArrayCollection();
+			[Bindable]
+			private var showBox:Boolean=true;
+			[Bindable]
+			private var region:String;
+			private function getCountries(...o):Array {
+				var ad:String = getAWSDomain();
+				switch(ad) {
+					case "com":
+						return res.countries_us;
+					case "de":
+						return res.countries_de;
+					case "co.uk":
+						return res.countries_uk;
+					case "fr":
+						return res.countries_fr;
+				}
+				return null;
+			}
+			private function changeCountryHandler():void {
+				region=countryCombo.selectedCountry.region;
+				checkShippingButton_clickHandler(null);
+			}
+			protected function creationCompleteHandler(event:FlexEvent):void {
+				offers.sort = new Sort();
+				offers.sort.compareFunction = offersCompareFunction;
+			}
+			private function offersCompareFunction(o1:OfferInfoDTO, o2:OfferInfoDTO, ...o):Number {
+				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
+					if (o1.NetPrice && o2.NetPrice) {
+						if (o1.NetPrice > o2.NetPrice) {
+							return 1;
+						} else if (o1.NetPrice < o2.NetPrice) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}
+					if (o1.NetPrice && !o2.NetPrice) {
+						return -1;
+					}
+					if (!o1.NetPrice && o2.NetPrice) {
+						return 1;
+					}
+				}
+				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability != BaseShippingChecker.SHIPPING_OK) {
+					return -1;
+				}
+				if (o1.Availability != BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
+					return 1;
+				}
+				if (o1.PriceNumber  && o2.PriceNumber) {
+					if (o1.PriceNumber > o2.PriceNumber) {
+						return 1;
+					}
+					if (o1.PriceNumber < o2.PriceNumber) {
+						return -1;
+					}
+				}
+				return 0;
+			}
+			protected function checkShippingButton_clickHandler(event:MouseEvent):void
+			{
+				showBox=true;
+				offers.removeAll();
+				if (countryCombo.selectedCountry) {
+					var asin:String=getCurrentASIN();
+					getContent(Helper.constructProductUrl(asin, getAWSDomain()), function(content:String):void {
+						OfferInfoDTO.htmlContent=content;
+						region=countryCombo.selectedCountry.region;
+						retrieveAllPages(Helper.CONDITION_NEW);
+						retrieveAllPages(Helper.CONDITION_USED);
+						retrieveAllPages(Helper.CONDITION_REFURBISHED);
+					});
+				}
+			}
+			private function retrieveAllPages(condition:String):void {
+				var asin:String=getCurrentASIN();
+				var url:String=Helper.constructPageUrl(asin, getAWSDomain(), 1, condition);
+				CursorManager.setBusyCursor();
+				getContent(url, function(content:String):void {
+					CursorManager.removeBusyCursor();
+					var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);
+					collectOffers(raw, condition);
+					var pages:Number=raw.Offers.TotalOfferPages;
+					retrieveRestPages(pages, condition);
+				});
+			}
+			private function retrieveRestPages(pages:Number, condition:String):void {
+				if (pages <= 1) {
+					return ;
+				}
+				for(var i:int=2; i <= pages; i++) {
+					var asin:String=getCurrentASIN();
+					var url:String=Helper.constructPageUrl(asin, getAWSDomain(), i, condition);
+					getContent(url, function(content:String):void {
+						CursorManager.removeBusyCursor();
+						var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);
+						collectOffers(raw, condition);
+					});
+				}
+			}
+			private function collectOffers(raw:Object, condition:String):void {
+				for each(var offer:Object in raw.Offers.Offer) {
+					var off:OfferInfoDTO=new OfferInfoDTO();
+					off.Condition=condition;
+					off.Name=offer.Merchant.Name;
+					off.Price=offer.OfferListing.Price.FormattedPrice;
+					off.MerchantId=offer.Merchant.MerchantId;
+					off.BuyURL=raw.DetailPageURL + encodeURIComponent("&m=" + off.MerchantId);
+					off.International=offer.International;
+					off.FulfilledByAmazon=offer.FulfilledByAmazon;
+					off.MerchantShippingURL="http://www.amazon." + getAWSDomain() + "/gp/help/seller/shipping.html?seller=" + off.MerchantId;
+					sendRequest(off);
+					offers.addItem(off);
+				}
+			}
+			public function sendRequest(offer:OfferInfoDTO):void {
+				if (offer.Availability > 0) {
+					return ;
+				}
+				offer.Availability=BaseShippingChecker.SHIPPING_LOADING;
+				var local:Boolean=isLocal();
+				var main:Boolean=isMain();
+				var amazon:Boolean=isAmazon(offer);
+				if (offer.International || local) {
+					var a:AsyncToken=checker.checkShipping(offer.MerchantId, getHostName(), region);
+					a.offer = offer;
+					a.amazon = amazon;
+					a.main = main;
+				}
+				else {
+					offer.Availability=BaseShippingChecker.SHIPPING_FAIL;
+					if (amazon) {
+						offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					}
+				}
+			}
+			private function isLocal():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain")) {
+					var host:String=getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function isMain():Boolean {
+				var item:Object=countryCombo.selectedItem;
+				if (item && item.hasOwnProperty("domain") && item.hasOwnProperty("main")) {
+					var host:String=getHostName();
+					if (host.indexOf(item.domain) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function isAmazon(d:OfferInfoDTO):Boolean {
+				if (d.FulfilledByAmazon) {
+					return true;
+				}
+				if (d && d.Name) {
+					var host:String=getHostName();
+					if (host.indexOf(d.Name.toLowerCase()) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+			private function getContent(url:String, callback:Function):void	{
+				var service:HTTPService = new HTTPService();
+				service.url = url;
+				service.method = "GET";
+				service.resultFormat = "text";
+				service.showBusyCursor=true;
+				service.addEventListener(ResultEvent.RESULT,
+					function(event:ResultEvent):void {
+						callback(event.result as String);
+					});
+				var t:AsyncToken = service.send();
+			}
+			private function getHostName():String {
+				return "www.amazon." + getAWSDomain();
+			}
+			protected function checker_resultHandler(event:ResultEvent):void {
+				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
+				var main:Boolean = event.token.main as Boolean;
+				var amazon:Boolean = event.token.amazon as Boolean;
+				var shippingDTO:ShippingDTO=event.result as ShippingDTO;
+				if (!shippingDTO) {
+					offer.Availability=BaseShippingChecker.SHIPPING_NA;
+					if (main || amazon) {
+						offer.Availability=BaseShippingChecker.SHIPPING_OK;
+					}
+					offers.refresh();
+					return ;
+				}
+				offer.Availability=shippingDTO.availability;
+				if (offer.Availability == BaseShippingChecker.SHIPPING_OK) {
+					offer.shippingPriceDTO=shippingDTO.shippingPrice;
+				}
+				if (main || amazon) {
+					offer.Availability=BaseShippingChecker.SHIPPING_OK;
+				}
+				offers.refresh();
+			}
+			protected function checker_faultHandler(event:FaultEvent):void {
+				var main:Boolean = event.token.main as Boolean;
+				var amazon:Boolean = event.token.amazon as Boolean;
+				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
+				offer.Availability=BaseShippingChecker.SHIPPING_NA;
+				if (main || amazon) {
+					offer.Availability=BaseShippingChecker.SHIPPING_OK;
+				}
+			}
+			protected function conditionCheckBox_changeHandler(event:Event):void {
+				if (offers) {
+					offers.filterFunction=offersFilterFunction;
+					offers.refresh();
+				}
+			}
+			private function offersFilterFunction(item:OfferInfoDTO):Boolean {
+				if (item.Condition == Helper.CONDITION_NEW) {
+					return newCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_REFURBISHED) {
+					return refurbishedCheckBox.selected;
+				}
+				if (item.Condition == Helper.CONDITION_USED) {
+					return usedCheckBox.selected;
+				}
+				return false;
+			}
+			protected function viewActivateHandler(event:ViewNavigatorEvent):void {
+				checkShippingButton_clickHandler(null);
+			}
+			private function getCurrentASIN():String {
+				return urlData.asin as String;
+			}
+			private function getAWSDomain():String {
+				return urlData.domain as String;
+			}
+			private function getCurrentTitle():String {
+				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + urlData.label;
+			}
+			protected function backButton_clickHandler(event:MouseEvent):void {
+				dispatchEvent(new Event("backToBrowser"));
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label textAlign="center"
+			 width="100%"
+			 text="{getCurrentTitle()}"
+			 fontSize="10"/>
+	<s:HGroup width="100%">
+		<s:Button id="backButton"
+				  height="33"
+				  label="&lt;"
+				  click="backButton_clickHandler(event)"/>
+		<shipping:CountryComboBox id="countryCombo"
+								  width="100%"
+								  height="{backButton.height}"
+								  countries="{getCountries(urlData.domain)}"
+								  visible="{showBox}"
+								  includeInLayout="{showBox}"
+								  changeCountry="{changeCountryHandler()}"/>
+		<s:CheckBox id="newCheckBox"
+					height="{backButton.height}"
+					toolTip="New Items"
+					selected="true"
+					visible="{showBox}"
+					includeInLayout="{showBox}"
+					change="conditionCheckBox_changeHandler(event)"/>
+		<s:Group>
+			<s:Rect width="100%"
+					height="100%">
+				<s:fill>
+					<s:SolidColor color="0xFF0000"
+								  alpha="0.3"/>
+				</s:fill>
+			</s:Rect>
+			<s:CheckBox id="usedCheckBox"
+						height="{backButton.height}"
+						toolTip="Used Items"
+						selected="true"
+						visible="{showBox}"
+						includeInLayout="{showBox}"
+						change="conditionCheckBox_changeHandler(event)"/>
+		</s:Group>
+		<s:Group>
+			<s:Rect width="100%"
+					height="100%">
+				<s:fill>
+					<s:SolidColor color="0x00FF00"
+								  alpha="0.3"/>
+				</s:fill>
+			</s:Rect>
+			<s:CheckBox id="refurbishedCheckBox"
+						height="{backButton.height}"
+						toolTip="Refurbished Items"
+						selected="true"
+						visible="{showBox}"
+						includeInLayout="{showBox}"
+						change="conditionCheckBox_changeHandler(event)"/>
+		</s:Group>
+		<!--s:Button id="checkShippingButton"
+		height="33"
+		label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+		enabled="{!showBox || countryCombo.selectedCountry}"
+		click="checkShippingButton_clickHandler(event)"/-->
+	</s:HGroup>
+	<shipping:CheckAvailabilityBox offers="{offers}"
+								   width="100%"
+								   height="100%"/>
+</s:VGroup>

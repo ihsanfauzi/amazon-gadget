@@ -19,7 +19,7 @@
 			
 			import datas.UrlData;
 			
-			[Embed(source='assets/loading.gif', mimeType='application/octet-stream')]
+			[Embed(source='assets/loading1.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
 			[Bindable]
 			public var currentUrlData:UrlData;
