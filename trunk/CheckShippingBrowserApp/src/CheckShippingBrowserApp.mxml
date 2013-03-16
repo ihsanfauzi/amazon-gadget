@@ -5,25 +5,22 @@
 			   xmlns:browser="components.browser.*"
 			   currentState="browser"
 			   xmlns:shipping="components.shipping.*">
-	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
 	<fx:Script>
 		<![CDATA[
 			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
-//				stage.autoOrients = false;
-//				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
-				
 				currentState = "shipping";
 				checkShippingGroup.checkShippingButton_clickHandler();
 			}
-			
 			protected function checkShippingGroup_backToBrowserHandler(event:Event):void {
-//				stage.autoOrients = true;
-//				stage.setOrientation(StageOrientation.DEFAULT);
-				
 				currentState = "browser";
 				checkShippingBrowserGroup.changed = true;
 			}
-			
+			protected function exitButton_clickHandler(event:MouseEvent):void {
+				NativeApplication.nativeApplication.exit();
+			}
 		]]>
 	</fx:Script>
 	
@@ -40,4 +37,10 @@
 								 includeIn="shipping"
 								 urlData="{checkShippingBrowserGroup.currentUrlData}"
 								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"/>
+	<s:HGroup id="footerGroup">
+		<s:Button id="exitButton"
+				  height="35"
+				  label="EXIT"
+				  click="exitButton_clickHandler(event)"/>
+	</s:HGroup>
 </s:Application>
