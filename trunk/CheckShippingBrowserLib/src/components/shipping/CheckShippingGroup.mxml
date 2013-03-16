@@ -260,6 +260,8 @@
 				if (main || amazon) {
 					offer.Availability=BaseShippingChecker.SHIPPING_OK;
 				}
+				offers.refresh();
+				cursorManager.removeBusyCursor();
 			}
 			protected function conditionCheckBox_changeHandler(event:Event):void {
 				if (offers) {
