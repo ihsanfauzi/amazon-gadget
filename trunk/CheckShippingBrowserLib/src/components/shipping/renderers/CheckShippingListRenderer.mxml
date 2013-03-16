@@ -14,15 +14,16 @@
 	</s:Rect>
 	<s:HGroup width="100%"
 			  height="100%"
-			  horizontalAlign="right">
-	<s:Label width="70%"
-			 height="100%"
-			 color="0xFFFFFF"
-			 verticalAlign="middle"
-			 textAlign="left"
-			 text="{getBackgroundText(offer.Condition)}"/>
+			  horizontalAlign="center"
+			  verticalAlign="bottom">
+		<s:Label width="100%"
+				 height="100%"
+				 color="0xFFFFFF"
+				 verticalAlign="middle"
+				 textAlign="center"
+				 text="{getBackgroundText(offer.Condition)}"/>
 	</s:HGroup>
-
+	
 	<fx:Declarations>
 		<mx:NumberFormatter id="priceFormatter"
 							precision="2"/>
@@ -83,7 +84,7 @@
 			}
 		]]>
 	</fx:Script>
-	<s:HGroup width="100%"
+	<s:VGroup width="100%"
 			  paddingTop="5"
 			  paddingBottom="5">
 		<s:Label useHandCursor="true"
@@ -96,64 +97,68 @@
 				 text="{offer.Name}"
 				 click="clickHandler(event)"
 				 toolTip="{offer.Name}"/>
-		<s:Label textAlign="right"
-				 width="80"
-				 text="{priceFormatter.format(offer.PriceNumber)}"/>
-		<s:Label textAlign="right"
-				 width="80"
-				 text="{priceFormatter.format(offer.MinShippingPrice)}"/>
-		<s:Label textAlign="right"
-				 width="80"
-				 text="{priceFormatter.format(offer.NetPrice)}"
-				 textDecoration="underline"
-				 buttonMode="true"
-				 mouseChildren="false"
-				 color="blue"
-				 click="clickHandler(event)"
-				 visible="{!isNaN(offer.NetPrice)}"/>
-		<s:HGroup horizontalAlign="center"
-				  verticalAlign="middle"
-				  width="35"
-				  paddingLeft="5"
-				  paddingRight="5">
-			<s:Image id="errorIcon"
-					 source="@Embed('assets/error.icon.png')"
-					 visible="{isSHIPPING_FAIL(offer.Availability)}"
-					 includeInLayout="{isSHIPPING_FAIL(offer.Availability)}"
-					 useHandCursor="true"
-					 buttonMode="true"
-					 toolTip="Click to see shipping rates"
-					 mouseChildren="false"
-					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
-			<s:Label text="n/a"
-					 visible="{isSHIPPING_NA(offer.Availability)}"
-					 includeInLayout="{isSHIPPING_NA(offer.Availability)}"
-					 toolTip="Click to see shipping rates"
+		
+		<s:HGroup width="100%">
+			<s:Label width="100%"/>
+			<s:Label textAlign="right"
+					 width="80"
+					 text="{priceFormatter.format(offer.PriceNumber)}"/>
+			<s:Label textAlign="right"
+					 width="80"
+					 text="{priceFormatter.format(offer.MinShippingPrice)}"/>
+			<s:Label textAlign="right"
+					 width="80"
+					 text="{priceFormatter.format(offer.NetPrice)}"
 					 textDecoration="underline"
-					 useHandCursor="true"
-					 mouseChildren="false"
 					 buttonMode="true"
-					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
-			<s:Image id="goodIcon"
-					 source="@Embed('assets/good.icon.png')"
-					 visible="{isSHIPPING_OK(offer.Availability)}"
-					 includeInLayout="{isSHIPPING_OK(offer.Availability)}"
-					 toolTip="Click to see shipping rates"
-					 useHandCursor="true"
 					 mouseChildren="false"
-					 buttonMode="true"
-					 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
-			<components:GIFPlayerComponent id="loadingIcon"
-										   byteArray="{new LOADING()}"
-										   visible="{isSHIPPING_LOADING(offer.Availability)}"
-										   includeInLayout="{isSHIPPING_LOADING(offer.Availability)}"
-										   toolTip="Click to see shipping rates"
-										   useHandCursor="true"
-										   mouseChildren="false"
-										   buttonMode="true"
-										   click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
-										   width="13"
-										   height="13"/>
+					 color="blue"
+					 click="clickHandler(event)"
+					 visible="{!isNaN(offer.NetPrice)}"/>
+			<s:HGroup horizontalAlign="center"
+					  verticalAlign="middle"
+					  width="35"
+					  paddingLeft="5"
+					  paddingRight="5">
+				<s:Image id="errorIcon"
+						 source="@Embed('assets/error.icon.png')"
+						 visible="{isSHIPPING_FAIL(offer.Availability)}"
+						 includeInLayout="{isSHIPPING_FAIL(offer.Availability)}"
+						 useHandCursor="true"
+						 buttonMode="true"
+						 toolTip="Click to see shipping rates"
+						 mouseChildren="false"
+						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+				<s:Label text="n/a"
+						 visible="{isSHIPPING_NA(offer.Availability)}"
+						 includeInLayout="{isSHIPPING_NA(offer.Availability)}"
+						 toolTip="Click to see shipping rates"
+						 textDecoration="underline"
+						 useHandCursor="true"
+						 mouseChildren="false"
+						 buttonMode="true"
+						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+				<s:Image id="goodIcon"
+						 source="@Embed('assets/good.icon.png')"
+						 visible="{isSHIPPING_OK(offer.Availability)}"
+						 includeInLayout="{isSHIPPING_OK(offer.Availability)}"
+						 toolTip="Click to see shipping rates"
+						 useHandCursor="true"
+						 mouseChildren="false"
+						 buttonMode="true"
+						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+				<components:GIFPlayerComponent id="loadingIcon"
+											   byteArray="{new LOADING()}"
+											   visible="{isSHIPPING_LOADING(offer.Availability)}"
+											   includeInLayout="{isSHIPPING_LOADING(offer.Availability)}"
+											   toolTip="Click to see shipping rates"
+											   useHandCursor="true"
+											   mouseChildren="false"
+											   buttonMode="true"
+											   click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
+											   width="13"
+											   height="13"/>
+			</s:HGroup>
 		</s:HGroup>
-	</s:HGroup>
+	</s:VGroup>
 </s:Group>

@@ -89,7 +89,7 @@ package components.browser {
 		private function onInit(event:Event):void {
 			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
 			_stageWebView = new StageWebViewBridge(0, 0, width * scale, height * scale);
-			_stageWebView.snapShotVisible = _snapShotVisible;
+			//_stageWebView.snapShotVisible = _snapShotVisible;
 			_stageWebView.addEventListener(Event.COMPLETE, completeHandler);
 			_stageWebView.addEventListener(ErrorEvent.ERROR, errorHandler);
 			_stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);
