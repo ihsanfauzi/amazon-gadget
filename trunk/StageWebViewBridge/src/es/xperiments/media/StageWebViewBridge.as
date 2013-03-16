@@ -198,7 +198,7 @@ package es.xperiments.media
 				addEventListener( Event.EXIT_FRAME, checkVisibleState );
 				addEventListener( Event.REMOVED_FROM_STAGE, onRemoved );
 			}
-			removeEventListener( Event.ADDED_TO_STAGE, onAdded );
+			//removeEventListener( Event.ADDED_TO_STAGE, onAdded );
 		}
 
 		/**
@@ -208,8 +208,8 @@ package es.xperiments.media
 		private function onRemoved( event : Event ) : void
 		{
 			_view.stage = null;
-			removeEventListener( Event.EXIT_FRAME, checkVisibleState );
-			removeEventListener( Event.REMOVED_FROM_STAGE, onRemoved );
+			//removeEventListener( Event.EXIT_FRAME, checkVisibleState );
+			//removeEventListener( Event.REMOVED_FROM_STAGE, onRemoved );
 		}
 
 		/**
