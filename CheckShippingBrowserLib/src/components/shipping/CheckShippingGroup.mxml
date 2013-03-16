@@ -6,10 +6,6 @@
 		  width="100%"
 		  height="100%"
 		  horizontalAlign="center"
-		  paddingBottom="5"
-		  paddingLeft="5"
-		  paddingRight="5"
-		  paddingTop="5"
 		  creationComplete="creationCompleteHandler(event)"
 		  xmlns:shipping="components.shipping.*">
 	<fx:Metadata>
@@ -74,6 +70,7 @@
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				offers.sort = new Sort();
 				offers.sort.compareFunction = offersCompareFunction;
+				checkShippingButton_clickHandler();
 			}
 			private function offersCompareFunction(o1:OfferInfoDTO, o2:OfferInfoDTO, ...o):Number {
 				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
@@ -109,7 +106,7 @@
 				}
 				return 0;
 			}
-			protected function checkShippingButton_clickHandler(event:MouseEvent):void
+			public function checkShippingButton_clickHandler(event:MouseEvent=null):void
 			{
 				showBox=true;
 				offers.removeAll();
@@ -291,7 +288,7 @@
 			private function getAWSDomain():String {
 				return urlData.domain as String;
 			}
-			private function getCurrentTitle():String {
+			private function getCurrentTitle(...o):String {
 				return "Amazon." + getAWSDomain() + ": " + getCurrentASIN() + urlData.label;
 			}
 			protected function backButton_clickHandler(event:MouseEvent):void {
@@ -300,13 +297,14 @@
 		]]>
 	</fx:Script>
 	
-	<s:Label textAlign="center"
+	<!--s:Label textAlign="center"
 			 width="100%"
-			 text="{getCurrentTitle()}"
-			 fontSize="10"/>
-	<s:HGroup width="100%">
+			 text="{getCurrentTitle(urlData)}"
+			 fontSize="10"/-->
+	<s:HGroup width="100%"
+			  gap="1">
 		<s:Button id="backButton"
-				  height="33"
+				  height="35"
 				  label="&lt;"
 				  click="backButton_clickHandler(event)"/>
 		<shipping:CountryComboBox id="countryCombo"
@@ -355,11 +353,6 @@
 						includeInLayout="{showBox}"
 						change="conditionCheckBox_changeHandler(event)"/>
 		</s:Group>
-		<!--s:Button id="checkShippingButton"
-		height="33"
-		label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-		enabled="{!showBox || countryCombo.selectedCountry}"
-		click="checkShippingButton_clickHandler(event)"/-->
 	</s:HGroup>
 	<shipping:CheckAvailabilityBox offers="{offers}"
 								   width="100%"

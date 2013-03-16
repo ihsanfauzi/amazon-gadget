@@ -9,17 +9,19 @@
 	<fx:Script>
 		<![CDATA[
 			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
-				stage.autoOrients = false;
-				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
+//				stage.autoOrients = false;
+//				stage.setOrientation(StageOrientation.ROTATED_RIGHT);
 				
 				currentState = "shipping";
+				checkShippingGroup.checkShippingButton_clickHandler();
 			}
 			
 			protected function checkShippingGroup_backToBrowserHandler(event:Event):void {
-				stage.autoOrients = true;
-				stage.setOrientation(StageOrientation.DEFAULT);
+//				stage.autoOrients = true;
+//				stage.setOrientation(StageOrientation.DEFAULT);
 				
 				currentState = "browser";
+				checkShippingBrowserGroup.changed = true;
 			}
 			
 		]]>
