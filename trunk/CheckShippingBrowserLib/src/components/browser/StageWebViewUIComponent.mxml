@@ -3,7 +3,7 @@
 									 xmlns:s="library://ns.adobe.com/flex/spark"
 									 xmlns:browser="components.browser.*"
 									 complete="this_completeHandler(event)"
-									 url="{urlData.url}">
+									 url="@{urlData.url}">
 	
 	<fx:Script>
 		<![CDATA[
@@ -15,12 +15,6 @@
 			import es.xperiments.media.StageWebViewDisk;
 			
 			import services.JSInit;
-			[Bindable]
-			public var domain:String;
-			[Bindable]
-			public var asin:String;
-			[Bindable]
-			public var title:String;
 			[Bindable]
 			public var urlData:UrlData;
 
@@ -68,12 +62,12 @@
 			}
 			
 			override protected function locationChangingHandler(event:Event):void {
-				dispatchEvent(event.clone());
+				super.locationChangingHandler(event);
 				//if (StageWebViewDisk.isIPHONE) {
 					var e:LocationChangeEvent = event as LocationChangeEvent;
-					if (e.location.indexOf("about:") != 0) {
-						stageWebView.stop();
-						urlData.url = e.location;
+					if (e.location.indexOf("://") != -1) {
+						//stageWebView.stop();
+						//urlData.url = e.location;
 						urlData.loading = true;
 					}
 				//}
