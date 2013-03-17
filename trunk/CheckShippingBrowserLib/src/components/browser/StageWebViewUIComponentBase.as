@@ -4,6 +4,7 @@ package components.browser {
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.events.LocationChangeEvent;
+	import flash.utils.setTimeout;
 	
 	import mx.core.FlexGlobals;
 	import mx.core.UIComponent;
@@ -33,7 +34,7 @@ package components.browser {
 		private var _snapShotVisible:Boolean = false;
 		
 		public function get url():String {
-			return _stageWebView?_stageWebView.location:_url;
+			return _url;
 		}
 
 		[Bindable]
@@ -57,12 +58,18 @@ package components.browser {
 		}
 		
 		public function set url(url:String):void {
+			if (_url == url) return;
 			_url = url;
 			
 			if (_stageWebView) {
-				_stageWebView.loadURL(url);
+				setTimeout(function():void {
+					_stageWebView.loadURL(url);
+				}, 100);
 			}
 		}
+		
+		
+		
 		
 		public function set text(text:String):void {
 			_text = text;
@@ -112,8 +119,9 @@ package components.browser {
 			dispatchEvent(event.clone());
 			if (StageWebViewDisk.isIPHONE) {
 				var e:LocationChangeEvent = event as LocationChangeEvent;
-				stageWebView.stop();
-				stageWebView.loadURL(e.location);
+				if (e.location.indexOf("about:") != 0) {
+					//url = e.location;
+				}
 			}
 		}
 		

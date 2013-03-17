@@ -67,10 +67,16 @@
 				stageWebView.snapShotVisible = true;
 			}
 			
-			override protected function locationChangeHandler(event:Event):void {
-				var e:LocationChangeEvent = event as LocationChangeEvent;
-				urlData.url = e.location;
-				urlData.loading = true;
+			override protected function locationChangingHandler(event:Event):void {
+				dispatchEvent(event.clone());
+				//if (StageWebViewDisk.isIPHONE) {
+					var e:LocationChangeEvent = event as LocationChangeEvent;
+					if (e.location.indexOf("about:") != 0) {
+						stageWebView.stop();
+						urlData.url = e.location;
+						urlData.loading = true;
+					}
+				//}
 			}
 			
 		]]>
