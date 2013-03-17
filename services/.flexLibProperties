@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="1">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
   <includeClasses>
     <classEntry path="amazon.shipping.Services"/>
     <classEntry path="com.adobe.serialization.json.JSON"/>
@@ -104,6 +104,7 @@
     <classEntry path="com.hurlant.util.der.Set"/>
     <classEntry path="com.hurlant.util.der.Type"/>
     <classEntry path="com.hurlant.util.der.UTCTime"/>
+    <classEntry path="components.GIFPlayerComponent"/>
     <classEntry path="dto.OfferDTO"/>
     <classEntry path="dto.OfferInfoDTO"/>
     <classEntry path="dto.SearchDTO"/>
@@ -111,6 +112,7 @@
     <classEntry path="dto.ShipmentBandsDTO"/>
     <classEntry path="dto.ShippingDTO"/>
     <classEntry path="dto.ShippingPriceDTO"/>
+    <classEntry path="net.hires.debug.Stats"/>
     <classEntry path="org.bytearray.gif.decoder.GIFDecoder"/>
     <classEntry path="org.bytearray.gif.encoder.GIFEncoder"/>
     <classEntry path="org.bytearray.gif.encoder.LZWEncoder"/>

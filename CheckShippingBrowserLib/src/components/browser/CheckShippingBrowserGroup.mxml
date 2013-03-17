@@ -27,6 +27,7 @@
 			protected function goButton_clickHandler(event:MouseEvent):void {
 				if (currentUrlData && currentUrlData.loading) {
 					webViewUIComponent.stageWebView.stop();
+					currentUrlData.loading = false;
 				} else {
 					var url:String = urlTextInput.text;
 					if (validateUrl(url)) {
