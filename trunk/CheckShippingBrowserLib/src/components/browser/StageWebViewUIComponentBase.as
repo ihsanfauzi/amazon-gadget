@@ -110,6 +110,11 @@ package components.browser {
 		
 		protected function locationChangingHandler(event:Event):void {
 			dispatchEvent(event.clone());
+			if (StageWebViewDisk.isIPHONE) {
+				var e:LocationChangeEvent = event as LocationChangeEvent;
+				stageWebView.stop();
+				stageWebView.loadURL(e.location);
+			}
 		}
 		
 		protected function locationChangeHandler(event:Event):void {
