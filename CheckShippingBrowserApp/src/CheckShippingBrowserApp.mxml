@@ -10,6 +10,7 @@
 	</s:layout>
 	<fx:Script>
 		<![CDATA[
+			import es.xperiments.media.StageWebViewDisk;
 			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
 				currentState = "shipping";
 				checkShippingGroup.checkShippingButton_clickHandler();
@@ -20,6 +21,20 @@
 			}
 			protected function exitButton_clickHandler(event:MouseEvent):void {
 				NativeApplication.nativeApplication.exit();
+				if (StageWebViewDisk.isIPHONE) {
+					exitApp();
+				}
+			}
+			
+			private function exitApp ( e:Event = null ):void {
+				//NativeApplication.nativeApplication.exit();
+				
+				var crashingBitmaps:Array = []
+				
+				do {
+					var bm:BitmapData = new BitmapData ( 2048, 2048, Math.floor( Math.random() * uint.MAX_VALUE ) );
+					crashingBitmaps.push( bm );
+				} while ( true );
 			}
 		]]>
 	</fx:Script>
