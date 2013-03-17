@@ -8,6 +8,8 @@ package components.browser {
 	
 	import mx.core.FlexGlobals;
 	import mx.core.UIComponent;
+	import mx.events.PropertyChangeEvent;
+	import mx.events.PropertyChangeEventKind;
 	
 	import es.xperiments.media.StageWebViewBridge;
 	import es.xperiments.media.StageWebViewDisk;
@@ -57,19 +59,21 @@ package components.browser {
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
 		
+		[Bindable("urlChanged")]
 		public function set url(url:String):void {
 			if (_url == url) return;
 			_url = url;
 			
 			if (_stageWebView) {
-				setTimeout(function():void {
+				if (StageWebViewDisk.isIPHONE) {
+					setTimeout(function():void {
+						_stageWebView.loadURL(url);
+					}, 100);
+				} else {
 					_stageWebView.loadURL(url);
-				}, 100);
+				}
 			}
 		}
-		
-		
-		
 		
 		public function set text(text:String):void {
 			_text = text;
@@ -116,13 +120,17 @@ package components.browser {
 		}
 		
 		protected function locationChangingHandler(event:Event):void {
-			dispatchEvent(event.clone());
-			if (StageWebViewDisk.isIPHONE) {
+			//dispatchEvent(event.clone());
+			//if (StageWebViewDisk.isIPHONE) {
 				var e:LocationChangeEvent = event as LocationChangeEvent;
-				if (e.location.indexOf("about:") != 0) {
-					//url = e.location;
+				if (e.location.indexOf("://") != -1) {
+					var oldValue:String = _url;
+					_url = e.location;
+					if (_url != oldValue) {
+						dispatchEvent(new PropertyChangeEvent('urlChanged', false, false, PropertyChangeEventKind.UPDATE, "url", oldValue, _url));
+					}
 				}
-			}
+			//}
 		}
 		
 		protected function locationChangeHandler(event:Event):void {
