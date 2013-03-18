@@ -4,7 +4,7 @@
 			   applicationDPI="160"
 			   xmlns:browser="components.browser.*"
 			   currentState="browser"
-			   xmlns:shipping="components.shipping.*" xmlns:components="components.*">
+			   xmlns:shipping="components.shipping.*" xmlns:components="components.*" xmlns:datas="datas.*">
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
@@ -19,39 +19,26 @@
 			}
 			protected function checkShippingGroup_backToBrowserHandler(event:Event):void {
 				currentState = "browser";
-				checkShippingBrowserGroup.changed = true;
 			}
 			protected function exitButton_clickHandler(event:MouseEvent):void {
 				NativeApplication.nativeApplication.exit();
-				if (StageWebViewDisk.isIPHONE) {
-					exitApp();
-				}
-			}
-			
-			private function exitApp ( e:Event = null ):void {
-				//NativeApplication.nativeApplication.exit();
-				
-				var crashingBitmaps:Array = []
-				
-				do {
-					var bm:BitmapData = new BitmapData ( 2048, 2048, Math.floor( Math.random() * uint.MAX_VALUE ) );
-					crashingBitmaps.push( bm );
-				} while ( true );
 			}
 		]]>
 	</fx:Script>
 	
 	<fx:Declarations>
+		<datas:UrlData id="urlData"/>
 	</fx:Declarations>
 	<s:states>
 		<s:State name="browser"/>
 		<s:State name="shipping"/>
 	</s:states>
 	<browser:CheckShippingBrowserGroup id="checkShippingBrowserGroup"
-									   includeIn="browser"/>
+									   includeIn="browser"
+									   urlData="{urlData}"/>
 	<shipping:CheckShippingGroup id="checkShippingGroup"
 								 includeIn="shipping"
-								 urlData="{checkShippingBrowserGroup.currentUrlData}"
+								 urlData="{urlData}"
 								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"/>
 	<s:HGroup id="footerGroup"
 			  width="100%"
@@ -67,7 +54,7 @@
 				  chromeColor="{checkShippingButton.enabled?0xCC9900:0x000000}"
 				  click="checkShippingButton_clickHandler(event)"
 				  height="{exitButton.height}"
-				  enabled="{checkShippingBrowserGroup.currentUrlData.asin != null}"/>
+				  enabled="{urlData.asin != null}"/>
 		<s:HGroup width="100%"
 				  height="100%"
 				  paddingRight="3"
@@ -79,7 +66,7 @@
 			<components:GIFPlayerComponent byteArray="{new LOADING}"
 										   width="24"
 										   height="24"
-										   visible="{checkShippingBrowserGroup.currentUrlData.loading}"/>
+										   visible="{urlData.loading}"/>
 		</s:HGroup>
 	</s:HGroup>
 </s:Application>
