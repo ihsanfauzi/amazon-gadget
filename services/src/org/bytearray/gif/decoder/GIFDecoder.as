@@ -10,13 +10,22 @@ package org.bytearray.gif.decoder
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.BlendMode;
+	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
+	
+	import mx.core.FlexGlobals;
+	
 	import org.bytearray.gif.errors.FileTypeError;
 	import org.bytearray.gif.frames.GIFFrame;
 	
 	public class GIFDecoder 
 	{
+		private static var scale:Number = FlexGlobals.topLevelApplication.runtimeDPI / FlexGlobals.topLevelApplication.applicationDPI;
+		private static var scaleMatrix:Matrix = new Matrix();
+		//scaleMatrix.scale(1/scale, 1/scale);
+
 		/**
 		 * File read status: No errors.
 		 */
@@ -201,16 +210,19 @@ package org.bytearray.gif.decoder
 			
 			var lngWidth:int = image.width;
 			var lngHeight:int = image.height;
+			//bitmap = new BitmapData(bitmap.width*scale, bitmap.height*scale);
 			bitmap.lock();
+			var bd:BitmapData = new BitmapData(lngWidth, lngHeight);
 			
 			for (var th:int = 0; th < lngHeight; th++)
 			{
 				for (var tw:int = 0; tw < lngWidth; tw++)
 				{
 					color = pixels[int(count++)];
-					bitmap.setPixel32 ( tw, th, color );
+					bd.setPixel32 ( tw, th, color );
 				}
 			}
+			bitmap.draw(bd, scaleMatrix, null, null, null, true);
 			bitmap.unlock();
 		}
 
