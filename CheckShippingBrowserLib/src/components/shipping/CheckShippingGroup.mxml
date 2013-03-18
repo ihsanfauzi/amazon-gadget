@@ -135,6 +135,7 @@
 			}
 			private function retrieveRestPages(pages:Number, condition:String):void {
 				if (pages <= 1) {
+					urlData.loadingInt = cursorManager.currentCursorID;
 					return ;
 				}
 				for(var i:int=2; i <= pages; i++) {
@@ -144,6 +145,7 @@
 						CursorManager.removeBusyCursor();
 						var raw:Object=OfferService.getItemBySite(getHostName(), asin, content);
 						collectOffers(raw, condition);
+						urlData.loadingInt = cursorManager.currentCursorID;
 					});
 				}
 			}
@@ -172,6 +174,7 @@
 				var amazon:Boolean=isAmazon(offer);
 				if (offer.International || local) {
 					var a:AsyncToken=checker.checkShipping(offer.MerchantId, getHostName(), region);
+					urlData.loading = true;
 					a.offer = offer;
 					a.amazon = amazon;
 					a.main = main;
@@ -226,11 +229,13 @@
 						callback(event.result as String);
 					});
 				var t:AsyncToken = service.send();
+				urlData.loading = true;
 			}
 			private function getHostName():String {
 				return "www.amazon." + getAWSDomain();
 			}
 			protected function checker_resultHandler(event:ResultEvent):void {
+				urlData.loadingInt = cursorManager.currentCursorID;
 				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
 				var main:Boolean = event.token.main as Boolean;
 				var amazon:Boolean = event.token.amazon as Boolean;
@@ -253,6 +258,7 @@
 				offers.refresh();
 			}
 			protected function checker_faultHandler(event:FaultEvent):void {
+				urlData.loadingInt = cursorManager.currentCursorID;
 				var main:Boolean = event.token.main as Boolean;
 				var amazon:Boolean = event.token.amazon as Boolean;
 				var offer:OfferInfoDTO = event.token.offer as OfferInfoDTO;
