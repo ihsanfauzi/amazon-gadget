@@ -7,8 +7,6 @@
 		  width="100%"
 		  height="100%"
 		  gap="0"
-		  addedToStage="addedToStageHandler(event)"
-		  creationComplete="creationCompleteHandler(event)"
 		  xmlns:metadata="org.osmf.metadata.*">
 	<fx:Metadata>
 		[Event (name="checkShipping", type="flash.events.Event")]
@@ -16,24 +14,19 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
 			import datas.UrlData;
 			[Bindable]
-			public var currentUrlData:UrlData;
-			[Bindable]
-			public var changed:Boolean;
+			public var urlData:UrlData;
+
 			protected function goButton_clickHandler(event:MouseEvent):void {
-				if (currentUrlData && currentUrlData.loading) {
+				if (urlData && urlData.loading) {
 					webViewUIComponent.stageWebView.stop();
-					currentUrlData.loading = false;
+					urlData.loading = false;
 				} else {
 					var url:String = urlTextInput.text;
 					if (validateUrl(url)) {
 						url = adjustUrl(url);
-						var d:UrlData = new UrlData();
-						d.url = url;
-						//dataProviderCollection.addItemAt(d, dataProviderCollection.length - 1);
-						currentUrlData = d;
+						urlData.url = url;
 					}
 				}
 			}
@@ -49,15 +42,6 @@
 			private function urlGroupVisible(...o):Object {
 				return true;//currentUrlData.label == "Add";
 			}
-			public function webViewVisible(urlData:UrlData, ...o):Boolean	{
-				return currentUrlData == urlData;
-			}
-			protected function addedToStageHandler(event:Event):void {
-				//Utils.addStats(this.stage);
-			}
-			protected function creationCompleteHandler(event:FlexEvent):void {
-				currentUrlData = dataProviderCollection.getItemAt(0) as UrlData;
-			}
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
 				dispatchEvent(new Event("checkShipping"));
 			}
@@ -71,14 +55,9 @@
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:ArrayCollection id="dataProviderCollection">
-			<datas:UrlData label="Add"/>
-		</s:ArrayCollection>
 	</fx:Declarations>
 	<s:HGroup id="urlGroup"
 			  width="100%"
-			  visible="{urlGroupVisible(currentUrlData.label)}"
-			  includeInLayout="{urlGroupVisible(currentUrlData.label)}"
 			  verticalAlign="middle"
 			  gap="1">
 		<s:Button id="backButton"
@@ -90,18 +69,16 @@
 				  height="{urlTextInput.height}"
 				  click="forwardButton_clickHandler(event)"/>
 		<s:TextInput id="urlTextInput"
-					 text="{currentUrlData.url}"
+					 text="{urlData.url}"
 					 width="100%"
 					 height="35"/>
 		<s:Button id="goButton"
-				  label="{currentUrlData.loading?'X':'Go'}"
+				  label="{urlData.loading?'X':'Go'}"
 				  click="goButton_clickHandler(event)"
 				  height="{urlTextInput.height}"/>
 	</s:HGroup>
 	<browser:StageWebViewUIComponent id="webViewUIComponent"
 									 width="100%"
 									 height="100%"
-									 urlData="{currentUrlData}"
-									 visible="{webViewVisible(currentUrlData, currentUrlData.label, changed)}"
-									 includeInLayout="{webViewVisible(currentUrlData, currentUrlData.label, changed)}"/>
+									 urlData="{urlData}"/>
 </s:VGroup>
