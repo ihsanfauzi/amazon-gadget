@@ -4,14 +4,16 @@
 			   applicationDPI="160"
 			   xmlns:browser="components.browser.*"
 			   currentState="browser"
-			   xmlns:shipping="components.shipping.*">
+			   xmlns:shipping="components.shipping.*" xmlns:components="components.*">
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
 	<fx:Script>
 		<![CDATA[
 			import es.xperiments.media.StageWebViewDisk;
-			protected function checkShippingBrowserGroup_checkShippingHandler(event:Event):void {
+			[Embed(source='assets/loading1.gif', mimeType='application/octet-stream')]
+			public static var LOADING : Class;
+			protected function checkShippingButton_clickHandler(event:Event):void {
 				currentState = "shipping";
 				checkShippingGroup.checkShippingButton_clickHandler();
 			}
@@ -46,16 +48,38 @@
 		<s:State name="shipping"/>
 	</s:states>
 	<browser:CheckShippingBrowserGroup id="checkShippingBrowserGroup"
-									   includeIn="browser"
-									   checkShipping="checkShippingBrowserGroup_checkShippingHandler(event)"/>
+									   includeIn="browser"/>
 	<shipping:CheckShippingGroup id="checkShippingGroup"
 								 includeIn="shipping"
 								 urlData="{checkShippingBrowserGroup.currentUrlData}"
 								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"/>
-	<s:HGroup id="footerGroup">
+	<s:HGroup id="footerGroup"
+			  width="100%"
+			  gap="1">
 		<s:Button id="exitButton"
 				  height="35"
 				  label="EXIT"
-				  click="exitButton_clickHandler(event)"/>
+				  click="exitButton_clickHandler(event)"
+				  visible="{!StageWebViewDisk.isIPHONE}"
+				  includeInLayout="{!StageWebViewDisk.isIPHONE}"/>
+		<s:Button id="checkShippingButton"
+				  label="Shipping"
+				  chromeColor="{checkShippingButton.enabled?0xCC9900:0x000000}"
+				  click="checkShippingButton_clickHandler(event)"
+				  height="{exitButton.height}"
+				  enabled="{checkShippingBrowserGroup.currentUrlData.asin != null}"/>
+		<s:HGroup width="100%"
+				  height="100%"
+				  paddingRight="3"
+				  horizontalAlign="right"
+				  verticalAlign="middle">
+			<s:Button id="reportIssueButton"
+					  height="{exitButton.height}"
+					  label="Report Issue"/>
+			<components:GIFPlayerComponent byteArray="{new LOADING}"
+										   width="24"
+										   height="24"
+										   visible="{checkShippingBrowserGroup.currentUrlData.loading}"/>
+		</s:HGroup>
 	</s:HGroup>
 </s:Application>
