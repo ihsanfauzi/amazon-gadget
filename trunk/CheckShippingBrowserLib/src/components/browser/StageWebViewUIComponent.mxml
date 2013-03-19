@@ -39,6 +39,7 @@
 					function (data:String):void {
 						if (data) {
 							urlData.domain = data.substr(data.lastIndexOf(".")+1);
+							urlData.domain = urlData.domain == "uk"?"co.uk":urlData.domain;
 						}
 					});
 				stageWebView.call ('getTitle',
