@@ -7,7 +7,8 @@
 						   prompt="Select Your Country"
 						   change="changeHandler(event)"
 						   creationComplete="creationCompleteHandler(event)"
-						   xmlns:resources="resources.*">
+						   xmlns:resources="resources.*"
+						   selectedItem="{selectedCountry}">
 	<fx:Metadata>
 		[Event (name="changeCountry", type="flash.events.Event")]
 	</fx:Metadata>
@@ -26,8 +27,8 @@
 					warningEffect.stop();
 					glow.alpha = 0;
 				}
-				var obj:SharedObject=SharedObject.getLocal("Preferencies", "/");
-				obj.data.selectedCountry=selectedItem.value;
+				var obj:SharedObject=SharedObject.getLocal("Preferenses", "/");
+				obj.data.selectedCountry=selectedCountry.value;
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
 			}
@@ -37,15 +38,15 @@
 				}
 				var cont:String=getSelectedCountry();
 				if (cont) {
-					selectedItem=findCountry(cont);
-					selectedCountry=selectedItem;
+					selectedCountry=findCountry(cont);
+					
 				}
 				if (!selectedCountry) {
 					warningEffect.play(null, true);
 				}
 			}
 			private function getSelectedCountry():String {
-				var obj:SharedObject=SharedObject.getLocal("Preferencies", "/");
+				var obj:SharedObject=SharedObject.getLocal("Preferenses", "/");
 				if (obj.data.hasOwnProperty("selectedCountry")) {
 					return String(obj.data.selectedCountry);
 				}
