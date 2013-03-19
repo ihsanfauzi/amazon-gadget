@@ -6,17 +6,17 @@
 						   dataProvider="{new ArrayList(countries)}"
 						   prompt="Select Your Country"
 						   change="changeHandler(event)"
-						   creationComplete="creationCompleteHandler(event)"
 						   xmlns:resources="resources.*"
-						   selectedItem="{selectedCountry}">
+						   selectedItem="{selectedCountry}"
+						   addedToStage="addedToStageHandler(event)">
 	<fx:Metadata>
 		[Event (name="changeCountry", type="flash.events.Event")]
 	</fx:Metadata>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayList;
-			import mx.events.FlexEvent;
 			import spark.events.IndexChangeEvent;
+
 			[Bindable]
 			public var selectedCountry:Object;
 			[Bindable]
@@ -32,19 +32,19 @@
 				obj.flush();
 				dispatchEvent(new Event("changeCountry"));
 			}
-			protected function creationCompleteHandler(event:FlexEvent):void {
-				if (countries) {
-					countries.sortOn("label");
-				}
-				var cont:String=getSelectedCountry();
-				if (cont) {
-					selectedCountry=findCountry(cont);
-					
-				}
-				if (!selectedCountry) {
-					warningEffect.play(null, true);
-				}
-			}
+//			protected function creationCompleteHandler(event:FlexEvent):void {
+//				if (countries) {
+//					countries.sortOn("label");
+//				}
+//				var cont:String=getSelectedCountry();
+//				if (cont) {
+//					selectedCountry=findCountry(cont);
+//					
+//				}
+//				if (!selectedCountry) {
+//					warningEffect.play(null, true);
+//				}
+//			}
 			private function getSelectedCountry():String {
 				var obj:SharedObject=SharedObject.getLocal("Preferenses", "/");
 				if (obj.data.hasOwnProperty("selectedCountry")) {
@@ -60,6 +60,22 @@
 				}
 				return null;
 			}
+			
+			protected function addedToStageHandler(event:Event):void {
+				selectedCountry = null;
+				if (countries) {
+					countries.sortOn("label");
+				}
+				var cont:String=getSelectedCountry();
+				if (cont) {
+					selectedCountry=findCountry(cont);
+					
+				}
+				if (!selectedCountry) {
+					warningEffect.play(null, true);
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
