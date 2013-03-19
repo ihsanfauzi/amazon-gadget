@@ -20,6 +20,7 @@ package components.browser {
 	[Event(name="complete", type = "flash.events.Event")]
 	[Event(name="locationChanging", type = "flash.events.LocationChangeEvent")]
 	[Event(name="locationChange", type = "flash.events.LocationChangeEvent")]
+	[Event(name="webviewCreated", type = "flash.events.Event")]
 	
 	public class StageWebViewUIComponentBase extends UIComponent {
 		
@@ -51,8 +52,13 @@ package components.browser {
 			}
 		}
 
+		[Bindable]
 		public function get stageWebView():StageWebViewBridge {
 			return _stageWebView;
+		}
+		
+		public function set stageWebView(value:StageWebViewBridge):void	{
+			_stageWebView = value;
 		}
 		
 		public function StageWebViewUIComponentBase() {
@@ -64,7 +70,7 @@ package components.browser {
 			if (_url == url) return;
 			_url = url;
 			
-			if (_stageWebView) {
+			if (_stageWebView && url) {
 				if (StageWebViewDisk.isIPHONE) {
 					setTimeout(function():void {
 						_stageWebView.loadURL(url);
@@ -113,6 +119,7 @@ package components.browser {
 			var s:Sprite = new Sprite();
 			s.addChild(_stageWebView);
 			addChild(s);
+			dispatchEvent(new Event("webviewCreated"));
 		}
 		
 		protected function completeHandler(event:Event):void {
