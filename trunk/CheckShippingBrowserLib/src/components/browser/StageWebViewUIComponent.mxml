@@ -50,8 +50,14 @@
 						}
 					});
 				
-//				stageWebView.addEventListener( StageWebViewBridgeEvent.ON_GET_SNAPSHOT, onGetSnapShot );
-//				stageWebView.getSnapShot();
+//				stageWebView.call ('getPageHTML',
+//					function (data:String):void {
+//						if (data) {
+//							var html:String = data;
+//							trace(html);
+//						}
+//					});
+				
 				
 			}
 			
