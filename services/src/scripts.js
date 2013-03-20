@@ -190,3 +190,7 @@ createScript = function(_name, _url) {
 getDocumentHTML = function() {
 	return document.body.innerHTML;
 }
+
+getPageHTML = function() {
+	return document.getElementsByTagName('html')[0].outerHTML;
+}
