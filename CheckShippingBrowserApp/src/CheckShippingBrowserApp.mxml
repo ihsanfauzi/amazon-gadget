@@ -10,6 +10,8 @@
 	</s:layout>
 	<fx:Script>
 		<![CDATA[
+			import components.shipping.events.OpenUrlEvent;
+			
 			import es.xperiments.media.StageWebViewDisk;
 			[Embed(source='assets/loading1.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
@@ -22,6 +24,14 @@
 			}
 			protected function exitButton_clickHandler(event:MouseEvent):void {
 				NativeApplication.nativeApplication.exit();
+			}
+			
+			protected function checkShippingGroup_openUrlHandler(event:OpenUrlEvent):void {
+				if(urlData.url != event.url) {
+					checkShippingBrowserGroup.fbcursor.navigate();
+				}
+				urlData.url = event.url;
+				currentState = "browser";
 			}
 		]]>
 	</fx:Script>
@@ -39,7 +49,8 @@
 	<shipping:CheckShippingGroup id="checkShippingGroup"
 								 includeIn="shipping"
 								 urlData="{urlData}"
-								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"/>
+								 backToBrowser="checkShippingGroup_backToBrowserHandler(event)"
+								 openUrl="checkShippingGroup_openUrlHandler(event)"/>
 	<s:HGroup id="footerGroup"
 			  width="100%"
 			  gap="1">
