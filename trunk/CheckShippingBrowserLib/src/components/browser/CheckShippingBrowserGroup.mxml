@@ -33,6 +33,7 @@
 						if(urlData.url != url) {
 							fbcursor.navigate();
 						}
+						urlData.url = null;
 						urlData.url = url;
 					}
 				}
