@@ -87,7 +87,7 @@
 			}
 			
 			private function openAmazonItem(url:String):void	{
-				dispatchEvent(new OpenUrlEvent(url));
+				dispatchEvent(new OpenUrlEvent(url.replace("/dp/", "/gp/aw/d/")));
 			}
 			
 		]]>
