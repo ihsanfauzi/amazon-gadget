@@ -4,14 +4,15 @@
 			   applicationDPI="160"
 			   xmlns:browser="components.browser.*"
 			   currentState="browser"
-			   xmlns:shipping="components.shipping.*" xmlns:components="components.*" xmlns:datas="datas.*">
+			   xmlns:shipping="components.shipping.*"
+			   xmlns:components="components.*"
+			   xmlns:datas="datas.*">
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
 	<fx:Script>
 		<![CDATA[
 			import components.shipping.events.OpenUrlEvent;
-			
 			import es.xperiments.media.StageWebViewDisk;
 			[Embed(source='assets/loading1.gif', mimeType='application/octet-stream')]
 			public static var LOADING : Class;
@@ -25,7 +26,6 @@
 			protected function exitButton_clickHandler(event:MouseEvent):void {
 				NativeApplication.nativeApplication.exit();
 			}
-			
 			protected function checkShippingGroup_openUrlHandler(event:OpenUrlEvent):void {
 				if(urlData.url != event.url) {
 					checkShippingBrowserGroup.fbcursor.navigate();
