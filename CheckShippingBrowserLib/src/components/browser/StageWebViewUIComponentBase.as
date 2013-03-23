@@ -39,25 +39,27 @@ package components.browser {
 		public function get url():String {
 			return _url;
 		}
-
+		
 		[Bindable]
+		
 		public function get snapShotVisible():Boolean {
-			return _stageWebView?_stageWebView.snapShotVisible:_snapShotVisible;
+			return _stageWebView ? _stageWebView.snapShotVisible : _snapShotVisible;
 		}
-
-		public function set snapShotVisible(value:Boolean):void	{
+		
+		public function set snapShotVisible(value:Boolean):void {
 			_snapShotVisible = value;
-			if(_stageWebView) {
+			if (_stageWebView) {
 				_stageWebView.snapShotVisible = value;
 			}
 		}
-
+		
 		[Bindable]
+		
 		public function get stageWebView():StageWebViewBridge {
 			return _stageWebView;
 		}
 		
-		public function set stageWebView(value:StageWebViewBridge):void	{
+		public function set stageWebView(value:StageWebViewBridge):void {
 			_stageWebView = value;
 		}
 		
@@ -66,8 +68,10 @@ package components.browser {
 		}
 		
 		[Bindable("urlChanged")]
+		
 		public function set url(url:String):void {
-			if (_url == url) return;
+			if (_url == url)
+				return ;
 			_url = url;
 			
 			if (_stageWebView && url) {
@@ -106,7 +110,6 @@ package components.browser {
 		private function onInit(event:Event):void {
 			StageWebViewDisk.removeEventListener(StageWebviewDiskEvent.END_DISK_PARSING, onInit);
 			_stageWebView = new StageWebViewBridge(0, 0, width * scale, height * scale);
-			//_stageWebView.snapShotVisible = _snapShotVisible;
 			_stageWebView.addEventListener(Event.COMPLETE, completeHandler);
 			_stageWebView.addEventListener(ErrorEvent.ERROR, errorHandler);
 			_stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);
@@ -128,16 +131,14 @@ package components.browser {
 		
 		protected function locationChangingHandler(event:Event):void {
 			//dispatchEvent(event.clone());
-			//if (StageWebViewDisk.isIPHONE) {
-				var e:LocationChangeEvent = event as LocationChangeEvent;
-				if (e.location.indexOf("://") != -1) {
-					var oldValue:String = _url;
-					_url = e.location;
-					if (_url != oldValue) {
-						dispatchEvent(new PropertyChangeEvent('urlChanged', false, false, PropertyChangeEventKind.UPDATE, "url", oldValue, _url));
-					}
+			var e:LocationChangeEvent = event as LocationChangeEvent;
+			if (e.location.indexOf("://") != -1) {
+				var oldValue:String = _url;
+				_url = e.location;
+				if (_url != oldValue) {
+					dispatchEvent(new PropertyChangeEvent('urlChanged', false, false, PropertyChangeEventKind.UPDATE, "url", oldValue, _url));
 				}
-			//}
+			}
 		}
 		
 		protected function locationChangeHandler(event:Event):void {
@@ -145,7 +146,7 @@ package components.browser {
 		}
 		
 		protected function errorHandler(event:Event):void {
-			//dispatchEvent(event.clone());
+			
 		}
 		
 		override public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean = true):void {
@@ -155,6 +156,3 @@ package components.browser {
 		}
 	}
 }
-
-
-

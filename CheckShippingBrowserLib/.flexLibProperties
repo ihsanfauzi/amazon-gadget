@@ -5,13 +5,14 @@
     <classEntry path="components.browser.StageWebViewUIComponent"/>
     <classEntry path="datas.UrlData"/>
     <classEntry path="components.browser.UrlTextInput"/>
+    <classEntry path="utils.ForwardBackCursor"/>
   </includeClasses>
   <includeResources>
-    <resourceEntry destPath="assets/error.icon.png" sourcePath="assets/error.icon.png"/>
-    <resourceEntry destPath="assets/good.icon.png" sourcePath="assets/good.icon.png"/>
+    <resourceEntry destPath="assets/loading1.gif" sourcePath="assets/loading1.gif"/>
     <resourceEntry destPath="assets/index.html" sourcePath="assets/index.html"/>
     <resourceEntry destPath="assets/loading.gif" sourcePath="assets/loading.gif"/>
-    <resourceEntry destPath="assets/loading1.gif" sourcePath="assets/loading1.gif"/>
+    <resourceEntry destPath="assets/good.icon.png" sourcePath="assets/good.icon.png"/>
+    <resourceEntry destPath="assets/error.icon.png" sourcePath="assets/error.icon.png"/>
   </includeResources>
   <namespaceManifests/>
 </flexLibProperties>

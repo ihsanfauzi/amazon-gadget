@@ -6,22 +6,22 @@
 		  xmlns:datas="datas.*"
 		  width="100%"
 		  height="100%"
-		  gap="0"
-		  xmlns:metadata="org.osmf.metadata.*">
+		  gap="1"
+		  xmlns:metadata="org.osmf.metadata.*"
+		  xmlns:utils="utils.*">
 	<fx:Metadata>
 		[Event (name="checkShipping", type="flash.events.Event")]
 	</fx:Metadata>
-	
+	<fx:Declarations>
+		<utils:ForwardBackCursor id="fbcursor"/>
+	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
 			import datas.UrlData;
-			
 			[Embed(source="assets/index.html", mimeType="application/octet-stream")]
 			public static var INDEX_HTML:Class;
-			
 			[Bindable]
 			public var urlData:UrlData;
-
 			protected function goButton_clickHandler(event:MouseEvent):void {
 				if (urlData && urlData.loading) {
 					webViewUIComponent.stageWebView.stop();
@@ -30,6 +30,9 @@
 					var url:String = urlTextInput.text;
 					if (validateUrl(url)) {
 						url = adjustUrl(url);
+						if(urlData.url != url) {
+							fbcursor.navigate();
+						}
 						urlData.url = url;
 					}
 				}
@@ -43,24 +46,32 @@
 				}
 				return url;
 			}
-			private function urlGroupVisible(...o):Object {
-				return true;//currentUrlData.label == "Add";
-			}
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
 				dispatchEvent(new Event("checkShipping"));
 			}
 			protected function backButton_clickHandler(event:MouseEvent):void {
+				fbcursor.back();
 				webViewUIComponent.stageWebView.historyBack();
 			}
 			protected function forwardButton_clickHandler(event:MouseEvent):void {
+				fbcursor.forward();
 				webViewUIComponent.stageWebView.historyForward();
 			}
 			protected function webviewCreatedHandler(event:Event):void {
 				var file : ByteArray = new INDEX_HTML();
 				var str : String = file.readUTFBytes(file.length);
 				webViewUIComponent.stageWebView.loadString(str);
+				webViewUIComponent.stageWebView.addEventListener(LocationChangeEvent.LOCATION_CHANGING, locationChangingHandler);
 			}
-			
+			protected function locationChangingHandler(event:Event):void {
+				var e:LocationChangeEvent = event as LocationChangeEvent;
+				if (e.location.indexOf("://") != -1) {
+					if(!fbcursor.locked) {
+						fbcursor.navigate();
+					}
+				}
+				fbcursor.locked=false;
+			}
 		]]>
 	</fx:Script>
 	
@@ -71,15 +82,16 @@
 			  verticalAlign="middle"
 			  gap="1">
 		<s:Button id="backButton"
-				  enabled="{webViewUIComponent.stageWebView.isHistoryBackEnabled}"
+				  visible="{fbcursor.canGoBack}"
 				  label="&lt;"
 				  height="{urlTextInput.height}"
 				  click="backButton_clickHandler(event)"/>
 		<s:Button id="forwardButton"
-				  enabled="{webViewUIComponent.stageWebView.isHistoryForwardEnabled}"
+				  visible="{fbcursor.canGoForward}"
 				  label="&gt;"
 				  height="{urlTextInput.height}"
 				  click="forwardButton_clickHandler(event)"/>
+		<!--s:Label text="{'p:'+fbcursor.pointer+'a:'+fbcursor.allcounter}"/-->
 		<s:TextInput id="urlTextInput"
 					 text="{urlData.url}"
 					 width="100%"
