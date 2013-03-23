@@ -10,6 +10,7 @@
 		  xmlns:shipping="components.shipping.*">
 	<fx:Metadata>
 		[Event (name="backToBrowser", type="flash.events.Event")]
+		[Event (name="openUrl", type="components.shipping.events.OpenUrlEvent")]
 	</fx:Metadata>
 	<fx:Declarations>
 		<resources:Resources id="res"/>
@@ -30,7 +31,7 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.rpc.http.mxml.HTTPService;
 			
-			import spark.events.ViewNavigatorEvent;
+			import components.shipping.events.OpenUrlEvent;
 			
 			import datas.UrlData;
 			
@@ -70,7 +71,7 @@
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				offers.sort = new Sort();
 				offers.sort.compareFunction = offersCompareFunction;
-				checkShippingButton_clickHandler();
+				//checkShippingButton_clickHandler();
 			}
 			private function offersCompareFunction(o1:OfferInfoDTO, o2:OfferInfoDTO, ...o):Number {
 				if (o1.Availability == BaseShippingChecker.SHIPPING_OK  && o2.Availability == BaseShippingChecker.SHIPPING_OK) {
@@ -287,9 +288,6 @@
 				}
 				return false;
 			}
-			protected function viewActivateHandler(event:ViewNavigatorEvent):void {
-				checkShippingButton_clickHandler(null);
-			}
 			private function getCurrentASIN():String {
 				return urlData.asin as String;
 			}
@@ -306,9 +304,9 @@
 	</fx:Script>
 	
 	<!--s:Label textAlign="center"
-			 width="100%"
-			 text="{getCurrentTitle(urlData)}"
-			 fontSize="10"/-->
+	width="100%"
+	text="{getCurrentTitle(urlData)}"
+	fontSize="10"/-->
 	<s:HGroup width="100%"
 			  gap="1">
 		<s:Button id="backButton"

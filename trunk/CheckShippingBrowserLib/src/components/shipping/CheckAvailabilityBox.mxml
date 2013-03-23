@@ -63,10 +63,12 @@
 			<fx:Component>
 				<s:ItemRenderer alternatingItemColors="{[0xFFFFFF, 0xdcdcdc]}"
 								width="100%">
+					
 					<renderers:CheckShippingListRenderer offer="{data as OfferInfoDTO}">
 						<fx:Script>
 							<![CDATA[
 								import dto.OfferInfoDTO;
+								
 							]]>
 						</fx:Script>
 					</renderers:CheckShippingListRenderer>

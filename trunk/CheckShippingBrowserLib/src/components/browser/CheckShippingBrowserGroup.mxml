@@ -82,12 +82,10 @@
 			  verticalAlign="middle"
 			  gap="1">
 		<s:Button id="backButton"
-				  visible="{fbcursor.canGoBack}"
 				  label="&lt;"
 				  height="{urlTextInput.height}"
 				  click="backButton_clickHandler(event)"/>
 		<s:Button id="forwardButton"
-				  visible="{fbcursor.canGoForward}"
 				  label="&gt;"
 				  height="{urlTextInput.height}"
 				  click="forwardButton_clickHandler(event)"/>

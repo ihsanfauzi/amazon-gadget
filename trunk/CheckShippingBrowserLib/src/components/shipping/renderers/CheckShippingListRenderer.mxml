@@ -4,7 +4,9 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:components="components.*"
 		 width="100%">
-	
+	<!--fx:Metadata>
+		[Event (name="openUrl", type="components.shipping.events.OpenUrlEvent")]
+	</fx:Metadata-->
 	<s:Rect width="100%"
 			height="100%">
 		<s:fill>
@@ -30,6 +32,7 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import components.shipping.events.OpenUrlEvent;
 			import dto.OfferInfoDTO;
 			import services.BaseShippingChecker;
 			import services.Helper;
@@ -47,7 +50,7 @@
 			}
 			protected function clickHandler(event:MouseEvent):void {
 				var url:String=offer.BuyURL;
-				Helper.openAmazonItem(url);
+				openAmazonItem(url);
 			}
 			private function isSHIPPING_FAIL(a:Number):Boolean {
 				return a == BaseShippingChecker.SHIPPING_FAIL;
@@ -82,6 +85,11 @@
 				}
 				return null;
 			}
+			
+			private function openAmazonItem(url:String):void	{
+				dispatchEvent(new OpenUrlEvent(url));
+			}
+			
 		]]>
 	</fx:Script>
 	<s:VGroup width="100%"
@@ -128,7 +136,7 @@
 						 buttonMode="true"
 						 toolTip="Click to see shipping rates"
 						 mouseChildren="false"
-						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+						 click="{openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 				<s:Label text="n/a"
 						 visible="{isSHIPPING_NA(offer.Availability)}"
 						 includeInLayout="{isSHIPPING_NA(offer.Availability)}"
@@ -137,7 +145,7 @@
 						 useHandCursor="true"
 						 mouseChildren="false"
 						 buttonMode="true"
-						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+						 click="{openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 				<s:Image id="goodIcon"
 						 source="@Embed('assets/good.icon.png')"
 						 visible="{isSHIPPING_OK(offer.Availability)}"
@@ -146,7 +154,7 @@
 						 useHandCursor="true"
 						 mouseChildren="false"
 						 buttonMode="true"
-						 click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+						 click="{openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
 				<components:GIFPlayerComponent id="loadingIcon"
 											   byteArray="{new LOADING()}"
 											   visible="{isSHIPPING_LOADING(offer.Availability)}"
@@ -155,7 +163,7 @@
 											   useHandCursor="true"
 											   mouseChildren="false"
 											   buttonMode="true"
-											   click="{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
+											   click="{openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
 											   width="13"
 											   height="13"/>
 			</s:HGroup>
