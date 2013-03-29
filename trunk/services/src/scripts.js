@@ -189,8 +189,15 @@ createScript = function(_name, _url) {
 
 getDocumentHTML = function() {
 	return document.body.innerHTML;
-}
+};
 
 getPageHTML = function() {
 	return document.getElementsByTagName('html')[0].outerHTML;
-}
+};
+
+setGoogleIssueDescription = function(str) {
+	var elm = document.getElementsByName('comment')[0];
+	elm.value = elm.value + '\n\n\nTrace:\n' + str;
+	return elm.value;
+	//alert(elm.innerHTML);
+};
