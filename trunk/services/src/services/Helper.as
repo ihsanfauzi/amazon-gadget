@@ -431,8 +431,9 @@ package services
 		}
 		
 		public static function addTagToUrl(url:String):String {
-//			var protocolPattern:RegExp = /^\w+(?=:\/\/)/;
-//			var domain:String = url.match(protocolPattern)[0];
+			if (!url) {
+				return url;
+			}
 			var domain:String = URLUtil.getServerName(url);
 			
 			if (domain.indexOf("www") == -1) {
@@ -448,10 +449,15 @@ package services
 			var query:String = "";
 			if (aq && aq.length>0) {
 				query = aq[0];
+				var vars:URLVariables = new URLVariables(query);
+				vars.tag = tag;
+				return url.replace(query, vars.toString());
+			} else {
+				vars = new URLVariables();
+				vars.tag = tag;
+				url = url + "?" + vars.toString();
+				return url.replace("??", "?");
 			}
-			var vars:URLVariables = new URLVariables(query);
-			vars.tag = tag;
-			return url.replace(query, vars.toString());
 		}
 	}
 }
