@@ -100,7 +100,7 @@
 									  buttonMode = "true"
 									  toolTip = "Click to see shipping rates"
 									  mouseChildren = "false"
-									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+									  click = "{Helper.openAmazonItem(Helper.addTagToUrl(offer.MerchantShippingURL))}"/>
 							<mx:Label text = "n/a"
 									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
 									  includeInLayout = "{offer.Availability==BaseShippingChecker.SHIPPING_NA}"
@@ -109,7 +109,7 @@
 									  useHandCursor = "true"
 									  mouseChildren = "false"
 									  buttonMode = "true"
-									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+									  click = "{Helper.openAmazonItem(Helper.addTagToUrl(offer.MerchantShippingURL))}"/>
 							<mx:Image id = "goodIcon"
 									  source = "@Embed('assets/good.icon.png')"
 									  visible = "{offer.Availability==BaseShippingChecker.SHIPPING_OK}"
@@ -118,7 +118,7 @@
 									  useHandCursor = "true"
 									  mouseChildren = "false"
 									  buttonMode = "true"
-									  click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"/>
+									  click = "{Helper.openAmazonItem(Helper.addTagToUrl(offer.MerchantShippingURL))}"/>
 							<components:GIFPlayerComponent id = "loadingIcon"
 														   byteArray = "{new CheckAvailabilityBox.LOADING()}"
 														   visible = "{offer.Availability==BaseShippingChecker.SHIPPING_LOADING}"
@@ -127,7 +127,7 @@
 														   useHandCursor = "true"
 														   mouseChildren = "false"
 														   buttonMode = "true"
-														   click = "{Helper.openAmazonItem(Helper.addTag(offer.MerchantShippingURL))}"
+														   click = "{Helper.openAmazonItem(Helper.addTagToUrl(offer.MerchantShippingURL))}"
 														   width="13"
 														   height="13"/>
 							<mx:Script>
