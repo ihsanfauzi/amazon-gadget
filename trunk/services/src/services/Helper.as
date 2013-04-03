@@ -259,18 +259,18 @@ package services
 			request.Signature=encoder.toString();
 		}
 
-		public static function addTag(s:String):String
-		{
-			if (s.indexOf("?") != -1)
-			{
-				s=s + "&tag=7search-20";
-			}
-			else
-			{
-				s=s + "?tag=7search-20";
-			}
-			return s;
-		}
+//		public static function addTag(s:String):String
+//		{
+//			if (s.indexOf("?") != -1)
+//			{
+//				s=s + "&tag=7search-20";
+//			}
+//			else
+//			{
+//				s=s + "?tag=7search-20";
+//			}
+//			return s;
+//		}
 
 		public static function createAmazonNewReleasesURL():String
 		{
