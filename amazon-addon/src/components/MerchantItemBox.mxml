@@ -21,7 +21,7 @@
 			  buttonMode="true"
 			  toolTip="Click to see shipping rates"
 			  mouseChildren="false"
-			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+			  click="{Helper.openAmazonItem(Helper.addTagToUrl(offerDTO.merchantShippingURL))}"/>
 	<mx:Label text="n/a"
 			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
 			  includeInLayout="{offerDTO.availability==BaseShippingChecker.SHIPPING_NA}"
@@ -30,7 +30,7 @@
 			  useHandCursor="true"
 			  mouseChildren="false"
 			  buttonMode="true"
-			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+			  click="{Helper.openAmazonItem(Helper.addTagToUrl(offerDTO.merchantShippingURL))}"/>
 	<mx:Image id="goodIcon"
 			  source="assets/good.icon.png"
 			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_OK}"
@@ -39,7 +39,7 @@
 			  useHandCursor="true"
 			  mouseChildren="false"
 			  buttonMode="true"
-			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+			  click="{Helper.openAmazonItem(Helper.addTagToUrl(offerDTO.merchantShippingURL))}"/>
 	<mx:Image id="loadingIcon"
 			  source="assets/loading.gif"
 			  visible="{offerDTO.availability==BaseShippingChecker.SHIPPING_LOADING}"
@@ -48,7 +48,7 @@
 			  useHandCursor="true"
 			  mouseChildren="false"
 			  buttonMode="true"
-			  click="{Helper.openAmazonItem(Helper.addTag(offerDTO.merchantShippingURL))}"/>
+			  click="{Helper.openAmazonItem(Helper.addTagToUrl(offerDTO.merchantShippingURL))}"/>
 	<mx:Script>
 		<![CDATA[
 			import services.BaseShippingChecker;
