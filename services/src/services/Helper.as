@@ -4,12 +4,9 @@ package services
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
 	
-	import dto.OfferDTO;
-	import dto.SearchDTO;
-	import dto.SearchItemDTO;
-	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
+	import flash.net.URLVariables;
 	import flash.utils.ByteArray;
 	
 	import mx.collections.ArrayCollection;
@@ -19,6 +16,10 @@ package services
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.Base64Encoder;
 	import mx.utils.StringUtil;
+	
+	import dto.OfferDTO;
+	import dto.SearchDTO;
+	import dto.SearchItemDTO;
 
 	public class Helper
 	{
@@ -426,6 +427,28 @@ package services
 		public static function constructProductUrl(asin:String, country:String):String {
 			var res:String="http://www.amazon." + country + "/gp/product/" + asin;
 			return res;
+		}
+		
+		public static function addTagToUrl(url:String):String {
+			var protocolPattern:RegExp = /^\w+(?=:\/\/)/;
+			var domain:String = url.match(protocolPattern)[0];
+			if (domain.indexOf("www") == -1) {
+				domain = "www." + domain; 
+			}
+			var tag:String = getTagBySite(domain);
+			if (!tag) {
+				return url;
+			}
+			
+			var queryPattern:RegExp = /(?<=\?).+$/;
+			var aq:Array = url.match(queryPattern);// url query = var1=var1Value&var2=var2Value
+			var query:String = "";
+			if (aq && aq.length>0) {
+				query = aq[0];
+			}
+			var vars:URLVariables = new URLVariables(query);
+			vars.tag = tag;
+			return url.replace(query, vars.toString());
 		}
 	}
 }
