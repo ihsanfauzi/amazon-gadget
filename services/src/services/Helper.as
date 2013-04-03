@@ -16,6 +16,7 @@ package services
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.Base64Encoder;
 	import mx.utils.StringUtil;
+	import mx.utils.URLUtil;
 	
 	import dto.OfferDTO;
 	import dto.SearchDTO;
@@ -430,8 +431,10 @@ package services
 		}
 		
 		public static function addTagToUrl(url:String):String {
-			var protocolPattern:RegExp = /^\w+(?=:\/\/)/;
-			var domain:String = url.match(protocolPattern)[0];
+//			var protocolPattern:RegExp = /^\w+(?=:\/\/)/;
+//			var domain:String = url.match(protocolPattern)[0];
+			var domain:String = URLUtil.getServerName(url);
+			
 			if (domain.indexOf("www") == -1) {
 				domain = "www." + domain; 
 			}
