@@ -431,34 +431,40 @@ package services
 		}
 		
 		public static function addTagToUrl(url:String):String {
-			if (!url) {
+			try {
+				if (!url) {
+					return url;
+				}
+				var domain:String = URLUtil.getServerName(url);
+				
+				if (domain.indexOf("www") == -1) {
+					domain = "www." + domain;
+				}
+				var tag:String = getTagBySite(domain);
+				if (!tag) {
+					return url;
+				}
+				
+				var queryPattern:RegExp = /(?<=\?).+$/;
+				var aq:Array = url.match(queryPattern);
+				// url query = var1=var1Value&var2=var2Value
+				var query:String = "";
+				if (aq && aq.length > 0) {
+					query = aq[0];
+					var vars:URLVariables = new URLVariables(query);
+					vars.tag = tag;
+					return url.replace(query, vars.toString());
+				} else {
+					vars = new URLVariables();
+					vars.tag = tag;
+					url = url + "?" + vars.toString();
+					return url.replace("??", "?");
+				}
+			}
+			catch(err:Error) {
 				return url;
 			}
-			var domain:String = URLUtil.getServerName(url);
-			
-			if (domain.indexOf("www") == -1) {
-				domain = "www." + domain; 
-			}
-			var tag:String = getTagBySite(domain);
-			if (!tag) {
-				return url;
-			}
-			
-			var queryPattern:RegExp = /(?<=\?).+$/;
-			var aq:Array = url.match(queryPattern);// url query = var1=var1Value&var2=var2Value
-			var query:String = "";
-			if (aq && aq.length>0) {
-				query = aq[0];
-				var vars:URLVariables = new URLVariables(query);
-				vars.tag = tag;
-				return url.replace(query, vars.toString());
-			} else {
-				vars = new URLVariables();
-				vars.tag = tag;
-				url = url + "?" + vars.toString();
-				return url.replace("??", "?");
-			}
+			return url;
 		}
 	}
 }
-
