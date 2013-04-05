@@ -148,6 +148,7 @@
 			private function init():void {
 				//Helper.evalScripts();
 				new GAHelper();
+				GAHelper.trackPageView(ExternalInterface.call("window.location.href.toString"));
 				measure();
 				asin=ExternalInterface.call("getCurrentASIN");
 				logActivity();
@@ -288,9 +289,9 @@
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
 				var asin:String=ExternalInterface.call("getCurrentASIN");
 				if (countryCombo.selectedCountry) {
-					region=countryCombo.selectedCountry.region;
+					var country:String=countryCombo.selectedCountry.value;
 				}
-				GAHelper.trackEvent("Check Shipping", region+":"+asin); 
+				GAHelper.trackEvent("Check Shipping", country+":"+asin); 
 
 				showBox=true;
 				offers.removeAll();
