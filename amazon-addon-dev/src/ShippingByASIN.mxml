@@ -109,6 +109,8 @@
 			import util.OfferService;
 			import util.OfferServiceChrome;
 			
+			import utils.GAHelper;
+			
 			public static const VERSION:String="2012.09.19.2";
 			
 			[Bindable]
@@ -145,6 +147,7 @@
 			
 			private function init():void {
 				//Helper.evalScripts();
+				new GAHelper();
 				measure();
 				asin=ExternalInterface.call("getCurrentASIN");
 				logActivity();
@@ -283,6 +286,12 @@
 			}
 			
 			protected function checkShippingButton_clickHandler(event:MouseEvent):void {
+				var asin:String=ExternalInterface.call("getCurrentASIN");
+				if (countryCombo.selectedCountry) {
+					region=countryCombo.selectedCountry.region;
+				}
+				GAHelper.trackEvent("Check Shipping", region+":"+asin); 
+
 				showBox=true;
 				offers.removeAll();
 				if (countryCombo.selectedCountry) {

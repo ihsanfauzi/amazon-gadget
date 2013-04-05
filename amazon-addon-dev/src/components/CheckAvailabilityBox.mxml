@@ -52,13 +52,16 @@
 									
 									import services.Helper;
 									
+									import utils.GAHelper;
+									
 									protected function clickHandler(event:MouseEvent):void {
 										var offer:OfferInfoDTO=data as OfferInfoDTO;
 										var url:String=offer.BuyURL;
 										Helper.openAmazonItem(url);
-										var img:Image=new Image();
-										img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
-										img.initialize();
+										GAHelper.trackEvent("Open Item", url);
+//										var img:Image=new Image();
+//										img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+//										img.initialize();
 									}
 								]]>
 							</mx:Script>

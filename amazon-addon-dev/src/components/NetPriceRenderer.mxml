@@ -33,6 +33,8 @@
 			
 			import util.UrlsService;
 			
+			import utils.GAHelper;
+			
 			public function priceLabelFunction(d:OfferInfoDTO, fieldName:String):String {
 				return priceFormatter.format(d[fieldName]);
 			}
@@ -42,9 +44,10 @@
 				if (offer.NetPrice) {
 					var url:String=offer.BuyURL;
 					Helper.openAmazonItem(url);
-					var img:Image=new Image();
-					img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
-					img.initialize();
+					GAHelper.trackEvent("Open Item", url);
+//					var img:Image=new Image();
+//					img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
+//					img.initialize();
 				}
 			}
 			
