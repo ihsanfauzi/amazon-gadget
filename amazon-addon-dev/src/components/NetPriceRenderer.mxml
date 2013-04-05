@@ -44,7 +44,7 @@
 				if (offer.NetPrice) {
 					var url:String=offer.BuyURL;
 					Helper.openAmazonItem(url);
-					GAHelper.trackEvent("Open Item", url);
+					GAHelper.trackEvent("Open Item", url, 1);
 //					var img:Image=new Image();
 //					img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
 //					img.initialize();
