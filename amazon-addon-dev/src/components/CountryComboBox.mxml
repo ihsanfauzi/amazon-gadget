@@ -12,6 +12,8 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.events.EffectEvent;
+			
+			import utils.GAHelper;
 			[Bindable]
 			public var selectedCountry:Object;
 			[Bindable]
@@ -39,6 +41,7 @@
 				}
 				if (!selectedCountry) {
 					warningEffect.play();
+					GAHelper.trackEvent("First Time");
 				}
 			}
 			
