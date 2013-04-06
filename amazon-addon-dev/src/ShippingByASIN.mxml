@@ -10,7 +10,7 @@
 				horizontalAlign = "left"
 				verticalScrollPolicy = "off"
 				horizontalScrollPolicy = "off"
-				creationComplete = "{init()}"
+				creationComplete = "{init();}"
 				initialize = "{JSInit.init()}"
 				xmlns:components = "components.*"
 				xmlns:services = "services.*"
@@ -147,7 +147,6 @@
 			
 			private function init():void {
 				//Helper.evalScripts();
-				new GAHelper();
 				GAHelper.trackPageView(ExternalInterface.call("window.location.href.toString"));
 				measure();
 				asin=ExternalInterface.call("getCurrentASIN");
