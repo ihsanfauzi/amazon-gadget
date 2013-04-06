@@ -41,7 +41,6 @@
 				}
 				if (!selectedCountry) {
 					warningEffect.play();
-					GAHelper.trackEvent("First Time");
 				}
 			}
 			
