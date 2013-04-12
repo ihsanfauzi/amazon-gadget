@@ -481,6 +481,7 @@
 			protected function androidLabel_clickHandler(event:MouseEvent):void {
 				var urlRequest:URLRequest=new URLRequest("https://play.google.com/store/apps/details?id=air.CheckShippingBrowserApp");
 				navigateToURL(urlRequest, '_blank');
+				GAHelper.trackEvent("Click Android");
 			}
 		]]>
 	</mx:Script>
