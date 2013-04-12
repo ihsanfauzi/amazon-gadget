@@ -73,7 +73,9 @@
 	<mx:HBox width="100%">
 		<mx:HBox width="100%"
 				 horizontalAlign="left"
-				 paddingTop="-5">
+				 paddingTop="-5"
+				 includeInLayout="{showBox}"
+				 visible="{showBox}">
 			<mx:Label text="NEW!"
 					  color="red"/>
 			<mx:Label id="androidLabel"
