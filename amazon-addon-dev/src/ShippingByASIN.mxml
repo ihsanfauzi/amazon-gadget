@@ -1,88 +1,104 @@
-<?xml version = "1.0" encoding = "utf-8"?>
-<mx:Application xmlns:mx = "http://www.adobe.com/2006/mxml"
-				width = "100%"
-				height = "100%"
-				paddingBottom = "10"
-				paddingLeft = "2"
-				paddingRight = "2"
-				paddingTop = "2"
-				backgroundColor = "white"
-				horizontalAlign = "left"
-				verticalScrollPolicy = "off"
-				horizontalScrollPolicy = "off"
-				creationComplete = "{init();}"
-				initialize = "{JSInit.init()}"
-				xmlns:components = "components.*"
-				xmlns:services = "services.*"
-				xmlns:resources = "resources.*">
-	<mx:Style source = "styles.css"/>
-	<resources:Resources id = "res"/>
-	<mx:HBox width = "490"
-			 horizontalAlign = "center"
-			 horizontalScrollPolicy = "off">
-		<components:CountryComboBox id = "countryCombo"
-									width = "305"
-									countries = "{getCountries()}"
-									visible = "{showBox}"
-									includeInLayout = "{showBox}"
-									changeCountry = "{changeCountryHandler()}"/>
-		<mx:CheckBox id = "newCheckBox"
-					 toolTip = "New Items"
-					 selected = "true"
-					 visible = "{showBox}"
-					 includeInLayout = "{showBox}"
-					 change = "conditionCheckBox_changeHandler(event)"/>
-		<mx:Box backgroundAlpha = "0.3"
-				backgroundColor = "red"
-				paddingLeft = "1"
-				paddingRight = "1">
-			<mx:CheckBox id = "usedCheckBox"
-						 toolTip = "Used Items"
-						 selected = "true"
-						 visible = "{showBox}"
-						 includeInLayout = "{showBox}"
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+				width="100%"
+				height="100%"
+				paddingBottom="10"
+				paddingLeft="2"
+				paddingRight="2"
+				paddingTop="2"
+				backgroundColor="white"
+				horizontalAlign="left"
+				verticalScrollPolicy="off"
+				horizontalScrollPolicy="off"
+				creationComplete="{init();}"
+				initialize="{JSInit.init()}"
+				xmlns:components="components.*"
+				xmlns:services="services.*"
+				xmlns:resources="resources.*">
+	<mx:Style source="styles.css"/>
+	<resources:Resources id="res"/>
+	<mx:HBox width="490"
+			 horizontalAlign="center"
+			 horizontalScrollPolicy="off">
+		<components:CountryComboBox id="countryCombo"
+									width="305"
+									countries="{getCountries()}"
+									visible="{showBox}"
+									includeInLayout="{showBox}"
+									changeCountry="{changeCountryHandler()}"/>
+		<mx:CheckBox id="newCheckBox"
+					 toolTip="New Items"
+					 selected="true"
+					 visible="{showBox}"
+					 includeInLayout="{showBox}"
+					 change="conditionCheckBox_changeHandler(event)"/>
+		<mx:Box backgroundAlpha="0.3"
+				backgroundColor="red"
+				paddingLeft="1"
+				paddingRight="1">
+			<mx:CheckBox id="usedCheckBox"
+						 toolTip="Used Items"
+						 selected="true"
+						 visible="{showBox}"
+						 includeInLayout="{showBox}"
 						 change="conditionCheckBox_changeHandler(event)"/>
 		</mx:Box>
-		<mx:Box backgroundAlpha = "0.3"
-				backgroundColor = "green"
-				paddingLeft = "1"
-				paddingRight = "1">
-			<mx:CheckBox id = "refurbishedCheckBox"
-						 toolTip = "Refurbished Items"
-						 selected = "true"
-						 visible = "{showBox}"
-						 includeInLayout = "{showBox}"
+		<mx:Box backgroundAlpha="0.3"
+				backgroundColor="green"
+				paddingLeft="1"
+				paddingRight="1">
+			<mx:CheckBox id="refurbishedCheckBox"
+						 toolTip="Refurbished Items"
+						 selected="true"
+						 visible="{showBox}"
+						 includeInLayout="{showBox}"
 						 change="conditionCheckBox_changeHandler(event)"/>
 		</mx:Box>
-		<mx:Button id = "checkShippingButton"
-				   label = "{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
-				   click = "checkShippingButton_clickHandler(event)"
-				   enabled = "{!showBox || countryCombo.selectedCountry}"/>
-		<mx:Button id = "collapseButton"
-				   width = "10"
-				   label = "-"
-				   visible = "{showBox}"
-				   click = "collapseButton_clickHandler(event)"
-				   toolTip = "Minimize"/>
+		<mx:Button id="checkShippingButton"
+				   label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
+				   click="checkShippingButton_clickHandler(event)"
+				   enabled="{!showBox || countryCombo.selectedCountry}"/>
+		<mx:Button id="collapseButton"
+				   width="10"
+				   label="-"
+				   visible="{showBox}"
+				   click="collapseButton_clickHandler(event)"
+				   toolTip="Minimize"/>
 	</mx:HBox>
-	<components:CheckAvailabilityBox id = "checkAvailabilityBox"
-									 offers = "{offers}"
-									 includeInLayout = "{showBox}"
-									 visible = "{showBox}"
-									 region = "{region}"/>
-	<mx:HBox width = "100%"
-			 horizontalAlign = "right"
-			 paddingTop = "-5">
-		<mx:Label id = "reportIssueLabel"
-				  text = "Report Issue"
-				  useHandCursor = "true"
-				  textDecoration = "underline"
-				  buttonMode = "true"
-				  mouseChildren = "false"
-				  color = "blue"
-				  includeInLayout = "{showBox}"
-				  visible = "{showBox}"
-				  click = "reportIssueLabel_clickHandler(event)"/>
+	<components:CheckAvailabilityBox id="checkAvailabilityBox"
+									 offers="{offers}"
+									 includeInLayout="{showBox}"
+									 visible="{showBox}"
+									 region="{region}"/>
+	<mx:HBox width="100%">
+		<mx:HBox width="100%"
+				 horizontalAlign="left"
+				 paddingTop="-5">
+			<mx:Label id="androidLabel"
+					  text="Get on Your Android"
+					  useHandCursor="true"
+					  textDecoration="underline"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  color="blue"
+					  includeInLayout="{showBox}"
+					  visible="{showBox}"
+					  click="androidLabel_clickHandler(event)"/>
+		</mx:HBox>
+		<mx:HBox width="100%"
+				 horizontalAlign="right"
+				 paddingTop="-5">
+			<mx:Label id="reportIssueLabel"
+					  text="Report Issue"
+					  useHandCursor="true"
+					  textDecoration="underline"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  color="blue"
+					  includeInLayout="{showBox}"
+					  visible="{showBox}"
+					  click="reportIssueLabel_clickHandler(event)"/>
+		</mx:HBox>
 	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
@@ -290,11 +306,11 @@
 				if (countryCombo.selectedCountry) {
 					var country:String=countryCombo.selectedCountry.value;
 				}
-				GAHelper.trackEvent("Check Shipping", country+":"+asin); 
+				GAHelper.trackEvent("Check Shipping", country + ":" + asin);
 				if (!countryCombo.selectedCountry) {
 					GAHelper.trackEvent("First Time");
 				}
-
+				
 				showBox=true;
 				offers.removeAll();
 				if (countryCombo.selectedCountry) {
@@ -461,9 +477,14 @@
 				}
 				return false;
 			}
+			
+			protected function androidLabel_clickHandler(event:MouseEvent):void {
+				var urlRequest:URLRequest=new URLRequest("https://play.google.com/store/apps/details?id=air.CheckShippingBrowserApp");
+				navigateToURL(urlRequest, '_blank');
+			}
 		]]>
 	</mx:Script>
-	<mx:RemoteObject id = "checker"
-					 destination = "amazon.check.shipping.ShippingService"
-					 showBusyCursor = "true"/>
+	<mx:RemoteObject id="checker"
+					 destination="amazon.check.shipping.ShippingService"
+					 showBusyCursor="true"/>
 </mx:Application>
