@@ -83,8 +83,6 @@
 					  buttonMode="true"
 					  mouseChildren="false"
 					  color="blue"
-					  includeInLayout="{showBox}"
-					  visible="{showBox}"
 					  click="androidLabel_clickHandler(event)"/>
 		</mx:HBox>
 		<mx:HBox width="100%"
