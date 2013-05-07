@@ -1,5 +1,7 @@
 if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 	var DoesAmazonShipToAddon = {};
+	
+installDoesAmazonShipToAddon = function() {	
 	try {
 		var current_document = window.document;
 		var hostname = current_document.location.hostname;
@@ -40,4 +42,6 @@ if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 		element.appendChild(span);
 	} catch (exc) {
 	}
+};
+installDoesAmazonShipToAddon();
 }
