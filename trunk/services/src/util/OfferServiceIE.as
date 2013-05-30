@@ -1,35 +1,20 @@
-package util
-{
-	import dto.SearchItemDTO;
-	
+package util {
 	import services.Helper;
 	
-	public class OfferService
-	{
+	public class OfferServiceIE {
 		
-		public function OfferService()
-		{
+		public function OfferServiceIE() {
 		}
 		
-		
-		public static function getItemBySite(site:String, asin:String, content:String):Object
-		{
+		public static function getItemBySite(site:String, asin:String, content:String):Object {
 			var res:Object=new Object();
 			res.ASIN=asin;
 			res.DetailPageURL="http://" + site + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTagBySite(site) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
 			res.Offers=new Object();
-			getOffers(res, content);
-			if (res.Offers.Offer.length == 0) {
-				res=OfferServiceChrome.getItemBySite(site, asin, content);
-			}
 			return res;
 		}
 		
-		public static function getItem(asin:String, content:String):Object
-		{
-			if (Helper.isIE()) {
-				return OfferServiceIE.getItem(asin, content);
-			}
+		public static function getItem(asin:String, content:String):Object {
 			var res:Object=new Object();
 			res.ASIN=asin;
 			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTag() + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
@@ -41,66 +26,56 @@ package util
 			return res;
 		}
 		
-		private static function getOffers(item:Object, content:String):Array
-		{
+		private static function getOffers(item:Object, content:String):Array {
 			var res:Array=[];
 			item.Offers.Offer=extractOffers(content);
 			item.Offers.TotalOfferPages=extractTotalPages(content);
 			return res;
 		}
 		
-		private static function extractTotalPages(content:String):Number
-		{
+		private static function extractTotalPages(content:String):Number {
 			content=content.replace("pagenumberon", "pagenumberoff");
-			var arr:Array=content.split("\"pagenumberoff\"");
-			return arr.length - 1;
+			var arr:Array=content.split("pagenumberoff ");
+			return arr.length;
 		}
 		
-		private static function extractOffers(content:String):Array
-		{
+		private static function extractOffers(content:String):Array {
 			var res:Array=[];
 			var tbodyResults:Array=extractTBodyResults(content);
-			for each(var tbodyResult:String in tbodyResults)
-			{
+			for each(var tbodyResult:String in tbodyResults) {
 				res.push(extractOfferDTO(tbodyResult));
 			}
 			return res;
 		}
 		
-		private static function extractOfferDTO(tbodyResult:String):Object
-		{
+		private static function extractOfferDTO(tbodyResult:String):Object {
 			var res:Object=new Object();
 			extractSellerInfo(res, tbodyResult);
 			extractPrice(res, tbodyResult);
 			return res;
 		}
 		
-		private static function extractPrice(res:Object, info:String):void
-		{
+		private static function extractPrice(res:Object, info:String):void {
 			// <span class="price">
-			var sStart:String="<span class=\"price\">";
+			var sStart:String="<SPAN class=price>";
 			var start:Number=info.indexOf(sStart) + sStart.length;
 			var subStr:String=info.substring(start);
-			var sPrice:String=subStr.substring(0, subStr.indexOf("</span>"));
-			if (sPrice.indexOf("<span>") != -1)
-			{
+			var sPrice:String=subStr.substring(0, subStr.indexOf("</SPAN>"));
+			if (sPrice.indexOf("<SPAN>") != -1) {
 				sPrice="-";
 			}
-			if (!res.OfferListing)
-			{
+			if (!res.OfferListing) {
 				res.OfferListing=new Object();
 			}
-			if (!res.OfferListing.Price)
-			{
+			if (!res.OfferListing.Price) {
 				res.OfferListing.Price=new Object();
 			}
 			res.OfferListing.Price.FormattedPrice=sPrice;
 		}
 		
-		private static function extractSellerInfo(res:Object, tbodyResult:String):void
-		{
-			var sStart:String="<ul class=\"sellerInformation\">";
-			var sEnd:String="</ul>";
+		private static function extractSellerInfo(res:Object, tbodyResult:String):void {
+			var sStart:String="<UL class=sellerInformation>";
+			var sEnd:String="</UL>";
 			var start:Number=tbodyResult.indexOf(sStart);
 			var subStr:String=tbodyResult.substring(start);
 			var end:Number=subStr.indexOf(sEnd) + sEnd.length;
@@ -111,104 +86,94 @@ package util
 			extractMerhantFulfilledByAmazon(res, sRes);
 		}
 		
-		private static function extractMerhantInternational(res:Object, sRes:String):void
-		{
+		private static function extractMerhantInternational(res:Object, sRes:String):void {
 			res.International=true;
-			if (sRes && (sRes.indexOf("Domestic shipping rates") > 0 || sRes.indexOf("Domestic delivery rates") > 0 || sRes.indexOf("cknahmerichtlinien") > 0 || sRes.indexOf("dition nationale") > 0))
-			{
+			if (sRes && (sRes.indexOf("Domestic shipping rates") > 0 || sRes.indexOf("Domestic delivery rates") > 0 || sRes.indexOf("cknahmerichtlinien") > 0 || sRes.indexOf("dition nationale") > 0)) {
 				res.International=false;
 			}
 		}
 		
-		private static function extractMerhantFulfilledByAmazon(res:Object, sRes:String):void
-		{
+		private static function extractMerhantFulfilledByAmazon(res:Object, sRes:String):void {
 			res.FulfilledByAmazon=false;
-			if (sRes && sRes.indexOf("isAmazonFulfilled=1") > 0)
-			{
+			if (sRes && sRes.indexOf("isAmazonFulfilled=1") > 0) {
 				res.FulfilledByAmazon=true;
 			}
 		}
 		
-		private static function extractMerhantName(res:Object, info:String):void
-		{
+		private static function extractMerhantName(res:Object, info:String):void {
 			// <img width="120" height="30" border="0" alt="
-			var sStart:String=" alt=\"";
+//			var pattern:RegExp = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/;
+//			var result:Array = pattern.exec(info);
+			var sStart:String=" alt=";
 			var start:Number=info.indexOf(sStart) + sStart.length;
-			if (start == sStart.length - 1)
-			{
+			if (start == sStart.length - 1) {
 				extractMerhantNameB(res, info);
 				return ;
 			}
 			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf("\""));
-			if (sName.length == 0)
-			{
+			var sName:String=subStr.substring(0, subStr.indexOf(" "));
+			if (sName.length == 0 || sName == '""') {
 				extractMerhantNameB(res, info);
 				return ;
 			}
-			if (!res.Merchant)
-			{
+			if (!res.Merchant) {
 				res.Merchant=new Object();
 			}
-			if (sName)
-			{
-				while(sName.indexOf("&amp;") != -1)
-				{
+			if (sName) {
+				while(sName.indexOf("&amp;") != -1) {
 					sName=sName.replace("&amp;", "&");
 				}
 			}
 			res.Merchant.Name=sName;
 		}
 		
-		private static function extractMerhantNameB(res:Object, info:String):void
-		{
-			var sStart:String="<b>";
+		private static function extractMerhantNameB(res:Object, info:String):void {
+			var sStart:String="<B>";
 			var start:Number=info.indexOf(sStart) + sStart.length;
-			if (start == sStart.length - 1)
-			{
+			if (start == sStart.length - 1) {
 				res.Merchant.Name="n/a";
 				return ;
 			}
 			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf("</b>"));
-			if (sName)
-			{
-				while(sName.indexOf("&amp;") != -1)
-				{
+			var sName:String=subStr.substring(0, subStr.indexOf("</B>"));
+			if (sName) {
+				while(sName.indexOf("&amp;") != -1) {
 					sName=sName.replace("&amp;", "&");
 				}
 			}
 			res.Merchant.Name=sName;
 		}
 		
-		private static function extractMerchantID(res:Object, info:String):void
-		{
-			if (!res.Merchant)
-			{
+		private static function extractMerchantID(res:Object, info:String):void {
+			if (!res.Merchant) {
 				res.Merchant=new Object();
 			}
 			
 			var sStart:String="seller=";
 			var start:Number=info.indexOf(sStart) + sStart.length;
-			if (start == sStart.length - 1)
-			{
+			if (start == sStart.length - 1) {
 				return ;
 			}
 			var subStr:String=info.substring(start);
 			var sID:String=subStr.substring(0, subStr.indexOf("\""));
+			var ind:int = sID.indexOf("'");
+			if (ind>=0) {
+				sID = sID.substr(0, ind);
+			}
+			ind = sID.indexOf("&amp;");
+			if (ind>=0) {
+				sID = sID.substr(0, ind);
+			}
 			res.Merchant.MerchantId=sID;
 		}
 		
-		private static function extractTBodyResults(content:String):Array
-		{
+		private static function extractTBodyResults(content:String):Array {
 			var res:Array=[];
-			var sStart:String="<tbody class=\"result\">";
-			var sEnd:String="</tbody>";
-			while(true)
-			{
+			var sStart:String="<TBODY class=result>";
+			var sEnd:String="</TBODY>";
+			while(true) {
 				var start:Number=content.indexOf(sStart) + sStart.length;
-				if (start == sStart.length - 1)
-				{
+				if (start == sStart.length - 1) {
 					break;
 				}
 				var subStr:String=content.substring(start);
@@ -217,13 +182,6 @@ package util
 				res.push(sRes);
 				content=subStr;
 			}
-			return res;
-		}
-		
-		public static function constructUrl(asin:String, country:String, page:Number):String
-		{
-			var startIndex:Number=(page - 1) * 15;
-			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
 			return res;
 		}
 	}
