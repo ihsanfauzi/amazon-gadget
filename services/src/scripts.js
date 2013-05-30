@@ -205,3 +205,12 @@ setGoogleIssueDescription = function(str) {
 	return elm.value;
 	//alert(elm.innerHTML);
 };
+
+determineBrowser = function() {
+    if(navigator.appName == "Netscape"){
+        return "Netscape";
+    } else if(navigator.appName == "Microsoft Internet Explorer") {
+        return "IE";
+    }
+    return "Not IE or Netscape";
+};

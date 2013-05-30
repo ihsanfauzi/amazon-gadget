@@ -4,6 +4,10 @@ package services
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
 	
+	import dto.OfferDTO;
+	import dto.SearchDTO;
+	import dto.SearchItemDTO;
+	
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
@@ -17,10 +21,6 @@ package services
 	import mx.utils.Base64Encoder;
 	import mx.utils.StringUtil;
 	import mx.utils.URLUtil;
-	
-	import dto.OfferDTO;
-	import dto.SearchDTO;
-	import dto.SearchItemDTO;
 
 	public class Helper
 	{
@@ -465,6 +465,11 @@ package services
 				return url;
 			}
 			return url;
+		}
+
+		public static function isIE():Boolean {
+			var browser:String = ExternalInterface.call("determineBrowser");
+			return browser == "IE";
 		}
 	}
 }
