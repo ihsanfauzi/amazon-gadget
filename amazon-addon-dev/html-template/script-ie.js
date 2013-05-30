@@ -1,5 +1,7 @@
 if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 	var DoesAmazonShipToAddon = {};
+	
+installDoesAmazonShipToAddon = function() {	
 	try {
 		var current_document = window.document;
 		var hostname = current_document.location.hostname;
@@ -28,7 +30,7 @@ if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 				+ '		<param name="quality" value="high" />\n'
 				+ '		<param name="bgcolor" value="#ffffff" />\n'
 				+ '		<param name="allowScriptAccess" value="sameDomain" />\n'
-				+ '		<embed src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-check-shipping/war/dist/ShippingByASIN.swf" quality="high" bgcolor="#ffffff"\n'
+				+ '		<object type="application/x-shockwave-flash" data="http://amazon-gadget.googlecode.com/svn/trunk/amazon-check-shipping/war/dist/ShippingByASIN.swf" quality="high" bgcolor="#ffffff"\n'
 				+ '			width="100%" height="100%" name="ShippingByASIN" align="middle"\n'
 				+ '			play="true"\n'
 				+ '			loop="false"\n'
@@ -36,8 +38,10 @@ if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 				+ '			allowScriptAccess="always"\n'
 				+ '			type="application/x-shockwave-flash"\n'
 				+ '			pluginspage="http://www.adobe.com/go/getflashplayer">\n'
-				+ '		</embed>\n' + '</object>\n' + '</div></center>	\n';
+				+ '		</object>\n' + '</object>\n' + '</div></center>	\n';
 		element.appendChild(span);
 	} catch (exc) {
 	}
+};
+installDoesAmazonShipToAddon();
 }
