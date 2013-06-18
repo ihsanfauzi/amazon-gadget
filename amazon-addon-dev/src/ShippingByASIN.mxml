@@ -188,7 +188,8 @@
 					//					img.source="http://gadget.usefulhelper.com/1x1.gif?firefox=" + asin;
 					//					img.initialize();
 					
-					IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?asn=" + asin + "&check=" + checkSharedObject() + "&dd=" + getDeletedDate() + "&version=" + VERSION);
+					//IFrameContentService.pingUrl("http://gadget.usefulhelper.com/1x1.gif?asn=" + asin + "&check=" + checkSharedObject() + "&dd=" + getDeletedDate() + "&version=" + VERSION);
+					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());  
 				}
 			}
 			
@@ -271,8 +272,8 @@
 							return false;
 						}
 						//date.minutes=date.minutes + 1;
-						//date.date=date.date + 1;
-						date.hours=date.hours + 12;
+						date.date=date.date + 1;
+						//date.hours=date.hours + 12;
 						if (now > date) {
 							return false;
 						}
