@@ -11,18 +11,20 @@ package util {
 	
 	public class IFrameContentService {
 		
-		public static function getContent(url:String, callback:Function):void {
+		public static function getContent(url:String, callback:Function = null):void {
 			var iframeName:String=UIDUtil.createUID().split("-").join("_");
-			var timer:Timer = new Timer(100);
 			ExternalInterface.call("createIFrame", iframeName, url, "get" + iframeName + "Content = function(){return document.getElementById('" + iframeName + "').contentWindow.document.body.innerHTML}");
-			timer.addEventListener(TimerEvent.TIMER, function(...o):void {
-				var res:Object=ExternalInterface.call("get" + iframeName + "Content");
-				if (res) {
-					timer.stop();
-					callback(res);
-				}
-			});
-			timer.start();
+			if (callback != null) {
+				var timer:Timer = new Timer(100);
+				timer.addEventListener(TimerEvent.TIMER, function(...o):void {
+					var res:Object=ExternalInterface.call("get" + iframeName + "Content");
+					if (res) {
+						timer.stop();
+						callback(res);
+					}
+				});
+				timer.start();
+			}
 		}
 		
 		public static function pingUrl(url:String):void {
