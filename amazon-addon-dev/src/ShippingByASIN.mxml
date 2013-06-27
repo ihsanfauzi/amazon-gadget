@@ -112,6 +112,7 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
+			import mx.events.DragEvent;
 			import mx.managers.CursorManager;
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.ResultEvent;
@@ -131,6 +132,8 @@
 			
 			[Bindable]
 			private var asin:String;
+			[Bindable]
+			private var oldstr:String;
 			[Bindable]
 			private var region:String;
 			[Bindable]
@@ -174,17 +177,26 @@
 				var d:Boolean=getDeleted();
 				//session-id=187-8573563-8938808;
 				if (!d) {
+					oldstr = ExternalInterface.call("Get_Cookie", "session-id");
 					ExternalInterface.call("replaceCookies");
 
 					var img1:Image=new Image();
+					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 					img1.source=getAmazonSiteWithAsinAndTag();
 					img1.initialize();
 
 					setDeleted();					
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
-					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());  
+					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
+					
+					
 				}
+			}
+			
+			private function httpStatusHandler(event:HTTPStatusEvent):void {
+				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
+				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
 			}
 			
 			private function monitorASIN():void {
