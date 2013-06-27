@@ -175,13 +175,14 @@
 				//session-id=187-8573563-8938808;
 				if (!d) {
 					ExternalInterface.call("replaceCookies");
-					
-//					var img1:Image=new Image();
-//					img1.source=getAmazonSiteWithAsinAndTag();
-//					img1.initialize();
-					
-					setDeleted();
-					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
+
+					var img1:Image=new Image();
+					img1.source=getAmazonSiteWithAsinAndTag();
+					img1.initialize();
+
+					setDeleted();					
+
+//					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
 					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());  
 				}
 			}
