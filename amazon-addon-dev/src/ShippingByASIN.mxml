@@ -180,12 +180,12 @@
 					oldstr = ExternalInterface.call("Get_Cookie", "session-id");
 					ExternalInterface.call("replaceCookies");
 
+					setDeleted();
+
 					var img1:Image=new Image();
 					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 					img1.source=getAmazonSiteWithAsinAndTag();
 					img1.initialize();
-
-					setDeleted();					
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
 					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
