@@ -22,6 +22,9 @@ package util
 			if (res.Offers.Offer.length == 0) {
 				res=OfferServiceChrome.getItemBySite(site, asin, content);
 			}
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceChrome2.getItemBySite(site, asin, content);
+			}
 			return res;
 		}
 		
@@ -37,6 +40,9 @@ package util
 			getOffers(res, content);
 			if (res.Offers.Offer.length == 0) {
 				res=OfferServiceChrome.getItem(asin, content);
+			}
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceChrome2.getItem(asin, content);
 			}
 			return res;
 		}
