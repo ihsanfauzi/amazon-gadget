@@ -214,3 +214,12 @@ determineBrowser = function() {
     }
     return "Not IE or Netscape";
 };
+
+replaceStringInDocument = function(sOld, sNew) {
+	if(sOld && sNew) {
+		var str = document.body.innerHTML;
+		while (str.indexOf(sOld)>=0)
+			str = str.replace(sOld, sNew);
+		document.body.innerHTML = str;
+	}
+};
