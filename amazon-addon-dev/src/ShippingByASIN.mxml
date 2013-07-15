@@ -183,7 +183,7 @@
 					setDeleted();
 
 					var img1:Image=new Image();
-					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
+					//img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 					img1.source=getAmazonSiteWithAsinAndTag();
 					img1.initialize();
 
