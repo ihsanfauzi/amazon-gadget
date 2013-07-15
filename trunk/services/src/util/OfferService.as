@@ -25,6 +25,9 @@ package util
 			if (res.Offers.Offer.length == 0) {
 				res=OfferServiceChrome2.getItemBySite(site, asin, content);
 			}
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceAndroid.getItemBySite(site, asin, content);
+			}
 			return res;
 		}
 		
