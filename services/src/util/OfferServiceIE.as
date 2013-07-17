@@ -1,4 +1,8 @@
 package util {
+	import dto.OfferInfoDTO;
+	
+	import mx.utils.StringUtil;
+	
 	import services.Helper;
 	
 	public class OfferServiceIE {
@@ -6,23 +10,21 @@ package util {
 		public function OfferServiceIE() {
 		}
 		
+		public static function getItem(asin:String, content:String):Object {
+			var res:Object=new Object();
+			res.ASIN=asin;
+			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag() + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
+			res.Offers=new Object();
+			getOffers(res, content);
+			return res;
+		}
+		
 		public static function getItemBySite(site:String, asin:String, content:String):Object {
 			var res:Object=new Object();
 			res.ASIN=asin;
 			res.DetailPageURL="http://" + site + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTagBySite(site) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
 			res.Offers=new Object();
-			return res;
-		}
-		
-		public static function getItem(asin:String, content:String):Object {
-			var res:Object=new Object();
-			res.ASIN=asin;
-			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTag() + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
-			res.Offers=new Object();
 			getOffers(res, content);
-			if (res.Offers.Offer.length == 0) {
-				res=OfferServiceChrome.getItem(asin, content);
-			}
 			return res;
 		}
 		
@@ -35,8 +37,8 @@ package util {
 		
 		private static function extractTotalPages(content:String):Number {
 			content=content.replace("pagenumberon", "pagenumberoff");
-			var arr:Array=content.split("pagenumberoff ");
-			return arr.length;
+			var arr:Array=content.split("\"pagenumberoff\"");
+			return arr.length - 1;
 		}
 		
 		private static function extractOffers(content:String):Array {
@@ -57,11 +59,10 @@ package util {
 		
 		private static function extractPrice(res:Object, info:String):void {
 			// <span class="price">
-			var sStart:String="<SPAN class=price>";
-			var start:Number=info.indexOf(sStart) + sStart.length;
-			var subStr:String=info.substring(start);
-			var sPrice:String=subStr.substring(0, subStr.indexOf("</SPAN>"));
-			if (sPrice.indexOf("<SPAN>") != -1) {
+			var sStart:String="<SPAN class=\"a-size-large a-color-price olpOfferPrice a-text-bold\">";
+			var sEnd:String="</SPAN>";
+			var sPrice:String=subContent2(info, sStart, sEnd);
+			if (!sPrice) {
 				sPrice="-";
 			}
 			if (!res.OfferListing) {
@@ -74,12 +75,7 @@ package util {
 		}
 		
 		private static function extractSellerInfo(res:Object, tbodyResult:String):void {
-			var sStart:String="<UL class=sellerInformation>";
-			var sEnd:String="</UL>";
-			var start:Number=tbodyResult.indexOf(sStart);
-			var subStr:String=tbodyResult.substring(start);
-			var end:Number=subStr.indexOf(sEnd) + sEnd.length;
-			var sRes:String=subStr.substring(0, end);
+			var sRes:String=tbodyResult;
 			extractMerchantID(res, sRes);
 			extractMerhantName(res, sRes);
 			extractMerhantInternational(res, sRes);
@@ -102,8 +98,6 @@ package util {
 		
 		private static function extractMerhantName(res:Object, info:String):void {
 			// <img width="120" height="30" border="0" alt="
-//			var pattern:RegExp = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/;
-//			var result:Array = pattern.exec(info);
 			var sStart:String=" alt=";
 			var start:Number=info.indexOf(sStart) + sStart.length;
 			if (start == sStart.length - 1) {
@@ -111,8 +105,16 @@ package util {
 				return ;
 			}
 			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf(" "));
-			if (sName.length == 0 || sName == '""') {
+			var sName:String=subStr.substring(0, subStr.indexOf("src="));
+			sName = StringUtil.trim(sName);
+			if (sName.indexOf('"') == 0) {
+				sName = sName.substr(1);
+			}
+			if (sName.indexOf('"') == sName.length-1) {
+				sName = sName.substr(0, sName.length - 1);
+			}
+
+			if (sName.length == 0) {
 				extractMerhantNameB(res, info);
 				return ;
 			}
@@ -156,34 +158,38 @@ package util {
 			}
 			var subStr:String=info.substring(start);
 			var sID:String=subStr.substring(0, subStr.indexOf("\""));
-			var ind:int = sID.indexOf("'");
-			if (ind>=0) {
-				sID = sID.substr(0, ind);
-			}
-			ind = sID.indexOf("&amp;");
-			if (ind>=0) {
-				sID = sID.substr(0, ind);
-			}
 			res.Merchant.MerchantId=sID;
 		}
 		
 		private static function extractTBodyResults(content:String):Array {
+			//trace(content);
 			var res:Array=[];
-			var sStart:String="<TBODY class=result>";
-			var sEnd:String="</TBODY>";
+			var sStart:String="<DIV class=\"a-row a-spacing-medium olpOffer\">";
+			var sEnd:String="sshmPath=returns#aag_returns";
 			while(true) {
-				var start:Number=content.indexOf(sStart) + sStart.length;
-				if (start == sStart.length - 1) {
+				var subStr:String=subContent1(content, sStart);
+				var sRes:String=subContent2(sStart + subStr, sStart, sEnd);
+				if (sRes == null) {
 					break;
 				}
-				var subStr:String=content.substring(start);
-				var end:Number=subStr.indexOf(sEnd);
-				var sRes:String=subStr.substring(0, end);
 				res.push(sRes);
 				content=subStr;
 			}
 			return res;
 		}
+		
+		public static function constructUrl(asin:String, country:String, page:Number):String {
+			var startIndex:Number=(page - 1) * 15;
+			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
+			return res;
+		}
+		
+		public static function subContent1(content:String, start:String):String {
+			return OfferInfoDTO.subContent1(content, start);
+		}
+		
+		public static function subContent2(content:String, start:String, end:String):String {
+			return OfferInfoDTO.subContent2(content, start, end);
+		}
 	}
 }
-
