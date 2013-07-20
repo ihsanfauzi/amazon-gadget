@@ -1,7 +1,0 @@
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\obj\x86\Release\ResolveAssemblyReference.cache
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\bin\Release\DoesAmazonShipTo.dll
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\bin\Release\DoesAmazonShipTo.pdb
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\obj\x86\Release\DoesAmazonShipTo.dll
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\obj\x86\Release\DoesAmazonShipTo.pdb
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\obj\x86\Release\Interop.SHDocVw.dll
-D:\Projects\My\CHECKSHIPPING\WORK\IE\DoesAmazonShipTo\DoesAmazonShipTo\obj\x86\Release\DoesAmazonShipTo.csproj.ResolveComReference.cache
