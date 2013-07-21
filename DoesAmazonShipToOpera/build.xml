@@ -2,9 +2,9 @@
 
 <project default="main" basedir=".">
 	<target name="main">
-		<delete file="src.oex">
+		<delete file="src.nex">
 		</delete>
-		<zip destfile="src.oex">
+		<zip destfile="src.nex">
 			<fileset dir="src">
 				<exclude name=".svn"/>
 			</fileset>
