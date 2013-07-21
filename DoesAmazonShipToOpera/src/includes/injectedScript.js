@@ -1,7 +1,6 @@
 /**
  * DoesAmazonShipToAddon namespace.
  */
-alert("Ok");
 if ("undefined" == typeof (DoesAmazonShipToAddon)) {
 	var DoesAmazonShipToAddon = {};
 	DoesAmazonShipToAddon.onContentLoadHandler = function() {
