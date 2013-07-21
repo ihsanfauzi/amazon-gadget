@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="http://check-shipping-to-country.blogspot.com">
+	<name>Does Amazon Ship to ...?</name>
+	<description>Button to check if Amazon.com, Amazon.co.uk, Amazon.fr, Amazon.de items could be shipped to your country. The button appears on Amazon product page only.</description>
+	<author href="http://check-shipping-to-country.blogspot.com" email="ayuzafovich@gmail.com">Aliaksandr</author>
+	<icon src="icons/icon-64.png"/>
+</widget>
