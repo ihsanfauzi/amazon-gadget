@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<project default="main" basedir=".">
+	<target name="main">
+		<delete file="src.oex">
+		</delete>
+		<zip destfile="src.oex">
+			<fileset dir="src">
+				<exclude name=".svn"/>
+			</fileset>
+		</zip>
+	</target>
+</project>
