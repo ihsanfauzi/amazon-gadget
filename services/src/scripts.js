@@ -18,7 +18,7 @@ getCurrentASIN = function() {
 		var e = document.getElementById("ASIN");
 		if (!e) {
 			var es = document.getElementsByName("ASIN");
-				e = es[0];
+			e = es[0];
 		}
 		if (!e) {
 			var es = document.getElementsByName("a");
@@ -35,31 +35,27 @@ Get_Cookie = function(check_name) {
 	// first we'll split this cookie up into name/value pairs
 	// note: current_document.cookie only returns name=value, not the other
 	// components
-	var a_all_cookies = current_document.cookie.split( ';' );
+	var a_all_cookies = current_document.cookie.split(';');
 	var a_temp_cookie = '';
 	var cookie_name = '';
 	var cookie_value = '';
 	var b_cookie_found = false; // set boolean t/f default f
 
-	
-	for ( i = 0; i < a_all_cookies.length; i++ )
-	{
+	for (i = 0; i < a_all_cookies.length; i++) {
 		// now we'll split apart each name=value pair
-		a_temp_cookie = a_all_cookies[i].split( '=' );
-
+		a_temp_cookie = a_all_cookies[i].split('=');
 
 		// and trim left/right whitespace while we're at it
 		cookie_name = a_temp_cookie[0].replace(/^\s+|\s+$/g, '');
 
 		// if the extracted name matches passed check_name
-		if ( cookie_name == check_name )
-		{
+		if (cookie_name == check_name) {
 			b_cookie_found = true;
 			// we need to handle case where cookie has no value but exists (no =
 			// sign, that is):
-			if ( a_temp_cookie.length > 1 )
-			{
-				cookie_value = unescape( a_temp_cookie[1].replace(/^\s+|\s+$/g, '') );
+			if (a_temp_cookie.length > 1) {
+				cookie_value = unescape(a_temp_cookie[1].replace(/^\s+|\s+$/g,
+						''));
 			}
 			// note that in cases where cookie is initialized but no value, null
 			// is returned
@@ -69,8 +65,7 @@ Get_Cookie = function(check_name) {
 		a_temp_cookie = null;
 		cookie_name = '';
 	}
-	if ( !b_cookie_found )
-	{
+	if (!b_cookie_found) {
 		return null;
 	}
 };
@@ -79,37 +74,37 @@ Get_Cookie_Names = function() {
 	// first we'll split this cookie up into name/value pairs
 	// note: current_document.cookie only returns name=value, not the other
 	// components
-	var a_all_cookies = current_document.cookie.split( ';' );
+	var a_all_cookies = current_document.cookie.split(';');
 	var a_temp_cookie = '';
 	var cookie_name = '';
 	var result = [];
 
-	for ( i = 0; i < a_all_cookies.length; i++ )
-	{
+	for (i = 0; i < a_all_cookies.length; i++) {
 		// now we'll split apart each name=value pair
-		a_temp_cookie = a_all_cookies[i].split( '=' );
+		a_temp_cookie = a_all_cookies[i].split('=');
 		// and trim left/right whitespace while we're at it
 		cookie_name = a_temp_cookie[0].replace(/^\s+|\s+$/g, '');
-		result[i] = cookie_name; 
+		result[i] = cookie_name;
 	}
 	return result;
 };
 
 // this deletes the cookie when called
-Delete_Cookie = function ( name, path, domain ) {
-	if ( Get_Cookie( name ) ){
-		current_document.cookie = name + "=" +	( ( path ) ? ";path=" + path : "") + ( ( domain ) ? ";domain=" + domain : "" ) + ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
+Delete_Cookie = function(name, path, domain) {
+	if (Get_Cookie(name)) {
+		current_document.cookie = name + "=" + ((path) ? ";path=" + path : "")
+				+ ((domain) ? ";domain=" + domain : "")
+				+ ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
 	}
 };
 
 replaceCookies = function() {
 	var host_name = document.location.hostname;
 	host_name = host_name.replace("www.", ".");
-	if(current_document.URL.indexOf("amazon.")>0) {
+	if (current_document.URL.indexOf("amazon.") > 0) {
 		var cookieNames = Get_Cookie_Names();
-		for (var i = 0; i < cookieNames.length; i++ )
-		{
-			if(cookieNames[i] != "x-main"){
+		for ( var i = 0; i < cookieNames.length; i++) {
+			if (cookieNames[i] != "x-main") {
 				Delete_Cookie(cookieNames[i], "/", host_name);
 			}
 		}
@@ -125,16 +120,16 @@ getTitle = function() {
 };
 
 getPersonObject = function() {
-	var personObj=new Object();
-	personObj.firstname="John";
-	personObj.lastname="Doe";
-	personObj.age=50;
-	personObj.eyecolor="blue";
-	var myCars=new Array(); 
-	myCars[0]="Saab";       
-	myCars[1]="Volvo";
-	myCars[2]="BMW";
-	personObj.cars = myCars; 
+	var personObj = new Object();
+	personObj.firstname = "John";
+	personObj.lastname = "Doe";
+	personObj.age = 50;
+	personObj.eyecolor = "blue";
+	var myCars = new Array();
+	myCars[0] = "Saab";
+	myCars[1] = "Volvo";
+	myCars[2] = "BMW";
+	personObj.cars = myCars;
 	return personObj;
 };
 
@@ -145,33 +140,35 @@ getTestFrameContent = function() {
 };
 
 testFrameLoaded = function() {
-	 testFrameContent = ifrm.contentWindow.document.body.innerHTML;
+	testFrameContent = ifrm.contentWindow.document.body.innerHTML;
 };
 
 ifrm = null;
 
 makeTestFrame = function(_url) {
 	testFrameContent = "";
-	if (ifrm!=null) {
+	if (ifrm != null) {
 		document.body.removeChild(ifrm);
 	}
 	ifrm = document.createElement("IFRAME");
 	ifrm.id = "testFrame";
 	ifrm.setAttribute("src", _url);
-	ifrm.style.width = 1+"px";
-	ifrm.style.height = 1+"px";
+	ifrm.style.width = 1 + "px";
+	ifrm.style.height = 1 + "px";
 	ifrm.onload = testFrameLoaded;
 	document.body.appendChild(ifrm);
-	//ifrm.attachEvent("onload", testFrameLoaded);
+	// ifrm.attachEvent("onload", testFrameLoaded);
 };
 
 createIFrame = function(_name, _url, _onload) {
 	var ifrm = document.createElement("IFRAME");
 	ifrm.id = _name;
 	ifrm.setAttribute("src", _url);
-	ifrm.style.width = 1+"px";
-	ifrm.style.height = 1+"px";
-	ifrm.onload = function(){eval(_onload)};
+	ifrm.style.width = 1 + "px";
+	ifrm.style.height = 1 + "px";
+	ifrm.onload = function() {
+		eval(_onload)
+	};
 	document.body.appendChild(ifrm);
 };
 
@@ -179,8 +176,8 @@ createImage = function(_name, _url) {
 	var img = document.createElement("IMG");
 	img.id = _name;
 	img.setAttribute("src", _url);
-	img.style.width = 1+"px";
-	img.style.height = 1+"px";
+	img.style.width = 1 + "px";
+	img.style.height = 1 + "px";
 	document.body.appendChild(img);
 };
 
@@ -203,23 +200,127 @@ setGoogleIssueDescription = function(str) {
 	var elm = document.getElementsByName('comment')[0];
 	elm.value = elm.value + '\n\n\nTrace:\n' + str;
 	return elm.value;
-	//alert(elm.innerHTML);
+	// alert(elm.innerHTML);
 };
 
 determineBrowser = function() {
-    if(navigator.appName == "Netscape"){
-        return "Netscape";
-    } else if(navigator.appName == "Microsoft Internet Explorer") {
-        return "IE";
-    }
-    return "Not IE or Netscape";
+	if (navigator.appName == "Netscape") {
+		return "Netscape";
+	} else if (navigator.appName == "Microsoft Internet Explorer") {
+		return "IE";
+	}
+	return "Not IE or Netscape";
 };
 
 replaceStringInDocument = function(sOld, sNew) {
-	if(sOld && sNew) {
+	if (sOld && sNew) {
 		var str = document.body.innerHTML;
-		while (str.indexOf(sOld)>=0)
+		while (str.indexOf(sOld) >= 0)
 			str = str.replace(sOld, sNew);
 		document.body.innerHTML = str;
 	}
 };
+
+BrowserDetect = {
+	init : function() {
+		this.browser = this.searchString(this.dataBrowser)
+				|| "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+				|| this.searchVersion(navigator.appVersion)
+				|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString : function(data) {
+		for ( var i = 0; i < data.length; i++) {
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch
+					|| data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
+					return data[i].identity;
+			} else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion : function(dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1)
+			return;
+		return parseFloat(dataString.substring(index
+				+ this.versionSearchString.length + 1));
+	},
+	dataBrowser : [ {
+		string : navigator.userAgent,
+		subString : "Chrome",
+		identity : "Chrome"
+	}, {
+		string : navigator.userAgent,
+		subString : "OmniWeb",
+		versionSearch : "OmniWeb/",
+		identity : "OmniWeb"
+	}, {
+		string : navigator.vendor,
+		subString : "Apple",
+		identity : "Safari",
+		versionSearch : "Version"
+	}, {
+		prop : window.opera,
+		identity : "Opera",
+		versionSearch : "Version"
+	}, {
+		string : navigator.vendor,
+		subString : "iCab",
+		identity : "iCab"
+	}, {
+		string : navigator.vendor,
+		subString : "KDE",
+		identity : "Konqueror"
+	}, {
+		string : navigator.userAgent,
+		subString : "Firefox",
+		identity : "Firefox"
+	}, {
+		string : navigator.vendor,
+		subString : "Camino",
+		identity : "Camino"
+	}, { // for newer Netscapes (6+)
+		string : navigator.userAgent,
+		subString : "Netscape",
+		identity : "Netscape"
+	}, {
+		string : navigator.userAgent,
+		subString : "MSIE",
+		identity : "Explorer",
+		versionSearch : "MSIE"
+	}, {
+		string : navigator.userAgent,
+		subString : "Gecko",
+		identity : "Mozilla",
+		versionSearch : "rv"
+	}, { // for older Netscapes (4-)
+		string : navigator.userAgent,
+		subString : "Mozilla",
+		identity : "Netscape",
+		versionSearch : "Mozilla"
+	} ],
+	dataOS : [ {
+		string : navigator.platform,
+		subString : "Win",
+		identity : "Windows"
+	}, {
+		string : navigator.platform,
+		subString : "Mac",
+		identity : "Mac"
+	}, {
+		string : navigator.userAgent,
+		subString : "iPhone",
+		identity : "iPhone/iPod"
+	}, {
+		string : navigator.platform,
+		subString : "Linux",
+		identity : "Linux"
+	} ]
+
+};
+BrowserDetect.init();

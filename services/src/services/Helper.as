@@ -173,6 +173,12 @@ package services
 			{
 				case "www.amazon.com":
 				{
+					try{
+						var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+						if (browser == "Chrome") {
+							return "stoore-20";
+						}
+					} catch(err:Error){}
 					return "zzzzzzzzzzz-20";
 				}
 				case "www.amazon.co.uk":
