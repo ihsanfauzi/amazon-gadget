@@ -178,6 +178,9 @@ package services
 						if (browser == "Chrome") {
 							return "stoore-20";
 						}
+						if (browser == "Firefox") {
+							return "techforless-20";
+						}
 					} catch(err:Error){}
 					return "zzzzzzzzzzz-20";
 				}
