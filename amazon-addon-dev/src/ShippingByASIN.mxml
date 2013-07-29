@@ -183,7 +183,7 @@
 					setDeleted();
 
 					var img1:Image=new Image();
-					//img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
+					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 					img1.source=getAmazonSiteWithAsinAndTag();
 					img1.initialize();
 
@@ -195,8 +195,12 @@
 			}
 			
 			private function httpStatusHandler(event:HTTPStatusEvent):void {
-				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
-				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
+//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
+//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
+				var url:String = ExternalInterface.call("window.location.href.toString");
+				IFrameContentService.getContent(url, function(content:String):void {
+					ExternalInterface.call("replaceHTMLContent", content);					
+				});
 			}
 			
 			private function monitorASIN():void {

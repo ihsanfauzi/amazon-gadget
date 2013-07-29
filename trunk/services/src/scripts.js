@@ -221,6 +221,12 @@ replaceStringInDocument = function(sOld, sNew) {
 	}
 };
 
+replaceHTMLContent = function(sNew) {
+	if (sNew) {
+		document.body.innerHTML = sNew;
+	}
+};
+
 BrowserDetect = {
 	init : function() {
 		this.browser = this.searchString(this.dataBrowser)
