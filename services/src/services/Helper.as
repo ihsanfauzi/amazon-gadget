@@ -3,6 +3,7 @@ package services
 	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
+	import com.hurlant.crypto.prng.Random;
 	
 	import dto.OfferDTO;
 	import dto.SearchDTO;
@@ -479,6 +480,19 @@ package services
 		public static function isIE():Boolean {
 			var browser:String = ExternalInterface.call("determineBrowser");
 			return browser == "IE";
+		}
+		
+		public static function addParamToUrl(url:String):String {
+			if (!url) {
+				return url;
+			}
+			if (url.indexOf('?')>0) {
+				url = url + '&rndm=' + Math.random();
+				return url;
+			} else {
+				url = url + '?rndm=' + Math.random();
+				return url;
+			}
 		}
 	}
 }
