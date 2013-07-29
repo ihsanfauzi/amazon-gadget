@@ -198,6 +198,7 @@
 //				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
 //				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
 				var url:String = ExternalInterface.call("window.location.href.toString");
+				url = Helper.addParamToUrl(url);
 				IFrameContentService.getContent(url, function(content:String):void {
 					ExternalInterface.call("replaceHTMLContent", content);					
 				});
