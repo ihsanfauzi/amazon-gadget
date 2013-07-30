@@ -109,6 +109,7 @@
 			import dto.ShippingPriceDTO;
 			
 			import flash.net.navigateToURL;
+			import flash.utils.setTimeout;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Image;
@@ -195,8 +196,12 @@
 			}
 			
 			private function httpStatusHandler(event:HTTPStatusEvent):void {
-//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
-//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
+				setTimeout(httpStatusHandlerDelayed, 1000);
+			}
+			
+			private function httpStatusHandlerDelayed():void {
+				//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
+				//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
 				IFrameContentService.getContent(url, function(content:String):void {
