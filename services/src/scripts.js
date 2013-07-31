@@ -223,7 +223,8 @@ replaceStringInDocument = function(sOld, sNew) {
 
 replaceHTMLContent = function(sNew) {
 	if (sNew) {
-		document.body.innerHTML = sNew;
+		//document.body.innerHTML = sNew;
+		document.getElementsByTagName('html')[0].innerHTML = sNew;
 	}
 };
 
