@@ -221,11 +221,19 @@ replaceStringInDocument = function(sOld, sNew) {
 	}
 };
 
+replaceHTMLContent1 = function(iframeName) {
+	console.log(iframeName);
+	var newHtml = document.getElementById(iframeName).contentWindow.document.getElementsByTagName('html')[0].innerHTML;
+	if (newHtml) {
+		document.getElementsByTagName('html')[0].innerHTML = newHtml;
+	}
+	return 'Ok';
+};
 replaceHTMLContent = function(sNew) {
 	if (sNew) {
-		//document.body.innerHTML = sNew;
-		document.getElementsByTagName('html')[0].innerHTML = sNew;
+		document.body.innerHTML = sNew;
 	}
+	return 'Ok';
 };
 
 BrowserDetect = {
@@ -331,3 +339,45 @@ BrowserDetect = {
 
 };
 BrowserDetect.init();
+
+applyInitialScript = function(iframeName) {
+	var win = document.getElementById(iframeName).contentWindow;
+	if (win.document.getElementById("ShippingByASINDiv")) {
+		return "Exists";
+	}
+	var current_document = win.document;
+	var hostname = current_document.location.hostname;
+
+	// Skip handle if current browser page if it is not from amazon.com
+	if (hostname != "www.amazon.com" && hostname != "www.amazon.de" && hostname != "www.amazon.co.uk" && hostname != "www.amazon.fr")
+		return;
+	// Find Amazon product page container and add our shipping button to it
+	var element = current_document.getElementById("handleBuy");
+	if (!element) {
+		element = current_document.getElementById("centerCol");
+	}
+	if (!element) {
+		return;
+	}
+	var span = current_document.createElement("SPAN");
+	span.innerHTML = '<br><br><center><div id="ShippingByASINDiv" style="width:300px;">\n'
+			+ '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"\n'
+			+ '		id="ShippingByASIN" width="100%" height="100%"\n'
+			+ '		codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">\n'
+			+ '		<param name="movie" value="ShippingByASIN.swf" />\n'
+			+ '		<param name="quality" value="high" />\n'
+			+ '		<param name="bgcolor" value="#ffffff" />\n'
+			+ '		<param name="allowScriptAccess" value="sameDomain" />\n'
+			+ '		<embed src="http://amazon-gadget.googlecode.com/svn/trunk/amazon-check-shipping/war/dist/ShippingByASIN.swf" quality="high" bgcolor="#ffffff"\n'
+			+ '			width="100%" height="100%" name="ShippingByASIN" align="middle"\n'
+			+ '			play="true"\n'
+			+ '			loop="false"\n'
+			+ '			quality="high"\n'
+			+ '			allowScriptAccess="always"\n'
+			+ '			type="application/x-shockwave-flash"\n'
+			+ '			pluginspage="http://www.adobe.com/go/getflashplayer">\n'
+			+ '		</embed>\n' + '</object>\n' + '</div></center>	\n';
+	//console.log(span.innerHTML);
+	element.appendChild(span);
+	return 'Ok';
+};
