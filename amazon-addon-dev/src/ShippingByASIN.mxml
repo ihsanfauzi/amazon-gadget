@@ -118,6 +118,7 @@
 			import mx.rpc.AsyncToken;
 			import mx.rpc.events.ResultEvent;
 			import mx.utils.ObjectUtil;
+			import mx.utils.StringUtil;
 			
 			import services.BaseShippingChecker;
 			import services.Helper;
@@ -176,6 +177,7 @@
 			
 			private function logActivity():void {
 				var d:Boolean=getDeleted();
+				//d=false;
 				//session-id=187-8573563-8938808;
 				if (!d) {
 					oldstr = ExternalInterface.call("Get_Cookie", "session-id");
@@ -204,9 +206,20 @@
 				//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
-				IFrameContentService.getContent(url, function(content:String):void {
-					ExternalInterface.call("replaceHTMLContent", content);					
+				
+				IFrameContentService.getContentUID(url, function(iframeName:String, content:String):void {
+//					ExternalInterface.call("replaceHTMLContent", content);
+//					trace(content);
+//					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
+					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
+					//traceSess();
 				});
+			}
+			
+			private function traceSess():void {
+				var sid:String = ExternalInterface.call("ue_sid.toString");
+				var sidf:String = ExternalInterface.call("document.getElementById('session-id').value.toString");
+				trace("Old: "+ oldstr + " New: "+ sid + " New input: "+sidf);
 			}
 			
 			private function monitorASIN():void {
