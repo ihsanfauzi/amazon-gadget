@@ -222,7 +222,7 @@ replaceStringInDocument = function(sOld, sNew) {
 };
 
 replaceHTMLContent1 = function(iframeName) {
-	console.log(iframeName);
+	//console.log(iframeName);
 	var newHtml = document.getElementById(iframeName).contentWindow.document.getElementsByTagName('html')[0].innerHTML;
 	if (newHtml) {
 		document.getElementsByTagName('html')[0].innerHTML = newHtml;
