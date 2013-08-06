@@ -211,6 +211,9 @@
 //					ExternalInterface.call("replaceHTMLContent", content);
 //					trace(content);
 //					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
+					if (Helper.isChrome()) {
+						return;
+					}
 					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
 					//traceSess();
 				});
