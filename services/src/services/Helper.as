@@ -165,6 +165,26 @@ package services
 			return getTagBySite(site);
 		}
 		
+		public static function isChrome():Boolean {
+			try{
+				var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+				if (browser == "Chrome") {
+					return true;
+				}
+			} catch(err:Error){}
+			return false;
+		}
+		
+		public static function isFirefox():Boolean {
+			try{
+				var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+				if (browser == "Firefox") {
+					return true;
+				}
+			} catch(err:Error){}
+			return false;
+		}
+
 		public static function getTagBySite(site:String):String
 		{
 			if (site == "localhost") {
