@@ -207,14 +207,41 @@ package services
 				}
 				case "www.amazon.co.uk":
 				{
+					try{
+						browser = ExternalInterface.call("BrowserDetect.browser.toString");
+						if (browser == "Chrome") {
+							return "xxxx-chrome-21";
+						}
+						if (browser == "Firefox") {
+							return "xxxx-firefox-21";
+						}
+					} catch(err:Error){}
 					return "searchengin0d-21";
 				}
 				case "www.amazon.de":
 				{
+					try{
+						browser = ExternalInterface.call("BrowserDetect.browser.toString");
+						if (browser == "Chrome") {
+							return "xxxx-chrome-de-21";
+						}
+						if (browser == "Firefox") {
+							return "xxxx-firefox-de-21";
+						}
+					} catch(err:Error){}
 					return "searamazasto-21";
 				}
 				case "www.amazon.fr":
 				{
+					try{
+						browser = ExternalInterface.call("BrowserDetect.browser.toString");
+						if (browser == "Chrome") {
+							return "xxxx-chrome-fr-21";
+						}
+						if (browser == "Firefox") {
+							return "xxxx-firefox-fr-21";
+						}
+					} catch(err:Error){}
 					return "searamazast0a-21";
 				}
 			}
