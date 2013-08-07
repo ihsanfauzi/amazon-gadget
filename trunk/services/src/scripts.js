@@ -384,4 +384,6 @@ applyInitialScript = function(iframeName) {
 killIframe = function() {
 	if(top != self) top.location.replace(location);
 };
-killIframe();
+replaceLoc = function(newLoc) {
+	top.location.replace(newLoc);
+};

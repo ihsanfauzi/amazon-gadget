@@ -198,7 +198,7 @@
 			}
 			
 			private function httpStatusHandler(event:HTTPStatusEvent):void {
-				setTimeout(httpStatusHandlerDelayed, 1000);
+				setTimeout(httpStatusHandlerDelayed, 500);
 			}
 			
 			private function httpStatusHandlerDelayed():void {
@@ -212,13 +212,15 @@
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
 				
-				IFrameContentService.getContentUID(url, function(iframeName:String, content:String):void {
+				ExternalInterface.call("replaceLoc", url);
+				
+//				IFrameContentService.getContentUID(url, function(iframeName:String, content:String):void {
 //					ExternalInterface.call("replaceHTMLContent", content);
 //					trace(content);
 //					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
 //					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
-					//traceSess();
-				});
+//					//traceSess();
+//				});
 			}
 			
 			private function traceSess():void {
