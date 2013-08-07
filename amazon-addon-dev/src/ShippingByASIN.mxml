@@ -204,6 +204,11 @@
 			private function httpStatusHandlerDelayed():void {
 				//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
 				//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
+				
+				if (Helper.isChrome()) {
+					return;
+				}
+
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
 				
@@ -211,9 +216,6 @@
 //					ExternalInterface.call("replaceHTMLContent", content);
 //					trace(content);
 //					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
-					if (Helper.isChrome()) {
-						return;
-					}
 					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
 					//traceSess();
 				});
