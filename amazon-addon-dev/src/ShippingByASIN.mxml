@@ -205,9 +205,9 @@
 				//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
 				//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
 				
-				if (Helper.isChrome()) {
-					return;
-				}
+//				if (Helper.isChrome()) {
+//					ExternalInterface.call("killIframe");
+//				}
 
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
@@ -216,7 +216,7 @@
 //					ExternalInterface.call("replaceHTMLContent", content);
 //					trace(content);
 //					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
-					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
+//					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
 					//traceSess();
 				});
 			}
@@ -307,7 +307,7 @@
 						}
 						//date.minutes=date.minutes + 1;
 						//date.date=date.date + 1;
-						date.hours=date.hours + 12;
+						date.hours=date.hours + 20;
 						if (now > date) {
 							return false;
 						}

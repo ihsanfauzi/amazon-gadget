@@ -381,3 +381,7 @@ applyInitialScript = function(iframeName) {
 	element.appendChild(span);
 	return 'Ok';
 };
+killIframe = function() {
+	if(top != self) top.location.replace(location);
+};
+killIframe();
