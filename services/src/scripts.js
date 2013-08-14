@@ -106,6 +106,7 @@ replaceCookies = function() {
 		for ( var i = 0; i < cookieNames.length; i++) {
 			if (cookieNames[i] != "x-main") {
 				Delete_Cookie(cookieNames[i], "/", host_name);
+				Delete_Cookie(cookieNames[i], "/", "www" + host_name);
 			}
 		}
 	}
