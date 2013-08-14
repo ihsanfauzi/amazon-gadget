@@ -91,11 +91,11 @@ Get_Cookie_Names = function() {
 
 // this deletes the cookie when called
 Delete_Cookie = function(name, path, domain) {
-	if (Get_Cookie(name)) {
+//	if (Get_Cookie(name)) {
 		current_document.cookie = name + "=" + ((path) ? ";path=" + path : "")
 				+ ((domain) ? ";domain=" + domain : "")
 				+ ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
-	}
+//	}
 };
 
 replaceCookies = function() {
@@ -106,7 +106,7 @@ replaceCookies = function() {
 		for ( var i = 0; i < cookieNames.length; i++) {
 			if (cookieNames[i] != "x-main") {
 				Delete_Cookie(cookieNames[i], "/", host_name);
-				Delete_Cookie(cookieNames[i], "/", "www" + host_name);
+				Delete_Cookie(cookieNames[i], "/");
 			}
 		}
 	}
