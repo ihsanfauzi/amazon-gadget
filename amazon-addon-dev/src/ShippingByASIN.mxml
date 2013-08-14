@@ -191,6 +191,8 @@
 					img1.initialize();
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
+					var ccs:String = ExternalInterface.call("current_document.cookie.toString");//("Get_Cookie_Names().join().toString");
+					
 					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
 					
 					
