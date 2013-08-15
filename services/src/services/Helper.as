@@ -190,62 +190,67 @@ package services
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
 			}
+			var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+			var res:String = null;
 			switch(site)
 			{
 				case "www.amazon.com":
 				{
+					res = "zzzzzzzzzzz-20";
 					try{
-						var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
 						if (browser == "Chrome") {
-							return "stoore-20";
+							res = "xxxx-chrome-us-20";
 						}
 						if (browser == "Firefox") {
-							return "techforless-20";
+							res = "xxxx-firefox-us-20";
 						}
 					} catch(err:Error){}
-					return "zzzzzzzzzzz-20";
+					break;
 				}
 				case "www.amazon.co.uk":
 				{
+					res = "searchengin0d-21";
 					try{
-						browser = ExternalInterface.call("BrowserDetect.browser.toString");
 						if (browser == "Chrome") {
-							return "xxxx-chrome-21";
+							res = "xxxx-chrome-uk-21";
 						}
 						if (browser == "Firefox") {
-							return "xxxx-firefox-21";
+							res = "xxxx-firefox-uk-21";
 						}
 					} catch(err:Error){}
-					return "searchengin0d-21";
+					break;
 				}
 				case "www.amazon.de":
 				{
+					res = "searamazasto-21";
 					try{
-						browser = ExternalInterface.call("BrowserDetect.browser.toString");
 						if (browser == "Chrome") {
-							return "xxxx-chrome-de-21";
+							res = "xxxx-chrome-de-21";
 						}
 						if (browser == "Firefox") {
-							return "xxxx-firefox-de-21";
+							res = "xxxx-firefox-de-21";
 						}
 					} catch(err:Error){}
-					return "searamazasto-21";
+					break;
 				}
 				case "www.amazon.fr":
 				{
+					res = "searamazast0a-21";
 					try{
-						browser = ExternalInterface.call("BrowserDetect.browser.toString");
 						if (browser == "Chrome") {
-							return "xxxx-chrome-fr-21";
+							res = "xxxx-chrome-fr-21";
 						}
 						if (browser == "Firefox") {
-							return "xxxx-firefox-fr-21";
+							res = "xxxx-firefox-fr-21";
 						}
 					} catch(err:Error){}
-					return "searamazast0a-21";
+					break;
 				}
 			}
-			return null;
+			if (res && !isDetail) { 
+				res = res.replace("xxxx-", "xxx1-");
+			}
+			return res;
 		}
 		
 		public static function generateSignature_obsolete(request:Object):void
