@@ -11,7 +11,7 @@ package util {
 		public static function createAddToCartUrl(offerListingId:String):String {
 			var sessionId:String=ExternalInterface.call("Get_Cookie", "sessionId");
 			var subscriptionId:String="";
-			var associateTag:String=Helper.getTag();
+			var associateTag:String=Helper.getTag(true);
 			var asin:String=ExternalInterface.call("getCurrentASIN");
 			var url:String="https://www.amazon.com/gp/aws/cart/add.html/ref=?SessionId=" + sessionId + "&SubscriptionId=" + subscriptionId + "AssociateTag=" + associateTag + "&ASIN.1=" + asin + "&Quantity.1=1&adid=&linkCode=as1&OfferListingId.1=" + offerListingId + "&submit.add.x=14&submit.add.y=14";
 			return url;

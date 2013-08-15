@@ -13,7 +13,7 @@ package util {
 		public static function getItem(asin:String, content:String):Object {
 			var res:Object=new Object();
 			res.ASIN=asin;
-			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag() + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
+			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag(true) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
 			res.Offers=new Object();
 			getOffers(res, content);
 			return res;
@@ -22,7 +22,7 @@ package util {
 		public static function getItemBySite(site:String, asin:String, content:String):Object {
 			var res:Object=new Object();
 			res.ASIN=asin;
-			res.DetailPageURL="http://" + site + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTagBySite(site) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
+			res.DetailPageURL="http://" + site + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTagBySite(site, true) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
 			res.Offers=new Object();
 			getOffers(res, content);
 			return res;
