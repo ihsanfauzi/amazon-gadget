@@ -159,10 +159,10 @@ package services
 			return res;
 		}
 
-		public static function getTag():String
+		public static function getTag(isDetail:Boolean):String
 		{
 			var site:String=getHostName();
-			return getTagBySite(site);
+			return getTagBySite(site, isDetail);
 		}
 		
 		public static function isChrome():Boolean {
@@ -185,7 +185,7 @@ package services
 			return false;
 		}
 
-		public static function getTagBySite(site:String):String
+		public static function getTagBySite(site:String, isDetail:Boolean):String
 		{
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
@@ -248,7 +248,7 @@ package services
 			return null;
 		}
 		
-		public static function generateSignature(request:Object):void
+		public static function generateSignature_obsolete(request:Object):void
 		{
 			var parameterArray:Array=new Array();
 			var parameterCollection:ArrayCollection=new ArrayCollection();
@@ -263,7 +263,7 @@ package services
 			var now:Date=new Date();
 
 			request.AWSAccessKeyId=amazonDeveloperId;
-			request.AssociateTag=getTag();
+			request.AssociateTag=getTag(true);
 
 			// Set the request timestamp using the format: YYYY-MM-DDThh:mm:ss.000Z
 			// Note that we must convert to GMT.
@@ -497,7 +497,7 @@ package services
 				if (domain.indexOf("www") == -1) {
 					domain = "www." + domain;
 				}
-				var tag:String = getTagBySite(domain);
+				var tag:String = getTagBySite(domain, true);
 				if (!tag) {
 					return url;
 				}
