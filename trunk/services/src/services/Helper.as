@@ -10,6 +10,7 @@ package services
 	import dto.SearchItemDTO;
 	
 	import flash.external.ExternalInterface;
+	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
 	import flash.utils.ByteArray;
@@ -545,6 +546,18 @@ package services
 				url = url + '?rndm=' + Math.random();
 				return url;
 			}
+		}
+		
+		public static function isSharedObjectOk():Boolean {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("Test", "/");
+				obj.data["date_" + Helper.getAWSDomain()]=new Date();
+				obj.flush();
+				obj.clear();
+			} catch (err:Error) {
+				return false;
+			}
+			return true;
 		}
 	}
 }

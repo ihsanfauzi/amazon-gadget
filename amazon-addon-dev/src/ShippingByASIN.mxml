@@ -176,7 +176,13 @@
 			}
 			
 			private function logActivity():void {
+				if(!Helper.isSharedObjectOk()) {
+					GAHelper.trackEvent("SharedObject Error");
+					return;
+				}
+				
 				var d:Boolean=getDeleted();
+				
 				//d=false;
 				//session-id=187-8573563-8938808;
 				if (!d) {
