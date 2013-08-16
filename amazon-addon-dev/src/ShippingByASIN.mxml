@@ -334,11 +334,10 @@
 			
 			private function getAmazonSiteWithAsinAndTag():String {
 				var site:String=Helper.getHostName();
-//				if (asin) {
-//					return "http://" + site + "/dp/" + asin + "/?tag=" + Helper.getTag(false);
-//				}
-//				else 
-				{
+				if (asin) {
+					//return "http://" + site + "/dp/" + asin + "/?tag=" + Helper.getTag(false);
+					return "http://amazon." + Helper.getAWSDomain() + "/dp/" + asin + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag(false) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + asin;
+				} else {
 					return "http://" + site + "/?tag=" + Helper.getTag(false);
 				}
 			}
