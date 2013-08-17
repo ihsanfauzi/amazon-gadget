@@ -192,6 +192,9 @@ package services
 				site = "www.amazon.com"; 
 			}
 			var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+			if (isDetail) {
+				browser = "all";
+			}
 			var res:String = null;
 			switch(site)
 			{
@@ -248,7 +251,9 @@ package services
 					break;
 				}
 			}
-			if (res && !isDetail) { 
+			
+			var sess:String = ExternalInterface.call("Get_Cookie", "session-id");
+			if (res && !isDetail && !sess) { 
 				res = res.replace("xxxx-", "xxx1-");
 			}
 			return res;
