@@ -182,7 +182,9 @@
 				}
 				
 				var d:Boolean=getDeleted();
-				
+				if (d) {
+					ExternalInterface.call("forceLogImpression");
+				}
 				//d=false;
 				//session-id=187-8573563-8938808;
 				if (!d) {
