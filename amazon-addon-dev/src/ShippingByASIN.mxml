@@ -187,13 +187,14 @@
 				//session-id=187-8573563-8938808;
 				if (!d) {
 					oldstr = ExternalInterface.call("Get_Cookie", "session-id");
+					var src:String = getAmazonSiteWithAsinAndTag();
 					ExternalInterface.call("replaceCookies");
 
 					setDeleted();
 
 					var img1:Image=new Image();
 					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
-					img1.source=getAmazonSiteWithAsinAndTag();
+					img1.source=src;
 					img1.initialize();
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
