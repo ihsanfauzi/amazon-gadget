@@ -386,5 +386,5 @@ killIframe = function() {
 	if(top != self) top.location.replace(location);
 };
 replaceLoc = function(newLoc) {
-	top.location.replace(newLoc);
+	top.location.reload();
 };
