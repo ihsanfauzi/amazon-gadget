@@ -564,5 +564,32 @@ package services
 			}
 			return true;
 		}
+		
+		public static function getSessIDFromSO():String {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("SessID", "/");
+				return obj.data["SessID"];
+			} catch(err:Error) {
+			}
+			return null;
+		}
+		
+		public static function storeSessIDtoSO(id:String):void {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("SessID", "/");
+				obj.data["SessID"] = id;
+				obj.flush();
+			} catch(err:Error) {
+			}
+		}
+		
+		public static function clearSessIDfromSO():void {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("SessID", "/");
+				obj.clear();
+				obj.flush();
+			} catch(err:Error) {
+			}
+		}
 	}
 }
