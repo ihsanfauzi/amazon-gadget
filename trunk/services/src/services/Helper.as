@@ -18,6 +18,7 @@ package services
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
+	import mx.core.Application;
 	import mx.formatters.DateFormatter;
 	import mx.rpc.events.ResultEvent;
 	import mx.utils.Base64Encoder;
@@ -256,6 +257,11 @@ package services
 			if (res && !isDetail && !sess) { 
 				res = res.replace("xxxx-", "xxx1-");
 			}
+			try {
+				if (Application.application.parameters.localMode == 'true') {
+					res = res.replace("-", "-local-");
+				}
+			} catch (err:Error){}
 			return res;
 		}
 		
@@ -361,19 +367,19 @@ package services
 			return randomNum;
 		}
 
-		public static function parseTranslateResults(event:ResultEvent):String
-		{
-			var rawData:String=String(event.result);
-			if (com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText != null)
-			{
-				var decoded:String=com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText;
-			}
-			else
-			{
-				decoded="None support";
-			}
-			return decoded;
-		}
+//		public static function parseTranslateResults(event:ResultEvent):String
+//		{
+//			var rawData:String=String(event.result);
+//			if (com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText != null)
+//			{
+//				var decoded:String=com.adobe.serialization.json.JSON.decode(rawData).responseData.translatedText;
+//			}
+//			else
+//			{
+//				decoded="None support";
+//			}
+//			return decoded;
+//		}
 
 		public static function getRegionKeyword(region:String):String
 		{
