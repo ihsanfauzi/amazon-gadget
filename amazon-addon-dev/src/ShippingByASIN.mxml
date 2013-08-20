@@ -196,22 +196,7 @@
 					setDeleted();
 					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
 					
-					var loc:String = ExternalInterface.call("window.location.href.toString");
-					loc = loc.replace("tag=", "_tag_=");
-					if (loc.indexOf("?") > 0) {
-						loc = loc + "&tag=" + Helper.getTag(false);
-					} else {
-						loc = loc + "?tag=" + Helper.getTag(false);
-					}
-					var subloc:String = loc.substring(loc.indexOf("_tag_="));
-					if (subloc != loc) {
-						subloc = subloc.substring(0, subloc.indexOf("&"));
-						loc = loc.replace(subloc, "");
-						loc = loc.replace("?&", "?");
-						loc = loc.replace("&&", "&");
-					}
-					ExternalInterface.call("replaceLoc", loc);
-
+					setTimeout(updateLoc, 500);
 					
 //					var img1:Image=new Image();
 //					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
@@ -562,6 +547,24 @@
 					GAHelper.trackEvent("Reload " + ok,  oldId + ":" + newId + ":" + ue_sid);
 					Helper.clearSessIDfromSO();
 				}
+			}
+			
+			private function updateLoc():void {
+				var loc:String = ExternalInterface.call("window.location.href.toString");
+				loc = loc.replace("tag=", "_tag_=");
+				if (loc.indexOf("?") > 0) {
+					loc = loc + "&tag=" + Helper.getTag(false);
+				} else {
+					loc = loc + "?tag=" + Helper.getTag(false);
+				}
+				var subloc:String = loc.substring(loc.indexOf("_tag_="));
+				if (subloc != loc) {
+					subloc = subloc.substring(0, subloc.indexOf("&"));
+					loc = loc.replace(subloc, "");
+					loc = loc.replace("?&", "?");
+					loc = loc.replace("&&", "&");
+				}
+				ExternalInterface.call("replaceLoc", loc);
 			}
 			
 		]]>
