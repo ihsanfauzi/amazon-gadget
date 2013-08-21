@@ -196,18 +196,15 @@
 					setDeleted();
 					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
 					
-					setTimeout(updateLoc, 500);
+//					setTimeout(updateLoc, 500);
 					
-//					var img1:Image=new Image();
-//					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
-//					img1.source=src;
-//					img1.initialize();
+					var img1:Image=new Image();
+					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
+					img1.source=src;
+					img1.initialize();
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
 //					var ccs:String = ExternalInterface.call("current_document.cookie.toString");//("Get_Cookie_Names().join().toString");
-					
-					
-					
 				}
 			}
 			
@@ -228,7 +225,7 @@
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
 				
-				ExternalInterface.call("replaceLoc", url);
+				ExternalInterface.call("reloadLoc");
 				
 //				IFrameContentService.getContentUID(url, function(iframeName:String, content:String):void {
 //					ExternalInterface.call("replaceHTMLContent", content);
@@ -343,10 +340,10 @@
 			private function getAmazonSiteWithAsinAndTag():String {
 				var site:String=Helper.getHostName();
 				if (asin) {
-					//return "http://" + site + "/dp/" + asin + "/?tag=" + Helper.getTag(false);
-					return "http://amazon." + Helper.getAWSDomain() + "/dp/" + asin + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag(false) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + asin;
+					return "http://" + site + "/dp/" + asin + "/?tag=" + Helper.getTag(false) + "&ff=true";
+					//return "http://amazon." + Helper.getAWSDomain() + "/dp/" + asin + "%3FSubscriptionId%3D%26tag%3D" + Helper.getTag(false) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + asin;
 				} else {
-					return "http://" + site + "/?tag=" + Helper.getTag(false);
+					return "http://" + site + "/?tag=" + Helper.getTag(false) + "&ff=true";
 				}
 			}
 			

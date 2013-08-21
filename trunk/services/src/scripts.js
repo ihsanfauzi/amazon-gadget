@@ -388,6 +388,9 @@ killIframe = function() {
 replaceLoc = function(newLoc) {
 	location.replace(newLoc);
 };
+reloadLoc = function() {
+	location.reload();
+};
 forceLogImpression = function() {
 	//var url = "http://fls-na.amazon.com/1/action-impressions/1/OP/dpbxapps/action/bxapps-atfMarker:img-lt-100,imgload-gt-150?marketplaceId=ATVPDKIKX0DER&requestId=14P3TJRE197XGCY0M01C&session=176-5688020-0469840&_=1376811461787";
 	var protocol = location.protocol == "https:" ? "https://" : "http://",
