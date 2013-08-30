@@ -377,6 +377,9 @@
 				CursorManager.setBusyCursor();
 				IFrameContentService.getContent(url, function(content:String):void {
 					CursorManager.removeBusyCursor();
+//					if (condition = Helper.CONDITION_NEW) {
+//						trace(content);
+//					}
 					var raw:Object=OfferService.getItem(asin, content);
 					collectOffers(raw, condition);
 					var pages:Number=raw.Offers.TotalOfferPages;
