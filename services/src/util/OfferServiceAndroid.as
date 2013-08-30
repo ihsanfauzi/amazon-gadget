@@ -155,7 +155,7 @@ package util {
 		
 		private static function extractTBodyResults(content:String):Array {
 			var res:Array=[];
-			var sStart:String="<div class='a-row a-spacing-medium olpOffer'>";
+			var sStart:String="<div class='a-row a-spacing-mini olpOffer'>";
 			var sEnd:String="sshmPath=returns#aag_returns";
 			while(true) {
 				var subStr:String=subContent1(content, sStart);
