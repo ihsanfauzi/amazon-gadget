@@ -192,7 +192,13 @@ package services
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
 			}
-			var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+			try {
+				var browser:String = ExternalInterface.call("BrowserDetect.browser.toString");
+				var sess:String = ExternalInterface.call("Get_Cookie", "session-id");
+			}catch(err:Error) {
+				browser = "all";
+			}
+			
 			if (isDetail) {
 				browser = "all";
 			}
@@ -253,7 +259,6 @@ package services
 				}
 			}
 			
-			var sess:String = ExternalInterface.call("Get_Cookie", "session-id");
 			if (res && !isDetail && !sess) { 
 				res = res.replace("xxxx-", "xxx1-");
 			}
