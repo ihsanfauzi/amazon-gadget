@@ -26,13 +26,30 @@ package util
 				res=OfferServiceChrome2.getItemBySite(site, asin, content);
 			}
 			if (res.Offers.Offer.length == 0) {
-				res=OfferServiceChrome3.getItemBySite(site, asin, content);
-			}
-			if (res.Offers.Offer.length == 0) {
 				res=OfferServiceAndroid.getItemBySite(site, asin, content);
 			}
+			return res;
+		}
+		
+		public static function getItem(asin:String, content:String):Object
+		{
+			var res:Object=new Object();
+			res.ASIN=asin;
+			res.DetailPageURL="http://amazon." + Helper.getAWSDomain() + "/dp/" + res.ASIN + "/ref=%3FSubscriptionId%3D%26tag%3D" + Helper.getTag(true) + "%26linkCode%3D%26camp%3D%26creative%3D%26creativeASIN%3D" + res.ASIN;
+			res.Offers=new Object();
+			if (Helper.isIE()) {
+				res = OfferServiceIE.getItem(asin, content);
+				return res;
+			}
+			getOffers(res, content);
 			if (res.Offers.Offer.length == 0) {
-				res=OfferServiceAndroid2.getItemBySite(site, asin, content);
+				res=OfferServiceChrome.getItem(asin, content);
+			}
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceChrome2.getItem(asin, content);
+			}
+			if (res.Offers.Offer.length == 0) {
+				res=OfferServiceChrome3.getItem(asin, content);
 			}
 			return res;
 		}
@@ -224,4 +241,3 @@ package util
 		}
 	}
 }
-
