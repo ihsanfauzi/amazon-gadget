@@ -155,16 +155,16 @@ package util {
 		
 		private static function extractTBodyResults(content:String):Array {
 			var res:Array=[];
-			var sStart:String="<div class=\"a-row a-spacing-mini olpOffer\">";
-			var sEnd:String="sshmPath=returns#aag_returns";
+			var sStart:RegExp=new RegExp("<div class=\"a-row a-spacing-.* olpOffer\">");
+			var sEnd:String="sshmPath=";
 			while(true) {
-				var subStr:String=subContent1(content, sStart);
-				var sRes:String=subContent2(sStart + subStr, sStart, sEnd);
+				var subStr:String=StringService.subContent1(content, sStart);
+				var sRes:String=StringService.subContent2(subStr, sStart, new RegExp(sEnd));
 				if (sRes == null) {
 					break;
 				}
 				res.push(sRes);
-				content=subStr;
+				content=subStr.substr(5);
 			}
 			return res;
 		}
