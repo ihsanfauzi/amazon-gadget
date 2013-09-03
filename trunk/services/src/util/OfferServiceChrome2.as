@@ -38,7 +38,7 @@ package util {
 		private static function extractTotalPages(content:String):Number {
 			content=content.replace("pagenumberon", "pagenumberoff");
 			var arr:Array=content.split("startIndex=");
-			return arr.length - 1;
+			return arr.length;
 		}
 		
 		private static function extractOffers(content:String):Array {
