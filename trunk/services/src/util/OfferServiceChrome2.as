@@ -122,14 +122,14 @@ package util {
 		}
 		
 		private static function extractMerhantNameB(res:Object, info:String):void {
-			var sStart:String="<b>";
+			var sStart:String=res.Merchant.MerchantId+"\">";
 			var start:Number=info.indexOf(sStart) + sStart.length;
 			if (start == sStart.length - 1) {
 				res.Merchant.Name="n/a";
 				return ;
 			}
 			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf("</b>"));
+			var sName:String=subStr.substring(0, subStr.indexOf("</a>"));
 			if (sName) {
 				while(sName.indexOf("&amp;") != -1) {
 					sName=sName.replace("&amp;", "&");
