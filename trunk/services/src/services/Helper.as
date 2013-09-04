@@ -499,7 +499,7 @@ package services
 		}
 		
 		public static function constructPageUrl(asin:String, country:String, page:Number, condition:String):String {
-			var startIndex:Number=(page - 1) * 15;
+			var startIndex:Number=(page - 1) * 10;
 			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=" + condition;
 			return res;
 		}
