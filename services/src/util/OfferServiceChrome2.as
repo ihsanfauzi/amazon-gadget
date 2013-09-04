@@ -170,7 +170,7 @@ package util {
 		}
 		
 		public static function constructUrl(asin:String, country:String, page:Number):String {
-			var startIndex:Number=(page - 1) * 15;
+			var startIndex:Number=(page - 1) * 10;
 			var res:String="http://www.amazon." + country + "/gp/offer-listing/" + asin + "/?ie=UTF8&startIndex=" + startIndex + "&condition=new";
 			return res;
 		}
