@@ -122,14 +122,14 @@ package util {
 		}
 		
 		private static function extractMerhantNameB(res:Object, info:String):void {
-			var sStart:String="<b>";
+			var sStart:String=res.Merchant.MerchantId+"\">";
 			var start:Number=info.indexOf(sStart) + sStart.length;
 			if (start == sStart.length - 1) {
 				res.Merchant.Name="n/a";
 				return ;
 			}
 			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf("</b>"));
+			var sName:String=subStr.substring(0, subStr.indexOf("</a>"));
 			if (sName) {
 				while(sName.indexOf("&amp;") != -1) {
 					sName=sName.replace("&amp;", "&");
@@ -155,16 +155,16 @@ package util {
 		
 		private static function extractTBodyResults(content:String):Array {
 			var res:Array=[];
-			var sStart:String="<div class='a-row a-spacing-mini olpOffer'>";
-			var sEnd:String="sshmPath=returns#aag_returns";
+			var sStart:RegExp=new RegExp("<div class='a-row a-spacing-.* olpOffer'>");
+			var sEnd:String="sshmPath=";
 			while(true) {
-				var subStr:String=subContent1(content, sStart);
-				var sRes:String=subContent2(sStart + subStr, sStart, sEnd);
+				var subStr:String=StringService.subContent1(content, sStart);
+				var sRes:String=StringService.subContent2(subStr, sStart, new RegExp(sEnd));
 				if (sRes == null) {
 					break;
 				}
 				res.push(sRes);
-				content=subStr;
+				content=subStr.substr(5);
 			}
 			return res;
 		}
