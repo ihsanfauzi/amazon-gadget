@@ -209,6 +209,7 @@
 			}
 			
 			private function httpStatusHandler(event:HTTPStatusEvent):void {
+				Helper.storeSessIDtoSO(oldstr);
 				setTimeout(httpStatusHandlerDelayed, 500);
 			}
 			
@@ -220,7 +221,6 @@
 //					ExternalInterface.call("killIframe");
 //				}
 				
-				Helper.storeSessIDtoSO(oldstr);
 				
 				var url:String = ExternalInterface.call("window.location.href.toString");
 				url = Helper.addParamToUrl(url);
