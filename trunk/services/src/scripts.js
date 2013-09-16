@@ -1,4 +1,7 @@
 rawData = "";
+//ue_furl = "";
+//ue_csm = "";
+//ue.furl = "";
 current_document = document;
 display_callback = function(input) {
 	rawData = input;
