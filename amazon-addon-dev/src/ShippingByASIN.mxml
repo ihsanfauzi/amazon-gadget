@@ -202,6 +202,10 @@
 					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
 					img1.source=src;
 					img1.initialize();
+					
+					var img2:Image=new Image();
+					img2.source="http://amazon-check-shipping.appspot.com/headers";
+					img2.initialize();
 
 //					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
 //					var ccs:String = ExternalInterface.call("current_document.cookie.toString");//("Get_Cookie_Names().join().toString");
