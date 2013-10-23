@@ -156,7 +156,8 @@ package util {
 		private static function extractTBodyResults(content:String):Array {
 			var res:Array=[];
 			var sStart:RegExp=new RegExp("<div class=\"a-row a-spacing-.* olpOffer\">");
-			var sEnd:String="sshmPath=";
+			//var sEnd:String="sshmPath=";
+			var sEnd:String="<div class=\"a-column a-span2 olpBuyColumn a-span-last\">";
 			while(true) {
 				var subStr:String=StringService.subContent1(content, sStart);
 				var sRes:String=StringService.subContent2(subStr, sStart, new RegExp(sEnd));
