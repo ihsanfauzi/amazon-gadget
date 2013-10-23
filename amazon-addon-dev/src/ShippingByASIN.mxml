@@ -74,8 +74,8 @@
 		<mx:HBox width="100%"
 				 horizontalAlign="left"
 				 paddingTop="-5">
-			<mx:Label text="NEW!"
-					  color="red"/>
+			<!--mx:Label text="NEW!"
+					  color="red"/-->
 			<mx:Label id="androidLabel"
 					  text="Get on Your Android"
 					  useHandCursor="true"
