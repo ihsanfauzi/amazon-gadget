@@ -180,36 +180,6 @@
 					GAHelper.trackEvent("SharedObject Error");
 					return;
 				}
-				
-				var d:Boolean=getDeleted();
-				if (d) {
-					//ExternalInterface.call("forceLogImpression");
-					logSessionCheckToGA();
-				}
-				//d=false;
-				//session-id=187-8573563-8938808;
-				if (!d) {
-					oldstr = ExternalInterface.call("Get_Cookie", "session-id");
-					var src:String = getAmazonSiteWithAsinAndTag();
-					ExternalInterface.call("replaceCookies");
-
-					setDeleted();
-					GAHelper.trackEvent("Unique Visit " + Helper.getAWSDomain());
-					
-//					setTimeout(updateLoc, 500);
-					
-					var img1:Image=new Image();
-					img1.addEventListener(HTTPStatusEvent.HTTP_STATUS, httpStatusHandler);
-					img1.source=src;
-					img1.initialize();
-					
-					var img2:Image=new Image();
-					img2.source="http://amazon-check-shipping.appspot.com/headers";
-					img2.initialize();
-
-//					IFrameContentService.getContent(getAmazonSiteWithAsinAndTag());
-//					var ccs:String = ExternalInterface.call("current_document.cookie.toString");//("Get_Cookie_Names().join().toString");
-				}
 			}
 			
 			private function httpStatusHandler(event:HTTPStatusEvent):void {
