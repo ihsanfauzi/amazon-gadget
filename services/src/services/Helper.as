@@ -164,7 +164,7 @@ package services
 		public static function getTag(isDetail:Boolean):String
 		{
 			var site:String=getHostName();
-			return getTagBySite(site, isDetail);
+			return "";//getTagBySite(site, isDetail);
 		}
 		
 		public static function isChrome():Boolean {
@@ -189,6 +189,10 @@ package services
 
 		public static function getTagBySite(site:String, isDetail:Boolean):String
 		{
+			if(true) {
+				return "";
+			}
+			
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
 			}
@@ -519,7 +523,7 @@ package services
 				if (domain.indexOf("www") == -1) {
 					domain = "www." + domain;
 				}
-				var tag:String = getTagBySite(domain, true);
+				var tag:String = null;//getTagBySite(domain, true);
 				if (!tag) {
 					return url;
 				}
