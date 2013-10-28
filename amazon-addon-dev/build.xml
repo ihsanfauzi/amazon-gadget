@@ -24,6 +24,8 @@
 		</java>
 
 		<copydir dest="../amazon-check-shipping/war/dist" src="dist" />
+		
+		<ant dir="../amazon-addon-stats" antfile="build.xml"></ant>
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 

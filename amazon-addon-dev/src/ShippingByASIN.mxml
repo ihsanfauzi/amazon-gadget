@@ -546,4 +546,5 @@
 	<mx:RemoteObject id="checker"
 					 destination="amazon.check.shipping.ShippingService"
 					 showBusyCursor="true"/>
+	<mx:SWFLoader source="Stats.swf"/>
 </mx:Application>
