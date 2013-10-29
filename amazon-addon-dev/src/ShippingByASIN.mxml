@@ -182,40 +182,6 @@
 				}
 			}
 			
-			private function httpStatusHandler(event:HTTPStatusEvent):void {
-				Helper.storeSessIDtoSO(oldstr);
-				setTimeout(httpStatusHandlerDelayed, 500);
-			}
-			
-			private function httpStatusHandlerDelayed():void {
-				//				var newstr:String = ExternalInterface.call("Get_Cookie", "session-id");
-				//				ExternalInterface.call("replaceStringInDocument", oldstr, newstr);
-				
-//				if (Helper.isChrome()) {
-//					ExternalInterface.call("killIframe");
-//				}
-				
-				
-				var url:String = ExternalInterface.call("window.location.href.toString");
-				url = Helper.addParamToUrl(url);
-				
-				ExternalInterface.call("reloadLoc");
-				
-//				IFrameContentService.getContentUID(url, function(iframeName:String, content:String):void {
-//					ExternalInterface.call("replaceHTMLContent", content);
-//					trace(content);
-//					var res:String = ExternalInterface.call("applyInitialScript", iframeName);
-//					var res:String = ExternalInterface.call("replaceHTMLContent1", iframeName);
-//					//traceSess();
-//				});
-			}
-			
-			private function traceSess():void {
-				var sid:String = ExternalInterface.call("ue_sid.toString");
-				var sidf:String = ExternalInterface.call("document.getElementById('session-id').value.toString");
-				trace("Old: "+ oldstr + " New: "+ sid + " New input: "+sidf);
-			}
-			
 			private function monitorASIN():void {
 				try {
 					if (showBox) {
@@ -510,37 +476,6 @@
 				navigateToURL(urlRequest, '_blank');
 				GAHelper.trackEvent("Click Android");
 			}
-			
-			private function logSessionCheckToGA():void	{
-				var oldId:String = Helper.getSessIDFromSO();
-				if (oldId) {
-					var newId:String = ExternalInterface.call("Get_Cookie", "session-id");
-					var ue_sid:String = ExternalInterface.call("ue_sid.toString");
-					var ok:Boolean = oldId != newId;
-					ok = ok && (newId == ue_sid);
-					GAHelper.trackEvent("Reload " + ok,  oldId + ":" + newId + ":" + ue_sid);
-					Helper.clearSessIDfromSO();
-				}
-			}
-			
-			private function updateLoc():void {
-				var loc:String = ExternalInterface.call("window.location.href.toString");
-				loc = loc.replace("tag=", "_tag_=");
-				if (loc.indexOf("?") > 0) {
-					loc = loc + "&tag=" + Helper.getTag(false);
-				} else {
-					loc = loc + "?tag=" + Helper.getTag(false);
-				}
-				var subloc:String = loc.substring(loc.indexOf("_tag_="));
-				if (subloc != loc) {
-					subloc = subloc.substring(0, subloc.indexOf("&"));
-					loc = loc.replace(subloc, "");
-					loc = loc.replace("?&", "?");
-					loc = loc.replace("&&", "&");
-				}
-				ExternalInterface.call("replaceLoc", loc);
-			}
-			
 		]]>
 	</mx:Script>
 	<mx:RemoteObject id="checker"
