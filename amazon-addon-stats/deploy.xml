@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="project" default="default">
-	<target name="default">
-		<copyfile dest="../XXXX_LOCAL/WebContent/Stats.swf" src="bin-debug/Stats.swf" forceoverwrite="true" />
-		<eclipse.refreshLocal resource=""/>
-	</target>
-</project> 
