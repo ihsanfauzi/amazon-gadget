@@ -10,7 +10,16 @@
 			 mouseChildren = "false"
 			 color = "blue"
 			 text = "{offerDTO.merchantName}"
-			 click = "{rrbuyFromClickHandler(event)}"/>
+			 click = "{rrbuyFromClickHandler(event)}"
+			 includeInLayout="{!isUrl(offerDTO.merchantName)}"/>
+	<mx:Image width = "60%"
+			  useHandCursor = "true"
+			  textDecoration = "underline"
+			  buttonMode = "true"
+			  mouseChildren = "false"
+			  color = "blue"
+			  text = "{offerDTO.merchantName}"
+			  click = "{rrbuyFromClickHandler(event)}"/>
 	<mx:Text width = "30%"
 			 text = "{offerDTO.price}"/>
 	<mx:Image id = "errorIcon"

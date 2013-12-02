@@ -35,15 +35,28 @@
 							   dataField = "Name">
 				<mx:itemRenderer>
 					<mx:Component>
-						<mx:Label truncateToFit = "true"
-								  useHandCursor = "true"
-								  textDecoration = "underline"
-								  buttonMode = "true"
-								  mouseChildren = "false"
-								  color = "blue"
-								  text = "{data.Name}"
-								  click = "clickHandler(event)"
-								  toolTip = "{data.Name}">
+						<mx:HBox paddingLeft = "2"
+								 horizontalScrollPolicy = "off"
+								 width = "100%">
+							<mx:Label truncateToFit = "true"
+									  useHandCursor = "true"
+									  textDecoration = "underline"
+									  buttonMode = "true"
+									  mouseChildren = "false"
+									  color = "blue"
+									  text = "{data.Name}"
+									  click = "clickHandler(event)"
+									  toolTip = "{data.Name}"
+									  includeInLayout = "{!isUrl(data.Name)}"
+									  visible = "{!isUrl(data.Name)}"/>
+							<mx:Image useHandCursor = "true"
+									  buttonMode = "true"
+									  mouseChildren = "false"
+									  includeInLayout = "{isUrl(data.Name)}"
+									  visible = "{isUrl(data.Name)}"
+									  source = "{data.Name}"
+									  height = "15"
+									  click = "clickHandler(event)"/>
 							<mx:Script>
 								<![CDATA[
 									import dto.OfferInfoDTO;
@@ -54,18 +67,19 @@
 									
 									import utils.GAHelper;
 									
+									private function isUrl(s:String):Boolean {
+										return s && s.indexOf("http") == 0;
+									}
+									
 									protected function clickHandler(event:MouseEvent):void {
 										var offer:OfferInfoDTO=data as OfferInfoDTO;
 										var url:String=offer.BuyURL;
 										Helper.openAmazonItem(url);
 										GAHelper.trackEvent("Open Item", url);
-//										var img:Image=new Image();
-//										img.source="http://gadget.usefulhelper.com/1x1.gif?b=buy&p=" + url;
-//										img.initialize();
 									}
 								]]>
 							</mx:Script>
-						</mx:Label>
+						</mx:HBox>
 					</mx:Component>
 				</mx:itemRenderer>
 			</mx:DataGridColumn>

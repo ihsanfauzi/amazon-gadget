@@ -99,13 +99,10 @@ package util {
 		private static function extractMerhantName(res:Object, info:String):void {
 			// <img width="120" height="30" border="0" alt="
 			var sStart:String=" alt=\"";
-			var start:Number=info.indexOf(sStart) + sStart.length;
-			if (start == sStart.length - 1) {
-				extractMerhantNameB(res, info);
-				return ;
-			}
-			var subStr:String=info.substring(start);
-			var sName:String=subStr.substring(0, subStr.indexOf("\""));
+			var img:String = subContent2(info, "<p class=\"a-spacing-small olpSellerName\">", "</p>");
+			img = subContent2(img, "<img src=\"", "\"");
+			var sName:String = img?img:"";
+			
 			if (sName.length == 0) {
 				extractMerhantNameB(res, info);
 				return ;
