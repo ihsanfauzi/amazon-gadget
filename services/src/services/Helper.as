@@ -164,7 +164,7 @@ package services
 		public static function getTag(isDetail:Boolean):String
 		{
 			var site:String=getHostName();
-			return "";//getTagBySite(site, isDetail);
+			return getTagBySite(site, isDetail);
 		}
 		
 		public static function isChrome():Boolean {
@@ -189,9 +189,9 @@ package services
 
 		public static function getTagBySite(site:String, isDetail:Boolean):String
 		{
-			if(true) {
-				return "";
-			}
+//			if(true) {
+//				return "";
+//			}
 			
 			if (site == "localhost") {
 				site = "www.amazon.com"; 
@@ -206,71 +206,71 @@ package services
 			if (isDetail) {
 				browser = "all";
 			}
-			var res:String = null;
+			var res:String = "";
 			switch(site)
 			{
 				case "www.amazon.com":
 				{
-					res = "zzzzzzzzzzz-20";
-					try{
-						if (browser == "Chrome") {
-							res = "xxxx-chrome-us-20";
-						}
-						if (browser == "Firefox") {
-							res = "xxxx-firefox-us-20";
-						}
-					} catch(err:Error){}
+					res = "item-click-20";
+//					try{
+//						if (browser == "Chrome") {
+//							res = "xxxx-chrome-us-20";
+//						}
+//						if (browser == "Firefox") {
+//							res = "xxxx-firefox-us-20";
+//						}
+//					} catch(err:Error){}
 					break;
 				}
-				case "www.amazon.co.uk":
-				{
-					res = "searchengin0d-21";
-					try{
-						if (browser == "Chrome") {
-							res = "xxxx-chrome-uk-21";
-						}
-						if (browser == "Firefox") {
-							res = "xxxx-firefox-uk-21";
-						}
-					} catch(err:Error){}
-					break;
-				}
-				case "www.amazon.de":
-				{
-					res = "searamazasto-21";
-					try{
-						if (browser == "Chrome") {
-							res = "xxxx-chrome-de-21";
-						}
-						if (browser == "Firefox") {
-							res = "xxxx-firefox-de-21";
-						}
-					} catch(err:Error){}
-					break;
-				}
-				case "www.amazon.fr":
-				{
-					res = "searamazast0a-21";
-					try{
-						if (browser == "Chrome") {
-							res = "xxxx-chrome-fr-21";
-						}
-						if (browser == "Firefox") {
-							res = "xxxx-firefox-fr-21";
-						}
-					} catch(err:Error){}
-					break;
-				}
+//				case "www.amazon.co.uk":
+//				{
+//					res = "searchengin0d-21";
+//					try{
+//						if (browser == "Chrome") {
+//							res = "xxxx-chrome-uk-21";
+//						}
+//						if (browser == "Firefox") {
+//							res = "xxxx-firefox-uk-21";
+//						}
+//					} catch(err:Error){}
+//					break;
+//				}
+//				case "www.amazon.de":
+//				{
+//					res = "searamazasto-21";
+//					try{
+//						if (browser == "Chrome") {
+//							res = "xxxx-chrome-de-21";
+//						}
+//						if (browser == "Firefox") {
+//							res = "xxxx-firefox-de-21";
+//						}
+//					} catch(err:Error){}
+//					break;
+//				}
+//				case "www.amazon.fr":
+//				{
+//					res = "searamazast0a-21";
+//					try{
+//						if (browser == "Chrome") {
+//							res = "xxxx-chrome-fr-21";
+//						}
+//						if (browser == "Firefox") {
+//							res = "xxxx-firefox-fr-21";
+//						}
+//					} catch(err:Error){}
+//					break;
+//				}
 			}
 			
-			if (res && !isDetail && !sess) { 
-				res = res.replace("xxxx-", "xxx1-");
-			}
-			try {
-				if (Application.application.parameters.localMode == 'true') {
-					res = res.replace("-", "-local-");
-				}
-			} catch (err:Error){}
+//			if (res && !isDetail && !sess) { 
+//				res = res.replace("xxxx-", "xxx1-");
+//			}
+//			try {
+//				if (Application.application.parameters.localMode == 'true') {
+//					res = res.replace("-", "-local-");
+//				}
+//			} catch (err:Error){}
 			return res;
 		}
 		
@@ -481,7 +481,7 @@ package services
 
 		public static function openAmazonItem(url:String):void
 		{
-			var urlRequest:URLRequest=new URLRequest(url);
+			var urlRequest:URLRequest=new URLRequest("http://redirect-page.googlecode.com/svn/trunk/redirect.html?target=" + encodeURIComponent(url));
 			flash.net.navigateToURL(urlRequest, '_blank');
 		}
 
