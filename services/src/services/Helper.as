@@ -211,7 +211,7 @@ package services
 			{
 				case "www.amazon.com":
 				{
-					res = "item-click-20";
+//					res = "item-click-20";
 //					try{
 //						if (browser == "Chrome") {
 //							res = "xxxx-chrome-us-20";
