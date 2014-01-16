@@ -1,13 +1,7 @@
 package services
 {
-	import com.adobe.serialization.json.JSON;
 	import com.hurlant.crypto.hash.HMAC;
 	import com.hurlant.crypto.hash.SHA256;
-	import com.hurlant.crypto.prng.Random;
-	
-	import dto.OfferDTO;
-	import dto.SearchDTO;
-	import dto.SearchItemDTO;
 	
 	import flash.external.ExternalInterface;
 	import flash.net.SharedObject;
@@ -18,12 +12,14 @@ package services
 	import mx.collections.ArrayCollection;
 	import mx.collections.Sort;
 	import mx.collections.SortField;
-	import mx.core.Application;
 	import mx.formatters.DateFormatter;
-	import mx.rpc.events.ResultEvent;
 	import mx.utils.Base64Encoder;
 	import mx.utils.StringUtil;
 	import mx.utils.URLUtil;
+	
+	import dto.OfferDTO;
+	import dto.SearchDTO;
+	import dto.SearchItemDTO;
 
 	public class Helper
 	{
@@ -274,6 +270,23 @@ package services
 			return res;
 		}
 		
+		public static function getTagBySiteMobile(site:String):String
+		{
+			if (site == "localhost") {
+				site = "www.amazon.com"; 
+			}
+			var res:String = "";
+			switch(site)
+			{
+				case "www.amazon.com":
+				{
+					return "dc0dc7-20";
+					break;
+				}
+			}
+			return res;
+		}
+
 		public static function generateSignature_obsolete(request:Object):void
 		{
 			var parameterArray:Array=new Array();
@@ -513,6 +526,42 @@ package services
 			return res;
 		}
 		
+		public static function addTagToUrlMobile(url:String):String {
+			try {
+				if (!url) {
+					return url;
+				}
+				var domain:String = URLUtil.getServerName(url);
+				
+				if (domain.indexOf("www") == -1) {
+					domain = "www." + domain;
+				}
+				var tag:String = getTagBySiteMobile(domain);
+				if (!tag) {
+					return url;
+				}
+				
+				var queryPattern:RegExp = /(?<=\?).+$/;
+				var aq:Array = url.match(queryPattern);
+				// url query = var1=var1Value&var2=var2Value
+				var query:String = "";
+				if (aq && aq.length > 0) {
+					query = aq[0];
+					var vars:URLVariables = new URLVariables(query);
+					vars.tag = tag;
+					return url.replace(query, vars.toString());
+				} else {
+					vars = new URLVariables();
+					vars.tag = tag;
+					url = url + "?" + vars.toString();
+					return url.replace("??", "?");
+				}
+			}
+			catch(err:Error) {
+				return url;
+			}
+			return url;
+		}
 		public static function addTagToUrl(url:String):String {
 			try {
 				if (!url) {
