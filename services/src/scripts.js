@@ -15,6 +15,12 @@ setApplicationHeight = function(height) {
 setApplicationWidth = function(width) {
 	document.getElementById("ShippingByASINDiv").style.width = width;
 };
+setApplicationHeight = function(height) {
+	document.getElementById("ShippingByASINDiv").style.height = height;
+};
+setApplicationDisplay = function(display) {
+	document.getElementById("ShippingByASINDiv").style.display = display;
+};
 
 getCurrentASIN = function() {
 	try {
