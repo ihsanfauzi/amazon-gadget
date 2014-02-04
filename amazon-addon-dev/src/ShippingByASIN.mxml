@@ -219,6 +219,7 @@
 				}
 				ExternalInterface.call("setApplicationHeight", h + "px");
 				ExternalInterface.call("setApplicationWidth", w + "px");
+				ExternalInterface.call("setApplicationDisplay", "table");
 				
 			}
 			
