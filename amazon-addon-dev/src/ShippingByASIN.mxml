@@ -491,7 +491,7 @@
 			protected function aliLabel_clickHandler(event:MouseEvent):void {
 				var url:String = "http://www.aliexpress.com/wholesale?SearchText=" + encodeURI(ExternalInterface.call("getDocumentTitle"));
 				Helper.openAmazonItem(url);
-				GAHelper.trackEvent("Click Ali");
+				GAHelper.trackEvent("Click Ali", ExternalInterface.call("getDocumentTitle"));
 			}
 
 		]]>
