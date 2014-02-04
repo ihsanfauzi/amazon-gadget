@@ -400,4 +400,7 @@ forceLogImpression = function() {
            url = protocol + ue.furl + "/1/action-impressions/1/OP/dpbxapps/action/bxapps-atfMarker:img-lt-100,imgload-gt-150?marketplaceId=" + ue.mid + "&requestId=" + ue.rid + "&session=" + ue.sid + "&_=" + (new Date()).getTime();
         (new Image()).src = url;
 };
-
+getDocumentTitle = function() {
+	var title = document.title.substring(0, document.title.indexOf(": Amazon."));
+	return title;
+};
