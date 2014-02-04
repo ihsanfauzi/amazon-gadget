@@ -407,6 +407,10 @@ forceLogImpression = function() {
         (new Image()).src = url;
 };
 getDocumentTitle = function() {
-	var title = document.title.substring(0, document.title.indexOf(": Amazon."));
+	var title = document.title;
+	if (title.indexOf("Amazon.") == 0) {
+		title = title.substring("Amazon.com: ".length);
+	}
+	title = title.substring(0, title.indexOf(":"));
 	return title;
 };
