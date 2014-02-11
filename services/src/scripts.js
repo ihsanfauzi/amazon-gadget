@@ -19,7 +19,9 @@ setApplicationHeight = function(height) {
 	document.getElementById("ShippingByASINDiv").style.height = height;
 };
 setApplicationDisplay = function(display) {
-	document.getElementById("ShippingByASINDiv").style.display = display;
+	if (document.getElementById("ShippingByASINDiv").style.display != display) {
+		document.getElementById("ShippingByASINDiv").style.display = display;
+	}
 };
 
 getCurrentASIN = function() {
