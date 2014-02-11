@@ -220,7 +220,6 @@
 				ExternalInterface.call("setApplicationHeight", h + "px");
 				ExternalInterface.call("setApplicationWidth", w + "px");
 				ExternalInterface.call("setApplicationDisplay", "table");
-				
 			}
 			
 			private function setDeleted():void {
@@ -450,7 +449,7 @@
 				}
 				if (d && d.Name) {
 					var host:String=Helper.getHostName();
-					if (host.indexOf(d.Name.toLowerCase()) != -1 || d.Name.toLowerCase().indexOf('amazon') !=-1) {
+					if (d.Name && d.Name.indexOf("http://") != 0 && (host.indexOf(d.Name.toLowerCase()) != -1 || d.Name.toLowerCase().indexOf('amazon') !=-1)) {
 						return true;
 					}
 				}
