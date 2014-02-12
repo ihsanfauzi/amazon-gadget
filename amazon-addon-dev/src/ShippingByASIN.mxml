@@ -447,6 +447,13 @@
 				if (d.FulfilledByAmazon) {
 					return true;
 				}
+				if (!d.MerchantId) {
+					return true;
+				}
+				var amazonIDs:Array = ["ATVPDKIKX0DER",""];
+				if (new ArrayCollection(amazonIDs).getItemIndex(d.MerchantId) != -1) {
+					return true;
+				}
 				if (d && d.Name) {
 					var host:String=Helper.getHostName();
 					if (d.Name && d.Name.indexOf("http://") != 0 && (host.indexOf(d.Name.toLowerCase()) != -1 || d.Name.toLowerCase().indexOf('amazon') !=-1)) {

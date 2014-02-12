@@ -147,6 +147,9 @@ package util {
 			}
 			var subStr:String=info.substring(start);
 			var sID:String=subStr.substring(0, subStr.indexOf("\""));
+			if (sID.indexOf('&')!=-1) {
+				sID = sID.substr(0, sID.indexOf('&')); 
+			}
 			res.Merchant.MerchantId=sID;
 		}
 		
