@@ -11,12 +11,11 @@ getRawData = function() {
 };
 setApplicationHeight = function(height) {
 	document.getElementById("ShippingByASINDiv").style.height = height;
+	document.getElementsByName("ShippingByASIN")[0].style.height = height;
 };
 setApplicationWidth = function(width) {
 	document.getElementById("ShippingByASINDiv").style.width = width;
-};
-setApplicationHeight = function(height) {
-	document.getElementById("ShippingByASINDiv").style.height = height;
+	document.getElementsByName("ShippingByASIN")[0].style.width = width;
 };
 setApplicationDisplay = function(display) {
 	if (document.getElementById("ShippingByASINDiv").style.display != display) {
