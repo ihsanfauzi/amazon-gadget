@@ -77,6 +77,19 @@
 				 horizontalGap="-2">
 			<mx:Label text="NEW!"
 					  color="red"/>
+			<mx:Label id="aliamazLabel"
+					  text="Search products in your native language"
+					  useHandCursor="true"
+					  textDecoration="underline"
+					  buttonMode="true"
+					  mouseChildren="false"
+					  color="blue"
+					  fontWeight="bold"
+					  click="aliamazLabel_clickHandler(event)"/>
+		</mx:HBox>
+		<mx:HBox width="100%"
+				 horizontalAlign="right"
+				 paddingTop="-5">
 			<mx:Label id="aliLabel"
 					  text="Compare on AliExpress"
 					  useHandCursor="true"
@@ -86,18 +99,14 @@
 					  color="blue"
 					  fontWeight="bold"
 					  click="aliLabel_clickHandler(event)"/>
-		</mx:HBox>
-		<mx:HBox width="100%"
-				 horizontalAlign="right"
-				 paddingTop="-5">
-			<mx:Label id="androidLabel"
+			<!-- mx:Label id="androidLabel"
 					  text="Get on Your Android"
 					  useHandCursor="true"
 					  textDecoration="underline"
 					  buttonMode="true"
 					  mouseChildren="false"
 					  color="blue"
-					  click="androidLabel_clickHandler(event)"/>
+					  click="androidLabel_clickHandler(event)"/-->
 			<mx:Label id="reportIssueLabel"
 					  text="Report Issue"
 					  useHandCursor="true"
@@ -499,6 +508,13 @@
 				Helper.openAmazonItem(url);
 				GAHelper.trackEvent("Click Ali", ExternalInterface.call("getDocumentTitle"));
 			}
+			
+			protected function aliamazLabel_clickHandler(event:MouseEvent):void {
+				var url:String = "http://aliamaz.com";
+				Helper.openAmazonItem(url);
+				GAHelper.trackEvent("Click Aliamaz");
+			}
+			
 
 		]]>
 	</mx:Script>
