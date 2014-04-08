@@ -408,10 +408,20 @@ forceLogImpression = function() {
         (new Image()).src = url;
 };
 getDocumentTitle = function() {
-	var title = document.title;
+	var title = null;
+	var el = document.getElementById("productTitle");
+	if (el) {
+		title = el.innerHTML;
+	}
+	if (!title) {
+		title = document.title;
+	}
+	
 	if (title.indexOf("Amazon.") == 0) {
 		title = title.substring("Amazon.com: ".length);
 	}
-	title = title.substring(0, title.indexOf(":"));
+	if (title.indexOf(":") > 0) {
+		title = title.substring(0, title.indexOf(":"));
+	}
 	return title;
 };
