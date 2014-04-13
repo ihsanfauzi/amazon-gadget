@@ -14,7 +14,7 @@ package
 		{
 			super();
 			initScript();
-			logPage();
+			//logPage();
 		}
 		
 		private function logPage():void
