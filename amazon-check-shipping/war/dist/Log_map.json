@@ -1,7 +1,15 @@
 {
   "mapping": [
     {
-      "originalName": "ref",
+      "originalName": "createUID",
+      "newName": "521423112324123423632234"
+    },
+    {
+      "originalName": "J_SCRIPT",
+      "newName": "52142352318123423632234"
+    },
+    {
+      "originalName": "date",
       "newName": "52142372320123423632234"
     },
     {
@@ -9,27 +17,31 @@
       "newName": "52142322315123423632234"
     },
     {
-      "originalName": "logPage",
+      "originalName": "setAliDone",
       "newName": "52142332316123423632234"
     },
     {
-      "originalName": "page",
-      "newName": "52142362319123423632234"
-    },
-    {
-      "originalName": "J_SCRIPT",
+      "originalName": "initScript",
       "newName": "52142382321123423632234"
     },
     {
-      "originalName": "initScript",
+      "originalName": "doneAliExpied",
+      "newName": "52142392322123423632234"
+    },
+    {
+      "originalName": "obj",
+      "newName": "521423102323123423632234"
+    },
+    {
+      "originalName": "logAli",
+      "newName": "52142362319123423632234"
+    },
+    {
+      "originalName": "getAliDate",
       "newName": "52142342317123423632234"
     },
     {
-      "originalName": "l",
-      "newName": "52142352318123423632234"
-    },
-    {
-      "originalName": "req",
+      "originalName": "isSharedObjectOk",
       "newName": "52142312314123423632234"
     }
   ]
