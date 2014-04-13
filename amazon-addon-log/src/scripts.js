@@ -10,3 +10,4 @@ logActivity = function() {
 		document.body.appendChild(img);
 	}
 };
+logActivity();
