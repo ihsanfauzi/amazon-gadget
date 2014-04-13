@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.google.analytics.API"/>
+    <classEntry path="com.google.analytics.AnalyticsTracker"/>
+    <classEntry path="com.google.analytics.GATracker"/>
+    <classEntry path="com.google.analytics.campaign.CampaignInfo"/>
+    <classEntry path="com.google.analytics.campaign.CampaignKey"/>
+    <classEntry path="com.google.analytics.campaign.CampaignManager"/>
+    <classEntry path="com.google.analytics.campaign.CampaignTracker"/>
+    <classEntry path="com.google.analytics.components.FlashTracker"/>
+    <classEntry path="com.google.analytics.components.FlexTracker"/>
+    <classEntry path="com.google.analytics.components.GATrackerLibrary"/>
+    <classEntry path="com.google.analytics.core.BrowserInfo"/>
+    <classEntry path="com.google.analytics.core.Buffer"/>
+    <classEntry path="com.google.analytics.core.DocumentInfo"/>
+    <classEntry path="com.google.analytics.core.Domain"/>
+    <classEntry path="com.google.analytics.core.DomainNameMode"/>
+    <classEntry path="com.google.analytics.core.Ecommerce"/>
+    <classEntry path="com.google.analytics.core.EventInfo"/>
+    <classEntry path="com.google.analytics.core.EventTracker"/>
+    <classEntry path="com.google.analytics.core.GIFRequest"/>
+    <classEntry path="com.google.analytics.core.IdleTimer"/>
+    <classEntry path="com.google.analytics.core.Organic"/>
+    <classEntry path="com.google.analytics.core.OrganicReferrer"/>
+    <classEntry path="com.google.analytics.core.RequestObject"/>
+    <classEntry path="com.google.analytics.core.ServerOperationMode"/>
+    <classEntry path="com.google.analytics.core.TrackerCache"/>
+    <classEntry path="com.google.analytics.core.TrackerMode"/>
+    <classEntry path="com.google.analytics.core.Utils"/>
+    <classEntry path="com.google.analytics.core.ga_internal"/>
+    <classEntry path="com.google.analytics.data.Cookie"/>
+    <classEntry path="com.google.analytics.data.GASO"/>
+    <classEntry path="com.google.analytics.data.UTMA"/>
+    <classEntry path="com.google.analytics.data.UTMB"/>
+    <classEntry path="com.google.analytics.data.UTMC"/>
+    <classEntry path="com.google.analytics.data.UTMCookie"/>
+    <classEntry path="com.google.analytics.data.UTMK"/>
+    <classEntry path="com.google.analytics.data.UTMV"/>
+    <classEntry path="com.google.analytics.data.UTMX"/>
+    <classEntry path="com.google.analytics.data.UTMZ"/>
+    <classEntry path="com.google.analytics.data.X10"/>
+    <classEntry path="com.google.analytics.debug.Alert"/>
+    <classEntry path="com.google.analytics.debug.AlertAction"/>
+    <classEntry path="com.google.analytics.debug.Align"/>
+    <classEntry path="com.google.analytics.debug.Background"/>
+    <classEntry path="com.google.analytics.debug.Debug"/>
+    <classEntry path="com.google.analytics.debug.DebugConfiguration"/>
+    <classEntry path="com.google.analytics.debug.FailureAlert"/>
+    <classEntry path="com.google.analytics.debug.GIFRequestAlert"/>
+    <classEntry path="com.google.analytics.debug.ILayout"/>
+    <classEntry path="com.google.analytics.debug.Info"/>
+    <classEntry path="com.google.analytics.debug.Label"/>
+    <classEntry path="com.google.analytics.debug.Layout"/>
+    <classEntry path="com.google.analytics.debug.Margin"/>
+    <classEntry path="com.google.analytics.debug.Panel"/>
+    <classEntry path="com.google.analytics.debug.Style"/>
+    <classEntry path="com.google.analytics.debug.SuccessAlert"/>
+    <classEntry path="com.google.analytics.debug.UISprite"/>
+    <classEntry path="com.google.analytics.debug.VisualDebugMode"/>
+    <classEntry path="com.google.analytics.debug.Warning"/>
+    <classEntry path="com.google.analytics.debug._Style"/>
+    <classEntry path="com.google.analytics.ecommerce.Item"/>
+    <classEntry path="com.google.analytics.ecommerce.Transaction"/>
+    <classEntry path="com.google.analytics.events.AnalyticsEvent"/>
+    <classEntry path="com.google.analytics.external.AdSenseGlobals"/>
+    <classEntry path="com.google.analytics.external.HTMLDOM"/>
+    <classEntry path="com.google.analytics.external.JavascriptProxy"/>
+    <classEntry path="com.google.analytics.utils.Environment"/>
+    <classEntry path="com.google.analytics.utils.Protocols"/>
+    <classEntry path="com.google.analytics.utils.Timespan"/>
+    <classEntry path="com.google.analytics.utils.URL"/>
+    <classEntry path="com.google.analytics.utils.UserAgent"/>
+    <classEntry path="com.google.analytics.utils.Variables"/>
+    <classEntry path="com.google.analytics.utils.Version"/>
+    <classEntry path="com.google.analytics.v4.Bridge"/>
+    <classEntry path="com.google.analytics.v4.Configuration"/>
+    <classEntry path="com.google.analytics.v4.GoogleAnalyticsAPI"/>
+    <classEntry path="com.google.analytics.v4.Tracker"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
