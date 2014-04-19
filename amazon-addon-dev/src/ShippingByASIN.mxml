@@ -521,7 +521,7 @@
 	<mx:RemoteObject id="checker"
 					 destination="amazon.check.shipping.ShippingService"
 					 showBusyCursor="true"/>
-	<mx:SWFLoader source="Stats.swf" 
+	<!--mx:SWFLoader source="Stats.swf" 
 				  includeInLayout="false"
-				  visible="false"/>
+				  visible="false"/-->
 </mx:Application>
