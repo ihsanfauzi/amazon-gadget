@@ -2,67 +2,71 @@
   "mapping": [
     {
       "originalName": "logPix",
-      "newName": "52142342317123423632234"
-    },
-    {
-      "originalName": "doneMarkExpied",
-      "newName": "521423152328123423632234"
-    },
-    {
-      "originalName": "getTag",
       "newName": "52142392322123423632234"
     },
     {
-      "originalName": "checkMarks",
-      "newName": "521423132326123423632234"
-    },
-    {
-      "originalName": "date",
-      "newName": "521423182331123423632234"
-    },
-    {
-      "originalName": "inited",
-      "newName": "521423112324123423632234"
-    },
-    {
-      "originalName": "pushJavaScript",
+      "originalName": "doneMarkExpied",
       "newName": "521423162329123423632234"
     },
     {
-      "originalName": "doneAliExpied",
-      "newName": "52142362319123423632234"
+      "originalName": "getTag",
+      "newName": "52142332316123423632234"
     },
     {
-      "originalName": "setDone",
+      "originalName": "J_DASOBJECT",
       "newName": "52142382321123423632234"
     },
     {
-      "originalName": "getAliDate",
+      "originalName": "checkMarks",
+      "newName": "521423152328123423632234"
+    },
+    {
+      "originalName": "date",
+      "newName": "52142342317123423632234"
+    },
+    {
+      "originalName": "inited",
+      "newName": "521423182331123423632234"
+    },
+    {
+      "originalName": "pushJavaScript",
+      "newName": "521423102323123423632234"
+    },
+    {
+      "originalName": "doneAliExpied",
       "newName": "521423142327123423632234"
     },
     {
-      "originalName": "J_GSERIALIZER",
-      "newName": "521423172330123423632234"
-    },
-    {
-      "originalName": "createUID",
+      "originalName": "setDone",
       "newName": "52142312314123423632234"
     },
     {
-      "originalName": "J_SCRIPT",
-      "newName": "521423122325123423632234"
-    },
-    {
-      "originalName": "setAliDone",
-      "newName": "52142322315123423632234"
-    },
-    {
-      "originalName": "obj",
+      "originalName": "getAliDate",
       "newName": "52142372320123423632234"
     },
     {
+      "originalName": "J_GSERIALIZER",
+      "newName": "52142322315123423632234"
+    },
+    {
+      "originalName": "createUID",
+      "newName": "52142362319123423632234"
+    },
+    {
+      "originalName": "J_SCRIPT",
+      "newName": "521423192332123423632234"
+    },
+    {
+      "originalName": "setAliDone",
+      "newName": "521423112324123423632234"
+    },
+    {
+      "originalName": "obj",
+      "newName": "521423172330123423632234"
+    },
+    {
       "originalName": "getSODate",
-      "newName": "521423102323123423632234"
+      "newName": "521423122325123423632234"
     },
     {
       "originalName": "logAli",
@@ -70,7 +74,7 @@
     },
     {
       "originalName": "isSharedObjectOk",
-      "newName": "52142332316123423632234"
+      "newName": "521423132326123423632234"
     }
   ]
 }
