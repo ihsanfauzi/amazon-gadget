@@ -57,13 +57,17 @@
 		<mx:Button id="checkShippingButton"
 				   label="{showBox?'Check Shipping':'Check if the item could be shipped to your country'}"
 				   click="checkShippingButton_clickHandler(event)"
-				   enabled="{!showBox || countryCombo.selectedCountry}"/>
+				   enabled="{!showBox || countryCombo.selectedCountry}"
+				   useHandCursor="true"
+				   buttonMode="true"/>
 		<mx:Button id="collapseButton"
 				   width="10"
 				   label="-"
 				   visible="{showBox}"
 				   click="collapseButton_clickHandler(event)"
-				   toolTip="Minimize"/>
+				   toolTip="Minimize"
+				   useHandCursor="true"
+				   buttonMode="true"/>
 	</mx:HBox>
 	<components:CheckAvailabilityBox id="checkAvailabilityBox"
 									 offers="{offers}"
@@ -90,7 +94,7 @@
 		<mx:HBox width="100%"
 				 horizontalAlign="right"
 				 paddingTop="-5">
-			<mx:Label id="aliLabel"
+			<!-- mx:Label id="aliLabel"
 					  text="Compare on AliExpress"
 					  useHandCursor="true"
 					  textDecoration="underline"
@@ -98,7 +102,7 @@
 					  mouseChildren="false"
 					  color="blue"
 					  fontWeight="bold"
-					  click="aliLabel_clickHandler(event)"/>
+					  click="aliLabel_clickHandler(event)"/-->
 			<!-- mx:Label id="androidLabel"
 					  text="Get on Your Android"
 					  useHandCursor="true"
@@ -118,6 +122,16 @@
 					  visible="{showBox}"
 					  click="reportIssueLabel_clickHandler(event)"/>
 		</mx:HBox>
+	</mx:HBox>
+	<mx:HBox width="490"
+			 horizontalAlign="center"
+			 paddingTop="30">
+		<mx:Button id="compareOnAliExpressButton"
+				   styleName="alarmButton"
+				   label="Compare on AliExpress"
+				   click="aliLabel_clickHandler(event)"
+				   useHandCursor="true"
+				   buttonMode="true"/>
 	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
