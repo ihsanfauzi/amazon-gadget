@@ -18,7 +18,7 @@ package services
 		{
 			var serv:HTTPService=new HTTPService();
 
-			serv.url="http://amazon-check-shipping.appspot.com/amazon_check_shipping?seller=" + seller + "&store=" + site + "&region=" + encodeURI(region);
+			serv.url="http://amazon-check-shipping-hrd.appspot.com/amazon_check_shipping?seller=" + seller + "&store=" + site + "&region=" + encodeURI(region);
 			serv.showBusyCursor=true;
 			serv.addEventListener(ResultEvent.RESULT, checkResultHandler);
 			serv.addEventListener(FaultEvent.FAULT, checkFaultHandler);
