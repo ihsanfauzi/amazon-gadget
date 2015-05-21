@@ -1,0 +1,3 @@
+http://amazon-gadget.googlecode.com/svn/trunk/amazon-check-shipping/war/dist/
+
+http://svn.code.sf.net/p/checkshipping/code/trunk/amazon-check-shipping/war/dist/
