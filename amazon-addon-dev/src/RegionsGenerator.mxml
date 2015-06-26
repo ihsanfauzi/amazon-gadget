@@ -7,7 +7,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
-			import resources.Resource;
+			import resources.Resource; 
 			
 			protected function creationCompleteHandler(event:FlexEvent):void {
 				var regions:ArrayCollection = new ArrayCollection();
