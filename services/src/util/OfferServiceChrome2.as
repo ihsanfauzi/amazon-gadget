@@ -99,7 +99,7 @@ package util {
 		private static function extractMerhantName(res:Object, info:String):void {
 			// <img width="120" height="30" border="0" alt="
 			var sStart:String=" alt=\"";
-			var img:String = subContent2(info, "<p class=\"a-spacing-small olpSellerName\">", "</p>");
+			var img:String = subContent2(info, "<p class=\"a-spacing-mini olpSellerName\">", "</p>");
 			img = subContent2(img, "<img src=\"", "\"");
 			var sName:String = img?img:"";
 			
