@@ -1,0 +1,2 @@
+[FireFox](https://addons.mozilla.org/en-US/firefox/addon/141856) and [Google Chrome](https://chrome.google.com/extensions/detail/gpnamfpkffldfnlkofbbebcndfdkclpc) add-ons can check shipping of Amazon.co.uk, Amazon.fr, Amazon.de items as well as shipping from Amazon.com.
+Button to check if Amazon.com, Amazon.co.uk, Amazon.fr, Amazon.de items could be delivered to your country. The button appears on Amazon product page only.
